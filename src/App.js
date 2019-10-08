@@ -6,9 +6,9 @@ import GameList from './components/game-item/GameItem';
 function App() {
   return (
     <React.Fragment>
-    <Route path="/" exact component={GameList} />
+      <Route path="/" exact component={GameList} />
 
-</React.Fragment>
+    </React.Fragment>
   );
 }
 
