@@ -3,9 +3,9 @@ import { ReactComponent } from '*.svg';
 
 class NewGameForm extends ReactComponent{
     return (
-        <form>
-            <input type="text" />
-        </form>
+        // <form>
+        //     <input type="text" />
+        // </form>
     )
 }
 
