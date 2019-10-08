@@ -7,7 +7,6 @@ class GameList extends React.Component{
     state = {
         games: []
     }
-}
 
 componentDidMount(){
     fetch('').then(resp=> resp.json())
@@ -42,4 +41,5 @@ render(){
             </div>
         </React.Fragment>
     )
+}
 }

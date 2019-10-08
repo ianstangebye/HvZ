@@ -1,7 +1,7 @@
 import React from 'react';
 import Styles from './CardList.module.css';
 
-class GameItem(props){
+function GameItem(props){
     const {gameItem} = props;
 
     return (
