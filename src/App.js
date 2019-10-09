@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
-import GameList from './components/game-item/GameItem';
+import GameList from './components/game-list-item/GameList';
 
 
 function App() {

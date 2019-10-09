@@ -2,10 +2,12 @@ import React from 'react';
 // import Styles from './GameList.module.css';
 
 function GameItem(props){
-    const game = {
-        name: 'Game 1',
-        game_State: 'In Progress'
-    };
+    // let game = {
+    //     // name: 'Game 1',
+    //     // game_State: 'In Progress'
+    // };
+
+    const {game} = props;
 
     return (
         <div>
@@ -14,7 +16,7 @@ function GameItem(props){
             <p>Relevant dates</p>
             <p>{game.game_State}</p>
         </div>
-    )
+    );
 }
 
 export default GameItem;
