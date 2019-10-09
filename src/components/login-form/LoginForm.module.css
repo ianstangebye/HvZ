@@ -1,5 +1,4 @@
 .LoginForm {
-    font-family: 'Montserrat', sans-serif;
     display: block;
     max-width: 400px;
     width: 100%;
@@ -33,7 +32,6 @@
 }
 
 .Btns button {
-    font-family: 'Montserrat', sans-serif;
     height: 40px;
     width: 48%;
     border-radius: 5px;
