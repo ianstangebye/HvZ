@@ -31,16 +31,24 @@ export default class LoginForm extends React.Component{
             "password": this.state.password
         }
 
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth'
+
         // 'POST' using username and password in body (Success if 200 etc..)
-        fetch('http://localhost:5000/game/auth', {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify(user)
-        }).then(function(resp) {
-            if (resp.data.code === 200){
+        fetch((proxyUrl + targetUrl) + JSON.stringify(user), {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }
+        ).then(function(resp) {
+            console.log(resp);
+            
+            if (resp.status === 200){
                 console.log('Login successful');
                 // Show game/game list components here
-            } else if (resp.data.code === 204){
+            } else if (resp.status === 204){
                 console.log('Username and password do not match');
                 // alert or show an error message on page?
             } else {

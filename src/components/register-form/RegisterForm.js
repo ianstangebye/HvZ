@@ -17,14 +17,13 @@ export default class RegisterForm extends React.Component {
     }
 
     handleSignInClick = event => {
-        //Display login-form
+        //Show to login-form
     }
 
-    // Update input value (username and password)
     updateInputValue = (name, e) => {
         this.setState({ [name]: e.target.value});
+        
     }
-
 
     handleRegisterClick = event => {
         const newUser={
@@ -34,10 +33,11 @@ export default class RegisterForm extends React.Component {
             "password": this.state.password,
             "is_admin": false
         }
-
-        console.log(newUser);
         
-        fetch('http://localhost:5000/game/auth', {
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth'
+        
+        fetch(proxyUrl+targetUrl, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(newUser)
