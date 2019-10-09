@@ -3,68 +3,78 @@ import axios from 'axios';
 import styles from './ChatFragment.module.css';
 
 class ChatFragment extends React.Component {
-    state = {
-        messages: [
-            {
-                message_id: 1,
-                message: "Message 1",
-                is_human_global: true,
-                is_zombie_global: false,
-                chat_time: Date.now(),
-                game_id: 1,
-                player_id: 1,
-                squad_id: null
-            },
-            {
-                message_id: 1,
-                message: "Message 2",
-                is_human_global: false,
-                is_zombie_global: true,
-                chat_time: Date.now(),
-                game_id: 1,
-                player_id: 2,
-                squad_id: null
-            },
-            {
-                message_id: 1,
-                message: "Message 3",
-                is_human_global: true,
-                is_zombie_global: true,
-                chat_time: Date.now(),
-                game_id: 1,
-                player_id: 3,
-                squad_id: null
-            },
-            {
-                message_id: 1,
-                message: "Message 4",
-                is_human_global: true,
-                is_zombie_global: false,
-                chat_time: Date.now(),
-                game_id: 1,
-                player_id: 4,
-                squad_id: 1
-            }
-        ],
+    constructor(props) {
+        super(props);
 
-        tabs: [
+        this.state = {
+            messages: [],
 
-        ],
+            // These will change depending on the logged in user's type (human, zombie),
+            // whether they have a squad or not, and if they are an admin on not
+            tabs: [
+                "Global",
+                "Human",
+                "Zombie",
+                "Squad"
+            ],
 
-        activeTab: "global"
+            activeTab: "Global"
+        }
     }
 
-    handleTabClick(e) {
-        // Add active class to the clicked tab
-        // Remove active class from other tabs
+    
+
+    componentDidMount() {
+        this.getMessages(this.state.activeTab);
     }
 
-    sendMessage() {
+    tabClicked(tab) {     
+        this.setState({
+            activeTab: tab,
+            messages: []
+        })
+
+        this.getMessages(tab);
+    }
+
+    getMessages(tab) {
+        let proxyUrl = "https://cors-anywhere.herokuapp.com/";
+        let mainUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/chat/${tab}`;
+
+        // Get appropriate messages for the active tab from the backend API
+        axios.get(proxyUrl + mainUrl)
+        .then(resp => {
+            this.setState({
+                messages: [...resp.data]
+            })            
+        })
+        .catch(err => {
+            console.error(err)
+        });
+    }
+
+    sendMessage(e) {
+        // If messagelength > 0
+        //  send message
+        // NB!: clear input
+
         console.log("Send");
+        console.log(e);
     }
 
     render() {
-        let messages = <p>No messages</p>;
+        let tabs = this.state.tabs.map((tab, idx) => {
+            let isActive = tab === this.state.activeTab;
+            let classes = `${styles.Tab} ${isActive ? styles.Active : ""}`;
+
+            return <div
+                key={idx}
+                className={classes}
+                onClick={() => this.tabClicked(tab)}
+            >{tab}</div>
+        })
+
+        let messages = <p>No messages 😢</p>;       
 
         if(this.state.messages.length > 0) {
             messages = this.state.messages.map((msg, idx) => {
@@ -75,10 +85,7 @@ class ChatFragment extends React.Component {
         return (
             <div className={styles.ChatFragment}>
                 <header className={styles.Tabs}>
-                    <div className={styles.Tab + " " + styles.Active}>Global</div>
-                    <div className={styles.Tab}>Human</div>
-                    <div className={styles.Tab}>Zombie</div>
-                    <div className={styles.Tab}>Squad</div>
+                    { tabs }
                 </header>
                 <section className={styles.Messages}>
                     { messages }

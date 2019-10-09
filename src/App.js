@@ -6,8 +6,7 @@ import ChatFragment from './components/chat-fragment/ChatFragment';
 function App() {
   return (
     <React.Fragment>
-      <Route path="/" exact component={GameList} />
-      <ChatFragment />
+      <Route path="/" exact component={ChatFragment} />
     </React.Fragment>
   );
 }
