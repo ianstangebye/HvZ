@@ -1,0 +1,51 @@
+.LoginForm {
+    font-family: 'Montserrat', sans-serif;
+    display: block;
+    max-width: 400px;
+    width: 100%;
+    padding: 30px;
+
+}
+
+.LoginForm form div {
+    margin: 20px 0;
+}
+
+.LoginForm label {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 5px 0;
+}
+
+.LoginForm input {
+    width: 100%;
+    padding: 10px 0px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(231, 231, 231);
+}
+
+.Btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Btns button {
+    font-family: 'Montserrat', sans-serif;
+    height: 40px;
+    width: 48%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.BtnSignIn {
+    background-color: #A7EAC6;
+    border: none;
+}
+
+.BtnRegister {
+    background-color: transparent;
+    border: 2px solid #A7EAC6;
+}
