@@ -1,0 +1,57 @@
+.ChatFragment {
+    box-shadow: 0 0 5px black;
+    width: fit-content;
+    margin: 10px;
+    border-left: 1px solid black;
+}
+
+.Tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    
+}
+
+.Tab {
+    border: 1px solid black;
+    border-left: none;
+    text-align: center;
+    width: 100px;
+}
+
+.Tab.Active {
+    border-bottom: none;
+}
+
+.Messages {
+    border: 1px solid black;
+    border-top: none;
+    padding: 10px;
+    border-bottom: none;
+    border-left: none;
+}
+
+.Message {
+    background-color: dodgerblue;
+    width: fit-content;
+    border-radius: 3px;
+    margin: 3px;
+    padding: 10px;
+    box-shadow: 0 0 5px skyblue;
+    color: white;
+    /* margin: 10px; */
+}
+
+.ChatFooter {
+    border: 1px solid black;
+    border-left: none;
+    display: flex;
+}
+
+#BtnSend {
+    width: 25%;
+    float: right;
+}
+
+#MsgInput {
+    width: 75%;
+}
