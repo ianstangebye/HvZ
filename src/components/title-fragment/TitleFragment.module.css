@@ -1,0 +1,20 @@
+.TitleFragment {
+    max-width: 500px;
+    width: 100%;
+    padding: 15px;
+    margin: 10px;
+    text-align: left;
+    background: #dadada;
+    border-radius: 5px;
+}
+
+.TitleFragment h1 {
+    text-transform: uppercase;
+    margin: -5px 0;
+    border-bottom: 2px solid #000000;
+}
+
+.Rules h2 {
+    margin-bottom: -10px;
+    font-size: 1.3em;
+}
