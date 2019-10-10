@@ -1,0 +1,8 @@
+.RegistrationFragment {
+    height: 40px;
+    width: 150px;
+    border: none;
+    background-color: #A7EAC6;
+    border-radius: 5px;
+    cursor: pointer;
+}
