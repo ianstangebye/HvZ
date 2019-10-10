@@ -27,7 +27,7 @@ class ChatFragment extends React.Component {
                 "Squad"
             ],
 
-            activeTab: "Global",
+            activeTab: "Human",
 
             messageText: ""
         }
@@ -75,7 +75,8 @@ class ChatFragment extends React.Component {
             })
         })
         .catch(err => {
-            // console.error(err)
+            console.error(err)
+            return
         });
     }
 
