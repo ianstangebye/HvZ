@@ -64,7 +64,7 @@ class ChatFragment extends React.Component {
     }
 
     getMessages = (tab) => {
-        console.log("Refreshing...")
+        // console.log("Refreshing...")
         let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.player.game_id}/chat/${tab}`;
 
         // Get appropriate messages for the active tab from the backend API
@@ -75,7 +75,7 @@ class ChatFragment extends React.Component {
             })
         })
         .catch(err => {
-            console.error(err)
+            // console.error(err)
         });
     }
 
