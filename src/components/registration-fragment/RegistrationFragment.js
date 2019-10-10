@@ -8,7 +8,14 @@ export default class RegistrationFragment extends React.Component {
     ============== */
     state = {
         user_Id: '',
-        game_Id: ''
+        game_Id: '',
+        biteCode: ''
+    }
+    
+    componentWillMount() {
+        const crypto = require("crypto");
+        const result = crypto.randomBytes(10).toString('hex');
+        this.state.biteCode = result;
     }
 
     handleOnClick = event => {
@@ -17,8 +24,8 @@ export default class RegistrationFragment extends React.Component {
         const newPlayer = {
             "is_Human": true,
             "is_Patient_Zero": false,
-            "bite_Code": "testbitecode5",
-            "user_Id": 5,
+            "bite_Code": this.state.biteCode,
+            "user_Id": 7,
             "game_Id": 1
         }
         
