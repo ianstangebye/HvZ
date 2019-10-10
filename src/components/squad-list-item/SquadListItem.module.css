@@ -1,0 +1,41 @@
+.SquadListItem {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 25px 25px;
+    max-width: 500px;
+    width: 100%;
+    background-color: rgb(231, 231, 231);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    text-align: left;
+}
+
+.SquadListItem h4 {
+    margin: 0;
+    grid-column: 1/ span 2;
+    grid-row: 1;
+}
+
+.SquadListItem p {
+    margin: 0;
+}
+
+.SquadListItem .Total {
+    grid-column: 1;
+    grid-row: 2;
+}
+.SquadListItem .Deceased {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+
+.SquadListItem button {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    background-color: #A7EAC6;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

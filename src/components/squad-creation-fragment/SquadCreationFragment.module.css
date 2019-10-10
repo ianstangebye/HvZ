@@ -1,0 +1,29 @@
+.SquadCreationFragment {
+    margin: 100px;
+    padding: 20px;
+    max-width: 300px;
+    width: 100%;
+    background-color: #e6e6e6;
+}
+
+.SquadCreationFragment input {
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 2px 5px;
+    background-color: transparent;
+    font-size: 1em;
+}
+
+.SquadCreationFragment input:focus {
+    outline: none;
+}
+
+.SquadCreationFragment button {
+    margin-top: 20px;
+    width: 50%;
+    height: 40px;
+    border: none;
+    background-color: #A7EAC6;
+    border-radius: 5px;
+    cursor: pointer;
+}
