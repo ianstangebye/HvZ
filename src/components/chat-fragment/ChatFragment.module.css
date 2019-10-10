@@ -1,21 +1,20 @@
 .ChatFragment {
     box-shadow: 0 0 5px black;
-    width: fit-content;
-    margin: 10px;
+    width: 33%;
     border-left: 1px solid black;
 }
 
 .Tabs {
     display: flex;
     flex-wrap: nowrap;
-    
 }
 
 .Tab {
+    overflow: hidden;
     border: 1px solid black;
     border-left: none;
     text-align: center;
-    width: 100px;
+    width: 25%;
 }
 
 .Tab.Active {
@@ -28,6 +27,9 @@
     padding: 10px;
     border-bottom: none;
     border-left: none;
+    min-height: 300px;
+    max-height: 300px;
+    overflow: scroll;
 }
 
 .Message {

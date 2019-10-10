@@ -34,28 +34,45 @@ class ChatFragment extends React.Component {
     }
 
     componentDidMount() {
-        this.getMessages(this.state.activeTab);
+        this.startAutoUpdate();
+    }
+    
+    componentWillUnmount() {
+        this.stopAutoUpdate();
+    }
+    
+    startAutoUpdate() {
+        this.interval = setInterval(() => {
+            this.getMessages(this.state.activeTab)
+        }, 300)
+    }
+    
+    stopAutoUpdate() {
+        clearInterval(this.interval)
     }
 
-    tabClicked(tab) {     
+    tabClicked(tab) {
+        this.stopAutoUpdate();
+        
         this.setState({
             activeTab: tab,
             messages: []
         })
 
         this.getMessages(tab);
+        this.startAutoUpdate();
     }
 
-    getMessages(tab) {
-        let proxyUrl = "https://cors-anywhere.herokuapp.com/";
-        let mainUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.player.game_id}/chat/${tab}`;
+    getMessages = (tab) => {
+        console.log("Refreshing...")
+        let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.player.game_id}/chat/${tab}`;
 
         // Get appropriate messages for the active tab from the backend API
-        axios.get(proxyUrl + mainUrl)
+        axios.get(url)
         .then(resp => {
             this.setState({
                 messages: [...resp.data]
-            })            
+            })
         })
         .catch(err => {
             console.error(err)
@@ -63,30 +80,32 @@ class ChatFragment extends React.Component {
     }
 
     sendMessage = () => {
-        // let proxyUrl = "https://cors-anywhere.herokuapp.com/";
+        let date = new Date();
+        let now = `
+            ${date.getFullYear()}-
+            ${date.getMonth()}-
+            ${date.getDate()}
+            T
+            ${("0" + date.getHours()).slice(-2)}:
+            ${("0" + date.getMinutes()).slice(-2)}:
+            ${("0" + date.getSeconds()).slice(-2)}
+        `
 
         if(this.state.messageText.length > 0) {
             let body = {
                 message: this.state.messageText,
                 is_human_global: this.state.activeTab === "Global" || this.state.activeTab === "Human",
                 is_zombie_global: this.state.activeTab === "Global" || this.state.activeTab === "Zombie",
-                chat_time: Date.now(),
+                chat_time: now,
                 game_id: this.state.player.game_id,
                 player_id: this.state.player.player_id,
                 squad_id: 1
             }
 
-            console.log(body);
-
             axios.post("http://case-hvzapi.northeurope.azurecontainer.io/game/1/chat", body)
             .catch(e => console.error(e));
             
-            console.log("Message sent");
-            console.log(Date.now());
-            
-            this.setState({
-                messageText: ""
-            })
+            this.setState({ messageText: "" })
         }
     }
 
