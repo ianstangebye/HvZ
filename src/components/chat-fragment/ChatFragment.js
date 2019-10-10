@@ -98,8 +98,7 @@ class ChatFragment extends React.Component {
                 is_zombie_global: this.state.activeTab === "Global" || this.state.activeTab === "Zombie",
                 chat_time: now,
                 game_id: this.state.player.game_id,
-                player_id: this.state.player.player_id,
-                squad_id: 1
+                player_id: this.state.player.player_id
             }
 
             axios.post("http://case-hvzapi.northeurope.azurecontainer.io/game/1/chat", body)
