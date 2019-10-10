@@ -7,6 +7,15 @@ class ChatFragment extends React.Component {
         super(props);
 
         this.state = {
+            player: {
+                player_id: 1,
+                is_human: true,
+                is_patient_zero: false,
+                bite_code: null,
+                user_id: 1,
+                game_id: 1
+            },
+
             messages: [],
 
             // These will change depending on the logged in user's type (human, zombie),
@@ -18,11 +27,11 @@ class ChatFragment extends React.Component {
                 "Squad"
             ],
 
-            activeTab: "Global"
+            activeTab: "Global",
+
+            messageText: ""
         }
     }
-
-    
 
     componentDidMount() {
         this.getMessages(this.state.activeTab);
@@ -39,7 +48,7 @@ class ChatFragment extends React.Component {
 
     getMessages(tab) {
         let proxyUrl = "https://cors-anywhere.herokuapp.com/";
-        let mainUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/chat/${tab}`;
+        let mainUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.player.game_id}/chat/${tab}`;
 
         // Get appropriate messages for the active tab from the backend API
         axios.get(proxyUrl + mainUrl)
@@ -53,13 +62,36 @@ class ChatFragment extends React.Component {
         });
     }
 
-    sendMessage(e) {
-        // If messagelength > 0
-        //  send message
-        // NB!: clear input
+    sendMessage = () => {
+        // let proxyUrl = "https://cors-anywhere.herokuapp.com/";
 
-        console.log("Send");
-        console.log(e);
+        if(this.state.messageText.length > 0) {
+            let body = {
+                message: this.state.messageText,
+                is_human_global: this.state.activeTab === "Global" || this.state.activeTab === "Human",
+                is_zombie_global: this.state.activeTab === "Global" || this.state.activeTab === "Zombie",
+                chat_time: Date.now(),
+                game_id: this.state.player.game_id,
+                player_id: this.state.player.player_id,
+                squad_id: 1
+            }
+
+            console.log(body);
+
+            axios.post("http://case-hvzapi.northeurope.azurecontainer.io/game/1/chat", body)
+            .catch(e => console.error(e));
+            
+            console.log("Message sent");
+            console.log(Date.now());
+            
+            this.setState({
+                messageText: ""
+            })
+        }
+    }
+
+    updateMessage = (e) => {
+        this.setState({ messageText: e.target.value })
     }
 
     render() {
@@ -74,7 +106,7 @@ class ChatFragment extends React.Component {
             >{tab}</div>
         })
 
-        let messages = <p>No messages 😢</p>;       
+        let messages = <p>No messages <span role="img" aria-label="crying-face-emoji">😢</span></p>;
 
         if(this.state.messages.length > 0) {
             messages = this.state.messages.map((msg, idx) => {
@@ -87,11 +119,17 @@ class ChatFragment extends React.Component {
                 <header className={styles.Tabs}>
                     { tabs }
                 </header>
+
                 <section className={styles.Messages}>
                     { messages }
                 </section>
+
                 <footer className={styles.ChatFooter}>
-                    <input id={styles.MsgInput} type="text" onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}></input>
+                    <input id={styles.MsgInput} type="text" onChange={this.updateMessage}
+                        onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
+                        value={this.state.messageText}
+                    />
+
                     <button id={styles.BtnSend} onClick={this.sendMessage}>Send</button>
                 </footer>
             </div>
