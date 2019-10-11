@@ -36,9 +36,9 @@ function GameItem (props){
             console.log('Something fucked up in the game item')
             console.log(error);
             
-        })
-        
         });
+        
+        }, []);
 
 
 
