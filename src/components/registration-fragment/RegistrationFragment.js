@@ -12,7 +12,7 @@ export default class RegistrationFragment extends React.Component {
         biteCode: ''
     }
     
-    componentWillMount() {
+    componentDidMount() {
         const crypto = require("crypto");
         const result = crypto.randomBytes(10).toString('hex');
         this.state.biteCode = result;
