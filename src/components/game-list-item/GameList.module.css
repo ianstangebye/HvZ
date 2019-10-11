@@ -1,0 +1,19 @@
+.Login_btn {
+    display: block;
+    float: right;
+    margin: 20px;
+    width: 60px;
+    height: 30px;
+}
+
+.Logout_btn {
+    display: block;
+    float: right;
+    margin: 20px;
+    width: 80px;
+    height: 30px;
+}
+
+.Current_available {
+    display: inline;
+}

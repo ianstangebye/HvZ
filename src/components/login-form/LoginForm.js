@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './LoginForm.module.css';
+import { Redirect } from 'react-router';
 
 export default class LoginForm extends React.Component{
 
@@ -8,7 +9,8 @@ export default class LoginForm extends React.Component{
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            loggedId: false
         }
     }
 
@@ -22,6 +24,11 @@ export default class LoginForm extends React.Component{
         this.setState({ [name]: e.target.value});
     }
 
+    updateLoggedIn() {
+        this.setState({loggedId: true});
+
+    }
+
     handleSignInClick = event => {
         event.preventDefault();
         console.log('clicked sign-in button');
@@ -31,31 +38,44 @@ export default class LoginForm extends React.Component{
             "password": this.state.password
         }
 
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth'
+        //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth/login'
 
+        const that = this;
         // 'POST' using username and password in body (Success if 200 etc..)
-        fetch((proxyUrl + targetUrl) + JSON.stringify(user), {
-            method: 'GET',
+        fetch(targetUrl, {
+            method: 'POST',
+            body: JSON.stringify(user),
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             }
-        }
-        ).then(function(resp) {
-            console.log(resp);
-            
-            if (resp.status === 200){
+        }).then(resp => resp.json()).then(resp => {
+            if(resp != null) {                
                 console.log('Login successful');
-                // Show game/game list components here
-            } else if (resp.status === 204){
-                console.log('Username and password do not match');
-                // alert or show an error message on page?
+                localStorage.setItem("user_id", resp.user_Id);
+                localStorage.setItem("loggedIn", "true");
+                that.updateLoggedIn();
             } else {
-                console.log("Username doesn't exist");
-                // alert or show error message on page?
+                console.log("Login faild");
+                
             }
-        }).catch(function(e) {
+        // }).then(function(resp) {
+        //     console.log(resp);
+            
+        //     if (resp.status === 200){
+        //         console.log('Login successful');
+                
+        //         that.updateLoggedIn();
+        //         // Show game/game list components here
+        //     } else if (resp.status === 204){
+        //         console.log('Username and password do not match');
+        //         // alert or show an error message on page?
+        //     } else {
+        //         console.log("Username doesn't exist");
+        //         // alert or show error message on page?
+        //     }
+         }).catch(function(e) {
             console.log(e);  
         });
     }
@@ -63,10 +83,12 @@ export default class LoginForm extends React.Component{
     handleRegisterClick = event => {
         console.log('clicked register button');
         //Show Register Form here
-
     }
     
     render() {
+        if (this.state.loggedId) {
+            return <Redirect push to="/" />;
+        }
         return (
             <div className={styles.LoginForm}>
                 <form>
