@@ -106,5 +106,5 @@ onGoogleApiLoaded={({map, maps}) =>
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyDK8rGpE1KhjWqW8L3R9m6XeQTnxUMgdBQ'
+  apiKey: 'YOUR API KEY HERE'
 })(MapFragment);
