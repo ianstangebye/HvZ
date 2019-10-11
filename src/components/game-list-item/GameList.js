@@ -18,6 +18,7 @@ class GameList extends React.Component{
     // }
 
 componentDidMount(){
+    
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game`;
 
