@@ -23,24 +23,20 @@ export default class SquadListFragment extends React.Component {
         })
     }
 
-
     /*================
-    handleJoinSquad not working yet.
+    Need Id's!
     ================ */
     handleJoinSquad() {
-        console.log('Joined');
-
         const squadId = this.state.squad.squad_Id;
 
         const newSquadMember = {
-            "rank":"Squad Member",
             "game_Id": this.state.game_Id,
             "squad_Id": squadId,
             "player_Id": this.state.player_Id
         }
 
         const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/${squadId}`
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/member`
 
         fetch(proxyUrl + targetUrl, {
             method: 'POST',
@@ -50,22 +46,15 @@ export default class SquadListFragment extends React.Component {
         ).then(data => console.log('Squadmember joined: ', data)
         ).catch(e => {
             console.log(e);
-            
         })
     }
 
     render() {
         let squadComponents = null;
-        console.log(this.state.squads);
-
-        /* =====================
-        Get total number of players & 
-        deceased players in the squad 
-        ========================= */
 
         if (this.state.squads.length > 0) {
             squadComponents = this.state.squads.map(squad => {
-                return <SquadListItem squad={squad} key={squad.squad_Id} joinSquad={this.handleJoinSquad}/>
+                return <SquadListItem squad={squad} key={squad.squad_Id} joinSquad={ () => this.handleJoinSquad()}/>
             });
         } else {
             squadComponents = <p>Loading squads...</p>
