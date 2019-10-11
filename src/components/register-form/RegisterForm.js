@@ -34,10 +34,10 @@ export default class RegisterForm extends React.Component {
             "is_admin": false
         }
         
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        
         const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth'
         
-        fetch(proxyUrl+targetUrl, {
+        fetch(targetUrl, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(newUser)

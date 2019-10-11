@@ -16,10 +16,10 @@ export default class TitleFragment extends React.Component {
         // Get id from the button/game clicked on from the list? 
         //const {game_id} = this.props.match.params;
         
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/2`
 
-        fetch(proxyUrl + targetUrl).then(resp => resp.json()).then(data => {
+        fetch(targetUrl).then(resp => resp.json()).then(data => {
             this.setState({
                 game: {...data}
             });

@@ -10,10 +10,10 @@ export default class SquadListFragment extends React.Component {
     }
 
     componentDidMount() {
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad`
 
-        fetch(proxyUrl + targetUrl).then(resp => resp.json())
+        fetch(targetUrl).then(resp => resp.json())
         .then(resp => {
             this.setState({
                 squads: [...resp]
@@ -35,10 +35,10 @@ export default class SquadListFragment extends React.Component {
             "player_Id": this.state.player_Id
         }
 
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/member`
 
-        fetch(proxyUrl + targetUrl, {
+        fetch(targetUrl, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(newSquadMember)

@@ -30,11 +30,11 @@ export default class SquadCreationFragment extends React.Component {
             "game_Id": this.state.game_Id
         }
 
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        
         const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad'
         
         if (this.state.name > 0) {
-            fetch(proxyUrl+targetUrl, {
+            fetch(targetUrl, {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify(newSquad)
@@ -59,11 +59,11 @@ export default class SquadCreationFragment extends React.Component {
             "player_Id": this.state.player_Id
         }
 
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        
         const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/2/squad/1'
 
         if (this.state.name > 2) {
-            fetch(proxyUrl + targetUrl, {
+            fetch(targetUrl, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(newSquadMember)

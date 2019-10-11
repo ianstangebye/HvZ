@@ -31,11 +31,11 @@ export default class LoginForm extends React.Component{
             "password": this.state.password
         }
 
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        
         const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth'
 
         // 'POST' using username and password in body (Success if 200 etc..)
-        fetch((proxyUrl + targetUrl) + JSON.stringify(user), {
+        fetch((targetUrl) + JSON.stringify(user), {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

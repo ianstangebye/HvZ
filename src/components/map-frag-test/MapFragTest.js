@@ -75,12 +75,12 @@
 //         //THis is where the fetch happens
 //         // const id = this.props.match.params.id;
 
-//         // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+//         // 
 //         // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}`;
 
 //         // useEffect(()=>{
 //         //             //need to set in the correct 
-//         // fetch(proxyUrl + targetUrl).then(resp=> resp.json())
+//         // fetch(targetUrl).then(resp=> resp.json())
 //         // .then(resp=>{
 //         //     console.log(resp);
 //         //     this.setState({

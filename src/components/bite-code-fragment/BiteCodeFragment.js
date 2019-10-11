@@ -31,10 +31,10 @@ export default class BiteCodeFragment extends React.Component {
     // Get bitecode from player
     // Missing: Get game_id and player_id
     componentDidMount() {
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/player/3`
 
-        fetch(proxyUrl + targetUrl).then(resp => resp.json()).then(data => {
+        fetch(targetUrl).then(resp => resp.json()).then(data => {
             this.setState({
                 player: {...data}
             });

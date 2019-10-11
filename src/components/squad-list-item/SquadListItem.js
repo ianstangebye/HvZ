@@ -10,10 +10,10 @@ export default class SquadListItem extends React.Component {
 
     // Need game_Id??
     componentDidMount() {
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        
         const targetUrl =  `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/${this.props.squad.squad_Id}/member`
 
-        fetch(proxyUrl+targetUrl).then(resp => resp.json()).then(resp => {
+        fetch(targetUrl).then(resp => resp.json()).then(resp => {
             this.setState({squadMembers: [...resp]})
             for (let i = 0; i < this.state.squadMembers.length; i++) {
                 if (this.state.squadMembers[i].is_Human === false) {

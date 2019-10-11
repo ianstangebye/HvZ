@@ -29,10 +29,10 @@ export default class RegistrationFragment extends React.Component {
             "game_Id": 1
         }
         
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        
         const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/1/player'
         
-        fetch(proxyUrl+targetUrl, {
+        fetch(targetUrl, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(newPlayer)

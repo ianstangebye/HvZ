@@ -22,10 +22,10 @@ class BiteCodeEntry extends React.Component{
             }
             
         
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/2`
 
-        fetch(proxyUrl+targetUrl, {
+        fetch(targetUrl, {
             method: 'GET',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(bite)
