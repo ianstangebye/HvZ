@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 import GoogleMapReact, { Circle, Marker, Polygon, Rectangle, Map, GoogleApiWrapper, fitBounds } from 'google-maps-react';
 // import { fitBounds } from 'google-map-react/utils';
+import styles from './MapFragment.module.css';
 
-class MapFragTest extends Component{
+class MapFragment extends Component{
 
     state = {
         game: {}
     }
 
-
+    bounds = {
+        nw: {
+          lat: 50.01038826014866,
+          lng: -118.6525866875
+        },
+        se: {
+          lat: 32.698335045970396,
+          lng: -92.0217273125
+        }
+      };
  
 
 
@@ -40,7 +50,7 @@ class MapFragTest extends Component{
 
     render (){
         return (
-<GoogleMapReact
+                    <GoogleMapReact
 
 google={this.props.google}
 zoom={10}
@@ -51,12 +61,44 @@ options={{
 streetViewControl={false}
 // zoomControl={false}
 fullscreenControl={false}
-style={{height: '400px', width: '400px'}}
+style={styles, {height: '400px', width: '400px'}}
 initialCenter={{
  lat: 59.91130893949704,
  lng: 10.74973741557148
 }}
-/>
+
+yesIWantToUseGoogleMapApiInternals={true}
+onGoogleApiLoaded={({map, maps}) =>
+  new maps.Circle({
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.3,
+    map,
+    center: {lat: this.props.latitude, lng: this.props.longitude},
+    radius: 275,
+  })}
+>   
+
+
+    {/* <Rectangle
+              strokeColor= {'#FF0000'}
+              strokeOpacity= {0.8}
+              strokeWeight={2}
+              fillColor= {'#FF0000'}
+              fillOpacity= {0.35}
+            //   map= {map}
+              bounds= {{
+                north: 59.885,
+                south: 59.6,
+                east: 10.734,
+                west: 10.751
+              }} /> */}
+
+    {/* <Rectangle /> */}
+
+</GoogleMapReact>
 
 
         )
@@ -65,4 +107,4 @@ initialCenter={{
 
 export default GoogleApiWrapper({
   apiKey: 'YOUR API KEY HERE'
-})(MapFragTest);
+})(MapFragment);
