@@ -42,7 +42,6 @@ function GameItem (props){
 
 
 
-
     return (
         <div>
             <h4>{game.name}</h4>
