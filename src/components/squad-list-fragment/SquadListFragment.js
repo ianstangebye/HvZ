@@ -27,15 +27,16 @@ export default class SquadListFragment extends React.Component {
     Need Id's!
     ================ */
     handleJoinSquad() {
-        const squadId = this.state.squad.squad_Id;
+        const squad_id = this.state.squads.squad_Id;
+        const game_id = this.props.game_id;
+        const player_id = this.props.player_id;
 
         const newSquadMember = {
-            "game_Id": this.state.game_Id,
-            "squad_Id": squadId,
-            "player_Id": this.state.player_Id
+            "game_Id": game_id,
+            "squad_Id": squad_id,
+            "player_Id": player_id
         }
 
-        
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/member`
 
         fetch(targetUrl, {
