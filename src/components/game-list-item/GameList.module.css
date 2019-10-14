@@ -36,10 +36,11 @@
     }
 
     .Logout_btn {
-        position: absolute;
-        right: 0;
-        top: 0;
         width: 100px;
+        height: 40px;
+        position: absolute;
+        top: 15px;
+        right: 0;
     }
 
     .Current_games {
