@@ -23,16 +23,12 @@
     }
 
     .Login_btn {
-        background-color: transparent;
-        color: #A7C57C;
-        border: 2px solid #A7C57C;
-        width: 100px;   
-    }
-
-    .Login_btn:hover {
-        border: none;
-        background-color: #A7C57C;
-        color: #F5F5F5;
+        width: 100px;
+        height: 40px;
+        position: absolute;
+        top: 15px;
+        right: 0;
+        
     }
 
     .Logout_btn {
