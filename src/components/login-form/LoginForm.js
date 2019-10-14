@@ -26,8 +26,6 @@ class LoginForm extends React.Component{
 
     updateLoggedIn() {
         this.setState({loggedIn: true});
-        
-        
     }
 
     handleSignInClick = event => {
@@ -40,7 +38,7 @@ class LoginForm extends React.Component{
         }
 
         //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth/login'
+        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth/authenticate'
 
         const that = this;
         // 'POST' using username and password in body (Success if 200 etc..)
@@ -80,7 +78,7 @@ class LoginForm extends React.Component{
         //         console.log("Username doesn't exist");
         //         // alert or show error message on page?
         //     }
-         }).catch(function(e) {
+        }).catch(function(e) {
             console.log(e);  
         });
     }
