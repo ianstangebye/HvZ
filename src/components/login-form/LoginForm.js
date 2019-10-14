@@ -97,11 +97,11 @@ class LoginForm extends React.Component{
                 <form>
                     <div className="Username">
                         <label>Username</label>
-                        <input autoFocus type="text" name="username" maxLength="20" value={this.state.username} onChange={(e) => this.updateInputValue("username", e)}/>
+                        <input autoFocus type="text" name="username" placeholder="Your username..." maxLength="20" value={this.state.username} onChange={(e) => this.updateInputValue("username", e)}/>
                     </div>
                     <div className="Password">
                         <label>Password</label>
-                        <input type="password" name="password" value={this.state.password} onChange={(e) => this.updateInputValue("password", e)}/>
+                        <input type="password" name="password" placeholder="Your password..." value={this.state.password} onChange={(e) => this.updateInputValue("password", e)}/>
                     </div>
                     <div className={styles.Btns}>
                         <button className={styles.BtnSignIn} onClick={this.handleSignInClick}>Sign in</button>
