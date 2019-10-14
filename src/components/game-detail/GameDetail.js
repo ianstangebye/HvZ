@@ -45,7 +45,7 @@ class GameDetail extends React.Component {
                 //need token
             }
         }).then(resp => resp.json()).then(resp => {
-            if (resp != -1) {
+            if (resp !== -1) {
                 console.log('Created new player');
                 console.log(resp);
                 
