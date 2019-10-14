@@ -92,8 +92,6 @@ class GameList extends React.Component {
 
         return (
             <React.Fragment>
-                <h1 className={styles.Current_games}>Currently available games</h1>
-                
                 <Link to={'/login'}
                     style={{ display: this.state.user_id === 0 ? 'inline' : 'none' }}>
                     <button className={styles.Login_btn}>
@@ -105,15 +103,16 @@ class GameList extends React.Component {
                     onClick={this.clearLocalStorage}>
                         Log out
                 </button>
+                <h1 className={styles.Current_games}>Games</h1>
+                <div>
+                    {gameComponents}
+                </div>
                 <Link to={'/new-game-form'}
                     style={{ display: this.state.is_admin === true ? 'block' : 'none' }}>
                     <button className={styles.NewGame_btn}>
                         Create New Game
                     </button>
                 </Link>
-                <div>
-                    {gameComponents}
-                </div>
             </React.Fragment>
         );
     }

@@ -1,3 +1,87 @@
+@media screen and (max-width: 600px) {
+
+    .RegisterForm {
+        display: block;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .RegisterForm form div {
+        margin: 25px 0;
+    }
+
+    .RegisterForm h4 {
+        text-transform: uppercase;
+        font-size: 18px;
+        text-align: center;
+        border-bottom: 2px solid #F5F5F5;
+        padding-bottom: 5px;
+    }
+
+    .RegisterForm label {
+        display: block;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .RegisterForm input {
+        font-family: inherit;
+        width: 100%;
+        background: none;
+        border: none;
+        border-bottom: 1px solid #F5F5F5;
+        color: #F5F5F5;
+        padding: 10px;
+    }
+
+    .RegisterForm input::placeholder {
+        color: rgba(245, 245, 245, 0.438);
+    }
+
+    .RegisterForm textarea {
+        font-family: inherit;
+        width: 100%;
+        padding: 10px;
+        background-color: #77A4AC;
+        color: #F5F5F5;
+        border: none;
+        border-radius: 5px;
+        resize: none;
+    }
+
+    .RegisterForm textarea::placeholder {
+        color: rgba(245, 245, 245, 0.438);
+    }
+
+    .Btns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .BtnCreate {
+        grid-column: 1;
+    }
+
+    .BtnGetLocation {
+        grid-column: 2;
+        background-color: transparent;
+        border: 2px solid #A7C57C;
+        color: #A7C57C;
+    }
+
+    .BtnGetLocation:hover {
+        border: none;
+        background-color: #A7C57C;
+        color: #F5F5F5;
+    }
+
+
+
+}
+
+@media screen and (min-width: 600px) {
 .RegisterForm {
     display: block;
     max-width: 400px;
@@ -46,4 +130,6 @@
 .BtnGetLocation {
     background-color: #A7EAC6;
     border: none;
+}
+
 }

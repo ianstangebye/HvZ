@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
+import Header from './components/header/Header';
 import GameList from './components/game-list-item/GameList';
 import BiteCodeEntry from './components/bite-code-entry/BiteCodeEntry';
 import MapFragment from './components/map-fragment/MapFragment';
@@ -12,6 +13,7 @@ import NewGameForm from './components/new-game-form/NewGameForm';
 function App() {
   return (
     <React.Fragment>
+      <Header/>
       <Route path="/" exact component={GameList} />
       <Route path="/gamebite" exact component={BiteCodeEntry} />
       <Route path="/map/:id" component={MapFragment} />
