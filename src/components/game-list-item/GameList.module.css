@@ -1,25 +1,85 @@
-.Login_btn {
-    display: inline;
-    float: right;
-    margin: 20px;
-    width: 60px;
-    height: 30px;
+@media screen and (max-width: 600px) {
+
+    button {
+        border-radius: 5px;
+        border: none;
+        font-size: 18px;
+        text-transform: uppercase;
+        font-weight: bold;
+        box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+        height: 40px;
+        cursor: pointer;
+        background-color: #A7C57C;
+        color: #F5F5F5;
+        margin: 5px;
+    }
+
+    button:hover {
+        background-color: rgb(136, 167, 94);
+    }
+
+    button:focus {
+        outline: none;
+    }
+
+    .Login_btn {
+        background-color: transparent;
+        color: #A7C57C;
+        border: 2px solid #A7C57C;
+        width: 100px;   
+    }
+
+    .Login_btn:hover {
+        border: none;
+        background-color: #A7C57C;
+        color: #F5F5F5;
+    }
+
+    .Logout_btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100px;
+    }
+
+    .Current_games {
+        display: inline;
+        font-size: 18px;
+        display: block;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 10px;
+        border-bottom: 2px solid #F5F5F5;
+    }
+
+    .NewGame_btn {
+        position: absolute;
+        right: 50%;
+        left: 50%;
+        transform: translate(-50%);
+        width: 95%;
+        margin: 10px 0;
+    }
 }
 
-.Logout_btn {
-    display: inline;
-    float: right;
-    margin: 20px;
-    width: 80px;
-    height: 30px;
-}
+@media screen and (min-width: 600px) {
+    .Login_btn {
+        display: inline;
+    }
 
-.NewGame_btn {
-    display: block;
-    margin: 20px auto;
-    padding: 10px;
-}
+    .Logout_btn {
+        display: inline;
+        margin: 20px;
+    }
 
-.Current_games {
-    display: inline;
+    .NewGame_btn {
+        display: block;
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .Current_games {
+        display: inline;
+    }
+
 }

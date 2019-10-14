@@ -48,19 +48,19 @@ function GameItem(props) {
     },[game.game_Id, getPlayers]);
 
     return (
+
         <React.Fragment>
-            <div>
-                <h4>{game.name}</h4>
-                <p># of players: {players.length}</p>
-                <p>Relevant dates</p>
-                <p>{game.game_State}</p>
-            </div>
+            
             <div>
             <Link to={'/game-detail/' + game.game_Id} 
-                style={{ display: user_id !== 0? 'block': 'none'}}>
-                <button className={styles.Login_btn}>
-                    See Detail
-                </button>  
+                style={{ display: user_id !== 0? 'block': 'none', textDecoration: 'none'}}>
+                <div className={styles.GameItem}>
+                    <h4>{game.name}</h4>
+                    <p className={styles.Players}>{players.length} players</p>
+                    <p className={styles.StartDate}>Start: 12.03.19 12:00</p>
+                    <p className={styles.EndDate}>End: 20.03.19 23:59</p>
+                    <p className={styles.GameState}>{game.game_State}</p>
+                </div>
             </Link>
             </div>
         </React.Fragment>
