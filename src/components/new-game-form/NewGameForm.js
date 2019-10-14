@@ -34,9 +34,9 @@ class NewGameForm extends React.Component {
         if (this.props.coords) {
             this.setState({
                 nw_latitude: this.props.coords.latitude + 0.01,
-                nw_longitude: this.props.coords.longitude + 0.01,
+                nw_longitude: this.props.coords.longitude - 0.01,
                 se_latitude: this.props.coords.latitude - 0.01,
-                se_longitude: this.props.coords.longitude - 0.01
+                se_longitude: this.props.coords.longitude + 0.01
             });
         }
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './TitleFragment.module.css';
 
 export default class TitleFragment extends React.Component {
