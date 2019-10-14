@@ -1,5 +1,5 @@
 .Login_btn {
-    display: block;
+    display: inline;
     float: right;
     margin: 20px;
     width: 60px;
@@ -7,13 +7,19 @@
 }
 
 .Logout_btn {
-    display: block;
+    display: inline;
     float: right;
     margin: 20px;
     width: 80px;
     height: 30px;
 }
 
-.Current_available {
+.NewGame_btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.Current_games {
     display: inline;
 }

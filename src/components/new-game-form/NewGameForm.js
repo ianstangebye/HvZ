@@ -1,12 +1,17 @@
 import React from 'react';
-import { ReactComponent } from '*.svg';
 
-class NewGameForm extends ReactComponent{
-    return (
-        // <form>
-        //     <input type="text" />
-        // </form>
-    )
+class NewGameForm extends React.Component{
+    
+    render() {
+        return (
+            <div>
+                new game form
+            </div>
+            // <form>
+            //     <input type="text" />
+            // </form>
+        )
+    }
 }
 
 export default NewGameForm;

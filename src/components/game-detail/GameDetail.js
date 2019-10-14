@@ -11,9 +11,10 @@ class GameDetail extends React.Component{
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const { game_id }  = this.props.match.params;
         this.setState({game_id:game_id});
+        
     }
 
     render() {

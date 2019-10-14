@@ -12,14 +12,16 @@ function GameItem(props) {
     // };
 
     const { game } = props;
+    const { user_id } = props || 0;
     const [players, setPlayers] = useState([]);
-    const user_id = localStorage.getItem('user_id') || 0;
+
+    //const user_id = sessionStorage.getItem('user_id') || 0;
     //const loggedIn = localStorage.getItem('loggedIn') || "false";
     //console.log("loggedIn " + loggedIn);
     
-    console.log("user_id: " + user_id);
+    //console.log("user_id: " + user_id);
     
-    console.log(game.game_Id);
+    //console.log(game.game_Id);
 
     // let [players, setPlayers] = useState(0);
 
@@ -28,7 +30,7 @@ function GameItem(props) {
     useEffect(() => {
         fetch(getPlayers).then(resp => resp.json())
             .then(resp => {
-                console.log('Game ' + game.game_Id + 'and players ' + resp);
+                //console.log('Game ' + game.game_Id + 'and players ' + resp);
                 setPlayers(resp);
 
                 // setPlayers(players = [resp]);
@@ -43,10 +45,7 @@ function GameItem(props) {
 
             })
 
-    },[]);
-
-
-
+    },[game.game_Id, getPlayers]);
 
     return (
         <React.Fragment>
@@ -58,9 +57,9 @@ function GameItem(props) {
             </div>
             <div>
             <Link to={'/game-detail/' + game.game_Id} 
-                style={{ visibility: user_id != 0? 'visible': 'hidden'}}>
+                style={{ display: user_id !== 0? 'block': 'none'}}>
                 <button className={styles.Login_btn}>
-                    Join
+                    See Detail
                 </button>  
             </Link>
             </div>

@@ -2,34 +2,46 @@ import React from 'react';
 import styles from './GameList.module.css';
 import GameItem from '../game-item/GameItem';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
 // import { read } from 'fs';
 
 class GameList extends React.Component {
 
-    state = {
-        games: [],
-        user_id: 0,
-        loggedOut: false
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            games: [],
+            user_id: 0,
+            is_admin: false,
+            token: ""
+        };
     }
 
-    // constructor(props) {
-    //     super(props);
-
-    //     this.state = {
-    //         games: []
-    //     }
+    // state = {
+    //     games: [],
+    //     user_id: 0,
+    //     loggedOut: false
     // }
 
     async componentDidMount() {
+        const user_id = window.sessionStorage.getItem("user_id") || 0;
+        const is_admin = window.sessionStorage.getItem("is_admin") === "true" ? true : false;
+        const token = window.sessionStorage.getItem("token") || "";
 
-        let user_id = localStorage.getItem('user_id') || 0;
-        this.setState({ user_id: user_id });
-        this.setState({ loggedOut: false });
+        this.setState((prevState, props) => {
+            return {
+                user_id: user_id,
+                is_admin: is_admin,
+                token: token
+            };
+        });
+        // console.log(window.sessionStorage.getItem("user_id"));
+
+        // console.log("list user_id: " + this.state.user_id);
+        // console.log("list is_admin: " + this.state.is_admin);
+
         //const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game`;
-
-        console.log("something");
 
         //need to set in the correct 
         await fetch(targetUrl).then(resp => resp.json())
@@ -38,7 +50,6 @@ class GameList extends React.Component {
                 this.setState({
                     games: [...resp]
                 });
-                console.log(this.state.games);
 
             }).catch(error => {
                 console.log('Something fucked up')
@@ -49,22 +60,30 @@ class GameList extends React.Component {
         window.addEventListener('onbeforeunload', this.clearLocalStorage);
     }
 
-    clearLocalStorage() {
-        localStorage.clear();
+    clearLocalStorage = () => {
+        //localStorage.clear();
+        window.sessionStorage.clear();
+
+        this.setState((prevState, props) => {
+            return {
+                user_id: 0,
+                is_admin: false,
+                token: ""
+            };
+        }, () => {
+            this.forceUpdate();
+        });
+        //console.log("after clear: " + this.state.user_id);
+
+        //this.forceUpdate();
     }
 
     render() {
-        // if(this.state.loggedOut == true) {
-        //     return <Redirect push to="/" />;
-        // }
-        //console.log(this.state.games);
-
         let gameComponents = null;
-
 
         if (this.state.games.length > 0) {
             gameComponents = this.state.games.map(game => {
-                return <GameItem game={game} key={game.game_Id} />
+                return <GameItem game={game} key={game.game_Id} user_id={this.state.user_id} />
                 //return <p>hELLOOOO</p>
             });
         } else {
@@ -73,18 +92,25 @@ class GameList extends React.Component {
 
         return (
             <React.Fragment>
-                <h1 className={styles.Current_available}>Currently available games</h1>
+                <h1 className={styles.Current_games}>Currently available games</h1>
+                
                 <Link to={'/login'}
-                    style={{ visibility: this.state.user_id == 0 ? 'visible' : 'hidden' }}>
-                <button className={styles.Login_btn}>
-                    Login
-                </button>
+                    style={{ display: this.state.user_id === 0 ? 'inline' : 'none' }}>
+                    <button className={styles.Login_btn}>
+                        Login
+                    </button>
                 </Link>
                 <button className={styles.Logout_btn}
-                    style={{ visibility: this.state.user_id != 0 ? 'visible' : 'hidden' }}
+                    style={{ display: this.state.user_id !== 0 ? 'inline' : 'none' }}
                     onClick={this.clearLocalStorage}>
-                    Log out
+                        Log out
                 </button>
+                <Link to={'/new-game-form'}
+                    style={{ display: this.state.is_admin == true ? 'block' : 'none' }}>
+                    <button className={styles.NewGame_btn}>
+                        Create New Game
+                    </button>
+                </Link>
                 <div>
                     {gameComponents}
                 </div>
