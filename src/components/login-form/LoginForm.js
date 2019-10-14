@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './LoginForm.module.css';
 import { Redirect } from 'react-router';
 
-export default class LoginForm extends React.Component{
+class LoginForm extends React.Component{
 
     constructor(props){
         super(props);
@@ -10,7 +10,7 @@ export default class LoginForm extends React.Component{
         this.state = {
             username: '',
             password: '',
-            loggedId: false
+            loggedIn: false
         }
     }
 
@@ -25,8 +25,9 @@ export default class LoginForm extends React.Component{
     }
 
     updateLoggedIn() {
-        this.setState({loggedId: true});
-
+        this.setState({loggedIn: true});
+        
+        
     }
 
     handleSignInClick = event => {
@@ -53,8 +54,12 @@ export default class LoginForm extends React.Component{
         }).then(resp => resp.json()).then(resp => {
             if(resp != null) {                
                 console.log('Login successful');
-                localStorage.setItem("user_id", resp.user_Id);
-                localStorage.setItem("loggedIn", "true");
+                console.log(resp);
+                
+                window.sessionStorage.setItem("user_id", resp.user_Id);
+                window.sessionStorage.setItem("is_admin", resp.is_Admin);
+                window.sessionStorage.setItem("token", resp.token);
+                console.log("loginform user_id: " + window.sessionStorage.getItem("user_id") );
                 that.updateLoggedIn();
             } else {
                 console.log("Login faild");
@@ -86,7 +91,7 @@ export default class LoginForm extends React.Component{
     }
     
     render() {
-        if (this.state.loggedId) {
+        if (this.state.loggedIn) {
             return <Redirect push to="/" />;
         }
         return (
@@ -109,3 +114,5 @@ export default class LoginForm extends React.Component{
         )
     }
 }
+
+export default LoginForm;

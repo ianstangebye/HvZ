@@ -6,6 +6,8 @@ import MapFragment from './components/map-fragment/MapFragment';
 import MapFragTest from './components/map-frag-test/MapFragTest';
 import LoginForm from './components/login-form/LoginForm';
 import GameDetail from './components/game-detail/GameDetail';
+import NewGameForm from './components/new-game-form/NewGameForm';
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
       <Route path='/maptest/:id' component={MapFragTest} />
       <Route path='/login/' component={LoginForm} />
       <Route path='/game-detail/:game_id' component={GameDetail} />
+      <Route path='/new-game-form/' component={NewGameForm} />
     </React.Fragment>
   );
 }
