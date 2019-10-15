@@ -57,7 +57,7 @@ render(){
         gameComponents = <p>Loading games...</p>
     }
 
-    return (
+    return ( 
         <React.Fragment>
             <h1>Currently available games</h1>
             <div>

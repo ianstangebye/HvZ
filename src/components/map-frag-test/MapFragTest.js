@@ -15,7 +15,7 @@
 
 //     const { isLoaded } = useLoadScript({
 //         // Enter your own Google Maps API key
-//         googleMapsApiKey: ""
+//         googleMapsApiKey: "AIzaSyDK8rGpE1KhjWqW8L3R9m6XeQTnxUMgdBQ"
 //       });
     
 //       // The places I want to create markers for.
@@ -100,9 +100,8 @@
 
 
 
-    
-
-//         const renderMap = () => {
+  
+//         // const renderMap = () => {
 //             return (
 //               <Fragment>
 //                 <GoogleMap
@@ -165,21 +164,21 @@
 //                 {/* Position of the user's map click */}
 //                 {selectedPlace && <h3>Selected Marker: {selectedPlace.id}</h3>}
 //               </Fragment>
-//             );
-//           };
+//             )
+//         //   };
         
-//           return isLoaded ? renderMap() : null;
+//         //   return isLoaded ? renderMap() : null;
 //         // return {rendermap()}
 // }
 
 // // export {renderMap};
 
-// // export default GoogleApiWrapper({
-// //   apiKey: 'YOUR API KEY HERE'
-// // })(MapFragTest);
+// export default GoogleApiWrapper({
+//   apiKey: 'AIzaSyDK8rGpE1KhjWqW8L3R9m6XeQTnxUMgdBQ'
+// })(MapFragTest);
 
 // // export default MapFragTest;
 
 
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(<MapFragTest />, rootElement);
+// // const rootElement = document.getElementById("root");
+// // ReactDOM.render(<MapFragTest />, rootElement);
