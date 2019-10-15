@@ -1,0 +1,24 @@
+@media screen and (max-width: 600px) {
+    .Title {
+        position: relative;
+        width: 100%;
+        margin: 30px 10px 30px 10px;
+    }
+
+    .Title h1 {
+        border-bottom: 2px solid #F5F5F5;
+        width: 90%;
+        font-size: 18px;
+    }
+    
+    .CollapseBtn {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #F5F5F5;
+        background-color: #2C6974;
+        position: absolute;
+        right: 15px;
+        top:0;
+        font-size: 1.5em;
+    }
+}

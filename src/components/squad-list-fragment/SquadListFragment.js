@@ -1,12 +1,17 @@
 import React from 'react';
 import SquadListItem from '../squad-list-item/SquadListItem';
+import styles from './SquadListFragment.module.css';
+import arrowUpIcon from '../../assets/arrow-up-icon.svg';
+import arrowDownIcon from '../../assets/arrow-down-icon.svg';
+
 
 export default class SquadListFragment extends React.Component {
 
     state = {
         squads: [],
         game_Id: '',
-        player_Id: ''
+        player_Id: '',
+        isVisible: false
     }
 
     componentDidMount() {
@@ -52,6 +57,19 @@ export default class SquadListFragment extends React.Component {
         // })
     }
 
+    handleClick = () => {
+        this.setState({
+            isVisible: !this.state.isVisible
+        });
+
+        //Replace text with icons
+        if (this.state.isVisible == false) {
+            document.getElementById("SquadCollapseBtn").innerHTML = `<img src=${arrowDownIcon} />`;
+        } else {
+            document.getElementById("SquadCollapseBtn").innerHTML = `<img src=${arrowUpIcon} />`;
+        }
+    }
+
     render() {
         let squadComponents = null;
 
@@ -65,8 +83,12 @@ export default class SquadListFragment extends React.Component {
 
         return (
             <React.Fragment>
-                <h2>Squads to join:</h2>
-                <div>
+                <div className={styles.Title}>
+                    <h1>Squads</h1>
+                    <button className={styles.CollapseBtn} id="SquadCollapseBtn" type="button" onClick={this.handleClick}><img src={arrowUpIcon}/></button>
+                </div>
+                
+                <div style={{display: this.state.isVisible ? 'none' : 'block'}}>
                     {squadComponents}
                 </div>
             </React.Fragment>
