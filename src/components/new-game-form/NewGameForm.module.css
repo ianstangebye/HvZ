@@ -47,12 +47,12 @@
         background-color: #77A4AC;
         color: #F5F5F5;
         border: none;
-        border-radius: 5px;
+        border-radius: 15px;
         resize: none;
     }
 
     .RegisterForm textarea::placeholder {
-        color: rgba(245, 245, 245, 0.438);
+        color: rgba(248, 248, 248, 0.747);
     }
 
     .Btns {
@@ -67,14 +67,14 @@
     .BtnGetLocation {
         grid-column: 2;
         background-color: transparent;
-        border: 2px solid #F5DA81;
-        color: #F5DA81;
+        border: 2px solid #DBA53D;
+        color: #DBA53D;
     }
 
     .BtnGetLocation:hover {
         border: none;
-        background-color: #F5DA81;
-        color: #F5F5F5;
+        background-color: #F5F5F5;
+        color: #DBA53D;
     }
 
 

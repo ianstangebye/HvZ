@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './LoginForm.module.css';
 import { Redirect } from 'react-router';
+import jwt_decode from 'jwt-decode';
 
 class LoginForm extends React.Component{
 
@@ -37,10 +38,8 @@ class LoginForm extends React.Component{
             "password": this.state.password
         }
 
-        //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
         const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth/authenticate'
 
-        const that = this;
         // 'POST' using username and password in body (Success if 200 etc..)
         fetch(targetUrl, {
             method: 'POST',
@@ -49,37 +48,31 @@ class LoginForm extends React.Component{
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             }
-        }).then(resp => resp.json()).then(resp => {
-            if(resp != null) {                
-                console.log('Login successful');
-                console.log(resp);
-                
-                window.sessionStorage.setItem("user_id", resp.user_Id);
-                window.sessionStorage.setItem("is_admin", resp.is_Admin);
-                window.sessionStorage.setItem("token", resp.token);
-                console.log("loginform user_id: " + window.sessionStorage.getItem("user_id") );
-                that.updateLoggedIn();
+        })
+        .then(resp => {
+            if(resp.status === 200) {
+                return resp.json();
+            } else if(resp.status === 400) {
+                alert("Invalid username or password.")
+            } else if(resp.status === 500) {
+                alert("Our servers are down at the moment. We are sorry for the inconvenience. Please try again later.")
             } else {
-                console.log("Login faild");
-                
+                throw new Error(`STATUS CODE: ${resp.status}`)
             }
-        // }).then(function(resp) {
-        //     console.log(resp);
-            
-        //     if (resp.status === 200){
-        //         console.log('Login successful');
-                
-        //         that.updateLoggedIn();
-        //         // Show game/game list components here
-        //     } else if (resp.status === 204){
-        //         console.log('Username and password do not match');
-        //         // alert or show an error message on page?
-        //     } else {
-        //         console.log("Username doesn't exist");
-        //         // alert or show error message on page?
-        //     }
-        }).catch(function(e) {
-            console.log(e);  
+        })
+        .then(resp => {
+            if(resp) {
+                console.log('Login succeeded')
+                let decoded = jwt_decode(resp)
+                sessionStorage.setItem("user_id", decoded.unique_name)
+                console.log(sessionStorage.getItem("user_id"))
+            } else {
+                console.log("Login failed")
+            }
+        })
+        .catch(e => {
+            console.error(e);
+            alert("An unexpected error occured. Please try again later.")
         });
     }
 

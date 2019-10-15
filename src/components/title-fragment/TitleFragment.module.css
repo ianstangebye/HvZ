@@ -1,3 +1,47 @@
+@media screen and (max-width: 600px) {
+    .TitleFragment {
+        width: 100%;
+        margin: 10px;
+    }
+
+    .Title {
+        position: relative;
+    }
+
+    .TitleFragment h1 {
+        border-bottom: 2px solid #F5F5F5;
+        width: 90%;
+        font-size: 18px;
+    }
+
+    .CollapseBtn {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #F5F5F5;
+        background-color: #2C6974;
+        position: absolute;
+        right: 15px;
+        top:0;
+        font-size: 1.5em;
+    }
+
+    .TitleFragment span {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .TitleFragment p {
+        font-size: 12px;
+        margin: 15px 0;
+        max-width: 100%;
+    }
+
+    .GameState {
+        color: #A7C57C;
+    }
+}
+
+@media screen and (min-width: 600px) {
 .TitleFragment {
     max-width: 500px;
     width: 100%;
@@ -17,4 +61,6 @@
 .Rules h2 {
     margin-bottom: -10px;
     font-size: 1.3em;
+}
+
 }

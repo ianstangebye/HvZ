@@ -9,6 +9,7 @@ import GoogleMap from './components/google-map/GoogleMap';
 import LoginForm from './components/login-form/LoginForm';
 import GameDetail from './components/game-detail/GameDetail';
 import NewGameForm from './components/new-game-form/NewGameForm';
+import ChatFragment from './components/chat-fragment/ChatFragment';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
       <Route path='/login/' component={LoginForm} />
       <Route path='/game-detail/:game_id' component={GameDetail} />
       <Route path='/new-game-form/' component={NewGameForm} />
+      <Route path='/chat-test/' component={ChatFragment} />
     </React.Fragment>
   );
 }
