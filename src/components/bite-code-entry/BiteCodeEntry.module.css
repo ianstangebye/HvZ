@@ -1,0 +1,98 @@
+@media screen and (max-width: 600px) {
+
+    .ShowFormBtn {
+        display: block;
+        margin: 0 10px;
+        width: 96%;
+    }
+
+    .BiteCodeEntry {
+        margin: 0 10px 0 10px;
+        border-radius: 15px;
+        background-color: #f5f5f5;
+        padding: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .BiteCodeEntry h1 {
+        margin-top: 0;
+        text-align: center;
+        color: #2C6974;
+        text-transform: uppercase;
+        font-size: 18px;
+    }
+
+    .BiteCodeEntry label {
+        display: block;
+        color: #303030;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-top: 20px;
+    }
+    
+
+    .BiteCodeEntry input {
+        display: block;
+        background-color: #E5E5E5;
+        border: none;
+        height: 30px;
+        width: 100%;
+        border-radius: 5px;
+        margin: 10px 0;
+        padding: 5px;
+        font-family: inherit;
+    }
+
+    .BiteCodeEntry input:hover {
+        border: 2px solid #2C6974;
+    }
+
+    .BiteCodeEntry input:focus {
+        outline: none;
+        border: 2px solid #2C6974;
+    }
+
+    .BiteCodeEntry textarea {
+        width: 100%;
+        height: 60px;
+        border: none;
+        resize: none;
+        background-color: #E5E5E5;
+        margin: 10px 0;
+        padding: 5px;
+        font-family: inherit;
+        border-radius: 5px;
+    }
+
+    .BiteCodeEntry textarea:hover {
+        border: 2px solid #2C6974;
+    }
+
+    .BiteCodeEntry textarea:focus {
+        outline: none;
+        border: 2px solid #2C6974;
+    }
+    
+
+    .SubmitBiteBtn {
+        width: 100%;
+        margin: 10px 0 0 0;
+    }
+
+    .CloseBtn {
+        display: block;
+        margin: 10px 10px;
+        width: 96%;
+        background-color: transparent;
+        box-shadow: none;
+        color: #DBA53D;
+    }
+
+    .CloseBtn:hover {
+        transition: 200ms;
+        background-color: transparent;
+        border: 2px solid #DBA53D;
+    }
+
+}

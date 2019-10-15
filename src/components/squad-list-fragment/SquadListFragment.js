@@ -63,7 +63,7 @@ export default class SquadListFragment extends React.Component {
         });
 
         //Replace text with icons
-        if (this.state.isVisible == false) {
+        if (this.state.isVisible === false) {
             document.getElementById("SquadCollapseBtn").innerHTML = `<img src=${arrowDownIcon} />`;
         } else {
             document.getElementById("SquadCollapseBtn").innerHTML = `<img src=${arrowUpIcon} />`;

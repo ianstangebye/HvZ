@@ -42,7 +42,7 @@ export default class TitleFragment extends React.Component {
         });
 
         //Replace text with icons
-        if (this.state.isVisible == false) {
+        if (this.state.isVisible === false) {
             document.getElementById("CollapseBtn").innerText = "X";
         } else {
             document.getElementById("CollapseBtn").innerText = "?";

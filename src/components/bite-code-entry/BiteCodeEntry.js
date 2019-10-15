@@ -1,5 +1,5 @@
 import React from 'react';
-import Styles from './BiteCodeEntry.module.css';
+import styles from './BiteCodeEntry.module.css';
 import { isLVal } from '@babel/types';
 
 class BiteCodeEntry extends React.Component{
@@ -7,7 +7,8 @@ class BiteCodeEntry extends React.Component{
     state = {
         biteCode: '',
         lat: '',
-        lng: ''
+        lng: '',
+        isVisible: false
     }
 
         // Get id from the button/game clicked on from the list? 
@@ -16,6 +17,20 @@ class BiteCodeEntry extends React.Component{
         updateInputValue = (name, e) => {
             this.setState({ [name]: e.target.value});
             
+        }
+
+        handleBtnClick = () => {
+            this.setState({
+                isVisible: true
+            });
+            document.getElementById("showFormBtn").style.display = 'none';
+        }
+
+        handleCloseClick = () => {
+            this.setState({
+                isVisible: false
+            });
+            document.getElementById("showFormBtn").style.display = 'block';
         }
     
         handleRegisterClick = event => {
@@ -61,17 +76,35 @@ class BiteCodeEntry extends React.Component{
         }).catch(error => {
             console.log(error);
         })
+
+        this.setState({
+            isVisible: false
+        });
+        document.getElementById("showFormBtn").style.display = 'block';
     }
 
     render(){ 
         return(
-            <form onSubmit={this.handleRegisterClick}>
-                <label htmlFor="biteCode">
-                    Bite Code:
-                    <input name="biteCode" type="text" value={this.state.biteCode} onChange={(e) => this.updateInputValue("biteCode", e)}/>
-                </label>
-               <input type="submit" />
-            </form>
+
+            <React.Fragment>
+                <button id="showFormBtn" className={styles.ShowFormBtn} onClick={this.handleBtnClick}>Register Bite</button>
+
+                <form onSubmit={this.handleRegisterClick} className={styles.BiteCodeEntry} style={{display: this.state.isVisible ? 'block' : 'none'}}>
+
+                    <h1>Enter Bite Code</h1>
+
+                    <input required name="biteCode" type="text" placeholder="Enter bite code here..." value={this.state.biteCode} onChange={(e) => this.updateInputValue("biteCode", e)}/>
+                    
+                    <label htmlFor="description">Description:</label>
+                    <textarea name="description" type="text" placeholder="(Optional) Add a description..."/>
+                    
+                    <button type="submit" className={styles.SubmitBiteBtn}>Submit</button>
+                    {/* <input type="submit" className={styles.SubmitBiteBtn}/> */}
+                </form>
+
+                <button onClick={this.handleCloseClick} className={styles.CloseBtn} style={{display: this.state.isVisible ? 'block' : 'none'}}>Close</button>
+            </React.Fragment>
+            
         )
     }
 }
