@@ -65,6 +65,7 @@ class LoginForm extends React.Component{
                 console.log('Login succeeded')
                 let decoded = jwt_decode(resp)
                 sessionStorage.setItem("user_id", decoded.nameid)
+                sessionStorage.setItem("role", decoded.role)
                 console.log("USER ID:")
                 console.log(sessionStorage.getItem("user_id"))
                 this.updateLoggedIn()
