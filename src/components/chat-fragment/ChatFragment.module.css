@@ -1,3 +1,98 @@
+@media screen and (max-width: 600px) {
+    .ChatFragment {
+        margin: 10px;
+        background-color: #F5F5F5;
+        border-radius: 15px;
+        color: #303030;
+        padding: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .Tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+
+    .Tab {
+        text-align: center;
+        padding-top: 8px;
+        background-color: #E5E5E5;
+        color: #2C6974;
+        width: 24%;
+        cursor: pointer;
+        height: 35px;
+        border-radius: 5px;
+        margin: 0 auto;
+    }
+
+    .Tab.Active {
+        background-color: #2C6974;
+        color: #F5F5F5;
+    }
+
+    .Messages {
+        margin-top: -5px;
+        background-color: #F5F5F5;
+        border: 3px solid #2C6974;
+        padding: 10px;
+        max-height: 300px;
+        overflow-y: scroll;
+        border-radius: 5px;
+    }
+    
+    .Message {
+        background-color: #77A4AC;
+        color: #F5F5F5;
+        width: fit-content;
+        border-radius: 5px;
+        margin: 3px;
+        padding: 10px;
+    }
+
+    .ChatFooter {
+        margin-top: 10px;
+        height: 40px;
+        display: flex;
+    }
+
+    #MsgInput {
+        width: 90%;
+        border: none;
+        background-color: #E6E6E6;
+        border-radius: 5px;
+        padding: 10px;
+        font-family: inherit;
+        font-size: 12px;
+    }
+
+    #MsgInput::placeholder {
+        color: rgba(48, 48, 48, 0.555);
+    }
+
+    #MsgInput:hover {
+
+        background-color: #E6E6E6;
+    }
+    
+    #MsgInput:focus {
+        outline: none;
+        border: 2px solid #77A4AC;
+    }
+    #BtnSend {
+        margin: 0 0 0 10px;
+        width: 50px;
+        height: 100%;
+        border-radius: 5px;
+    }
+    
+    
+}
+
+
+@media screen and (min-width: 600px){
 .ChatFragment {
     box-shadow: 0 0 5px black;
     width: 33%;
@@ -54,4 +149,6 @@
 
 #MsgInput {
     width: 75%;
+}
+
 }
