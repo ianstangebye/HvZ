@@ -13,7 +13,8 @@ class GameList extends React.Component {
             games: [],
             user_id: 0,
             is_admin: false,
-            token: ""
+            token: "",
+            joinedGameId: 0 
         };
     }
 

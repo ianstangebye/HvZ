@@ -18,9 +18,9 @@ function GameItem(props) {
     //const user_id = sessionStorage.getItem('user_id') || 0;
     //const loggedIn = localStorage.getItem('loggedIn') || "false";
     //console.log("loggedIn " + loggedIn);
-    
+
     //console.log("user_id: " + user_id);
-    
+
     //console.log(game.game_Id);
 
     // let [players, setPlayers] = useState(0);
@@ -45,14 +45,28 @@ function GameItem(props) {
 
             })
 
-    },[game.game_Id, getPlayers]);
+    }, [game.game_Id, getPlayers]);
 
-    return (
-
-        <React.Fragment>
-            
-            <div>
-            <Link to={sessionStorage.getItem("user_id") ? '/game-detail/' + game.game_Id : '/login'} style={{textDecoration: 'none'}}>
+    if (user_id !== 0) {
+        return (
+            <React.Fragment>
+                <div>
+                    <Link to={'/game-detail/' + game.game_Id} >
+                        {/* style={{ display: user_id !== 0? 'block': 'none', textDecoration: 'none'}}> */}
+                        <div className={styles.GameItem}>
+                            <h4>{game.name}</h4>
+                            <p className={styles.Players}>{players.length} players</p>
+                            <p className={styles.StartDate}>Start: 12.03.19 12:00</p>
+                            <p className={styles.EndDate}>End: 20.03.19 23:59</p>
+                            <p className={styles.GameState}>{game.game_State}</p>
+                        </div>
+                    </Link>
+                </div>
+            </React.Fragment>
+        )
+    } else {
+        return (
+            <React.Fragment>
                 <div className={styles.GameItem}>
                     <h4>{game.name}</h4>
                     <p className={styles.Players}>{players.length} players</p>
@@ -60,11 +74,9 @@ function GameItem(props) {
                     <p className={styles.EndDate}>End: 20.03.19 23:59</p>
                     <p className={styles.GameState}>{game.game_State}</p>
                 </div>
-            </Link>
-            </div>
-        </React.Fragment>
-    );
-
+            </React.Fragment>
+        )
+    }
 }
 
 export default GameItem;
