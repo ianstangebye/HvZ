@@ -1,0 +1,16 @@
+.SquadDetailsItem {
+    display: grid;
+    grid-template-columns: 50% 1fr 1fr;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+    margin: 0px 15px;
+}
+
+.SquadDetailsItem p {
+    border-right: 1px solid rgba(0, 0, 0, 0.205);
+    padding: 10px;
+}
+
+.SquadDetailsItem p:last-child {
+    border: none;
+    grid-column: 3;
+}

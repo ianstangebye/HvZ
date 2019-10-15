@@ -11,7 +11,8 @@ class LoginForm extends React.Component{
         this.state = {
             username: '',
             password: '',
-            loggedIn: false
+            loggedIn: false,
+            register: false
         }
     }
 
@@ -82,9 +83,15 @@ class LoginForm extends React.Component{
     handleRegisterClick = event => {
         console.log('clicked register button');
         //Show Register Form here
+        this.setState({loggedIn: true});
     }
     
     render() {
+
+        if (this.state.register) {
+            return <Redirect push to="/register" />;
+        }
+        
         if (this.state.loggedIn) {
             return <Redirect push to="/" />;
         }

@@ -95,13 +95,13 @@ class GameList extends React.Component {
                 <Link to={'/login'}
                     style={{ display: this.state.user_id === 0 ? 'inline' : 'none' }}>
                     <button className={styles.Login_btn}>
-                        Login
+                        Sign in
                     </button>
                 </Link>
                 <button className={styles.Logout_btn}
                     style={{ display: this.state.user_id !== 0 ? 'inline' : 'none' }}
                     onClick={this.clearLocalStorage}>
-                        Log out
+                        Sign out
                 </button>
                 <h1 className={styles.Current_games}>Games</h1>
                 <div>
