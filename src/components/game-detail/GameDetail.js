@@ -3,6 +3,7 @@ import styles from './GameDetail.module.css';
 import TitleFragment from '../title-fragment/TitleFragment';
 import SquadListFragment from '../squad-list-fragment/SquadListFragment';
 import axios from 'axios';
+import { tsExpressionWithTypeArguments } from '@babel/types';
 
 class GameDetail extends React.Component {
 
@@ -12,7 +13,8 @@ class GameDetail extends React.Component {
         this.state = {
             game_id: 0,
             player_id: 0,
-            joined: false
+            joined: false,
+            player: {}
         }
     }
 
@@ -21,10 +23,39 @@ class GameDetail extends React.Component {
         const user_id = sessionStorage.getItem("user_id")
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}`
 
+        // DO NOT DELETE
         axios
         .get(url)
         .then(res => {
+            console.log("TESTING:")
             console.log(res)
+
+            if(res.status === 200) {
+                sessionStorage.setItem("player", JSON.stringify(res))
+                this.setState({ joined: true })
+            } else {
+                // NB!! FOR TESTING ------------------------------
+                let player = {
+                    player_id: 1,
+                    is_human: true,
+                    is_patient_zero: true,
+                    bite_code: "placeholderbitecode",
+                    user_id: sessionStorage.getItem("user_id"),
+                    game_id: game_id
+                }
+
+                sessionStorage.setItem("player", JSON.stringify(player))
+
+                this.setState({
+                    player: player
+                })
+
+                console.log("PLAYER IN SESSION STORAGE: " + sessionStorage.getItem("player"))
+                console.log("PLAYER ID: " + JSON.parse(sessionStorage.getItem("player")).player_id)
+                // -----------------------------------------------
+
+                throw new Error(`STATUS CODE: ${res.status}`)
+            }
         })
         .catch(e => {
             console.error(e)
