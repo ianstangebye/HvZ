@@ -34,9 +34,9 @@ class NewGameForm extends React.Component {
         if (this.props.coords) {
             this.setState({
                 nw_latitude: this.props.coords.latitude + 0.01,
-                nw_longitude: this.props.coords.longitude + 0.01,
+                nw_longitude: this.props.coords.longitude - 0.01,
                 se_latitude: this.props.coords.latitude - 0.01,
-                se_longitude: this.props.coords.longitude - 0.01
+                se_longitude: this.props.coords.longitude + 0.01
             });
         }
     }
@@ -86,31 +86,31 @@ class NewGameForm extends React.Component {
 
         return (
             <div className={styles.RegisterForm}>
+                <h4>Create a new game</h4>
                 <form>
                     <div>
-                        <label>Name of Game</label>
-                        <input autoFocus type="text" name="name" maxLength="50" value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} />
+                        <label>Name</label>
+                        <input autoFocus type="text" name="name" placeholder="Type in a name..." maxLength="50" value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} />
                     </div>
                     <div>
-                        <label>NW_Latitude</label>
+                        <label>North-west Latitude</label>
                         <input type="text" name="nw_latitude" maxLength="50" value={this.state.nw_latitude} onChange={(e) => this.updateInputValue("nw_latitude", e)}></input>
                     </div>
                     <div>
-                        <label>NW_Longitude</label>
+                        <label>North-west Longitude</label>
                         <input type="text" name="nw_longitude" maxLength="50" value={this.state.nw_longitude} onChange={(e) => this.updateInputValue("nw_longitude", e)}></input>
                     </div>
                     <div>
-                        <label>SE_Latitude</label>
+                        <label>South-east Latitude</label>
                         <input type="text" name="se_latitude" maxLength="50" value={this.state.se_latitude} onChange={(e) => this.updateInputValue("se_latitude", e)}></input>
                     </div>
                     <div>
-                        <label>SE_Longitude</label>
+                        <label>South-east Longitude</label>
                         <input type="text" name="se_longitude" maxLength="50" value={this.state.se_longitude} onChange={(e) => this.updateInputValue("se_longitude", e)}></input>
                     </div>
                     <div>
                         <label>Description</label>
-                        <textarea rows="4" cols="50" name="description" value={this.state.description} onChange={(e) => this.updateInputValue("description", e)}>
-                            At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
+                        <textarea rows="4" cols="50" name="description" placeholder="Add a description of the game..." value={this.state.description} onChange={(e) => this.updateInputValue("description", e)}>
                         </textarea>
                     </div>
 

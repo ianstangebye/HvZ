@@ -1,7 +1,7 @@
 @media screen and (max-width: 600px) {
 
     button {
-        border-radius: 5px;
+        border-radius: 50px;
         border: none;
         font-size: 18px;
         text-transform: uppercase;
@@ -9,13 +9,14 @@
         box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
         height: 40px;
         cursor: pointer;
-        background-color: #A7C57C;
+        background-color: #DBA53D;
         color: #F5F5F5;
         margin: 5px;
     }
 
     button:hover {
-        background-color: rgb(136, 167, 94);
+        transition: ease-in 100ms;
+        background-color: #EDB955;
     }
 
     button:focus {
@@ -23,16 +24,12 @@
     }
 
     .Login_btn {
-        background-color: transparent;
-        color: #A7C57C;
-        border: 2px solid #A7C57C;
-        width: 100px;   
-    }
-
-    .Login_btn:hover {
-        border: none;
-        background-color: #A7C57C;
-        color: #F5F5F5;
+        width: 100px;
+        height: 40px;
+        position: absolute;
+        top: 15px;
+        right: 0;
+        
     }
 
     .Logout_btn {
@@ -54,12 +51,11 @@
     }
 
     .NewGame_btn {
-        position: absolute;
+        width: 60%;
+        position: relative;
         right: 50%;
         left: 50%;
         transform: translate(-50%);
-        width: 95%;
-        margin: 10px 0;
     }
 }
 

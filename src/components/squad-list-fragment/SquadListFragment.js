@@ -26,35 +26,38 @@ export default class SquadListFragment extends React.Component {
     /*================
     Need Id's!
     ================ */
-    handleJoinSquad() {
-        const squadId = this.state.squad.squad_Id;
-
-        const newSquadMember = {
-            "game_Id": this.state.game_Id,
-            "squad_Id": squadId,
-            "player_Id": this.state.player_Id
-        }
-
+    handleJoinSquad(name) {
+        console.log("handleJoinSquad from child " + name);
         
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/member`
+        // const squad_id = this.state.squads.squad_Id;
+        // const game_id = this.props.game_id;
+        // const player_id = this.props.player_id;
 
-        fetch(targetUrl, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(newSquadMember)
-        }).then(resp => resp.json()
-        ).then(data => console.log('Squadmember joined: ', data)
-        ).catch(e => {
-            console.log(e);
-        })
+        // const newSquadMember = {
+        //     "game_Id": game_id,
+        //     "squad_Id": squad_id,
+        //     "player_Id": player_id
+        // }
+
+        // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/member`
+
+        // fetch(targetUrl, {
+        //     method: 'POST',
+        //     headers: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify(newSquadMember)
+        // }).then(resp => resp.json()
+        // ).then(data => console.log('Squadmember joined: ', data)
+        // ).catch(e => {
+        //     console.log(e);
+        // })
     }
 
     render() {
         let squadComponents = null;
 
         if (this.state.squads.length > 0) {
-            squadComponents = this.state.squads.map(squad => {
-                return <SquadListItem squad={squad} key={squad.squad_Id} joinSquad={ () => this.handleJoinSquad()}/>
+            squadComponents = this.state.squads.map((squad, index) => {
+                return <SquadListItem squad={squad} key={index} joinSquad={this.handleJoinSquad.bind(null, index)}/>
             });
         } else {
             squadComponents = <p>Loading squads...</p>

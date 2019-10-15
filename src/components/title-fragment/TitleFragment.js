@@ -7,38 +7,66 @@ export default class TitleFragment extends React.Component {
         super(props);
 
         this.state = {
-            game: {}
+            game: {},
+            game_id: 0,
+            isVisible: false
         }
     }
 
     componentDidMount() {
+        const game_id  = this.props.game_id;
+        this.setState({ game_id : game_id }, () => {
+            //console.log("title game_id: " + this.state.game_id);
 
-        // Get id from the button/game clicked on from the list? 
-        //const {game_id} = this.props.match.params;
-        
-        
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/2`
-
-        fetch(targetUrl).then(resp => resp.json()).then(data => {
-            this.setState({
-                game: {...data}
-            });
-        }).catch(e => {
-            console.log(e);
-        })
+            this.getGameTitle();
+        });
     }
-    
 
+    getGameTitle = async () => { 
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}`
+        console.log("targetUrl : " + targetUrl);
+        
+        await fetch(targetUrl).then(resp => resp.json()).then(resp => {
+            console.log(resp);
+            this.setState({ game: resp });
+        }).catch(error => {
+            console.log('Something fucked up')
+            console.log(error);
+
+        });
+    }
+
+    handleClick = () => {
+        this.setState({
+            isVisible: !this.state.isVisible
+        });
+
+        //Replace text with icons
+        if (this.state.isVisible == false) {
+            document.getElementById("CollapseBtn").innerText = "X";
+        } else {
+            document.getElementById("CollapseBtn").innerText = "?";
+        }
+    }
+
+    
     render() {
+        console.log(this.state.game_id);
+        
+        // if(this.state.game_id === 0) {
+        //     return <h1>Loading...</h1>
+        // }
+        
         return (
             <div className={styles.TitleFragment}>
-                <h1>{this.state.game.name}</h1>
-                <p>Game State: <b>{this.state.game.game_State}</b></p>
-                <p>{this.state.game.description}</p>
-                <div className={styles.Rules}>
-                    <h2>Rules:</h2>
-                    <p>
-                    (Placeholder rules) HVZ is played with two teams: the Humans and the Zombies. Players are able to tell the two teams apart with the use of bandanas; Humans wear their bandanas around an arm or on a leg, whereas Zombies wear it around their head.
+                <div className={styles.Title}>
+                    <h1>{this.state.game.name}</h1>
+                    <button className={styles.CollapseBtn} id="CollapseBtn" type="button" onClick={this.handleClick}>?</button>
+                </div>
+                <p><span>Game State: </span> <span className={styles.GameState}>{this.state.game.game_State}</span></p>
+                <p><span>Description: </span><br></br>{this.state.game.description}</p>
+                <div className={styles.Rules} style={{display: this.state.isVisible ? 'block' : 'none'}}>
+                    <p><span>Rules: </span><br></br> (Placeholder rules) HVZ is played with two teams: the Humans and the Zombies. Players are able to tell the two teams apart with the use of bandanas; Humans wear their bandanas around an arm or on a leg, whereas Zombies wear it around their head.
                     <br/><br/>Humans are allowed to use weapons to tag out Zombies; common weapons include Nerf and other dart blasters. Balled up socks can be also be used to tag out Zombies. Rule variants exist where Humans are also allowed to use foam melee weapons, such as the N-Force weapons.
                     <br/><br/>Zombies are not allowed to use any form of weapon and instead must tag Humans by hand.
                     </p>

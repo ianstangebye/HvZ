@@ -1,3 +1,65 @@
+@media screen and (max-width: 599px) {
+    .LoginForm {
+        display: block;
+        width: 100%;
+        padding: 50px;
+    }
+
+    .LoginForm form div {
+        margin: 25px 0;
+    }
+
+    .LoginForm label {
+        display: block;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .LoginForm input {
+        font-family: inherit;
+        width: 100%;
+        background: none;
+        border: none;
+        border-bottom: 1px solid #F5F5F5;
+        color: #F5F5F5;
+        padding: 10px;
+    }
+
+    .LoginForm input::placeholder {
+        color: rgba(245, 245, 245, 0.438);
+    }
+
+    .LoginForm input:focus {
+        outline: none;
+    }
+
+    .Btns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        
+    }
+
+    .BtnSignIn {
+        grid-column: 1;
+    }
+
+    .BtnRegister {
+        grid-column: 2;
+        background: transparent;
+        border: 2px solid #DBA53D;
+        color: #DBA53D;
+    }
+
+    .BtnRegister:hover {
+        background-color: #F5F5F5;
+        border: none;
+        color: #DBA53D;
+    }
+}
+
+@media screen and (min-width: 600px) {
 .LoginForm {
     display: block;
     max-width: 400px;
@@ -46,4 +108,5 @@
 .BtnRegister {
     background-color: transparent;
     border: 2px solid #A7EAC6;
+}
 }
