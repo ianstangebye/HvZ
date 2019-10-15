@@ -23,8 +23,6 @@ function App() {
       {/* <Route path='/maptest/:id' component={MapFragTest} /> */}
       {/* <Route path='/maptest2/:id' component={MapFragTest2} /> */}
       <Route path='/googlemap/:id' component={GoogleMap} />
-
-      <Route path='/maptest/:id' component={MapFragTest} />
       <Route path='/login/' component={LoginForm} />
       <Route path='/game-detail/:game_id' component={GameDetail} />
       <Route path='/new-game-form/' component={NewGameForm} />

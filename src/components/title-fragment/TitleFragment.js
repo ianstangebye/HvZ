@@ -16,24 +16,21 @@ export default class TitleFragment extends React.Component {
     componentDidMount() {
         const game_id  = this.props.game_id;
         this.setState({ game_id : game_id }, () => {
-            //console.log("title game_id: " + this.state.game_id);
-
             this.getGameTitle();
         });
     }
 
     getGameTitle = async () => { 
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}`
-        console.log("targetUrl : " + targetUrl);
-        
+
         await fetch(targetUrl).then(resp => resp.json()).then(resp => {
-            console.log(resp);
             this.setState({ game: resp });
         }).catch(error => {
             console.log('Something fucked up')
             console.log(error);
+        });        
 
-        });
+        console.log("title game_id: " + this.state.game_id);
     }
 
     handleClick = () => {
@@ -42,7 +39,7 @@ export default class TitleFragment extends React.Component {
         });
 
         //Replace text with icons
-        if (this.state.isVisible == false) {
+        if (this.state.isVisible === false) {
             document.getElementById("CollapseBtn").innerText = "X";
         } else {
             document.getElementById("CollapseBtn").innerText = "?";
@@ -51,7 +48,6 @@ export default class TitleFragment extends React.Component {
 
     
     render() {
-        console.log(this.state.game_id);
         
         // if(this.state.game_id === 0) {
         //     return <h1>Loading...</h1>
