@@ -165,10 +165,10 @@
 //                 {/* Position of the user's map click */}
 //                 {selectedPlace && <h3>Selected Marker: {selectedPlace.id}</h3>}
 //               </Fragment>
-//             );
-//           };
-
-//           return isLoaded ? renderMap() : null;
+//             )
+//         //   };
+        
+//         //   return isLoaded ? renderMap() : null;
 //         // return {rendermap()}
 // }
 

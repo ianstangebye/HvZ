@@ -64,8 +64,10 @@ class LoginForm extends React.Component{
             if(resp) {
                 console.log('Login succeeded')
                 let decoded = jwt_decode(resp)
-                sessionStorage.setItem("user_id", decoded.unique_name)
+                sessionStorage.setItem("user_id", decoded.nameid)
+                console.log("USER ID:")
                 console.log(sessionStorage.getItem("user_id"))
+                this.updateLoggedIn()
             } else {
                 console.log("Login failed")
             }

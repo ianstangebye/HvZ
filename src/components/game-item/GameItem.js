@@ -52,8 +52,7 @@ function GameItem(props) {
         <React.Fragment>
             
             <div>
-            <Link to={'/game-detail/' + game.game_Id} 
-                style={{ display: user_id !== 0? 'block': 'none', textDecoration: 'none'}}>
+            <Link to={'/game-detail/' + game.game_Id}>
                 <div className={styles.GameItem}>
                     <h4>{game.name}</h4>
                     <p className={styles.Players}>{players.length} players</p>

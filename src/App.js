@@ -7,6 +7,7 @@ import MapFragment from './components/map-fragment/MapFragment';
 import MapFragTest from './components/map-frag-test/MapFragTest';
 import GoogleMap from './components/google-map/GoogleMap';
 import LoginForm from './components/login-form/LoginForm';
+import RegisterForm from './components/register-form/RegisterForm'
 import GameDetail from './components/game-detail/GameDetail';
 import NewGameForm from './components/new-game-form/NewGameForm';
 import ChatFragment from './components/chat-fragment/ChatFragment';
@@ -25,6 +26,7 @@ function App() {
 
       <Route path='/maptest/:id' component={MapFragTest} />
       <Route path='/login/' component={LoginForm} />
+      <Route path='/register/' component={RegisterForm} />
       <Route path='/game-detail/:game_id' component={GameDetail} />
       <Route path='/new-game-form/' component={NewGameForm} />
       <Route path='/chat-test/' component={ChatFragment} />
