@@ -1,3 +1,57 @@
+@media screen and (max-width: 600px) {
+    .SquadListItem {
+        display: grid;
+        margin: 15px 10px;
+        grid-template-columns: 1fr 1fr 20%;
+        grid-template-rows: 25px 25px;
+        background-color: #F5F5F5;
+        color: #303030;
+        padding: 10px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        
+    }
+
+    .SquadListItem h4 {
+        margin: 0;
+        grid-column: 1/ span 2;
+        grid-row: 1;
+        font-size: 18px;
+    }
+    
+    .SquadListItem p {
+        margin-top: 5px;
+        font-size: 12px;
+    }
+    
+    .SquadListItem .Total {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    .SquadListItem .Deceased {
+        grid-column: 2;
+        grid-row: 2;
+    }
+    
+    
+    .SquadListItem button {
+        grid-column: 3;
+        grid-row: 1 / span 2;
+        background-color: #DBA53D;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+    }
+
+    .SquadListItem button:hover {
+        background-color: #F5F5F5;
+        border: 2px solid #DBA53D;
+        color: #DBA53D;
+    }
+}
+
+
+@media screen and (min-width: 600px) {
 .SquadListItem {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -38,4 +92,5 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
 }
