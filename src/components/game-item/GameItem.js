@@ -52,7 +52,7 @@ function GameItem(props) {
         <React.Fragment>
             
             <div>
-            <Link to={'/game-detail/' + game.game_Id}>
+            <Link to={sessionStorage.getItem("user_id") ? '/game-detail/' + game.game_Id : '/login'}>
                 <div className={styles.GameItem}>
                     <h4>{game.name}</h4>
                     <p className={styles.Players}>{players.length} players</p>
