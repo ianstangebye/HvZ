@@ -18,13 +18,12 @@ function App() {
     <React.Fragment>
       <Header/>
       <Route path="/" exact component={GameList} />
-      <Route path="/gamebite" exact component={BiteCodeEntry} />
+      <Route path="/game/:game_id/kill" exact component={BiteCodeEntry} />
       <Route path="/map/:id" component={MapFragment} />
       {/* <Route path='/maptest/:id' component={MapFragTest} /> */}
       {/* <Route path='/maptest2/:id' component={MapFragTest2} /> */}
       <Route path='/googlemap/:id' component={GoogleMap} />
 
-      <Route path='/maptest/:id' component={MapFragTest} />
       <Route path='/login/' component={LoginForm} />
       <Route path='/register/' component={RegisterForm} />
       <Route path='/game-detail/:game_id' component={GameDetail} />

@@ -21,15 +21,16 @@ class GameDetail extends React.Component {
             console.log("detail game_id: " + this.state.game_id);
 
         });
+        
     }
 
     async joinGame() {
         const newPlayer = {
-            "is_Human": true,
-            "is_Patient_Zero": false,
-            "bite_Code": "testbitecode",
-            "user_Id": window.sessionStorage.getItem("user_id") || 0,
-            "game_Id": this.state.game_id
+            is_Human: true,
+            is_Patient_Zero: false,
+            bite_Code: "testbitecode",
+            user_Id: window.sessionStorage.getItem("user_id") || 0,
+            game_Id: this.state.game_id
         }
 
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player`;

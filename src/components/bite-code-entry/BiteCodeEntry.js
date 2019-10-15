@@ -5,7 +5,9 @@ import { isLVal } from '@babel/types';
 class BiteCodeEntry extends React.Component{
     
     state = {
-        biteCode: ''
+        biteCode: '',
+        lat: '',
+        lng: ''
     }
 
         // Get id from the button/game clicked on from the list? 
@@ -17,16 +19,39 @@ class BiteCodeEntry extends React.Component{
         }
     
         handleRegisterClick = event => {
-            const bite={
-                "biteCode": this.state.biteCode
-            }
+            event.preventDefault();
+
             
         
+            const game_id = this.props.match.params.game_id;
+            console.log(game_id);
+            console.log(new Date().toISOString());
+            console.log(sessionStorage.getItem("user_id"));
+            let bite={
+                time_Of_Death: new Date().toISOString(),
+                game_Id: game_id,
+                killer_Id: sessionStorage.getItem("user_id"),
+                bite_Code: this.state.biteCode,
+                
+
+
+            }
+
+        navigator.geolocation.getCurrentPosition(
+            // On success
+            position => 
+            // console.log(`Lat: ${position.coords.latitude} Lng: ${position.coords.longitude}`),
+            this.setState({lat:position.coords.latitude,lng: position.coords.longitude }),
+            console.log(this.state),
+            // On error
+            err => alert(`Error (${err.code}): ${err.message}`)
+          );
         
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/2`
+        
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/kill`
 
         fetch(targetUrl, {
-            method: 'GET',
+            method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(bite)
         }).then(function(resp) {
@@ -40,9 +65,12 @@ class BiteCodeEntry extends React.Component{
 
     render(){ 
         return(
-            <form>
-                <label htmlFor="biteCode">Bite Code:</label>
-                <input name="biteCode" type="text" value={this.state.biteCode} onChange={(e) => this.updateInputValue("biteCode", e)}/>
+            <form onSubmit={this.handleRegisterClick}>
+                <label htmlFor="biteCode">
+                    Bite Code:
+                    <input name="biteCode" type="text" value={this.state.biteCode} onChange={(e) => this.updateInputValue("biteCode", e)}/>
+                </label>
+               <input type="submit" />
             </form>
         )
     }
