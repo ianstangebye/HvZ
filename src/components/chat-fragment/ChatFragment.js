@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styles from './ChatFragment.module.css';
+import sendIcon from '../../assets/send-icon.svg';
 
 class ChatFragment extends React.Component {
     constructor(props) {
@@ -144,12 +145,12 @@ class ChatFragment extends React.Component {
                 </section>
 
                 <footer className={styles.ChatFooter}>
-                    <input id={styles.MsgInput} type="text" onChange={this.updateMessage}
+                    <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
                         onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
                         value={this.state.messageText}
                     />
 
-                    <button id={styles.BtnSend} onClick={this.sendMessage}>Send</button>
+                    <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon}/></button>
                 </footer>
             </div>
         )

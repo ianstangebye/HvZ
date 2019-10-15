@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './GameDetail.module.css';
 import TitleFragment from '../title-fragment/TitleFragment';
 import SquadListFragment from '../squad-list-fragment/SquadListFragment';
+import axios from 'axios';
 
 class GameDetail extends React.Component {
 
@@ -16,7 +17,19 @@ class GameDetail extends React.Component {
     }
 
     componentDidMount() {
-        const { game_id } = this.props.match.params;
+        const { game_id } = this.props.match.params
+        const user_id = sessionStorage.getItem("user_id")
+        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}`
+
+        axios
+        .get(url)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(e => {
+            console.error(e)
+        })
+
         this.setState({ game_id: game_id }, () => {
             console.log("detail game_id: " + this.state.game_id);
 
