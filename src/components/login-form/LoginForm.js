@@ -67,6 +67,7 @@ class LoginForm extends React.Component{
                 sessionStorage.setItem("user_id", decoded.nameid)
                 console.log("USER ID:")
                 console.log(sessionStorage.getItem("user_id"))
+                this.updateLoggedIn()
             } else {
                 console.log("Login failed")
             }
