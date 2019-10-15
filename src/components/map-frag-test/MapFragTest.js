@@ -17,7 +17,7 @@
 //         // Enter your own Google Maps API key
 //         googleMapsApiKey: "AIzaSyDK8rGpE1KhjWqW8L3R9m6XeQTnxUMgdBQ"
 //       });
-    
+
 //       // The places I want to create markers for.
 //       // This could be a data-driven prop.
 //       const myPlaces = [
@@ -25,7 +25,7 @@
 //         { id: "place2", pos: { lat: 39.10894664788252, lng: -94.57926449532226 } },
 //         { id: "place3", pos: { lat: 39.07602397235644, lng: -94.5184089401211 } }
 //       ];
-    
+
 //       // Iterate myPlaces to size, center, and zoom map to contain all markers
 //       const fitBounds = map => {
 //         const bounds = new window.google.maps.LatLngBounds();
@@ -35,14 +35,14 @@
 //         });
 //         map.fitBounds(bounds);
 //       };
-    
+
 //       const loadHandler = map => {
 //         // Store a reference to the google map instance in state
 //         setMapRef(map);
 //         // Fit map bounds to contain all markers
 //         fitBounds(map);
 //       };
-    
+
 //       // We have to create a mapping of our places to actual Marker objects
 //       const markerLoadHandler = (marker, place) => {
 //         return setMarkerMap(prevState => {
@@ -53,44 +53,44 @@
 //       const markerClickHandler = (event, place) => {
 //         // Remember which place was clicked
 //         setSelectedPlace(place);
-    
+
 //         // Required so clicking a 2nd marker works as expected
 //         if (infoOpen) {
 //           setInfoOpen(false);
 //         }
-    
+
 //         setInfoOpen(true);
-    
+
 //         // If you want to zoom in a little on marker click
 //         if (zoom < 13) {
 //           setZoom(13);
 //         }
-    
+
 //         // if you want to center the selected Marker
 //         //setCenter(place.pos)
 //       };
- 
+
 
 
 //         //THis is where the fetch happens
 //         // const id = this.props.match.params.id;
-    
-//         // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
+//         // 
 //         // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}`;
 
 //         // useEffect(()=>{
 //         //             //need to set in the correct 
-//         // fetch(proxyUrl + targetUrl).then(resp=> resp.json())
+//         // fetch(targetUrl).then(resp=> resp.json())
 //         // .then(resp=>{
 //         //     console.log(resp);
 //         //     this.setState({
 //         //        game: resp
 //         //     });
 //         //     console.log(this.state.game);
-            
+
 //         // }).catch(error=>{
 //         //     console.log(error);
-            
+
 //         // })
 
 
@@ -100,8 +100,9 @@
 
 
 
-  
-//         // const renderMap = () => {
+
+
+//         const renderMap = () => {
 //             return (
 //               <Fragment>
 //                 <GoogleMap
@@ -135,7 +136,7 @@
 //                       }}
 //                     />
 //                   ))}
-        
+
 //                   {infoOpen && selectedPlace && (
 //                     <InfoWindow
 //                       anchor={markerMap[selectedPlace.id]}
@@ -148,26 +149,26 @@
 //                     </InfoWindow>
 //                   )}
 //                 </GoogleMap>
-        
+
 //                 {/* Our center position always in state */}
 //                 <h3>
 //                   Center {center.lat}, {center.lng}
 //                 </h3>
-        
+
 //                 {/* Position of the user's map click */}
 //                 {clickedLatLng && (
 //                   <h3>
 //                     You clicked: {clickedLatLng.lat}, {clickedLatLng.lng}
 //                   </h3>
 //                 )}
-        
+
 //                 {/* Position of the user's map click */}
 //                 {selectedPlace && <h3>Selected Marker: {selectedPlace.id}</h3>}
 //               </Fragment>
-//             )
-//         //   };
-        
-//         //   return isLoaded ? renderMap() : null;
+//             );
+//           };
+
+//           return isLoaded ? renderMap() : null;
 //         // return {rendermap()}
 // }
 

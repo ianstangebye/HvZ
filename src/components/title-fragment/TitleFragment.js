@@ -7,29 +7,41 @@ export default class TitleFragment extends React.Component {
         super(props);
 
         this.state = {
-            game: {}
+            game: {},
+            game_id: 0
         }
     }
 
     componentDidMount() {
+        const game_id  = this.props.game_id;
+        this.setState({ game_id : game_id }, () => {
+            //console.log("title game_id: " + this.state.game_id);
 
-        // Get id from the button/game clicked on from the list? 
-        //const {game_id} = this.props.match.params;
+            this.getGameTitle();
+        });
+    }
+
+    getGameTitle = async () => { 
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}`
+        console.log("targetUrl : " + targetUrl);
         
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/2`
+        await fetch(targetUrl).then(resp => resp.json()).then(resp => {
+            console.log(resp);
+            this.setState({ game: resp });
+        }).catch(error => {
+            console.log('Something fucked up')
+            console.log(error);
 
-        fetch(proxyUrl + targetUrl).then(resp => resp.json()).then(data => {
-            this.setState({
-                game: {...data}
-            });
-        }).catch(e => {
-            console.log(e);
-        })
+        });
     }
     
-
     render() {
+        console.log(this.state.game_id);
+        
+        // if(this.state.game_id === 0) {
+        //     return <h1>Loading...</h1>
+        // }
+        
         return (
             <div className={styles.TitleFragment}>
                 <h1>{this.state.game.name}</h1>

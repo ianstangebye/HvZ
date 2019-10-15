@@ -1,14 +1,16 @@
 import React from 'react';
 import styles from './LoginForm.module.css';
+import { Redirect } from 'react-router';
 
-export default class LoginForm extends React.Component{
+class LoginForm extends React.Component{
 
     constructor(props){
         super(props);
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            loggedIn: false
         }
     }
 
@@ -22,6 +24,10 @@ export default class LoginForm extends React.Component{
         this.setState({ [name]: e.target.value});
     }
 
+    updateLoggedIn() {
+        this.setState({loggedIn: true});
+    }
+
     handleSignInClick = event => {
         event.preventDefault();
         console.log('clicked sign-in button');
@@ -31,30 +37,47 @@ export default class LoginForm extends React.Component{
             "password": this.state.password
         }
 
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth'
+        //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth/authenticate'
 
+        const that = this;
         // 'POST' using username and password in body (Success if 200 etc..)
-        fetch((proxyUrl + targetUrl) + JSON.stringify(user), {
-            method: 'GET',
+        fetch(targetUrl, {
+            method: 'POST',
+            body: JSON.stringify(user),
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             }
-        }
-        ).then(function(resp) {
-            console.log(resp);
-            
-            if (resp.status === 200){
+        }).then(resp => resp.json()).then(resp => {
+            if(resp != null) {                
                 console.log('Login successful');
-                // Show game/game list components here
-            } else if (resp.status === 204){
-                console.log('Username and password do not match');
-                // alert or show an error message on page?
+                console.log(resp);
+                
+                window.sessionStorage.setItem("user_id", resp.user_Id);
+                window.sessionStorage.setItem("is_admin", resp.is_Admin);
+                window.sessionStorage.setItem("token", resp.token);
+                console.log("loginform user_id: " + window.sessionStorage.getItem("user_id") );
+                that.updateLoggedIn();
             } else {
-                console.log("Username doesn't exist");
-                // alert or show error message on page?
+                console.log("Login faild");
+                
             }
+        // }).then(function(resp) {
+        //     console.log(resp);
+            
+        //     if (resp.status === 200){
+        //         console.log('Login successful');
+                
+        //         that.updateLoggedIn();
+        //         // Show game/game list components here
+        //     } else if (resp.status === 204){
+        //         console.log('Username and password do not match');
+        //         // alert or show an error message on page?
+        //     } else {
+        //         console.log("Username doesn't exist");
+        //         // alert or show error message on page?
+        //     }
         }).catch(function(e) {
             console.log(e);  
         });
@@ -63,20 +86,22 @@ export default class LoginForm extends React.Component{
     handleRegisterClick = event => {
         console.log('clicked register button');
         //Show Register Form here
-
     }
     
     render() {
+        if (this.state.loggedIn) {
+            return <Redirect push to="/" />;
+        }
         return (
             <div className={styles.LoginForm}>
                 <form>
                     <div className="Username">
                         <label>Username</label>
-                        <input autoFocus type="text" name="username" maxLength="20" value={this.state.username} onChange={(e) => this.updateInputValue("username", e)}/>
+                        <input autoFocus type="text" name="username" placeholder="Your username..." maxLength="20" value={this.state.username} onChange={(e) => this.updateInputValue("username", e)}/>
                     </div>
                     <div className="Password">
                         <label>Password</label>
-                        <input type="password" name="password" value={this.state.password} onChange={(e) => this.updateInputValue("password", e)}/>
+                        <input type="password" name="password" placeholder="Your password..." value={this.state.password} onChange={(e) => this.updateInputValue("password", e)}/>
                     </div>
                     <div className={styles.Btns}>
                         <button className={styles.BtnSignIn} onClick={this.handleSignInClick}>Sign in</button>
@@ -87,3 +112,5 @@ export default class LoginForm extends React.Component{
         )
     }
 }
+
+export default LoginForm;

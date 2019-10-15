@@ -1,0 +1,82 @@
+@media screen and (max-width: 600px) {
+
+    button {
+        border-radius: 50px;
+        border: none;
+        font-size: 18px;
+        text-transform: uppercase;
+        font-weight: bold;
+        box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+        height: 40px;
+        cursor: pointer;
+        background-color: #DBA53D;
+        color: #F5F5F5;
+        margin: 5px;
+    }
+
+    button:hover {
+        transition: ease-in 100ms;
+        background-color: #EDB955;
+    }
+
+    button:focus {
+        outline: none;
+    }
+
+    .Login_btn {
+        width: 100px;
+        height: 40px;
+        position: absolute;
+        top: 15px;
+        right: 0;
+        
+    }
+
+    .Logout_btn {
+        width: 100px;
+        height: 40px;
+        position: absolute;
+        top: 15px;
+        right: 0;
+    }
+
+    .Current_games {
+        display: inline;
+        font-size: 18px;
+        display: block;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 10px;
+        border-bottom: 2px solid #F5F5F5;
+    }
+
+    .NewGame_btn {
+        width: 60%;
+        position: relative;
+        right: 50%;
+        left: 50%;
+        transform: translate(-50%);
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .Login_btn {
+        display: inline;
+    }
+
+    .Logout_btn {
+        display: inline;
+        margin: 20px;
+    }
+
+    .NewGame_btn {
+        display: block;
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .Current_games {
+        display: inline;
+    }
+
+}
