@@ -1,3 +1,10 @@
+@media screen and (max-width: 600px) {
+    .RegistrationFragment {
+        width: 500px;
+    }
+}
+
+@media screen and (min-width: 600px) {
 .RegistrationFragment {
     height: 40px;
     width: 150px;
@@ -5,4 +12,5 @@
     background-color: #A7EAC6;
     border-radius: 5px;
     cursor: pointer;
+}
 }
