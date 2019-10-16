@@ -19,6 +19,9 @@ class GoogleMap extends React.Component {
         // console.log("SHOW A FANCY MAP")
 
         const map = new window.google.maps.Map(this.mapEl.current, 
+            {
+                streetViewControl: false
+            }
         //     {
         //     center: {
         //         lat: 59.931284, lng: 10.683881
