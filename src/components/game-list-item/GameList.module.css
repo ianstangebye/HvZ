@@ -24,19 +24,11 @@
     }
 
     .Login_btn {
-<<<<<<< Updated upstream
         width: 140px;
-=======
-        width: 100px;
->>>>>>> Stashed changes
         height: 40px;
         position: absolute;
         top: 15px;
         right: 0;
-<<<<<<< Updated upstream
-=======
-        
->>>>>>> Stashed changes
     }
 
     .Logout_btn {

@@ -27,7 +27,7 @@ class GameDetail extends React.Component {
         const { game_id } = this.props.match.params
         //const user_id = sessionStorage.getItem("user_id")
         const user_id = this.props.location.state.user_id;
-        // const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}player`
+        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}player`
 
         // Get and store this user's player object, if it exists, in session storage
         axios
