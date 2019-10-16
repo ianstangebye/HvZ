@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React from 'react'
 import styles from './GameDetail.module.css'
 import TitleFragment from '../title-fragment/TitleFragment'
@@ -8,6 +9,12 @@ import RegistrationFragment from '../registration-fragment/RegistrationFragment'
 import BiteCodeFragment from '../bite-code-fragment/BiteCodeFragment'
 import BiteCodeEntry from '../bite-code-entry/BiteCodeEntry'
 import GoogleMap from '../google-map/GoogleMap'
+=======
+import React from 'react';
+import styles from './GameDetail.module.css';
+import TitleFragment from '../title-fragment/TitleFragment';
+import SquadListFragment from '../squad-list-fragment/SquadListFragment';
+>>>>>>> Stashed changes
 
 class GameDetail extends React.Component {
 
@@ -17,13 +24,18 @@ class GameDetail extends React.Component {
         this.state = {
             game_id: 0,
             player_id: 0,
+<<<<<<< Updated upstream
             squad_id: 0,
             joined: false,
             player: {}
+=======
+            joined: false
+>>>>>>> Stashed changes
         }
     }
 
     componentDidMount() {
+<<<<<<< Updated upstream
         const { game_id } = this.props.match.params
         //const user_id = sessionStorage.getItem("user_id")
         const user_id = this.props.location.state.user_id;
@@ -36,36 +48,18 @@ class GameDetail extends React.Component {
         //     console.log("TESTING:")
         //     console.log(res)
 
-        //     if(res.status === 200) {
-        //         this.setState({
-        //             joined: true,
-        //             player: res.data
-        //         })
-        //     } else {
-        //         throw new Error(`STATUS CODE: ${res.status}`)
-        //     }
-        // })
-        // .catch(e => {
-            
-            // NB!! FOR TESTING ------------------------------
-            // let player = {
-            //     player_id: 8,
-            //     is_human: true,
-            //     is_patient_zero: true,
-            // //     bitKCe_code: "placeholderbitecode",
-            //     user_id: sessionStorage.getItem("user_id"),
-            //     game_id: game_id
-            // }
-
-            // this.setState({
-            //     joined: true,
-            //     player: player
-            // })
-            // -----------------------------------------------
-
- 
-        //     console.error(e)
-        // })
+            if(res.status === 200) {
+                this.setState({
+                    joined: true,
+                    player: res.data
+                })
+            } else {
+                throw new Error(`STATUS CODE: ${res.status}`)
+            }
+        })
+        .catch(e => {
+            console.error(e)
+        })
 
         this.setState({ game_id: game_id }, () => {
             // console.log("GAME ID: " + this.state.game_id);
@@ -128,6 +122,28 @@ class GameDetail extends React.Component {
         
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player`;
 
+=======
+        const { game_id } = this.props.match.params;
+        this.setState({ game_id: game_id }, () => {
+            console.log("detail game_id: " + this.state.game_id);
+
+        });
+    }
+
+    async joinGame() {
+        const newPlayer = {
+            "is_Human": true,
+            "is_Patient_Zero": false,
+            "bite_Code": "testbitecode",
+            "user_Id": window.sessionStorage.getItem("user_id") || 0,
+            "game_Id": this.state.game_id
+        }
+
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player`;
+
+        const that = this;
+
+>>>>>>> Stashed changes
         fetch(targetUrl, {
             method: 'POST',
             body: JSON.stringify(newPlayer),
@@ -141,11 +157,16 @@ class GameDetail extends React.Component {
                 console.log('Created new player');
                 console.log(resp);
                 
+<<<<<<< Updated upstream
                 //window.sessionStorage.setItem("player_id", resp);
                 this.setState({
                     player: newPlayer
                 })
                 this.updateJoined(resp);
+=======
+                window.sessionStorage.setItem("player_id", resp);
+                that.updateJoined(resp);
+>>>>>>> Stashed changes
             } else {
                 console.log("Creation faild");
             }
@@ -154,6 +175,7 @@ class GameDetail extends React.Component {
         });
     }
 
+<<<<<<< Updated upstream
     leaveGame = () => {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player/${this.state.player_id}`;
 
@@ -179,11 +201,14 @@ class GameDetail extends React.Component {
         });
     }
 
+=======
+>>>>>>> Stashed changes
     updateJoined(player_id) {
         this.setState({ 
             joined : true,
             player_id : player_id
         });
+<<<<<<< Updated upstream
     }
 
     updateLeaved() {
@@ -209,26 +234,44 @@ class GameDetail extends React.Component {
             registrationFragment = <button className={styles.leave_btn} onClick={this.leaveGame}>Leave Game</button>
         }
 
-        if (id === 0) {
+        if (id === 0) return (<h1>Loading Game Detail...</h1>)
+
+        return (
+            <React.Fragment>
+                {/* WE NEED SOME MORE LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
+
+                <BiteCodeFragment game_id={id} player={player} />
+                <BiteCodeEntry game_id={id} player={player} />
+                { registrationFragment }
+                <TitleFragment game_id={id} />
+                <SquadListFragment game_id={id} player_id={player.player_id} />
+                <ChatFragment game_id={id} player_id={player.player_id} />
+                <GoogleMap game_id={id} player={player} />
+
+            </React.Fragment>
+        )
+=======
+    }
+
+    render() {
+        if (!this.state.joined) {
             return (
-                <h1>Loading Game Detail...</h1>
+                <React.Fragment>
+                    <button className={styles.join_btn} onClick={this.joinGame.bind(this)}>Join Game</button>
+                    <TitleFragment game_id={this.state.game_id}></TitleFragment>
+                    <SquadListFragment game_id={this.state.game_id}></SquadListFragment>
+                </React.Fragment>
             )
         } else {
             return (
                 <React.Fragment>
-                    {/* WE NEED SOME MORE LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
-
-                    <BiteCodeFragment game_id={id} player={player} />
-                    <BiteCodeEntry game_id={id} player={player} />
-                    { registrationFragment   }
-                    <TitleFragment game_id={id} />
-                    <SquadListFragment game_id={id} player_id={player.player_id} />
-                    <ChatFragment game_id={id} player_id={player.player_id} />
-                    <GoogleMap game_id={id} player={player} />
-
+                    <h1>Player {this.state.player_id} joined this game! </h1>
+                    <TitleFragment game_id={this.state.game_id}></TitleFragment>
+                    <SquadListFragment game_id={this.state.game_id} player_id={this.state.player_id}></SquadListFragment>
                 </React.Fragment>
             )
         }
+>>>>>>> Stashed changes
     }
 }
 

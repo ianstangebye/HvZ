@@ -8,14 +8,19 @@ export default class TitleFragment extends React.Component {
 
         this.state = {
             game: {},
+<<<<<<< Updated upstream
             game_id: 0,
             isVisible: false
+=======
+            game_id: 0
+>>>>>>> Stashed changes
         }
     }
 
     componentDidMount() {
         const game_id  = this.props.game_id;
         this.setState({ game_id : game_id }, () => {
+<<<<<<< Updated upstream
             this.getGameTitle();
         });
     }
@@ -24,10 +29,25 @@ export default class TitleFragment extends React.Component {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}`
 
         await fetch(targetUrl).then(resp => resp.json()).then(resp => {
+=======
+            //console.log("title game_id: " + this.state.game_id);
+
+            this.getGameTitle();
+        });
+    }
+
+    getGameTitle = async () => { 
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}`
+        console.log("targetUrl : " + targetUrl);
+        
+        await fetch(targetUrl).then(resp => resp.json()).then(resp => {
+            console.log(resp);
+>>>>>>> Stashed changes
             this.setState({ game: resp });
         }).catch(error => {
             console.log('Something fucked up')
             console.log(error);
+<<<<<<< Updated upstream
         });        
 
         console.log("title game_id: " + this.state.game_id);
@@ -48,6 +68,14 @@ export default class TitleFragment extends React.Component {
 
     
     render() {
+=======
+
+        });
+    }
+    
+    render() {
+        console.log(this.state.game_id);
+>>>>>>> Stashed changes
         
         // if(this.state.game_id === 0) {
         //     return <h1>Loading...</h1>

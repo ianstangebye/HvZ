@@ -38,6 +38,10 @@
     .Btns {
         display: grid;
         grid-template-columns: 1fr 1fr;
+<<<<<<< Updated upstream
+=======
+        
+>>>>>>> Stashed changes
     }
 
     .BtnSignIn {
@@ -47,6 +51,7 @@
     .BtnRegister {
         grid-column: 2;
         background: transparent;
+<<<<<<< Updated upstream
         color: #DBA53D;
         box-shadow: none;
     }
@@ -54,6 +59,15 @@
     .BtnRegister:hover {
         border: 2px solid #DBA53D;
         background-color: transparent;
+=======
+        border: 2px solid #DBA53D;
+        color: #DBA53D;
+    }
+
+    .BtnRegister:hover {
+        background-color: #F5F5F5;
+        border: none;
+>>>>>>> Stashed changes
         color: #DBA53D;
     }
 }
