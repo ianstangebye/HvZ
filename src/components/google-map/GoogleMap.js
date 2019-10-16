@@ -104,7 +104,7 @@ class GoogleMap extends React.Component {
     }
 
     async componentDidMount() {
-        const id = this.props.match.params.id;
+        const id = this.props.game_id;
     
         const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}`;

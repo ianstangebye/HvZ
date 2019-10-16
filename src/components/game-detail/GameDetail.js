@@ -1,11 +1,13 @@
-import React from 'react';
-import styles from './GameDetail.module.css';
-import TitleFragment from '../title-fragment/TitleFragment';
-import SquadListFragment from '../squad-list-fragment/SquadListFragment';
-import ChatFragment from '../chat-fragment/ChatFragment';
-import axios from 'axios';
-import RegistrationFragment from '../registration-fragment/RegistrationFragment';
-import BiteCodeFragment from '../bite-code-fragment/BiteCodeFragment';
+import React from 'react'
+import styles from './GameDetail.module.css'
+import TitleFragment from '../title-fragment/TitleFragment'
+import SquadListFragment from '../squad-list-fragment/SquadListFragment'
+import ChatFragment from '../chat-fragment/ChatFragment'
+import axios from 'axios'
+import RegistrationFragment from '../registration-fragment/RegistrationFragment'
+import BiteCodeFragment from '../bite-code-fragment/BiteCodeFragment'
+import BiteCodeEntry from '../bite-code-entry/BiteCodeEntry'
+import GoogleMap from '../google-map/GoogleMap'
 
 class GameDetail extends React.Component {
 
@@ -24,7 +26,7 @@ class GameDetail extends React.Component {
     componentDidMount() {
         const { game_id } = this.props.match.params
         const user_id = sessionStorage.getItem("user_id")
-        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}`
+        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}/player`
 
         // Get and store this user's player object, if it exists, in session storage
         axios
@@ -36,7 +38,7 @@ class GameDetail extends React.Component {
             if(res.status === 200) {
                 this.setState({
                     joined: true,
-                    player: res
+                    player: res.data
                 })
             } else {
                 throw new Error(`STATUS CODE: ${res.status}`)
@@ -45,19 +47,19 @@ class GameDetail extends React.Component {
         .catch(e => {
             
             // NB!! FOR TESTING ------------------------------
-            let player = {
-                player_id: 8,
-                is_human: true,
-                is_patient_zero: true,
-                bite_code: "placeholderbitecode",
-                user_id: sessionStorage.getItem("user_id"),
-                game_id: game_id
-            }
+            // let player = {
+            //     player_id: 8,
+            //     is_human: true,
+            //     is_patient_zero: true,
+            //     bite_code: "placeholderbitecode",
+            //     user_id: sessionStorage.getItem("user_id"),
+            //     game_id: game_id
+            // }
 
-            this.setState({
-                joined: true,
-                player: player
-            })
+            // this.setState({
+            //     joined: true,
+            //     player: player
+            // })
             // -----------------------------------------------
 
  
@@ -65,39 +67,41 @@ class GameDetail extends React.Component {
         })
 
         this.setState({ game_id: game_id }, () => {
-            console.log("detail game_id: " + this.state.game_id);
-            this.checkAlreadyLoggedIn();
+            console.log("GAME ID: " + this.state.game_id);
+            console.log("USER ID: " + sessionStorage.getItem("user_id"))
+
+            // this.checkAlreadyLoggedIn();
         });
         
     }
 
-    checkAlreadyLoggedIn() {
-        const { game_id } = this.props.match.params;
-        const user_id = window.sessionStorage.getItem("user_id");        
+    // checkAlreadyLoggedIn() {
+    //     const { game_id } = this.props.match.params;
+    //     const user_id = window.sessionStorage.getItem("user_id");        
         
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}/player`;
+    //     const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}/player`;
 
-        const that = this;
+    //     const that = this;
 
-        fetch(targetUrl, {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-                //need token
-            }
-        }).then(resp => resp.json()).then(resp => {       
-            console.log(resp);
+    //     fetch(targetUrl, {
+    //         method: 'GET',
+    //         headers: {
+    //             Accept: 'application/json',
+    //             'Content-Type': 'application/json'
+    //             //need token
+    //         }
+    //     }).then(resp => resp.json()).then(resp => {       
+    //         console.log(resp);
             
-            that.setState({
-                player: resp,
-                player_id: resp.player_Id
-            });
-            that.updateJoined(resp.player_Id);       
-        }).catch(function (e) {
-            console.log("User is not joined a game yet");
-        });
-    };
+    //         that.setState({
+    //             player: resp,
+    //             player_id: resp.player_Id
+    //         });
+    //         that.updateJoined(resp.player_Id);       
+    //     }).catch(function (e) {
+    //         console.log("User is not joined a game yet");
+    //     });
+    // };
 
     joinGame = () => {
         const newPlayer = {
@@ -181,25 +185,33 @@ class GameDetail extends React.Component {
     }
 
     render() {
+        let id = this.state.game_id
         let player = this.state.player;
-        let joinButton = <RegistrationFragment player={player} className={styles.join_btn} onClick={this.joinGame} />
-        let leaveButton = <button className={styles.leave_btn} onClick={this.leaveGame}>Leave Game</button>
+        let registrationFragment;
 
-        if (this.state.game_id === 0) {
+        if(this.state.joined) {
+            registrationFragment = <RegistrationFragment game_id={id} player={player} className={styles.join_btn} />
+        } else {
+            registrationFragment = <button className={styles.leave_btn} onClick={this.leaveGame}>Leave Game</button>
+        }
+
+        if (id === 0) {
             return (
                 <h1>Loading Game Detail...</h1>
             )
         } else {
             return (
                 <React.Fragment>
-                    <BiteCodeFragment game_id={this.state.game_id} player={this.state.player}/>
-                    {this.state.joined ? leaveButton : joinButton}
+                    {/* WE NEED SOME MORE LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
 
-                    {/* WE NEED SOME LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
+                    <BiteCodeFragment game_id={id} player={player} />
+                    <BiteCodeEntry game_id={id} player={player} />
+                    { registrationFragment   }
+                    <TitleFragment game_id={id} />
+                    <SquadListFragment game_id={id} player_id={player.player_id} />
+                    <ChatFragment game_id={id} player_id={player.player_id} />
+                    <GoogleMap game_id={id} player={player} />
 
-                    <TitleFragment game_id={this.state.game_id} />
-                    <SquadListFragment game_id={this.state.game_id} player_id={this.state.player_id} />
-                    <ChatFragment game_id={this.state.game_id} player_id={this.state.player_id} />
                 </React.Fragment>
             )
         }
