@@ -98,7 +98,6 @@ class GameDetail extends React.Component {
         });
     };
 
-    async joinGame() {
     joinGame = () => {
         const newPlayer = {
             is_Human: true,
@@ -138,7 +137,7 @@ class GameDetail extends React.Component {
         });
     }
 
-    async leaveGame() {
+    leaveGame = () => {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player/${this.state.player_id}`;
 
         const that = this;
@@ -185,35 +184,27 @@ class GameDetail extends React.Component {
     }
 
     render() {
+        let player = this.state.player;
+        let joinButton = <RegistrationFragment player={player} className={styles.join_btn} onClick={this.joinGame} />
+        let leaveButton = <button className={styles.leave_btn} onClick={this.leaveGame}>Leave Game</button>
+
         if (this.state.game_id === 0) {
             return (
                 <h1>Loading Game Detail...</h1>
             )
-                <React.Fragment>
-                    <button className={styles.join_btn} onClick={this.joinGame.bind(this)}>Join Game</button>
-            )
         } else {
-                    <button className={styles.leave_btn} onClick={this.leaveGame.bind(this)}>Leave Game</button>
-                    <h1>Player {this.state.player_id} joined this game! </h1>
-                    <TitleFragment game_id={this.state.game_id}></TitleFragment>
+            return (
+                <React.Fragment>
+                    {this.state.joined ? leaveButton : joinButton}
+
+                    {/* WE NEED SOME LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
+
+                    <TitleFragment game_id={this.state.game_id} />
+                    <SquadListFragment game_id={this.state.game_id} player_id={this.state.player_id} />
                     <ChatFragment game_id={this.state.game_id} player_id={this.state.player_id}></ChatFragment>
-                    <SquadListFragment game_id={this.state.game_id} player_id={this.state.player_id} onJoinSquad={this.handleJoinSquad.bind(this)}></SquadListFragment>
+                </React.Fragment>
             )
         }
-                </React.Fragment>
-        let player = this.state.player;
-        let joinButton = <RegistrationFragment player={player} className={styles.join_btn} onClick={this.joinGame} />
-
-        return (
-            <React.Fragment>
-                { this.state.joined ? null : joinButton }
-
-                {/* WE NEED SOME LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
-
-                <TitleFragment game_id={this.state.game_id} />
-                <SquadListFragment game_id={this.state.game_id} player_id={this.state.player_id} />
-            </React.Fragment>
-        )
     }
 }
 
