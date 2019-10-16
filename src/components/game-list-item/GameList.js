@@ -14,7 +14,7 @@ class GameList extends React.Component {
             user_id: 0,
             is_admin: false,
             token: "",
-            joinedGameId: 0 
+            joinedGameId: 0
         };
     }
 
@@ -25,17 +25,24 @@ class GameList extends React.Component {
     // }
 
     async componentDidMount() {
-        const user_id = window.sessionStorage.getItem("user_id") || 0;
-        const is_admin = window.sessionStorage.getItem("is_admin") === "true" ? true : false;
-        const token = window.sessionStorage.getItem("token") || "";
-
-        this.setState((prevState, props) => {
-            return {
-                user_id: user_id,
-                is_admin: is_admin,
-                token: token
-            };
-        });
+        //const user_id = window.sessionStorage.getItem("user_id") || 0;
+        //const is_admin = window.sessionStorage.getItem("is_admin") === "true" ? true : false;
+        //const token = window.sessionStorage.getItem("token") || "";
+        if(this.props.location.state) {
+            const user_id = this.props.location.state.user_id || 0;
+            const is_admin = this.props.location.state.is_admin === "true" ? true : false;
+            const token = this.props.location.state.token || ""; 
+            
+            this.setState((prevState, props) => {
+                return {
+                    user_id: user_id,
+                    is_admin: is_admin,
+                    token: token
+                };
+            });
+        }
+        
+        
         // console.log(window.sessionStorage.getItem("user_id"));
 
         // console.log("list user_id: " + this.state.user_id);
@@ -58,12 +65,12 @@ class GameList extends React.Component {
 
             });
 
-        window.addEventListener('onbeforeunload', this.clearLocalStorage);
+        window.addEventListener('onbeforeunload', this.clearStates);
     }
 
-    clearLocalStorage = () => {
+    clearStates = () => {
         //localStorage.clear();
-        window.sessionStorage.clear();
+        //window.sessionStorage.clear();
 
         this.setState((prevState, props) => {
             return {
@@ -72,11 +79,27 @@ class GameList extends React.Component {
                 token: ""
             };
         }, () => {
-            this.forceUpdate();
+            //this.forceUpdate();
+            this.props.history.replace({'pathname': '/', 
+                state: {
+                    user_id: 0,
+                    is_admin: false,
+                    token: ''
+                }})
         });
         //console.log("after clear: " + this.state.user_id);
 
         //this.forceUpdate();
+    }
+
+    updateLoggedIn = (user_id, is_admin, token) => {
+        this.setState((prevState, props) => {
+            return {
+                user_id: user_id,
+                is_admin: is_admin,
+                token: token
+            };
+        });
     }
 
     render() {
@@ -93,15 +116,24 @@ class GameList extends React.Component {
 
         return (
             <React.Fragment>
-                <Link to={'/login'}
+                <Link to={{
+                    pathname: '/login',
+                    // onLoggedIn: this.updateLoggedIn
+                    }}
                     style={{ display: this.state.user_id === 0 ? 'inline' : 'none' }}>
                     <button className={styles.Login_btn}>
                         Sign in
                     </button>
                 </Link>
+                {/* <Link to={'/login'}
+                    style={{ display: this.state.user_id === 0 ? 'inline' : 'none' }}>
+                    <button className={styles.Login_btn}>
+                        Sign in
+                    </button>
+                </Link> */}
                 <button className={styles.Logout_btn}
                     style={{ display: this.state.user_id !== 0 ? 'inline' : 'none' }}
-                    onClick={this.clearLocalStorage}>
+                    onClick={this.clearStates}>
                         Sign out
                 </button>
                 <h1 className={styles.Current_games}>Games</h1>

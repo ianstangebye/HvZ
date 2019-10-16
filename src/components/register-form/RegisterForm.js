@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './RegisterForm.module.css';
+import { Redirect } from 'react-router';
 
 export default class RegisterForm extends React.Component {
 
@@ -10,7 +11,9 @@ export default class RegisterForm extends React.Component {
             firstName: '',
             lastName: '',
             username: '',
-            password: ''
+            password: '',
+            go_signIn: false,
+            user_id: 0
         }
 
         
@@ -18,14 +21,21 @@ export default class RegisterForm extends React.Component {
 
     handleSignInClick = event => {
         //Show to login-form
+        this.setState({
+            go_signIn: true
+        })
     }
 
     updateInputValue = (name, e) => {
         this.setState({ [name]: e.target.value});
-        
     }
 
     handleRegisterClick = event => {
+        if(this.state.firstName === '' || this.state.lastName === '' || 
+            this.state.username === '' || this.state.password === '') {
+            alert("Please fill all input fields!");
+        }
+
         const newUser={
             "first_name": this.state.firstName,
             "last_name": this.state.lastName,
@@ -33,10 +43,11 @@ export default class RegisterForm extends React.Component {
             "password": this.state.password,
             "is_admin": false
         }
-        
-        
+
         const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth'
         
+        const that = this;
+
         fetch(targetUrl, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
@@ -45,12 +56,29 @@ export default class RegisterForm extends React.Component {
             return resp.json();
         }).then(function(data) {
             console.log('Created Account:', data);
+            if(data === -1) {
+                console.log("There is already same username");
+            } else {
+                that.setState({
+                    user_id: data
+                }, () => {
+                    alert("Registration Successful");
+                })
+            }
         }).catch(error => {
             console.log(error);
         })
     }
 
     render() {
+        if(this.state.go_signIn) {
+            return <Redirect push to="/login" />;
+        } 
+
+        if(this.state.user_id !== 0) {
+            return <Redirect push to="/login" />;
+        }
+
         return (
             <div className={styles.RegisterForm}>
                 <form>
@@ -73,7 +101,7 @@ export default class RegisterForm extends React.Component {
                     
                 </form>
                 <div className={styles.Btns}>
-                <button className={styles.BtnRegister} onClick={this.handleRegisterClick}>Register</button>
+                    <button className={styles.BtnRegister} onClick={this.handleRegisterClick}>Register</button>
                     <button className={styles.BtnSignIn} onClick={this.handleSignInClick}>Sign in</button>
                 </div>
             </div>

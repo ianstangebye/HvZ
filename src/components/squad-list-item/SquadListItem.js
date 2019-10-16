@@ -38,7 +38,7 @@ export default class SquadListItem extends React.Component {
                 <h4>{this.props.squad.name}</h4>
                 <p className={styles.Total}>Members: {this.state.squadMembers.length} </p>
                 <p className={styles.Deceased}>Deceased members: {this.state.deceasedMembers}</p>
-                <button onClick={this.props.joinSquad.bind(this.props.squad.name)}>Join</button>
+                <button onClick={this.joinSquad.bind(this)}>Join</button>
             </div>
         )
     }

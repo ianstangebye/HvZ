@@ -21,31 +21,33 @@ class GameDetail extends React.Component {
 
     componentDidMount() {
         const { game_id } = this.props.match.params
-        const user_id = sessionStorage.getItem("user_id")
-        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}`
+        //const user_id = sessionStorage.getItem("user_id")
+        const user_id = this.props.location.state.user_id;
+        // const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}`
 
-        axios
-        .get(url)
-        .then(res => {
-            console.log(res)
-        })
-        .catch(e => {
-            console.error(e)
-        })
+        // axios
+        // .get(url)
+        // .then(res => {
+        //     console.log(res)
+        // })
+        // .catch(e => {
+        //     console.error(e)
+        // })
 
         this.setState({ game_id: game_id }, () => {
             console.log("detail game_id: " + this.state.game_id);
-            this.checkAlreadyLoggedIn();
+            this.checkAlreadyLoggedIn(game_id, user_id);
         });
         
     }
 
-    async checkAlreadyLoggedIn() {
-        const { game_id } = this.props.match.params;
-        const user_id = window.sessionStorage.getItem("user_id");        
+    async checkAlreadyLoggedIn(game_id, user_id) {
+        //const { game_id } = this.props.match.params;
+        //const user_id = window.sessionStorage.getItem("user_id");
         
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}/player`;
-
+        console.log("gamedetail url: " + targetUrl);
+        
         const that = this;
 
         fetch(targetUrl, {
@@ -55,16 +57,22 @@ class GameDetail extends React.Component {
                 'Content-Type': 'application/json'
                 //need token
             }
-        }).then(resp => resp.json()).then(resp => {       
+        }).then(resp => {
             console.log(resp);
-            
+            if(resp.status == 200) {
+                return resp;
+            }
+        }).then(resp => resp.json()).then(resp => {  
+            console.log("Gamedetail check: ");
+                 
+            console.log(resp);
             that.setState({
                 player: resp,
                 player_id: resp.player_Id
             });
-            that.updateJoined(resp.player_Id);       
+            that.updateJoined(resp.player_Id);  
         }).catch(function (e) {
-            console.log("User is not joined a game yet");
+            console.log("User is not joined a game yet " + e);
         });
     };
 
@@ -73,10 +81,14 @@ class GameDetail extends React.Component {
             is_Human: true,
             is_Patient_Zero: false,
             bite_Code: "testbitecode",
-            user_Id: window.sessionStorage.getItem("user_id") || 0,
+            //user_Id: window.sessionStorage.getItem("user_id") || 0,
+            user_Id: this.props.location.state.user_id,
             game_Id: this.state.game_id
         }
 
+        console.log("Join new player: ");
+        console.log(newPlayer);
+        
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player`;
 
         const that = this;
@@ -94,7 +106,7 @@ class GameDetail extends React.Component {
                 console.log('Created new player');
                 console.log(resp);
                 
-                window.sessionStorage.setItem("player_id", resp);
+                //window.sessionStorage.setItem("player_id", resp);
                 that.setState({
                     player: newPlayer
                 })
@@ -124,7 +136,7 @@ class GameDetail extends React.Component {
                 console.log(`Deleted player ${this.state.player_id}`);
                 console.log(resp);
                 
-                window.sessionStorage.setItem("player_id", 0);
+                //window.sessionStorage.setItem("player_id", 0);
                 that.updateLeaved();
             } else {
                 console.log("Deleted faild");
