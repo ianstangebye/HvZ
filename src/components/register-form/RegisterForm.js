@@ -78,7 +78,7 @@ export default class RegisterForm extends React.Component {
                     </div>
                 </form>
                 <div className={styles.Btns}>
-                <button className={styles.BtnRegister} onClick={this.handleRegisterClick}>Register</button>
+                    <button className={styles.BtnRegister} onClick={this.handleRegisterClick}>Register</button>
                     <button className={styles.BtnSignIn} onClick={this.handleSignInClick}>Sign in</button>
                 </div>
             </div>

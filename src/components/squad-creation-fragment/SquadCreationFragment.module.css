@@ -1,3 +1,67 @@
+@media screen and (max-width: 600px) {
+    .SquadCreationFragment {
+        margin: 10px;
+    }
+
+    .Title {
+        position: relative;
+        margin: 25px 0;
+    }
+
+    .Title h2 {
+        border-bottom: 2px solid #F5F5F5;
+        font-size: 18px;
+    }
+
+    .Title button {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #F5F5F5;
+        background-color: #2C6974;
+        position: absolute;
+        right: -5px;
+        top:0;
+        font-size: 1.5em;
+    }
+
+    .Title button:hover {
+        background-color: #DBA53D;
+    }
+
+    .SquadCreationFragment label {
+        display: block;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .SquadCreationFragment input {
+        font-family: inherit;
+        width: 100%;
+        background: none;
+        border: none;
+        border-bottom: 1px solid #F5F5F5;
+        color: #F5F5F5;
+        padding: 10px;
+    }
+
+    .SquadCreationFragment input::placeholder {
+        color: rgba(245, 245, 245, 0.438);
+    }
+
+    .SquadCreationFragment input:focus {
+        outline: none;
+    }
+
+    .CreateBtn {
+        margin: 0;
+        width: 100%;
+    }
+}
+
+
+@media screen and (min-width: 600px) {
 .SquadCreationFragment {
     margin: 100px;
     padding: 20px;
@@ -26,4 +90,5 @@
     background-color: #A7EAC6;
     border-radius: 5px;
     cursor: pointer;
+}
 }

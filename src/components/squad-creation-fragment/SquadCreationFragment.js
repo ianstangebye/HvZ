@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './SquadCreationFragment.module.css';
+import arrowUpIcon from '../../assets/arrow-up-icon.svg';
+import arrowDownIcon from '../../assets/arrow-down-icon.svg';
 
 export default class SquadCreationFragment extends React.Component {
 
@@ -11,7 +13,8 @@ export default class SquadCreationFragment extends React.Component {
             is_Human: '', // true or false
             game_Id: '',
             squad_Id: '',
-            player_Id: ''
+            player_Id: '',
+            isVisible: false
         }
     }
 
@@ -78,21 +81,41 @@ export default class SquadCreationFragment extends React.Component {
         }
     }
 
+    handleCollapseClick = () => {
+        this.setState({
+            isVisible: !this.state.isVisible
+        });
+
+        //Replace text with icons
+        if (this.state.isVisible === false) {
+            document.getElementById("CollapseBtn").innerHTML = `<img src=${arrowUpIcon} />`;
+        } else {
+            document.getElementById("CollapseBtn").innerHTML = `<img src=${arrowDownIcon} />`;
+        }
+    }
+
     render(){
         return(
             <React.Fragment>
                 <div className={styles.SquadCreationFragment}>
-                    <h2>Create a new squad</h2>
-                    <form>
-                        <label>Name: </label>
-                        <input autoFocus type="text" placeholder="Squad name here..." value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} required></input>
-                        
-                    </form>
-                    <p className={styles.WarningMessage}>{this.state.message}</p>
-                    <button onClick={() => {
-                        this.onClickCreate();
-                        this.onClickJoin();
-                    }}>Create & Join</button>
+                    <div className={styles.Title}>
+                        <h2>Create a new squad</h2>
+                        <button id="CollapseBtn" type="button" onClick={this.handleCollapseClick}><img src={arrowUpIcon}/></button>
+                    </div>
+                    
+                    <div style={{display: this.state.isVisible ? 'block' : 'none'}}>
+                        <form>
+                            <label>Name: </label>
+                            <input autoFocus type="text" placeholder="Squad name here..." value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} required></input>
+                            
+                        </form>
+                        <p className={styles.WarningMessage}>{this.state.message}</p>
+                        <button className={styles.CreateBtn} onClick={() => {
+                            this.onClickCreate();
+                            this.onClickJoin();
+                        }}>Create & Join</button>
+                    </div>
+                    
                 </div>
             </React.Fragment>
         )
