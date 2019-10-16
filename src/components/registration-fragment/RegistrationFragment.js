@@ -2,20 +2,20 @@ import React from 'react';
 import styles from './RegistrationFragment.module.css';
 
 export default class RegistrationFragment extends React.Component {
+    constructor(props) {
+        super(props)
 
-    /*==============
-    Get user_id and game_id
-    ============== */
-    state = {
-        user_Id: '',
-        game_Id: '',
-        biteCode: ''
+        this.state = {
+            user_id: '',
+            game_id: '',
+            biteCode: ''
+        }
     }
-    
+
     componentDidMount() {
         const crypto = require("crypto");
         const result = crypto.randomBytes(10).toString('hex');
-        this.state.biteCode = result;
+        this.setState({biteCode: result})
     }
 
     handleOnClick = event => {
@@ -25,13 +25,18 @@ export default class RegistrationFragment extends React.Component {
             "is_Human": true,
             "is_Patient_Zero": false,
             "bite_Code": this.state.biteCode,
-            "user_Id": 7,
-            "game_Id": 1
+            "user_Id": this.props.user_id,
+            "game_Id": this.props.game_id
         }
+
+        console.log("PLAYER OBJECT:")
+        console.log(newPlayer)
         
         
         const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/1/player'
         
+        const that = this;
+
         fetch(targetUrl, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
@@ -40,9 +45,11 @@ export default class RegistrationFragment extends React.Component {
             return resp.json();
         }).then(function(data) {
             console.log('Joined game:', data);
+            that.props.handleRegister(data)
         }).catch(error => {
             console.log(error);
         })
+
     }
 
     render() {

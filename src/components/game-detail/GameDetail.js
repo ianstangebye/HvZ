@@ -19,48 +19,46 @@ class GameDetail extends React.Component {
             player_id: 0,
             squad_id: 0,
             joined: false,
-            player: {}
+            player: {},
+            user_id: 0
         }
     }
 
     componentDidMount() {
         const { game_id } = this.props.match.params
-        //const user_id = sessionStorage.getItem("user_id")
-        const user_id = this.props.location.state.user_id;
-        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}player`
+        const user_id = this.props.location.state.user_id
+        this.setState({ user_id: user_id })
+        
+        // const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}player`
 
-        // Get and store this user's player object, if it exists, in session storage
-        axios
-        .get(url)
-        .then(res => {
-            console.log("TESTING:")
-            console.log(res)
+        // Get this user's player object, if it exists
+        // axios
+        // .get(url)
+        // .then(res => {
+        //     console.log("TESTING:")
+        //     console.log(res)
 
-            if(res.status === 200) {
-                this.setState({
-                    joined: true,
-                    player: res.data
-                })
-            } else {
-                throw new Error(`STATUS CODE: ${res.status}`)
-            }
-        })
-        .catch(e => {
-            console.error(e)
-        })
+        //     if(res.status === 200) {
+        //         this.setState({
+        //             joined: true,
+        //             player: res.data
+        //         })
+        //     } else {
+        //         throw new Error(`STATUS CODE: ${res.status}`)
+        //     }
+        // })
+        // .catch(e => {
+        //     console.error(e)
+        // })
 
         this.setState({ game_id: game_id }, () => {
-            // console.log("GAME ID: " + this.state.game_id);
-            // console.log("USER ID: " + sessionStorage.getItem("user_id"))
-
-            // this.checkAlreadyLoggedIn();
-            console.log("detail game_id: " + this.state.game_id);
-            this.checkAlreadyJoined(game_id, user_id);
+            console.log("GAME ID: " + this.state.game_id);
+            console.log("USER ID: " + sessionStorage.getItem("user_id"))
+            this.checkAlreadyJoined(game_id, user_id)
         });
-        
     }
 
-    async checkAlreadyJoined(game_id, user_id) {
+    checkAlreadyJoined(game_id, user_id) {
         //const { game_id } = this.props.match.params;
         //const user_id = window.sessionStorage.getItem("user_id");
         
@@ -91,7 +89,7 @@ class GameDetail extends React.Component {
             });
             that.updateJoined(resp.player_Id);  
         }).catch(function (e) {
-            console.log("User is not joined a game yet " + e);
+            console.log("User has not joined a game yet " + e);
         });
     };
 
@@ -100,7 +98,6 @@ class GameDetail extends React.Component {
             is_Human: true,
             is_Patient_Zero: false,
             bite_Code: "testbitecode",
-            //user_Id: window.sessionStorage.getItem("user_id") || 0,
             user_Id: this.props.location.state.user_id,
             game_Id: this.state.game_id
         }
@@ -161,14 +158,14 @@ class GameDetail extends React.Component {
         });
     }
 
-    updateJoined(player_id) {
+    updateJoined = (player_id) => {
         this.setState({ 
             joined : true,
             player_id : player_id
         });
     }
 
-    updateLeaved() {
+    updateLeaved = () => {
         this.setState({ 
             joined : false,
             player_id : 0
@@ -186,9 +183,9 @@ class GameDetail extends React.Component {
         let registrationFragment;
 
         if(this.state.joined) {
-            registrationFragment = <RegistrationFragment game_id={id} player={player} className={styles.join_btn} />
-        } else {
             registrationFragment = <button className={styles.leave_btn} onClick={this.leaveGame}>Leave Game</button>
+        } else {
+            registrationFragment = <RegistrationFragment handleRegister={this.updateJoined} game_id={id} player={player} user_id={this.state.user_id} className={styles.join_btn} />
         }
 
         if (id === 0) return (<h1>Loading Game Detail...</h1>)
