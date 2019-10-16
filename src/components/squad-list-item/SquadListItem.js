@@ -36,15 +36,9 @@ export default class SquadListItem extends React.Component {
         return(
             <div className={styles.SquadListItem}>
                 <h4>{this.props.squad.name}</h4>
-<<<<<<< Updated upstream
                 <p className={styles.Total}>Members: {this.state.squadMembers.length} </p>
                 <p className={styles.Deceased}>Deceased members: {this.state.deceasedMembers}</p>
                 <button onClick={this.joinSquad.bind(this)}>Join</button>
-=======
-                <p className={styles.Total}>Total # of players: {this.state.squadMembers.length} </p>
-                <p className={styles.Deceased}>Deceased players: {this.state.deceasedMembers}</p>
-                <button onClick={this.props.joinSquad.bind(this.props.squad.name)}>Join {this.props.squad.name}</button>
->>>>>>> Stashed changes
             </div>
         )
     }

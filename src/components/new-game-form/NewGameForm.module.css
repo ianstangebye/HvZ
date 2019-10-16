@@ -47,20 +47,12 @@
         background-color: #77A4AC;
         color: #F5F5F5;
         border: none;
-<<<<<<< Updated upstream
         border-radius: 15px;
-=======
-        border-radius: 5px;
->>>>>>> Stashed changes
         resize: none;
     }
 
     .RegisterForm textarea::placeholder {
-<<<<<<< Updated upstream
         color: rgba(248, 248, 248, 0.747);
-=======
-        color: rgba(245, 245, 245, 0.438);
->>>>>>> Stashed changes
     }
 
     .Btns {
@@ -75,24 +67,14 @@
     .BtnGetLocation {
         grid-column: 2;
         background-color: transparent;
-<<<<<<< Updated upstream
         border: 2px solid #DBA53D;
         color: #DBA53D;
-=======
-        border: 2px solid #F5DA81;
-        color: #F5DA81;
->>>>>>> Stashed changes
     }
 
     .BtnGetLocation:hover {
         border: none;
-<<<<<<< Updated upstream
         background-color: #F5F5F5;
         color: #DBA53D;
-=======
-        background-color: #F5DA81;
-        color: #F5F5F5;
->>>>>>> Stashed changes
     }
 
 
