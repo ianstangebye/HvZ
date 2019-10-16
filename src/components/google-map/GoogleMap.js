@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from './GoogleMap.module.css';
+import { array } from 'prop-types';
 
 
 class GoogleMap extends React.Component {
 
     constructor(props) {
         super(props);
+        this.renderMap = this.renderMap.bind(this);
         this.mapEl = React.createRef();
         this.state = {
             game: {}
@@ -13,7 +15,7 @@ class GoogleMap extends React.Component {
     }
 
 
-    renderMap() {
+    async renderMap() {
         // console.log("SHOW A FANCY MAP")
 
         const map = new window.google.maps.Map(this.mapEl.current, 
@@ -41,7 +43,7 @@ class GoogleMap extends React.Component {
         });
 
         const image = {
-            url: 'https://icon-library.net/images/gravestone-icon/gravestone-icon-4.jpg',
+            url: 'https://image.flaticon.com/icons/png/512/1233/1233009.png',
             // This marker is 20 pixels wide by 32 pixels high.
             scaledSize: new window.google.maps.Size(35, 35), // scaled size
             origin: new window.google.maps.Point(0,0), // origin
@@ -50,8 +52,31 @@ class GoogleMap extends React.Component {
 
 
         var beaches = [
-            ['Bondi Beach', this.state.game.nw_Lat, this.state.game.nw_Lng, 4],
+            ['Player 1 had their limbs torn off', this.state.game.nw_Lat, this.state.game.nw_Lng, 4],
         ];  
+
+        const id = this.props.match.params.id;
+        
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}/kill`;
+        
+
+        await fetch(targetUrl).then(resp=> resp.json())
+        .then(resp=>{
+            console.log(resp);
+            for(i=0;i<resp.length; i++){
+                beaches[i+1] = new Array('Player ' + resp[i].victim_Id + ' ' +resp[i].story, resp[i].lat, resp[i].lng)
+            }
+        });
+        // .then((data)=>{
+        //     console.log(data.results);
+            
+        //     // for(var i=1; i<data.length;i++){
+        //     //     // beaches[i] = new Array()
+        //     //     console.log(data.results[i]);
+                
+        //     // }
+
+        // })
 
         var shape = {
             coords: [1, 1, 1, 20, 18, 20, 18, 1],
@@ -74,6 +99,8 @@ class GoogleMap extends React.Component {
         const ne = new window.google.maps.LatLng(this.state.game.nw_Lat, this.state.game.se_Lng);
         let bounds = new window.google.maps.LatLngBounds(sw, ne);
         map.fitBounds(bounds);
+
+
     }
 
     async componentDidMount() {
@@ -101,7 +128,7 @@ class GoogleMap extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
+            <React.Fragment /*loadMap={this.renderMap}*/>
                 <div id="map" ref={this.mapEl} className={styles.Map}>
                 </div>
             </React.Fragment>
