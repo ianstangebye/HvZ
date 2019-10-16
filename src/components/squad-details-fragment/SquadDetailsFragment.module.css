@@ -1,18 +1,106 @@
-.SquadDetailsFragment {
-    background-color: rgb(231, 231, 231);
-    max-width: 500px;
-    width: 100%;
-    height: 400px;
-    overflow: scroll;
-    margin: 10px;
+@media screen and (max-width: 600px) {
+    .SquadDetailsFragment {
+        margin: 10px;
+    }
+
+    .Title {
+        position: relative;
+        width: 100%;
+    }
+
+    .Title h1 {
+        border-bottom: 2px solid #F5F5F5;
+        width: 98%;
+        font-size: 18px;
+    }
+
+    .CollapseBtn {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #F5F5F5;
+        background-color: #2C6974;
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 1.5em;
+        margin: 0;
+    }
+    
+    .CheckInBtn {
+        margin: 30px 0 0 0;
+        width: 100%;
+    }
+
+    .SquadMembers {
+        background-color: #F5F5F5;
+        color: #303030;
+        margin: 15px 0;
+        padding: 10px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .SquadMembers h2 {
+        margin-top: 5px;
+        color: #2C6974;
+        text-align: center;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+
+    .SquadMemberTitle {
+        display: grid;
+        grid-template-columns: 60% 1fr 30%;
+        font-size: 12px;
+        border-bottom: 1px solid #2C6974;
+    }
+
+    .SquadMemberTitle p {
+        text-transform: uppercase;
+        color: #2C6974;
+        padding-left: 5px;
+    }
+
+    .LeaveBtn {
+        background-color: transparent;
+        font-size: 12px;
+        color: #ED553B;
+        box-shadow: none;
+        text-shadow: 0 0 3 rgba(0, 0, 0, 0.3);
+        width: 100%;
+        margin: 10px 0 0 0;
+
+
+    }
+
+    .LeaveBtn:hover {
+        background-color: transparent;
+        border: 1px solid #ED553B;
+    }
+
+    
+
 }
 
-.SquadDetailsFragment button {
-    background-color: #A7EAC6;
-    border: none;
-    border-radius: 5px;
-    height: 40px;
-    width: 30%;
-    cursor: pointer;
-    margin: 10px;
+
+@media screen and (min-width: 600px) {
+    .SquadDetailsFragment {
+        background-color: rgb(231, 231, 231);
+        max-width: 500px;
+        width: 100%;
+        height: 400px;
+        overflow: scroll;
+        margin: 10px;
+    }
+
+    .SquadDetailsFragment button {
+        background-color: #A7EAC6;
+        border: none;
+        border-radius: 5px;
+        height: 40px;
+        width: 30%;
+        cursor: pointer;
+        margin: 10px;
+    }
 }

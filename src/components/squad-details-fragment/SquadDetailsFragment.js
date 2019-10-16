@@ -1,6 +1,8 @@
 import React from 'react';
 import SquadDetailsItem from '../squad-details-item/SquadDetailsItem';
 import styles from './SquadDetailsFragment.module.css';
+import arrowUpIcon from '../../assets/arrow-up-icon.svg';
+import arrowDownIcon from '../../assets/arrow-down-icon.svg';
 
 
 export default class SquadDetailsFragment extends React.Component {
@@ -11,7 +13,8 @@ export default class SquadDetailsFragment extends React.Component {
             squadMembers: [],
             squad: {},
             corLat: null,
-            corLng: null
+            corLng: null,
+            isVisible: false
         }
     }
 
@@ -102,6 +105,18 @@ export default class SquadDetailsFragment extends React.Component {
         })
     }
 
+    handleCollapseClick = () => {
+        this.setState({
+            isVisible: !this.state.isVisible
+        });
+
+        if (this.state.isVisible === false) {
+            document.getElementById("SquadMembersCollapseBtn").innerHTML = `<img src=${arrowDownIcon} alt="Down" />`;
+        } else {
+            document.getElementById("SquadMembersCollapseBtn").innerHTML = `<img src=${arrowUpIcon} alt="Up"/>`;
+        }
+    }
+
 
     render() {
         let squadMemberComponents = null;
@@ -120,12 +135,23 @@ export default class SquadDetailsFragment extends React.Component {
         return(
             <React.Fragment>
                 <div className={styles.SquadDetailsFragment}>
-                    <h1>{this.state.squad.name}</h1>
-                    <button onClick={this.handleCheckIn}>Check-in marker</button>
-                    <div>
-                        {squadMemberComponents}
+                    <div className={styles.Title}>
+                        <h1>{this.state.squad.name}</h1>
+                        <button className={styles.CollapseBtn} id="SquadMembersCollapseBtn" type="button" onClick={this.handleCollapseClick}><img src={arrowUpIcon} alt="up"/></button>
                     </div>
-                    <button onClick={this.handleLeaveSquad}>Leave Squad</button>
+                    <button className={styles.CheckInBtn} onClick={this.handleCheckIn} style={{display: this.state.isVisible ? 'none' : 'block'}}>Check-in</button>
+                    
+                    <div className={styles.SquadMembers} style={{display: this.state.isVisible ? 'none' : 'block'}}>
+                        <h2>Squad Members</h2>
+                        {/* <div className={styles.SquadMemberTitle}>
+                            <p>Name</p>
+                            <p>Rank</p>
+                            <p>Status</p>
+                        </div> */}
+                        {squadMemberComponents}
+                        <button className={styles.LeaveBtn} onClick={this.handleLeaveSquad}>Leave Squad</button>
+                    </div>
+                    
                 </div>
                 
             </React.Fragment>

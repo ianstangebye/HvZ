@@ -7,8 +7,8 @@ export default class BiteCodeFragment extends React.Component {
         super(props);
 
         this.state = {
-            player: [],
-            showResults: false,
+            isVisible: false,
+            copyMessage: false,
             copied: ''
         }
 
@@ -16,7 +16,7 @@ export default class BiteCodeFragment extends React.Component {
     }
     
     handleClick() {
-        this.setState({showResults: true});
+        this.setState({isVisible: !this.state.isVisible});
     }
 
     // Copy bitecode from input field
@@ -25,32 +25,32 @@ export default class BiteCodeFragment extends React.Component {
         this.inputField.setSelectionRange(0, 100); //for mobile
         document.execCommand('copy');
         e.target.focus();
-        this.setState({copied: 'Copied!'});
+        this.setState({copied: 'Copied!', copyMessage: true});
     }
 
-    // Get bitecode from player
-    // Missing: Get game_id and player_id
-    componentDidMount() {
-        
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/player/3`
-
-        fetch(targetUrl).then(resp => resp.json()).then(data => {
-            this.setState({
-                player: {...data}
-            });
-        }).catch(e => {
-            console.log(e);
-        })
+    handleCloseClick = () => {
+        this.setState({
+            isVisible: !this.state.isVisible,
+            copyMessage: false
+        });
+        document.getElementById("getCodeBtn").style.display = 'block';
     }
 
     render() {
         return (
             <React.Fragment>
                 <div className={styles.BiteCodeFragment}>
-                    <button className={styles.BtnGetCode} onClick={this.handleClick} style={{display: !this.state.showResults ? 'block' : 'none'}}>Get bite code</button>
-                    <input readOnly ref={(input) => this.inputField = input} value={this.state.showResults ? this.state.player.bite_Code : ' '}/>
-                    <button className={styles.BtnCopyCode} style={{display: this.state.showResults ? 'block' : 'none'}} onClick={this.handleCopyClick}>Copy</button>
-                    {/* {this.state.copied} */}
+                    <button id="getCodeBtn" className={styles.BtnGetCode} onClick={this.handleClick} style={{display: !this.state.isVisible ? 'block' : 'none'}}>Get bite code</button>
+                    <div className={styles.CopyCodeForm} style={{display: this.state.isVisible ? 'block' : 'none'}}>
+                        <div className={styles.CopyCode}>
+                            <h2>Get bite code</h2>
+                            <input readOnly ref={(input) => this.inputField = input} value={this.props.player.bite_Code}/>
+                            <button className={styles.BtnCopyCode}  onClick={this.handleCopyClick}>Copy</button>
+                            <p style={{display: this.state.copyMessage ? 'block' : 'none'}}>{this.state.copied}</p>
+                        </div>
+                        <button onClick={this.handleCloseClick} className={styles.CloseBtn}>Close</button>
+                        {/* {this.state.copied} */}
+                    </div>
                 </div>
             </React.Fragment>
         )
