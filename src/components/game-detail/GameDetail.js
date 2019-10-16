@@ -30,11 +30,11 @@ class GameDetail extends React.Component {
         // const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}player`
 
         // Get and store this user's player object, if it exists, in session storage
-        // axios
-        // .get(url)
-        // .then(res => {
-        //     console.log("TESTING:")
-        //     console.log(res)
+        axios
+        .get(url)
+        .then(res => {
+            console.log("TESTING:")
+            console.log(res)
 
             if(res.status === 200) {
                 this.setState({
