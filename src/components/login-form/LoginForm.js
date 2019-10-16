@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './LoginForm.module.css';
 import { Redirect } from 'react-router';
 import jwt_decode from 'jwt-decode';
+import { Link } from 'react-router-dom';
 
 class LoginForm extends React.Component{
 
@@ -12,7 +13,10 @@ class LoginForm extends React.Component{
             username: '',
             password: '',
             loggedIn: false,
-            register: false
+            register: false,
+            user_id: 0,
+            is_admin: false,
+            token: ''
         }
     }
 
@@ -26,8 +30,13 @@ class LoginForm extends React.Component{
         this.setState({ [name]: e.target.value});
     }
 
-    updateLoggedIn() {
-        this.setState({loggedIn: true});
+    updateLoggedIn = (user_id, is_admin, token) => {
+        this.setState({
+            user_id: user_id,
+            is_admin: is_admin,
+            token: token,
+            loggedIn: true
+        });
     }
 
     handleSignInClick = event => {
@@ -67,9 +76,8 @@ class LoginForm extends React.Component{
                 let decoded = jwt_decode(resp)
                 sessionStorage.setItem("user_id", decoded.nameid)
                 sessionStorage.setItem("role", decoded.role)
-                console.log("USER ID:")
-                console.log(sessionStorage.getItem("user_id"))
-                this.updateLoggedIn()
+                console.log("USER ID: " + sessionStorage.getItem("user_id"))
+                this.updateLoggedIn(decoded.nameid, decoded.role, resp)
             } else {
                 console.log("Login failed")
             }
@@ -82,6 +90,7 @@ class LoginForm extends React.Component{
 
     handleRegisterClick = event => {
         console.log('clicked register button');
+
         //Show Register Form here
         this.setState({register: true});
         console.log(this.state.register);
@@ -95,7 +104,15 @@ class LoginForm extends React.Component{
         }
         
         if (this.state.loggedIn) {
-            return <Redirect push to="/" />;
+            return <Redirect to={{
+                pathname: '/',
+                state: { 
+                    user_id: this.state.user_id,
+                    is_admin: this.state.is_admin,
+                    token: this.state.token
+                }
+            }}
+    />
         }
         return (
             <div className={styles.LoginForm}>

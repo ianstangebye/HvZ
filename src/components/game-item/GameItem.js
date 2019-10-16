@@ -12,7 +12,7 @@ function GameItem(props) {
     // };
 
     const { game } = props;
-    const { user_id } = props || 0;
+    const user_id = props.user_id;
     const [players, setPlayers] = useState([]);
 
     //const user_id = sessionStorage.getItem('user_id') || 0;
@@ -51,7 +51,13 @@ function GameItem(props) {
         return (
             <React.Fragment>
                 <div>
-                    <Link to={'/game-detail/' + game.game_Id} style={{textDecoration: 'none'}}>
+                    <Link to={{
+                                pathname: '/game-detail/' + game.game_Id,
+                                state: {
+                                    user_id: user_id
+                                } 
+                            }}
+                            style={{textDecoration: 'none'}}>                   
                         {/* style={{ display: user_id !== 0? 'block': 'none', textDecoration: 'none'}}> */}
                         <div className={styles.GameItem}>
                             <h4>{game.name}</h4>
