@@ -3,6 +3,7 @@ import styles from './GameDetail.module.css';
 import TitleFragment from '../title-fragment/TitleFragment';
 import SquadListFragment from '../squad-list-fragment/SquadListFragment';
 import axios from 'axios';
+import RegistrationFragment from '../registration-fragment/RegistrationFragment';
 
 class GameDetail extends React.Component {
 
@@ -12,7 +13,8 @@ class GameDetail extends React.Component {
         this.state = {
             game_id: 0,
             player_id: 0,
-            joined: false
+            joined: false,
+            player: {}
         }
     }
 
@@ -21,12 +23,41 @@ class GameDetail extends React.Component {
         const user_id = sessionStorage.getItem("user_id")
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}`
 
+        // Get and store this user's player object, if it exists, in session storage
         axios
         .get(url)
         .then(res => {
+            console.log("TESTING:")
             console.log(res)
+
+            if(res.status === 200) {
+                this.setState({
+                    joined: true,
+                    player: res
+                })
+            } else {
+                throw new Error(`STATUS CODE: ${res.status}`)
+            }
         })
         .catch(e => {
+            
+            // NB!! FOR TESTING ------------------------------
+            let player = {
+                player_id: 8,
+                is_human: true,
+                is_patient_zero: true,
+                bite_code: "placeholderbitecode",
+                user_id: sessionStorage.getItem("user_id"),
+                game_id: game_id
+            }
+
+            this.setState({
+                joined: true,
+                player: player
+            })
+            // -----------------------------------------------
+
+ 
             console.error(e)
         })
 
@@ -37,12 +68,12 @@ class GameDetail extends React.Component {
         
     }
 
-    async joinGame() {
+    joinGame = () => {
         const newPlayer = {
             is_Human: true,
             is_Patient_Zero: false,
             bite_Code: "testbitecode",
-            user_Id: window.sessionStorage.getItem("user_id") || 0,
+            user_Id: sessionStorage.getItem("user_id") || 0,
             game_Id: this.state.game_id
         }
 
@@ -63,7 +94,6 @@ class GameDetail extends React.Component {
                 console.log('Created new player');
                 console.log(resp);
                 
-                window.sessionStorage.setItem("player_id", resp);
                 that.updateJoined(resp);
             } else {
                 console.log("Creation faild");
@@ -81,23 +111,19 @@ class GameDetail extends React.Component {
     }
 
     render() {
-        if (!this.state.joined) {
-            return (
-                <React.Fragment>
-                    <button className={styles.join_btn} onClick={this.joinGame.bind(this)}>Join Game</button>
-                    <TitleFragment game_id={this.state.game_id}></TitleFragment>
-                    <SquadListFragment game_id={this.state.game_id}></SquadListFragment>
-                </React.Fragment>
-            )
-        } else {
-            return (
-                <React.Fragment>
-                    <h1>Player {this.state.player_id} joined this game! </h1>
-                    <TitleFragment game_id={this.state.game_id}></TitleFragment>
-                    <SquadListFragment game_id={this.state.game_id} player_id={this.state.player_id}></SquadListFragment>
-                </React.Fragment>
-            )
-        }
+        let player = this.state.player;
+        let joinButton = <RegistrationFragment player={player} className={styles.join_btn} onClick={this.joinGame} />
+
+        return (
+            <React.Fragment>
+                { this.state.joined ? null : joinButton }
+
+                {/* WE NEED SOME LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
+
+                <TitleFragment game_id={this.state.game_id} />
+                <SquadListFragment game_id={this.state.game_id} player_id={this.state.player_id} />
+            </React.Fragment>
+        )
     }
 }
 
