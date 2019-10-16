@@ -5,6 +5,7 @@ import SquadListFragment from '../squad-list-fragment/SquadListFragment';
 import ChatFragment from '../chat-fragment/ChatFragment';
 import axios from 'axios';
 import RegistrationFragment from '../registration-fragment/RegistrationFragment';
+import BiteCodeFragment from '../bite-code-fragment/BiteCodeFragment';
 
 class GameDetail extends React.Component {
 
@@ -70,7 +71,7 @@ class GameDetail extends React.Component {
         
     }
 
-    async checkAlreadyLoggedIn() {
+    checkAlreadyLoggedIn() {
         const { game_id } = this.props.match.params;
         const user_id = window.sessionStorage.getItem("user_id");        
         
@@ -109,8 +110,6 @@ class GameDetail extends React.Component {
 
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player`;
 
-        const that = this;
-
         fetch(targetUrl, {
             method: 'POST',
             body: JSON.stringify(newPlayer),
@@ -125,10 +124,10 @@ class GameDetail extends React.Component {
                 console.log(resp);
                 
                 window.sessionStorage.setItem("player_id", resp);
-                that.setState({
+                this.setState({
                     player: newPlayer
                 })
-                that.updateJoined(resp);
+                this.updateJoined(resp);
             } else {
                 console.log("Creation faild");
             }
@@ -139,8 +138,6 @@ class GameDetail extends React.Component {
 
     leaveGame = () => {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player/${this.state.player_id}`;
-
-        const that = this;
 
         fetch(targetUrl, {
             method: 'DELETE',
@@ -155,7 +152,7 @@ class GameDetail extends React.Component {
                 console.log(resp);
                 
                 window.sessionStorage.setItem("player_id", 0);
-                that.updateLeaved();
+                this.updateLeaved();
             } else {
                 console.log("Deleted faild");
             }
@@ -195,13 +192,14 @@ class GameDetail extends React.Component {
         } else {
             return (
                 <React.Fragment>
+                    <BiteCodeFragment game_id={this.state.game_id} player={this.state.player}/>
                     {this.state.joined ? leaveButton : joinButton}
 
                     {/* WE NEED SOME LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
 
                     <TitleFragment game_id={this.state.game_id} />
                     <SquadListFragment game_id={this.state.game_id} player_id={this.state.player_id} />
-                    <ChatFragment game_id={this.state.game_id} player_id={this.state.player_id}></ChatFragment>
+                    <ChatFragment game_id={this.state.game_id} player_id={this.state.player_id} />
                 </React.Fragment>
             )
         }
