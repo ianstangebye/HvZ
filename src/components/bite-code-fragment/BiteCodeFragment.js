@@ -7,7 +7,7 @@ export default class BiteCodeFragment extends React.Component {
         super(props);
 
         this.state = {
-            isVisible: true,
+            isVisible: false,
             copyMessage: false,
             copied: ''
         }
@@ -44,7 +44,7 @@ export default class BiteCodeFragment extends React.Component {
                     <div className={styles.CopyCodeForm} style={{display: this.state.isVisible ? 'block' : 'none'}}>
                         <div className={styles.CopyCode}>
                             <h2>Get bite code</h2>
-                            <input readOnly ref={(input) => this.inputField = input} value={this.props.player.bite_code}/>
+                            <input readOnly ref={(input) => this.inputField = input} value={this.props.player.bite_Code}/>
                             <button className={styles.BtnCopyCode}  onClick={this.handleCopyClick}>Copy</button>
                             <p style={{display: this.state.copyMessage ? 'block' : 'none'}}>{this.state.copied}</p>
                         </div>
