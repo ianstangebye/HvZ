@@ -1,3 +1,88 @@
+@media screen and (max-width: 600px) {
+    .BiteCodeFragment {
+        margin: 10px;
+    }
+
+    .BtnGetCode {
+        margin: 0;
+        width: 100%;
+    }
+
+    .CopyCodeForm {
+
+    }
+
+    .CopyCode {
+        background-color: #F5F5F5;
+        padding: 10px;
+        border-radius: 15px;
+        color: #303030;
+        display: grid;
+        grid-template-columns: 80% 20%;
+        grid-template-rows: 30px 40px;
+    }
+
+    .CopyCode h2 {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+        color: #2C6974;
+        font-size: 18px;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 0;
+    }
+
+    .CopyCode input {
+        background-color: #E5E5E5;
+        border: none;
+        height: 100%;
+        border-radius: 5px;
+        padding: 5px;
+        font-family: inherit;
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .CopyCode input:focus {
+        outline: none;
+    }
+
+    .CopyCode button {
+        grid-column: 2;
+        grid-row: 2;
+        justify-self: end;
+        margin: 0 0 0 10px;
+        width: 90%;
+        height: 100%;
+        border-radius: 3px;
+    }
+
+    .CopyCode p {
+        grid-column: 1 / span 2;
+        width: 100%;
+        margin: 10px 0 0 0;
+        color: #2C6974;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .CloseBtn {
+        display: block;
+        margin: 10px 10px;
+        width: 96%;
+        background-color: transparent;
+        box-shadow: none;
+        color: #DBA53D;
+    }
+
+    .CloseBtn:hover {
+        transition: 200ms;
+        background-color: transparent;
+        border: 2px solid #DBA53D;
+    }
+}
+
+@media screen and (min-width: 600px) {
 .BiteCodeFragment {
     max-width: 250px;
     width: 100%;
@@ -40,4 +125,5 @@
 
 .BiteCodeFragment input:focus {
     outline: none;
+}
 }
