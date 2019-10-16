@@ -111,9 +111,9 @@ export default class SquadDetailsFragment extends React.Component {
         });
 
         if (this.state.isVisible === false) {
-            document.getElementById("SquadMembersCollapseBtn").innerHTML = `<img src=${arrowUpIcon} alt="Up"/>`;
-        } else {
             document.getElementById("SquadMembersCollapseBtn").innerHTML = `<img src=${arrowDownIcon} alt="Down" />`;
+        } else {
+            document.getElementById("SquadMembersCollapseBtn").innerHTML = `<img src=${arrowUpIcon} alt="Up"/>`;
         }
     }
 

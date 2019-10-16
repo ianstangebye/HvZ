@@ -1,26 +1,33 @@
 import React from 'react';
 import styles from './SquadDetailsItem.module.css';
 
-function SquadDetailsItem(props) {
+export default class SquadDetailsItem extends React.Component {
 
-    const {squadMember} = props;
+    constructor(props) {
+        super(props);
 
-    let squadMemberState;
-
-    if (squadMember.is_Human === true) {
-        squadMemberState = 'Alive'
-    } else {
-        squadMemberState = 'Deceased'
+        this.state = {
+            isAlive: null,
+            memberStateColor: ''
+        }
     }
 
-    return(
-        <div className={styles.SquadDetailsItem}>
-            <p>{squadMember.username}</p>
-            <p>{squadMember.rank}</p>
-            <p>{squadMemberState}</p>
-        </div>
-    )
+    componentDidMount() {
+        if (this.props.squadMember.is_Human === true) {
+            this.setState({isAlive: 'Alive', memberStateColor: '#A7C57C'})
+        } else {
+            this.setState({isAlive: 'Deceased', memberStateColor: '#ED553B'})
+        }
+    }
+
+    render() {
+        return(
+            <div className={styles.SquadDetailsItem}>
+                <p>{this.props.squadMember.username}</p>
+                <p>{this.props.squadMember.rank}</p>
+                <p style={{color: this.state.memberStateColor}}>{this.state.isAlive}</p>
+            </div>
+        )
+    }
 
 }
-
-export default SquadDetailsItem;
