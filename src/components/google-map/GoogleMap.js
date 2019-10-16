@@ -19,6 +19,9 @@ class GoogleMap extends React.Component {
         // console.log("SHOW A FANCY MAP")
 
         const map = new window.google.maps.Map(this.mapEl.current, 
+            {
+                streetViewControl: false
+            }
         //     {
         //     center: {
         //         lat: 59.931284, lng: 10.683881
@@ -55,7 +58,7 @@ class GoogleMap extends React.Component {
             ['Player 1 had their limbs torn off', this.state.game.nw_Lat, this.state.game.nw_Lng, 4],
         ];  
 
-        const id = this.props.match.params.id;
+        const id = this.props.game_id;
         
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}/kill`;
         
