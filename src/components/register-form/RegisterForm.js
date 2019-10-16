@@ -12,7 +12,7 @@ export default class RegisterForm extends React.Component {
             lastName: '',
             username: '',
             password: '',
-            go_signIn: false,
+            signin: false,
             user_id: 0
         }
 
@@ -21,9 +21,7 @@ export default class RegisterForm extends React.Component {
 
     handleSignInClick = event => {
         //Show to login-form
-        this.setState({
-            go_signIn: true
-        })
+        this.setState({signin: true})
     }
 
     updateInputValue = (name, e) => {
@@ -71,7 +69,7 @@ export default class RegisterForm extends React.Component {
     }
 
     render() {
-        if(this.state.go_signIn) {
+        if(this.state.signin) {
             return <Redirect push to="/login" />;
         } 
 

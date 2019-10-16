@@ -27,32 +27,32 @@ class GameDetail extends React.Component {
         const { game_id } = this.props.match.params
         //const user_id = sessionStorage.getItem("user_id")
         const user_id = this.props.location.state.user_id;
-        // const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}`
+        // const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/user/${user_id}player`
 
         // Get and store this user's player object, if it exists, in session storage
-        axios
-        .get(url)
-        .then(res => {
-            console.log("TESTING:")
-            console.log(res)
+        // axios
+        // .get(url)
+        // .then(res => {
+        //     console.log("TESTING:")
+        //     console.log(res)
 
-            if(res.status === 200) {
-                this.setState({
-                    joined: true,
-                    player: res.data
-                })
-            } else {
-                throw new Error(`STATUS CODE: ${res.status}`)
-            }
-        })
-        .catch(e => {
+        //     if(res.status === 200) {
+        //         this.setState({
+        //             joined: true,
+        //             player: res.data
+        //         })
+        //     } else {
+        //         throw new Error(`STATUS CODE: ${res.status}`)
+        //     }
+        // })
+        // .catch(e => {
             
             // NB!! FOR TESTING ------------------------------
             // let player = {
             //     player_id: 8,
             //     is_human: true,
             //     is_patient_zero: true,
-            //     bite_code: "placeholderbitecode",
+            // //     bitKCe_code: "placeholderbitecode",
             //     user_id: sessionStorage.getItem("user_id"),
             //     game_id: game_id
             // }
@@ -64,21 +64,21 @@ class GameDetail extends React.Component {
             // -----------------------------------------------
 
  
-            console.error(e)
-        })
+        //     console.error(e)
+        // })
 
         this.setState({ game_id: game_id }, () => {
-            console.log("GAME ID: " + this.state.game_id);
-            console.log("USER ID: " + sessionStorage.getItem("user_id"))
+            // console.log("GAME ID: " + this.state.game_id);
+            // console.log("USER ID: " + sessionStorage.getItem("user_id"))
 
             // this.checkAlreadyLoggedIn();
             console.log("detail game_id: " + this.state.game_id);
-            this.checkAlreadyLoggedIn(game_id, user_id);
+            this.checkAlreadyJoined(game_id, user_id);
         });
         
     }
 
-    async checkAlreadyLoggedIn(game_id, user_id) {
+    async checkAlreadyJoined(game_id, user_id) {
         //const { game_id } = this.props.match.params;
         //const user_id = window.sessionStorage.getItem("user_id");
         
@@ -142,7 +142,7 @@ class GameDetail extends React.Component {
                 console.log(resp);
                 
                 //window.sessionStorage.setItem("player_id", resp);
-                that.setState({
+                this.setState({
                     player: newPlayer
                 })
                 this.updateJoined(resp);
@@ -170,7 +170,7 @@ class GameDetail extends React.Component {
                 console.log(resp);
                 
                 //window.sessionStorage.setItem("player_id", 0);
-                that.updateLeaved();
+                this.updateLeaved();
             } else {
                 console.log("Deleted faild");
             }
