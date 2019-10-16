@@ -25,7 +25,7 @@ function App() {
       <Route path='/googlemap/:id' component={GoogleMap} />
 
       <Route path='/login/' component={LoginForm} />
-      <Route path='/register/' component={RegisterForm} />
+      <Route path='/register' component={RegisterForm} />
       <Route path='/game-detail/:game_id' component={GameDetail} />
       <Route path='/new-game-form/' component={NewGameForm} />
       <Route path='/chat-test/' component={ChatFragment} />

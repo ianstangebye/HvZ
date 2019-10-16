@@ -11,7 +11,8 @@ class LoginForm extends React.Component{
         this.state = {
             username: '',
             password: '',
-            loggedIn: false
+            loggedIn: false,
+            register: false
         }
     }
 
@@ -82,9 +83,17 @@ class LoginForm extends React.Component{
     handleRegisterClick = event => {
         console.log('clicked register button');
         //Show Register Form here
+        this.setState({register: true});
+        console.log(this.state.register);
+        
     }
     
     render() {
+
+        if (this.state.register) {
+            return <Redirect push to="/register" />;
+        }
+        
         if (this.state.loggedIn) {
             return <Redirect push to="/" />;
         }
@@ -93,11 +102,11 @@ class LoginForm extends React.Component{
                 <form>
                     <div className="Username">
                         <label>Username</label>
-                        <input autoFocus type="text" name="username" placeholder="Your username..." maxLength="20" value={this.state.username} onChange={(e) => this.updateInputValue("username", e)}/>
+                        <input autoFocus required type="text" name="username" placeholder="Your username..." maxLength="20" value={this.state.username} onChange={(e) => this.updateInputValue("username", e)}/>
                     </div>
                     <div className="Password">
                         <label>Password</label>
-                        <input type="password" name="password" placeholder="Your password..." value={this.state.password} onChange={(e) => this.updateInputValue("password", e)}/>
+                        <input required type="password" name="password" placeholder="Your password..." value={this.state.password} onChange={(e) => this.updateInputValue("password", e)}/>
                     </div>
                     <div className={styles.Btns}>
                         <button className={styles.BtnSignIn} onClick={this.handleSignInClick}>Sign in</button>

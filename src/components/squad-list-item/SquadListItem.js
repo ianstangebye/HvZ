@@ -2,18 +2,20 @@ import React from 'react';
 import styles from './SquadListItem.module.css';
 
 export default class SquadListItem extends React.Component {
-
-    state = {
-        squadMembers: [],
-        deceasedMembers: 0
+    constructor(props) {
+        super(props);
+        this.state = {
+            squadMembers: [],
+            deceasedMembers: 0
+        }
     }
 
     // Need game_Id??
-    componentDidMount() {
+    async componentDidMount() {
         
         const targetUrl =  `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/${this.props.squad.squad_Id}/member`
 
-        fetch(targetUrl).then(resp => resp.json()).then(resp => {
+        await fetch(targetUrl).then(resp => resp.json()).then(resp => {
             this.setState({squadMembers: [...resp]})
             for (let i = 0; i < this.state.squadMembers.length; i++) {
                 if (this.state.squadMembers[i].is_Human === false) {
@@ -23,6 +25,11 @@ export default class SquadListItem extends React.Component {
         }).catch(e => {
             console.log(e); 
         })                    
+    }
+
+    joinSquad() {
+        const squadId = this.props.squad.squad_Id;
+        this.props.onJoinSquad(squadId);
     }
 
     render() {

@@ -24,20 +24,27 @@
     }
 
     .Login_btn {
-        width: 100px;
+        width: 140px;
         height: 40px;
         position: absolute;
         top: 15px;
         right: 0;
-        
     }
 
     .Logout_btn {
-        width: 100px;
+        width: 140px;
         height: 40px;
         position: absolute;
         top: 15px;
         right: 0;
+        background-color: transparent;
+        color: #DBA53D;
+        box-shadow: none;
+    }
+
+    .Logout_btn:hover {
+        border: 2px solid #DBA53D;
+        background-color: transparent;
     }
 
     .Current_games {

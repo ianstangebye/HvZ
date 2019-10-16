@@ -8,6 +8,9 @@ class ChatFragment extends React.Component {
         super(props);
 
         this.state = {
+            game_id: 0,
+            player_id: 0,
+
             player: {
                 player_id: 1,
                 is_human: true,
@@ -36,6 +39,10 @@ class ChatFragment extends React.Component {
     }
 
     componentDidMount() {
+        this.setState({
+            game_id: this.props.game_id,
+            player_id: this.props.player_id
+        })
         this.startAutoUpdate();
     }
     

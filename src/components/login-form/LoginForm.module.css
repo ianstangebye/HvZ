@@ -48,13 +48,13 @@
     .BtnRegister {
         grid-column: 2;
         background: transparent;
-        border: 2px solid #DBA53D;
         color: #DBA53D;
+        box-shadow: none;
     }
 
     .BtnRegister:hover {
-        background-color: #F5F5F5;
-        border: none;
+        border: 2px solid #DBA53D;
+        background-color: transparent;
         color: #DBA53D;
     }
 }
