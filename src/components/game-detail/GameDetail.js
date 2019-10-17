@@ -8,6 +8,7 @@ import RegistrationFragment from '../registration-fragment/RegistrationFragment'
 import BiteCodeFragment from '../bite-code-fragment/BiteCodeFragment'
 import BiteCodeEntry from '../bite-code-entry/BiteCodeEntry'
 import GoogleMap from '../google-map/GoogleMap'
+import MissionList from '../mission-list/MissionList'
 
 class GameDetail extends React.Component {
 
@@ -77,8 +78,14 @@ class GameDetail extends React.Component {
         const player = this.state.player
         const player_id = player.player_Id
         const game_id = this.state.game_id
+        // const hasJoined = user_id === 0
 
-        if (game_id === 0) return (<h1>Loading Game Detail...</h1>)
+        if (game_id === 0) {
+            return (<h1>Loading Game Detail...</h1>)
+        }
+        // else if(isLoggedIn) {
+
+        // }
 
         return (
             <React.Fragment>
@@ -91,6 +98,7 @@ class GameDetail extends React.Component {
                 <SquadListFragment game_id={game_id} player_id={player_id} />
                 <ChatFragment game_id={game_id} player_id={player_id} />
                 <GoogleMap game_id={game_id} player={player} />
+                <MissionList game_id={game_id} />
 
             </React.Fragment>
         )

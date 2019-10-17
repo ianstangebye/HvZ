@@ -80,7 +80,7 @@ class ChatFragment extends React.Component {
         axios.get(url)
         .then(resp => {
             this.setState({
-                messages: [...resp.data]
+                messages: resp.data
             })
         })
         .catch(err => {
