@@ -1,8 +1,9 @@
-@media screen and (max-width: 599px) {
+@media screen and (min-width: 100px) {
     .LoginForm {
         display: block;
-        width: 100%;
-        padding: 50px;
+        max-width: 400px;
+        width: 70%;
+        margin: 0 auto;
     }
 
     .LoginForm form div {
@@ -35,17 +36,16 @@
         outline: none;
     }
 
-    .Btns {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
     .BtnSignIn {
-        grid-column: 1;
+        display: block;
+        width: 100%;
+        margin: 0;
     }
 
     .BtnRegister {
-        grid-column: 2;
+        display: block;
+        margin: 20px 0;
+        width: 100%;
         background: transparent;
         color: #DBA53D;
         box-shadow: none;
@@ -58,54 +58,8 @@
     }
 }
 
-@media screen and (min-width: 600px) {
-.LoginForm {
-    display: block;
-    max-width: 400px;
-    width: 100%;
-    padding: 30px;
-
-}
-
-.LoginForm form div {
-    margin: 20px 0;
-}
-
-.LoginForm label {
-    display: block;
-    width: 100%;
-    text-align: left;
-    margin: 5px 0;
-}
-
-.LoginForm input {
-    width: 100%;
-    padding: 10px 0px;
-    font-size: 1.2em;
-    border-radius: 5px;
-    border: none;
-    background-color: rgb(231, 231, 231);
-}
-
-.Btns {
-    display: flex;
-    justify-content: space-between;
-}
-
-.Btns button {
-    height: 40px;
-    width: 48%;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.BtnSignIn {
-    background-color: #A7EAC6;
-    border: none;
-}
-
-.BtnRegister {
-    background-color: transparent;
-    border: 2px solid #A7EAC6;
-}
+@media screen and (min-width: 801px) {
+    .LoginForm {
+        width: 400px;
+    }
 }

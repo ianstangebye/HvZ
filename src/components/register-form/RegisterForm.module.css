@@ -1,8 +1,9 @@
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 100px) {
     .RegisterForm {
         display: block;
-        width: 100%;
-        padding: 50px;
+        max-width: 400px;
+        width: 70%;
+        margin: 0 auto;
     }
 
     .RegisterForm form div {
@@ -35,17 +36,15 @@
         outline: none;
     }
 
-    .Btns {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
     .BtnRegister {
-        grid-column: 1;
+        display: block;
+        width: 100%;
     }
 
     .BtnSignIn {
-        grid-column: 2;
+        display: block;
+        width: 100%;
+        margin: 20px 0;
         background-color: transparent;
         color: #DBA53D;
         box-shadow: none;
@@ -60,54 +59,8 @@
 }
 
 
-@media screen and (min-width: 600px) {
-.RegisterForm {
-    display: block;
-    max-width: 400px;
-    width: 100%;
-    padding: 30px;
-
-}
-
-.RegisterForm form div {
-    margin: 20px 0;
-}
-
-.RegisterForm label {
-    display: block;
-    width: 100%;
-    text-align: left;
-    margin: 5px 0;
-}
-
-.RegisterForm input {
-    width: 100%;
-    padding: 10px 0px;
-    font-size: 1.2em;
-    border-radius: 5px;
-    border: none;
-    background-color: rgb(231, 231, 231);
-}
-
-.Btns {
-    display: flex;
-    justify-content: space-between;
-}
-
-.Btns button {
-    height: 40px;
-    width: 48%;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.BtnSignIn {
-    background-color: transparent;
-    border: 2px solid #A7EAC6;
-}
-
-.BtnRegister {
-    background-color: #A7EAC6;
-    border: none;
-}
+@media screen and (min-width: 801px) {
+    .RegisterForm {
+        width: 400px;
+    }
 }
