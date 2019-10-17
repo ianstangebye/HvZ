@@ -1,4 +1,4 @@
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 100px) {
 
     button {
         border-radius: 50px;
@@ -21,6 +21,19 @@
 
     button:focus {
         outline: none;
+    }
+
+    .GameComponents {
+        background-color: #77A4AC;
+        padding: 0 10px;
+        height: 70vh;
+        overflow-y: scroll;
+        margin: 20px 10px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        /* scrollbar-color: #DBA53D;
+        scrollbar-face-color: #DBA53D;
+        scrollbar-width: 40px; */
     }
 
     .Login_btn {
@@ -67,24 +80,37 @@
     }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 801px) {
     .Login_btn {
-        display: inline;
+        position: absolute;
+        top: 15px;
+        right: 15px;
     }
 
     .Logout_btn {
-        display: inline;
-        margin: 20px;
-    }
-
-    .NewGame_btn {
-        display: block;
-        margin: 20px auto;
-        padding: 10px;
+        position: absolute;
+        top: 15px;
+        right: 15px;
     }
 
     .Current_games {
-        display: inline;
+        font-size: 24px;
+        margin: 10px 10%;
     }
 
+    .GameComponents {
+        margin: 20px 10%;
+    }
+
+}
+
+@media screen and (min-width: 1281px) {
+
+    .Current_games {
+        margin: 10px 20%;
+    }
+    
+    .GameComponents {
+        margin: 20px 20%;
+    }
 }

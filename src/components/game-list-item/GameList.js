@@ -137,7 +137,7 @@ class GameList extends React.Component {
                         Sign out
                 </button>
                 <h1 className={styles.Current_games}>Games</h1>
-                <div>
+                <div className={styles.GameComponents}>
                     {gameComponents}
                 </div>
                 <Link to={'/new-game-form'}
