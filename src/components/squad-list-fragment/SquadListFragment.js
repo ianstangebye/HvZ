@@ -14,7 +14,7 @@ export default class SquadListFragment extends React.Component {
             squads: [],
             game_id: props.game_id,
             player_id: props.player_id,
-            joinedSquadId: 0
+            joinedSquadId: props.squad_id || 0
         }
     }
 
