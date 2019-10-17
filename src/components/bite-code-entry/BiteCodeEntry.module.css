@@ -1,13 +1,21 @@
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 100px) {
+
+    .BiteCodeEntryDiv {
+        padding: 0 10px;
+        margin: 10px auto;
+    }
 
     .ShowFormBtn {
         display: block;
-        margin: 0 10px;
-        width: 96%;
+        margin: 0 auto;
+        max-width: 400px;
+        width: 100%;
     }
 
     .BiteCodeEntry {
-        margin: 0 10px 0 10px;
+        max-width: 400px;
+        width: 100%;
+        margin: 10px auto;
         border-radius: 15px;
         background-color: #f5f5f5;
         padding: 15px;
@@ -24,7 +32,7 @@
 
     .BiteCodeEntry label {
         display: block;
-        color: #303030;
+        color: #2C6974;
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
@@ -82,8 +90,9 @@
 
     .CloseBtn {
         display: block;
-        margin: 10px 10px;
-        width: 96%;
+        margin: 10px auto;
+        max-width: 400px;
+        width: 100%;
         background-color: transparent;
         box-shadow: none;
         color: #DBA53D;

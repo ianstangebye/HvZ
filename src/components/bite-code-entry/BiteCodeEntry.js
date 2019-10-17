@@ -164,6 +164,7 @@ class BiteCodeEntry extends React.Component{
         return(
 
             <React.Fragment>
+                <div className={styles.BiteCodeEntryDiv}>
                 <button id="showFormBtn" className={styles.ShowFormBtn} onClick={this.handleBtnClick}>Register Bite</button>
 
                 <form onSubmit={this.handleRegisterClick} className={styles.BiteCodeEntry} style={{display: this.state.isVisible ? 'block' : 'none'}}>
@@ -175,11 +176,13 @@ class BiteCodeEntry extends React.Component{
                     <label htmlFor="description">Description:</label>
                     <textarea name="description" type="text" placeholder="(Optional) Add a description..."/>
                     
-                    <button type="submit" className={styles.SubmitBiteBtn}>Submit</button>
+                    <button type="submit" className={styles.SubmitBiteBtn}>Register bite</button>
                     {/* <input type="submit" className={styles.SubmitBiteBtn}/> */}
                 </form>
 
                 <button onClick={this.handleCloseClick} className={styles.CloseBtn} style={{display: this.state.isVisible ? 'block' : 'none'}}>Close</button>
+                </div>
+                
             </React.Fragment>
             
         )

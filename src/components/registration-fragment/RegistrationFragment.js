@@ -56,7 +56,10 @@ class RegistrationFragment extends React.Component {
         const txt = pid ? "Leave Game" : "Join Game"
 
         return (
-            <button className={styles.RegistrationFragment} onClick={action}>{txt}</button>
+            <div className={styles.RegistrationFragment}>
+                <button onClick={action}>{txt}</button>
+            </div>
+            
         )
     }
 }
