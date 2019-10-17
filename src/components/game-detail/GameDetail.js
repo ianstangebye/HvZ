@@ -84,10 +84,6 @@ class GameDetail extends React.Component {
             .catch(e => {
                 console.error(e)
             })
-        
-        console.log("| GAME ID: " + gid)
-        console.log("| USER ID: " + uid)
-        console.log("|_____________________________________|")
     }
 
     getSquad = () => {
@@ -122,8 +118,10 @@ class GameDetail extends React.Component {
         
     }
 
-    biteCode = ()=>{
+    updateMap = ()=>{
         this.GoogleMapElement.current.render();
+        // console.log('the map should be rerendered');
+        
     }
 
     render() {
@@ -132,10 +130,16 @@ class GameDetail extends React.Component {
         const user_id = this.state.user_id
         const player = this.state.player
         const player_id = player.player_Id
+        const squad_id = this.state.squad_id
         const game_id = this.state.game_id
+
+        console.log("| GAME   ID: " + game_id)
+        console.log("| USER   ID: " + user_id)
+        console.log("| PLAYER ID: " + player_id)
+        console.log("|_____________________________________|")
+
         const unregistered = player_id ? false : true
         const admin = sessionStorage.role === "Admin"
-        const squad_id = this.state.squad_id;
 
         let squadFragment = null;
         if(squad_id) {
@@ -152,7 +156,7 @@ class GameDetail extends React.Component {
                     <TitleFragment game_id={game_id} />
                     <GoogleMap game_id={game_id} player={player} />
                     <SquadListFragment game_id={game_id} player_id={player_id} />
-                    <ChatFragment game_id={game_id} player_id={player_id} />
+                    <ChatFragment adminMode={true} game_id={game_id} player_id={player_id} />
                 </Fragment>
             )
         }
@@ -170,10 +174,11 @@ class GameDetail extends React.Component {
         
         return (
             <React.Fragment>
-                {/* WE NEED SOME MORE LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
-
-                <BiteCodeFragment game_id={game_id} player={player} />
-                <BiteCodeEntry newBiteCode={this.biteCode} game_id={game_id} player={player} />
+                {player.is_Human && !player.is_Patient_Zero ? 
+                    <BiteCodeFragment game_id={game_id} player={player} />
+                    :
+                    <BiteCodeEntry newBiteCode={this.updateMap} game_id={game_id} player={player} />
+                }
                 <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
                 <TitleFragment game_id={game_id} />
 

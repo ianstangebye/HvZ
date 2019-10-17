@@ -10,7 +10,8 @@ class BiteCodeEntry extends React.Component{
         
             biteCode: '',
             lat: null,
-            lng: null
+            lng: null,
+            description: ''
         }
 
     }
@@ -23,6 +24,10 @@ class BiteCodeEntry extends React.Component{
         updateInputValue = (name, e) => {
             this.setState({ [name]: e.target.value});
             
+        }
+
+        updateDescriptionValue = (name,e) =>{
+            this.setState({[name]: e.target.value});
         }
 
         handleBtnClick = () => {
@@ -109,7 +114,7 @@ class BiteCodeEntry extends React.Component{
     }
 
 
-    createBite = () => {
+    createBite = async () => {
             // const game_id = this.props.match.params.game_id;
             const game_id = this.props.game_id;
             console.log(game_id);
@@ -124,7 +129,8 @@ class BiteCodeEntry extends React.Component{
                 lng: this.state.lng,
                 killer_Id: sessionStorage.getItem("user_id"),
                 // killer_Id: this.props.player_id,
-                bite_Code: this.state.biteCode
+                bite_Code: this.state.biteCode,
+                story: this.state.description
             }
 
             console.log(bite);
@@ -137,14 +143,17 @@ class BiteCodeEntry extends React.Component{
 
         // console.log(JSON.stringify(bite));
         
-        fetch(targetUrl, {
+        await fetch(targetUrl, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(bite)
         }).then(resp =>{
             console.log(resp);
+            console.log('you are indeed getting a response');
             
         }).catch(error => {
+            console.log('you are indeed getting an error');
+            
             console.log(error);
         })
 
@@ -174,7 +183,7 @@ class BiteCodeEntry extends React.Component{
                     <input required name="biteCode" type="text" placeholder="Enter bite code here..." value={this.state.biteCode} onChange={(e) => this.updateInputValue("biteCode", e)}/>
                     
                     <label htmlFor="description">Description:</label>
-                    <textarea name="description" type="text" placeholder="(Optional) Add a description..."/>
+                    <textarea name="description" type="text" placeholder="(Optional) Add a description..." value={this.state.description} onChange={(e) => this.updateDescriptionValue("description", e)}/>
                     
                     <button type="submit" className={styles.SubmitBiteBtn}>Register bite</button>
                     {/* <input type="submit" className={styles.SubmitBiteBtn}/> */}

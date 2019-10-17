@@ -103,6 +103,7 @@ class GoogleMap extends React.Component {
         let bounds = new window.google.maps.LatLngBounds(sw, ne);
         map.fitBounds(bounds);
 
+        
 
     }
 

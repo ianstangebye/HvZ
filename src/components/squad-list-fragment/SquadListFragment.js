@@ -106,14 +106,17 @@ export default class SquadListFragment extends React.Component {
 
         return (
             <React.Fragment>
-                <div className={styles.Title}>
-                    <h1>Squads</h1>
-                    <button className={styles.CollapseBtn} id="SquadCollapseBtn" type="button" onClick={this.handleClick}><img src={arrowUpIcon}/></button>
+                <div className={styles.SquadList}>
+                    <div className={styles.Title}>
+                        <h1>Squads</h1>
+                        <button className={styles.CollapseBtn} id="SquadCollapseBtn" type="button" onClick={this.handleClick}><img src={arrowUpIcon}/></button>
+                    </div>
+                    
+                    <div className={styles.SquadComponents} style={{display: this.state.isVisible ? 'none' : 'block'}}>
+                        {squadComponents}
+                    </div>
                 </div>
                 
-                <div style={{display: this.state.isVisible ? 'none' : 'block'}}>
-                    {squadComponents}
-                </div>
             </React.Fragment>
         )
     }
