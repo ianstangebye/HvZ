@@ -53,7 +53,8 @@ class GameDetail extends React.Component {
     // }
 
     getPlayer = () => {
-        console.log("------------ FETCHING PLAYER ------------")
+        console.log(" ____________ GAME DETAIL ____________")
+        console.log("| FETCHING PLAYER                     |")
 
         const gid = this.state.game_id
         const uid = this.state.user_id
@@ -80,9 +81,10 @@ class GameDetail extends React.Component {
             .catch(e => {
                 console.error(e)
             })
-
-        console.log("GAME ID: " + gid)
-        console.log("USER ID: " + uid)
+        
+        console.log("| GAME ID: " + gid)
+        console.log("| USER ID: " + uid)
+        console.log("|_____________________________________|")
     }
 
     biteCode = ()=>{
@@ -91,7 +93,7 @@ class GameDetail extends React.Component {
 
     render() {
         if(!this.state.ready) return null
-        
+
         const user_id = this.state.user_id
         const player = this.state.player
         const player_id = player.player_Id
