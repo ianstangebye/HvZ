@@ -98,7 +98,6 @@ class GameDetail extends React.Component {
                 <TitleFragment game_id={game_id} />
                 <SquadListFragment game_id={game_id} player_id={player_id} />
                 <ChatFragment game_id={game_id} player_id={player_id} />
-                <GoogleMap game_id={game_id} player={player} />
                 <TimerFragment game_id={game_id} />
             </React.Fragment>
         )
