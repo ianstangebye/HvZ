@@ -31,7 +31,7 @@ class MissionList extends React.Component{
 
         if(this.state.missions.length>0){
             missionComponents = this.state.missions.map(mission=>{
-                return <MissionItem mission={mission} key={mission.id}/>
+                return <MissionItem mission={mission} key={mission.mission_Id}/>
             });
         } else {
             missionComponents = <p>Loading missions...</p>
