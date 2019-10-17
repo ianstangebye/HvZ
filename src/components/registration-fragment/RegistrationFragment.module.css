@@ -1,16 +1,15 @@
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 100px) {
     .RegistrationFragment {
-        width: 500px;
+        margin: 10px;
+    }
+
+    .RegistrationFragment button{
+        display: block;
+        max-width: 300px;
+        width: 100%;
+        margin: 0 auto;
     }
 }
 
-@media screen and (min-width: 600px) {
-.RegistrationFragment {
-    height: 40px;
-    width: 150px;
-    border: none;
-    background-color: #A7EAC6;
-    border-radius: 5px;
-    cursor: pointer;
-}
+@media screen and (min-width: 801px) {
 }

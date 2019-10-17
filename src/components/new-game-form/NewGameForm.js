@@ -116,8 +116,8 @@ class NewGameForm extends React.Component {
 
                 </form>
                 <div className={styles.Btns}>
-                    <button className={styles.BtnCreate} onClick={this.createNewGame}>Create Game</button>
                     <button className={styles.BtnGetLocation} onClick={this.getLocation}>Get Location</button>
+                    <button className={styles.BtnCreate} onClick={this.createNewGame}>Create Game</button>
                 </div>
             </div>
         )

@@ -1,9 +1,11 @@
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 100px) {
 
     .RegisterForm {
         display: block;
+        max-width: 500px;
         width: 100%;
-        padding: 10px;
+        margin: 0 auto;
+        padding: 15px;
     }
 
     .RegisterForm form div {
@@ -36,6 +38,10 @@
         padding: 10px;
     }
 
+    .RegisterForm input:focus {
+        outline: none;
+    }
+
     .RegisterForm input::placeholder {
         color: rgba(245, 245, 245, 0.438);
     }
@@ -55,81 +61,40 @@
         color: rgba(248, 248, 248, 0.747);
     }
 
-    .Btns {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .BtnCreate {
-        grid-column: 1;
+    .RegisterForm textarea:focus {
+        outline: none;
     }
 
     .BtnGetLocation {
-        grid-column: 2;
+        display: block;
+        width: 100%;
+        margin: 0;
         background-color: transparent;
-        border: 2px solid #DBA53D;
         color: #DBA53D;
+        box-shadow: none;
     }
 
     .BtnGetLocation:hover {
         border: none;
-        background-color: #F5F5F5;
-        color: #DBA53D;
+        background-color: transparent;
+        border: 2px solid #DBA53D;
     }
 
+    .BtnCreate {
+        display: block;
+        width: 100%;
+        margin: 15px 0;
+    }
 
-
+    
 }
 
-@media screen and (min-width: 600px) {
-.RegisterForm {
-    display: block;
-    max-width: 400px;
-    width: 100%;
-    padding: 30px;
-
-}
-
-.RegisterForm form div {
-    margin: 20px 0;
-}
-
-.RegisterForm label {
-    display: block;
-    width: 100%;
-    text-align: left;
-    margin: 5px 0;
-}
-
-.RegisterForm input {
-    width: 100%;
-    padding: 10px 0px;
-    font-size: 1.2em;
-    border-radius: 5px;
-    border: none;
-    background-color: rgb(231, 231, 231);
-}
-
-.Btns {
-    display: flex;
-    justify-content: space-between;
-}
-
-.Btns button {
-    height: 40px;
-    width: 48%;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.BtnCreate {
-    background-color: transparent;
-    border: 2px solid #A7EAC6;
-}
-
-.BtnGetLocation {
-    background-color: #A7EAC6;
-    border: none;
-}
+@media screen and (min-width: 801px) {
+    .RegisterForm {
+        display: block;
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
+    }
 
 }
