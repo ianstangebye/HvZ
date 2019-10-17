@@ -32,7 +32,7 @@ class ChatFragment extends React.Component {
                 "Squad"
             ],
 
-            activeTab: "Human",
+            activeTab: "Global",
 
             messageText: ""
         }

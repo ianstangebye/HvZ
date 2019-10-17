@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styles from './GameDetail.module.css'
 import TitleFragment from '../title-fragment/TitleFragment'
 import SquadListFragment from '../squad-list-fragment/SquadListFragment'
@@ -21,6 +21,8 @@ class GameDetail extends React.Component {
             player: {},
             user_id: 0
         }
+
+        this.component1 = React.createRef()
     }
 
     componentDidMount() {
@@ -78,14 +80,21 @@ class GameDetail extends React.Component {
         const player = this.state.player
         const player_id = player.player_Id
         const game_id = this.state.game_id
-        // const hasJoined = user_id === 0
+        const hasJoined = player_id ? true : false
 
         if (game_id === 0) {
             return (<h1>Loading Game Detail...</h1>)
         }
-        // else if(isLoggedIn) {
-
-        // }
+        else if(!hasJoined) {
+            return (
+                <Fragment>
+                    <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
+                    <TitleFragment game_id={game_id} />
+                    <GoogleMap game_id={game_id} player={player} />
+                    <SquadListFragment game_id={game_id} player_id={player_id} />
+                </Fragment>
+            )
+        }
 
         return (
             <React.Fragment>
