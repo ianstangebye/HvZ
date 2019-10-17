@@ -1,17 +1,20 @@
 @media screen and (min-width: 100px) {
     .BiteCodeFragment {
-        padding: 0 10px;
         margin: 10px auto;
+        padding: 0 10px;
+    }
+
+    .BtnGetCode {
+        display: block;
+        margin: 0 auto;
         max-width: 300px;
         width: 100%;
     }
 
-    .BtnGetCode {
-        margin: 0;
-        width: 100%;
-    }
-
     .CopyCode {
+        max-width: 300px;
+        width: 100%;
+        margin: 0 auto;
         background-color: #F5F5F5;
         padding: 10px;
         border-radius: 15px;
@@ -67,11 +70,13 @@
 
     .CloseBtn {
         display: block;
-        margin: 10px 10px;
-        width: 96%;
+        max-width: 300px;
+        width: 100%;
+        margin: 10px auto;
         background-color: transparent;
         box-shadow: none;
         color: #DBA53D;
+        
     }
 
     .CloseBtn:hover {
