@@ -115,6 +115,8 @@ class GameDetail extends React.Component {
 
     updateMap = ()=>{
         this.GoogleMapElement.current.render();
+        // console.log('the map should be rerendered');
+        
     }
 
     render() {
