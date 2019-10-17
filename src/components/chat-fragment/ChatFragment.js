@@ -42,11 +42,11 @@ class ChatFragment extends React.Component {
         this.setState({
             game_id: this.props.game_id,
             player_id: this.props.player_id
-        })
-        this.startAutoUpdate();
+        }, this.startAutoUpdate)
     }
     
     componentWillUnmount() {
+        this.unmounted = true
         this.stopAutoUpdate();
     }
     
@@ -79,9 +79,11 @@ class ChatFragment extends React.Component {
         // Get appropriate messages for the active tab from the backend API
         axios.get(url)
         .then(resp => {
-            this.setState({
-                messages: resp.data
-            })
+            if(!this.unmounted) {
+                this.setState({
+                    messages: resp.data
+                })
+            }
         })
         .catch(err => {
             console.error(err)

@@ -17,15 +17,13 @@ class GameDetail extends React.Component {
         super(props);
         this.GoogleMapElement = React.createRef();
         
-
         this.state = {
             game_id: 0,
             squad_id: 0,
             player: {},
-            user_id: 0
+            user_id: 0,
+            ready: false
         }
-
-        this.component1 = React.createRef()
     }
 
     componentDidMount() {
@@ -67,11 +65,13 @@ class GameDetail extends React.Component {
             .then(res => {
                 if (res.status === 200) {
                     this.setState({
-                        player: res.data
+                        player: res.data,
+                        ready: true
                     })
                 } else if (res.status === 204) {
                     this.setState({
-                        player: {}
+                        player: {},
+                        ready: true
                     })
                 } else {
                     throw new Error(`STATUS CODE: ${res.status}`)
@@ -90,16 +90,17 @@ class GameDetail extends React.Component {
     }
 
     render() {
+        if(!this.state.ready) return null
+        
         const user_id = this.state.user_id
         const player = this.state.player
         const player_id = player.player_Id
         const game_id = this.state.game_id
-        const hasJoined = player_id ? true : false
+        const unregistered = player_id ? false : true
 
         if (game_id === 0) {
             return (<h1>Loading Game Detail...</h1>)
-        }
-        else if(!hasJoined) {
+        } else if(unregistered) {
             return (
                 <Fragment>
                     <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
