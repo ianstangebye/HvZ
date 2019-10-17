@@ -7,8 +7,13 @@ class MissionList extends React.Component{
         missions: []
     }
 
+
     componentDidMount(){
-        fetch('http://case-hvzapi.northeurope.azurecontainer.io/game/1/mission').then(resp=>resp.json())
+
+        const game_id = this.props.game_id;
+
+
+        fetch(`http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/mission`).then(resp=>resp.json())
         .then(resp=>{
             console.log(resp);
             this.setState({
