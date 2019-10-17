@@ -110,7 +110,8 @@ class BiteCodeEntry extends React.Component{
 
 
     createBite = () => {
-            const game_id = this.props.match.params.game_id;
+            // const game_id = this.props.match.params.game_id;
+            const game_id = this.props.game_id;
             console.log(game_id);
             console.log(new Date().toISOString());
             console.log(sessionStorage.getItem("user_id"));
@@ -148,7 +149,7 @@ class BiteCodeEntry extends React.Component{
         })
 
         // this.props.renderMap();
-        this.props.loadMap();
+        this.props.newBiteCode();
 
 
         this.setState({

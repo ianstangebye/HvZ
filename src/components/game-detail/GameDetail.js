@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styles from './GameDetail.module.css'
 import TitleFragment from '../title-fragment/TitleFragment'
 import SquadListFragment from '../squad-list-fragment/SquadListFragment'
@@ -9,11 +9,14 @@ import BiteCodeFragment from '../bite-code-fragment/BiteCodeFragment'
 import BiteCodeEntry from '../bite-code-entry/BiteCodeEntry'
 import GoogleMap from '../google-map/GoogleMap'
 import MissionList from '../mission-list/MissionList'
+import TimerFragment from '../timer-fragment/TimerFragment'
 
 class GameDetail extends React.Component {
 
     constructor(props) {
         super(props);
+        this.GoogleMapElement = React.createRef();
+        
 
         this.state = {
             game_id: 0,
@@ -21,9 +24,14 @@ class GameDetail extends React.Component {
             player: {},
             user_id: 0
         }
+
+        this.component1 = React.createRef()
     }
 
     componentDidMount() {
+        //Update the component in every minute
+        //this.interval = setInterval(() => this.setState({ time: Date.now() }), 60000);
+
         const { game_id } = this.props.match.params
         const state = this.props.location.state
         
@@ -41,6 +49,10 @@ class GameDetail extends React.Component {
             game_id: game_id
         }, this.getPlayer)
     }
+
+    // componentWillUnmount() {
+    //     clearInterval(this.interval);
+    // }
 
     getPlayer = () => {
         console.log("------------ FETCHING PLAYER ------------")
@@ -73,33 +85,45 @@ class GameDetail extends React.Component {
         console.log("USER ID: " + uid)
     }
 
+    biteCode = ()=>{
+        this.GoogleMapElement.current.render();
+    }
+
     render() {
         const user_id = this.state.user_id
         const player = this.state.player
         const player_id = player.player_Id
         const game_id = this.state.game_id
-        // const hasJoined = user_id === 0
+        const hasJoined = player_id ? true : false
 
         if (game_id === 0) {
             return (<h1>Loading Game Detail...</h1>)
         }
-        // else if(isLoggedIn) {
-
-        // }
+        else if(!hasJoined) {
+            return (
+                <Fragment>
+                    <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
+                    <TitleFragment game_id={game_id} />
+                    <GoogleMap game_id={game_id} player={player} />
+                    <SquadListFragment game_id={game_id} player_id={player_id} />
+                </Fragment>
+            )
+        }
 
         return (
             <React.Fragment>
                 {/* WE NEED SOME MORE LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
 
                 <BiteCodeFragment game_id={game_id} player={player} />
-                <BiteCodeEntry game_id={game_id} player={player} />
+                <BiteCodeEntry newBiteCode={this.biteCode} game_id={game_id} player={player} />
                 <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
                 <TitleFragment game_id={game_id} />
                 <SquadListFragment game_id={game_id} player_id={player_id} />
                 <ChatFragment game_id={game_id} player_id={player_id} />
-                <GoogleMap game_id={game_id} player={player} />
+                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
                 <MissionList game_id={game_id} />
 
+                <TimerFragment game_id={game_id} />
             </React.Fragment>
         )
     }

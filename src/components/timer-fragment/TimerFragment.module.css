@@ -1,0 +1,14 @@
+.timer {
+    display: block;
+    margin: 20px;
+    float: right;
+}
+
+.timer_h3 {
+    display: inline;
+    margin: 10px 10px;
+    padding: 20px;
+}
+
+.timer_fromNow {
+}

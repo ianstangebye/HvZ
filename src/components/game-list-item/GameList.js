@@ -25,6 +25,9 @@ class GameList extends React.Component {
     // }
 
     async componentDidMount() {
+        //Update the component in every minute
+        //this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
+
         //const user_id = window.sessionStorage.getItem("user_id") || 0;
         //const is_admin = window.sessionStorage.getItem("is_admin") === "true" ? true : false;
         //const token = window.sessionStorage.getItem("token") || "";
@@ -67,6 +70,10 @@ class GameList extends React.Component {
 
         window.addEventListener('onbeforeunload', this.clearStates);
     }
+
+    // componentWillUnmount() {
+    //     clearInterval(this.interval);
+    // }
 
     clearStates = () => {
         //localStorage.clear();
