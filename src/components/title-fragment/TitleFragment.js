@@ -8,18 +8,16 @@ export default class TitleFragment extends React.Component {
 
         this.state = {
             game: {},
-            game_id: props.game_id,
+            game_id: 0,
             isVisible: false
         }
     }
 
     componentDidMount() {
-        // const game_id  = this.props.game_id;
-        // this.setState({ game_id : game_id }, () => {
-        //     this.getGameTitle();
-        // });
-
-        this.getGameTitle();
+        const game_id  = this.props.game_id;
+        this.setState({ game_id : game_id }, () => {
+            this.getGameTitle();
+        });
     }
 
     getGameTitle = async () => { 

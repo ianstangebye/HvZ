@@ -109,7 +109,7 @@ class GameDetail extends React.Component {
                 </Fragment>
             )
         }
-
+        
         return (
             <React.Fragment>
                 {/* WE NEED SOME MORE LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
@@ -122,8 +122,8 @@ class GameDetail extends React.Component {
                 <ChatFragment game_id={game_id} player_id={player_id} />
                 <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
                 <MissionList game_id={game_id} />
-
                 <TimerFragment game_id={game_id} />
+                
             </React.Fragment>
         )
     }
