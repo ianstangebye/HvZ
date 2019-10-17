@@ -68,6 +68,8 @@ class GameDetail extends React.Component {
                     this.setState({
                         player: res.data,
                         ready: true
+                    }, () => {
+                        this.getSquad(res.player_Id);
                     })
                 } else if (res.status === 204) {
                     this.setState({
@@ -81,6 +83,34 @@ class GameDetail extends React.Component {
             .catch(e => {
                 console.error(e)
             })
+    }
+
+    getSquad = (player_id) => {
+        const gid = this.state.game_id;
+        const pid = player_id;
+
+        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/member/${pid}`
+
+        // Get this player's squad member object, if it exists
+        axios
+            .get(url)
+            .then(res => {
+                if (res.status === 200) {
+                    this.setState({
+                        squad_id: res.squad_Id
+                    })
+                } else if (res.status === 204) {
+                    this.setState({
+                        player: {}
+                    })
+                } else {
+                    throw new Error(`STATUS CODE: ${res.status}`)
+                }
+            })
+            .catch(e => {
+                console.error(e)
+            })
+        
     }
 
     updateMap = ()=>{
@@ -103,6 +133,7 @@ class GameDetail extends React.Component {
 
         const unregistered = player_id ? false : true
         const admin = sessionStorage.role === "Admin"
+        const squad_id = this.state.squad_id;
 
         // let componentsToRender = []
 
@@ -127,7 +158,7 @@ class GameDetail extends React.Component {
                 </Fragment>
             )
         }
-
+        
         return (
             <React.Fragment>
                 {player.is_Human && !player.is_Patient_Zero ? 
@@ -137,12 +168,12 @@ class GameDetail extends React.Component {
                 }
                 <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
                 <TitleFragment game_id={game_id} />
-                <SquadListFragment game_id={game_id} player_id={player_id} />
+                <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id} />
                 <ChatFragment player={player} />
                 <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
                 <MissionList game_id={game_id} />
-
                 <TimerFragment game_id={game_id} />
+                
             </React.Fragment>
         )
     }

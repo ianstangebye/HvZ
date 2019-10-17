@@ -130,7 +130,9 @@ class GoogleMap extends React.Component {
     render() {
         return (
             <React.Fragment /*loadMap={this.renderMap}*/>
-                <div id="map" ref={this.mapEl} className={styles.Map}>
+                <div className={styles.MapDiv}>
+                    <div id="map" ref={this.mapEl} className={styles.Map}>
+                    </div>
                 </div>
             </React.Fragment>
             

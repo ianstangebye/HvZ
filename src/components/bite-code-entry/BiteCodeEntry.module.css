@@ -8,12 +8,12 @@
     .ShowFormBtn {
         display: block;
         margin: 0 auto;
-        max-width: 400px;
+        max-width: 300px;
         width: 100%;
     }
 
     .BiteCodeEntry {
-        max-width: 400px;
+        max-width: 300px;
         width: 100%;
         margin: 10px auto;
         border-radius: 15px;
@@ -91,7 +91,7 @@
     .CloseBtn {
         display: block;
         margin: 10px auto;
-        max-width: 400px;
+        max-width: 300px;
         width: 100%;
         background-color: transparent;
         box-shadow: none;
