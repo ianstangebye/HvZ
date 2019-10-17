@@ -4,7 +4,6 @@ import styles from './SquadListFragment.module.css';
 import arrowUpIcon from '../../assets/arrow-up-icon.svg';
 import arrowDownIcon from '../../assets/arrow-down-icon.svg';
 
-
 export default class SquadListFragment extends React.Component {
 
     constructor(props) {
@@ -14,7 +13,7 @@ export default class SquadListFragment extends React.Component {
             squads: [],
             game_id: props.game_id,
             player_id: props.player_id,
-            joinedSquadId: props.squad_id || 0
+            joinedSquadId: props.squad_id
         }
     }
 
@@ -60,7 +59,7 @@ export default class SquadListFragment extends React.Component {
             "player_Id": player_id
         }
 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/member`
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/squad/${squad_id}/member`
 
         fetch(targetUrl, {
             method: 'POST',
@@ -78,7 +77,7 @@ export default class SquadListFragment extends React.Component {
             joinedSquadId: squad_id
         })
 
-        this.props.onJoinSquad(squad_id);
+        //this.props.onJoinSquad(squad_id);
     }
 
     handleClick = () => {

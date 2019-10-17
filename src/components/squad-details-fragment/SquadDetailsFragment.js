@@ -4,7 +4,6 @@ import styles from './SquadDetailsFragment.module.css';
 import arrowUpIcon from '../../assets/arrow-up-icon.svg';
 import arrowDownIcon from '../../assets/arrow-down-icon.svg';
 
-
 export default class SquadDetailsFragment extends React.Component {
 
     constructor(props) {

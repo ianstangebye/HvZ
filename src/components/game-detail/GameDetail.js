@@ -10,6 +10,7 @@ import BiteCodeEntry from '../bite-code-entry/BiteCodeEntry'
 import GoogleMap from '../google-map/GoogleMap'
 import MissionList from '../mission-list/MissionList'
 import TimerFragment from '../timer-fragment/TimerFragment'
+import SquadDetailsFragment from '../squad-details-fragment/SquadDetailsFragment';
 
 class GameDetail extends React.Component {
 
@@ -69,7 +70,7 @@ class GameDetail extends React.Component {
                         player: res.data,
                         ready: true
                     }, () => {
-                        this.getSquad(res.player_Id);
+                        this.getSquad();
                     })
                 } else if (res.status === 204) {
                     this.setState({
@@ -89,10 +90,12 @@ class GameDetail extends React.Component {
         console.log("|_____________________________________|")
     }
 
-    getSquad = (player_id) => {
+    getSquad = () => {
         const gid = this.state.game_id;
-        const pid = player_id;
+        const pid = this.state.player.player_Id;
 
+        console.log("playerID: " + pid);
+        
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/member/${pid}`
 
         // Get this player's squad member object, if it exists
@@ -101,8 +104,10 @@ class GameDetail extends React.Component {
             .then(res => {
                 if (res.status === 200) {
                     this.setState({
-                        squad_id: res.squad_Id
+                        squad_id: res.data.squad_Id
                     })
+                    console.log(this.state.squad_id);
+                    
                 } else if (res.status === 204) {
                     this.setState({
                         player: {}
@@ -131,6 +136,13 @@ class GameDetail extends React.Component {
         const unregistered = player_id ? false : true
         const admin = sessionStorage.role === "Admin"
         const squad_id = this.state.squad_id;
+
+        let squadFragment = null;
+        if(squad_id) {
+            squadFragment = <SquadDetailsFragment></SquadDetailsFragment>
+        } else {
+            squadFragment = <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id} />
+        }
 
         // let componentsToRender = []
 
@@ -164,7 +176,9 @@ class GameDetail extends React.Component {
                 <BiteCodeEntry newBiteCode={this.biteCode} game_id={game_id} player={player} />
                 <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
                 <TitleFragment game_id={game_id} />
-                <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id} />
+
+                {squadFragment}
+                
                 <ChatFragment game_id={game_id} player_id={player_id} />
                 <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
                 <MissionList game_id={game_id} />
