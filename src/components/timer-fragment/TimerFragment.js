@@ -46,10 +46,33 @@ class TimerFragment extends React.Component {
         }
     }
 
-    startGame = () => {
-        this.updateGame();
+    startGame = async () => {
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/zero`
+
+        await fetch(targetUrl, {
+            method: 'POST',
+            body: JSON.stringify(this.state.game),
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(resp => {
+            if(resp.status === 200) {
+                return resp.json();
+            } else {
+                throw new Error(`STATUS CODE: ${resp.status}`)
+            }
+        })
+        .then(resp => {
+            console.log(resp);
+            this.updateGameState();
+        })
+        .catch(e => {
+            console.error(e);
+            alert("An unexpected error occured. Please try again later.")
+        });
         //this.props.startGame();
-        //Check if there is 
     }
 
     timerBeforeEnd = () => {
@@ -65,11 +88,11 @@ class TimerFragment extends React.Component {
     }
 
     endGame = () => {
-        this.updateGame();
+        this.updateGameState();
         // DELETE ALL DATA OF THIS GAME?
     }
 
-    updateGame = async () => {
+    updateGameState = async () => {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}`
 
         await fetch(targetUrl, {
