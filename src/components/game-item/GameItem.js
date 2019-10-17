@@ -3,9 +3,6 @@ import styles from './GameItem.module.css';
 import { Link } from 'react-router-dom';
 
 function GameItem(props) {
-
-
-
     // let game = {
     //     // name: 'Game 1',
     //     // game_State: 'In Progress'
@@ -86,4 +83,3 @@ function GameItem(props) {
 }
 
 export default GameItem;
-

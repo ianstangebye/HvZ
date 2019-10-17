@@ -1,62 +1,64 @@
 import React from 'react';
 import styles from './RegistrationFragment.module.css';
+import axios from 'axios'
 
-export default class RegistrationFragment extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            user_id: '',
-            game_id: '',
-            biteCode: ''
-        }
-    }
-
-    componentDidMount() {
+class RegistrationFragment extends React.Component {
+    joinGame = () => {
         const crypto = require("crypto");
-        const result = crypto.randomBytes(10).toString('hex');
-        this.setState({biteCode: result})
-    }
-
-    handleOnClick = event => {
-        console.log('join game');
+        const biteCode = crypto.randomBytes(10).toString('hex');
 
         const newPlayer = {
-            "is_Human": true,
-            "is_Patient_Zero": false,
-            "bite_Code": this.state.biteCode,
-            "user_Id": this.props.user_id,
-            "game_Id": this.props.game_id
+            is_Human: true,
+            is_Patient_Zero: false,
+            bite_Code: biteCode,
+            user_Id: this.props.user_id,
+            game_Id: this.props.game_id
         }
 
-        console.log("PLAYER OBJECT:")
-        console.log(newPlayer)
-        
-        
-        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/1/player'
-        
-        const that = this;
+        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/player`;
 
-        fetch(targetUrl, {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify(newPlayer)
-        }).then(function(resp) {
-            return resp.json();
-        }).then(function(data) {
-            console.log('Joined game:', data);
-            that.props.handleRegister(data)
-        }).catch(error => {
-            console.log(error);
+        axios.post(url, newPlayer)
+        .then(resp => {
+            if (resp.status === 200) {
+                console.log(`Created player with id: ${resp.data}`)
+                this.props.onUpdate()
+            } else {
+                throw new Error(`STATUS CODE: ${resp.status}`)
+            }
         })
+        .catch(e => {
+            console.error(e);
+        });
+    }
 
+    leaveGame = () => {
+        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/player/${this.props.player_id}`;
+
+        fetch(url, {
+            method: 'DELETE'
+        })
+        .then(resp => {
+            if (resp.status === 200) {
+                console.log(`Deleted player with id: ${this.props.player_id}`);
+                this.props.onUpdate()
+            } else {
+                throw new Error(`STATUS CODE: ${resp.status}`)
+            }
+        })
+        .catch(e => {
+            console.error(e);
+        });
     }
 
     render() {
+        const pid = this.props.player_id
+        const action = pid ? this.leaveGame : this.joinGame
+        const txt = pid ? "Leave Game" : "Join Game"
+
         return (
-            <React.Fragment>
-                <button className={styles.RegistrationFragment} onClick={this.handleOnClick}>Join Game</button>
-            </React.Fragment>
+            <button className={styles.RegistrationFragment} onClick={action}>{txt}</button>
         )
     }
 }
+
+export default RegistrationFragment
