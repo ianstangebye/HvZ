@@ -14,6 +14,8 @@ class GameDetail extends React.Component {
 
     constructor(props) {
         super(props);
+        this.GoogleMapElement = React.createRef();
+        
 
         this.state = {
             game_id: 0,
@@ -75,6 +77,10 @@ class GameDetail extends React.Component {
         console.log("USER ID: " + uid)
     }
 
+    biteCode = ()=>{
+        this.GoogleMapElement.current.render();
+    }
+
     render() {
         const user_id = this.state.user_id
         const player = this.state.player
@@ -101,12 +107,12 @@ class GameDetail extends React.Component {
                 {/* WE NEED SOME MORE LOGIC TO DECIDE WHICH COMPONENTS TO SHOW BASED ON THE USER'S ROLE, WHETHER THEY'RE A PLAYER OR NOT, AND IF THEY ARE; THEIR PLAYER INFO */}
 
                 <BiteCodeFragment game_id={game_id} player={player} />
-                <BiteCodeEntry game_id={game_id} player={player} />
+                <BiteCodeEntry newBiteCode={this.biteCode} game_id={game_id} player={player} />
                 <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
                 <TitleFragment game_id={game_id} />
                 <SquadListFragment game_id={game_id} player_id={player_id} />
                 <ChatFragment game_id={game_id} player_id={player_id} />
-                <GoogleMap game_id={game_id} player={player} />
+                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
                 <MissionList game_id={game_id} />
 
             </React.Fragment>
