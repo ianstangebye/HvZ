@@ -92,17 +92,29 @@ class GameDetail extends React.Component {
     }
 
     render() {
-        if(!this.state.ready) return null
+        if (!this.state.ready) return <h1>Loading Game Detail...</h1>
 
         const user_id = this.state.user_id
         const player = this.state.player
         const player_id = player.player_Id
         const game_id = this.state.game_id
         const unregistered = player_id ? false : true
+        const admin = sessionStorage.role === "Admin"
 
-        if (game_id === 0) {
-            return (<h1>Loading Game Detail...</h1>)
-        } else if(unregistered) {
+        // let componentsToRender = []
+
+        if(admin) {
+            return (
+                <Fragment>
+                    <TitleFragment game_id={game_id} />
+                    <GoogleMap game_id={game_id} player={player} />
+                    <SquadListFragment game_id={game_id} player_id={player_id} />
+                    <ChatFragment game_id={game_id} player_id={player_id} />
+                </Fragment>
+            )
+        }
+
+        if(unregistered) {
             return (
                 <Fragment>
                     <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
