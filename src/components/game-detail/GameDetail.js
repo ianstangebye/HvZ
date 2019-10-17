@@ -133,7 +133,6 @@ class GameDetail extends React.Component {
 
         const unregistered = player_id ? false : true
         const admin = sessionStorage.role === "Admin"
-        const squad_id = this.state.squad_id;
 
         // let componentsToRender = []
 
