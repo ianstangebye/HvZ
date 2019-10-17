@@ -3,7 +3,6 @@
         max-width: 500px;
         width: 100%;
         margin: 10px auto;
-        padding: 0 10px;
     }
 
     .Title {
@@ -23,7 +22,7 @@
         border: 2px solid #F5F5F5;
         background-color: #2C6974;
         position: absolute;
-        right: -15px;
+        right: -5px;
         top: 0;
         font-size: 1.5em;
     }
