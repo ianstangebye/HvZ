@@ -8,6 +8,7 @@ import RegistrationFragment from '../registration-fragment/RegistrationFragment'
 import BiteCodeFragment from '../bite-code-fragment/BiteCodeFragment'
 import BiteCodeEntry from '../bite-code-entry/BiteCodeEntry'
 import GoogleMap from '../google-map/GoogleMap'
+import TimerFragment from '../timer-fragment/TimerFragment'
 
 class GameDetail extends React.Component {
 
@@ -23,6 +24,9 @@ class GameDetail extends React.Component {
     }
 
     componentDidMount() {
+        //Update the component in every minute
+        //this.interval = setInterval(() => this.setState({ time: Date.now() }), 60000);
+
         const { game_id } = this.props.match.params
         const state = this.props.location.state
         
@@ -40,6 +44,10 @@ class GameDetail extends React.Component {
             game_id: game_id
         }, this.getPlayer)
     }
+
+    // componentWillUnmount() {
+    //     clearInterval(this.interval);
+    // }
 
     getPlayer = () => {
         console.log("------------ FETCHING PLAYER ------------")
@@ -91,7 +99,7 @@ class GameDetail extends React.Component {
                 <SquadListFragment game_id={game_id} player_id={player_id} />
                 <ChatFragment game_id={game_id} player_id={player_id} />
                 <GoogleMap game_id={game_id} player={player} />
-
+                <TimerFragment game_id={game_id} />
             </React.Fragment>
         )
     }

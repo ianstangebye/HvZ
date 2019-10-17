@@ -12,19 +12,21 @@ export default class SquadListFragment extends React.Component {
 
         this.state = {
             squads: [],
-            game_id: 0,
-            player_id: 0,
+            game_id: props.game_id,
+            player_id: props.player_id,
             joinedSquadId: 0
         }
     }
 
     componentDidMount() {
-        this.setState({
-            game_id: this.props.game_id,
-            player_id: this.props.player_id
-        }, () => {
-            this.getSquads(this);
-        })
+        // this.setState({
+        //     game_id: this.props.game_id,
+        //     player_id: this.props.player_id
+        // }, () => {
+        //     this.getSquads(this);
+        // })
+
+        this.getSquads(this);
     }
 
     async getSquads(that) {
