@@ -39,6 +39,19 @@ class ChatFragment extends React.Component {
     }
 
     componentDidMount() {
+        let tabs = []
+
+        if(this.props.adminMode) {
+            tabs = [
+                "Global",
+                "Human",
+                "Zombie",
+                "Squad"
+            ]
+        } else {
+
+        }
+
         this.setState({
             game_id: this.props.game_id,
             player_id: this.props.player_id
