@@ -75,7 +75,7 @@ class GameDetail extends React.Component {
                     
                     this.setState({
                         player: res.data,
-                        //ready: true
+                        ready: true
                     }, () => {
                         this.getSquad();
                     })
@@ -148,17 +148,18 @@ class GameDetail extends React.Component {
         const game_id = this.state.game_id
         const squad_member_id = this.state.squad_member_id
 
-        console.log("| GAME   ID: " + game_id)
-        console.log("| USER   ID: " + user_id)
-        console.log("| PLAYER ID: " + player_id)
-        console.log("|_____________________________________|")
-
         const unregistered = player_id ? false : true
         const admin = sessionStorage.role === "Admin"
 
+        console.log("| GAME   ID: " + game_id)
+        console.log("| USER   ID: " + user_id)
+        console.log("| " + (admin ? "Admin" : "PLAYER ID: " + player_id))
+        console.log("|_____________________________________|")
+
+
         let squadFragment = null;
         if(squad_id) {
-            squadFragment = <SquadDetailsFragment game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
+            squadFragment = <SquadDetailsFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
         } else {
             squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} />
         }
@@ -199,7 +200,7 @@ class GameDetail extends React.Component {
 
                 {squadFragment}
                 
-                <ChatFragment player={player} squad_id={squad_id} />
+                <ChatFragment player={player} squad_id={squad_id} game_id={game_id} />
                 <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
                 <MissionList game_id={game_id} />
                 <TimerFragment game_id={game_id} />

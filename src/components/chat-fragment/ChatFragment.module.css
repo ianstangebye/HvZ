@@ -1,10 +1,11 @@
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 100px) {
     .ChatFragment {
-        margin: 10px;
+        margin: 10px 10px;
+        max-width: 600px;
         background-color: #F5F5F5;
         border-radius: 15px;
         color: #303030;
-        padding: 10px;
+        padding: 10px 10px 20px 10px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     }
 
@@ -14,30 +15,42 @@
         font-weight: bold;
         text-transform: uppercase;
         font-size: 12px;
+        max-width: 600px;
+        width: 100%;
     }
 
     .Tab {
         text-align: center;
+        overflow: hidden;
         padding-top: 8px;
         background-color: #E5E5E5;
         color: #2C6974;
-        width: 24%;
+        width: 23%;
         cursor: pointer;
         height: 35px;
-        border-radius: 5px;
+        border-radius: 5px 5px 0 0;
         margin: 0 auto;
+        opacity: 0.7;
+    }
+
+    .Tab:hover {
+        opacity: 1;
     }
 
     .Tab.Active {
+        opacity: 1;
         background-color: #2C6974;
         color: #F5F5F5;
     }
 
     .Messages {
-        margin-top: -5px;
+        margin-top: 0px;
+        max-width: 600px;
+        width: 100%;
         background-color: #F5F5F5;
         border: 3px solid #2C6974;
         padding: 10px;
+        min-height: 300px;
         max-height: 300px;
         overflow-y: scroll;
         border-radius: 5px;
@@ -53,19 +66,24 @@
     }
 
     .ChatFooter {
-        margin-top: 10px;
+        max-width: 600px;
+        width: 100%;
         height: 40px;
+        margin: 0;
         display: flex;
     }
 
     #MsgInput {
-        width: 90%;
+        width: 600px;
         border: none;
         background-color: #E6E6E6;
         border-radius: 5px;
-        padding: 10px;
+        padding: 0 5px;
+        height: 100%;
         font-family: inherit;
         font-size: 12px;
+        margin: 10px 0;
+        
     }
 
     #MsgInput::placeholder {
@@ -79,12 +97,11 @@
     
     #MsgInput:focus {
         outline: none;
-        border: 2px solid #77A4AC;
+        border: 2px solid #2C6974;
     }
     #BtnSend {
-        margin: 0 0 0 10px;
-        width: 50px;
-        height: 100%;
+        margin: 10px 0 10px 10px;
+        width: 100px;
         border-radius: 5px;
     }
     
@@ -92,63 +109,6 @@
 }
 
 
-@media screen and (min-width: 600px){
-.ChatFragment {
-    box-shadow: 0 0 5px black;
-    width: 33%;
-    border-left: 1px solid black;
-}
-
-.Tabs {
-    display: flex;
-    flex-wrap: nowrap;
-}
-
-.Tab {
-    overflow: hidden;
-    border: 1px solid black;
-    border-left: none;
-    text-align: center;
-    width: 25%;
-}
-
-.Tab.Active {
-    border-bottom: none;
-}
-
-.Messages {
-    border: 1px solid black;
-    border-top: none;
-    padding: 10px;
-    border-bottom: none;
-    border-left: none;
-    min-height: 300px;
-    max-height: 300px;
-    overflow: scroll;
-}
-
-.Message {
-    background-color: dodgerblue;
-    width: fit-content;
-    border-radius: 3px;
-    margin: 3px;
-    padding: 10px;
-    /* box-shadow: 0 0 5px skyblue; */
-    color: white;
-}
-
-.ChatFooter {
-    border: 1px solid black;
-    border-left: none;
-    display: flex;
-}
-
-#BtnSend {
-    width: 25%;
-}
-
-#MsgInput {
-    width: 75%;
-}
+@media screen and (min-width: 801px){
 
 }

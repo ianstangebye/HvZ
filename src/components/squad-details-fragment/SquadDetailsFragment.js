@@ -65,12 +65,15 @@ export default class SquadDetailsFragment extends React.Component {
     // Delete a squad-member
     handleLeaveSquad = () => {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/member/${this.props.squad_member_id}`
-
-        console.log("squadDetail url : " + targetUrl);
         
         fetch(targetUrl, {
             method: 'DELETE',
-        }).then(resp => console.log('Deleted Squad-member: ', resp))
+        }).then(resp => {
+            console.log('Deleted Squad-member: ', resp);
+            if (resp.status == 200) {
+                this.props.onUpdate()
+            }
+        })
         .catch(e => {
             console.log(e);
         })
@@ -137,10 +140,12 @@ export default class SquadDetailsFragment extends React.Component {
                         <h1>{this.state.squad.name}</h1>
                         <button className={styles.CollapseBtn} id="SquadMembersCollapseBtn" type="button" onClick={this.handleCollapseClick}><img src={arrowUpIcon} alt="up"/></button>
                     </div>
-                    <button className={styles.CheckInBtn} onClick={this.handleCheckIn} style={{display: this.state.isVisible ? 'none' : 'block'}}>Check-in</button>
+                    <div className={styles.CheckIn}>
+                        <button className={styles.CheckInBtn} onClick={this.handleCheckIn} style={{display: this.state.isVisible ? 'none' : 'block'}}>Check-in</button>
+                    </div>
                     
                     <div className={styles.SquadMembers} style={{display: this.state.isVisible ? 'none' : 'block'}}>
-                        <h2>Squad Members</h2>
+                        <h2> {this.state.squad.name} Members</h2>
                         {/* <div className={styles.SquadMemberTitle}>
                             <p>Name</p>
                             <p>Rank</p>
