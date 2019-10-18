@@ -145,38 +145,50 @@ class GoogleMap extends React.Component {
 
         for (var i=0; i<this.state.missions.length; i++){
             var mission = this.state.missions[i];
-            if(mission.is_Human_Visible && mission.is_Zombie_Visible){
-                var marker = new window.google.maps.Marker({
-                    position: {lat: mission.latitude, lng: mission.longitude},
-                    map: map,
-                    icon: missionImage,
-                    shape: shape,
-                    title: mission.name,
-                    zIndex: 4
-                  });
-            } else if(mission.is_Human_Visible == false && player_status == false){
-                var marker = new window.google.maps.Marker({
-                    position: {lat: mission.latitude, lng: mission.longitude},
-                    map: map,
-                    icon: zombieMissionImage,
-                    shape: shape,
-                    title: mission.name,
-                    zIndex: 4
-                  });
-            } else if(mission.is_Human_Visible == true && player_status == true){
-                var marker = new window.google.maps.Marker({
-                    position: {lat: mission.latitude, lng: mission.longitude},
-                    map: map,
-                    icon: humanMissionImage,
-                    shape: shape,
-                    title: mission.name,
-                    zIndex: 4
-                  });
+            var rightNow = new Date();
+            // console.log(rightNow);
+            var missionDeadline = new Date(mission.end_Time)
+            // console.log(missionDeadline);
 
-            } else {
-                console.log('Player' + this.props.player.player_Id + 'status is ' + player_status + '. The user_Id is ' + this.props.player.user_Id);
+            // if(rightNow < missionDeadline){
+                if(mission.is_Human_Visible && mission.is_Zombie_Visible){
+                    var marker = new window.google.maps.Marker({
+                        position: {lat: mission.latitude, lng: mission.longitude},
+                        map: map,
+                        icon: missionImage,
+                        shape: shape,
+                        title: mission.name,
+                        zIndex: 4
+                      });
+                } else if(mission.is_Human_Visible == false && player_status == false){
+                    var marker = new window.google.maps.Marker({
+                        position: {lat: mission.latitude, lng: mission.longitude},
+                        map: map,
+                        icon: zombieMissionImage,
+                        shape: shape,
+                        title: mission.name,
+                        zIndex: 4
+                      });
+                } else if(mission.is_Human_Visible == true && player_status == true){
+                    var marker = new window.google.maps.Marker({
+                        position: {lat: mission.latitude, lng: mission.longitude},
+                        map: map,
+                        icon: humanMissionImage,
+                        shape: shape,
+                        title: mission.name,
+                        zIndex: 4
+                      });
+    
+                } else {
+                    console.log('Player' + this.props.player.player_Id + 'status is ' + player_status + '. The user_Id is ' + this.props.player.user_Id);
+                    
+                }
+
+            // } else {
+            //     console.log('mission expired');
                 
-            }
+            // }      
+
 
         }  
 
