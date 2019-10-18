@@ -58,6 +58,10 @@ class GameDetail extends React.Component {
         console.log(" ____________ GAME DETAIL ____________")
         console.log("| FETCHING PLAYER                     |")
 
+        this.setState({
+            ready: false
+        })
+
         const gid = this.state.game_id
         const uid = this.state.user_id
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/user/${uid}/player`
@@ -71,7 +75,7 @@ class GameDetail extends React.Component {
                     
                     this.setState({
                         player: res.data,
-                        ready: true
+                        //ready: true
                     }, () => {
                         this.getSquad();
                     })
@@ -89,7 +93,6 @@ class GameDetail extends React.Component {
             .catch(e => {
                 console.error(e)
             })
-        this.forceUpdate();
     }
 
     getSquad = () => {
@@ -109,7 +112,8 @@ class GameDetail extends React.Component {
                     
                     this.setState({
                         squad_id: res.data.squad_Id,
-                        squad_member_id: res.data.squad_Member_Id
+                        squad_member_id: res.data.squad_Member_Id,
+                        ready: true
                     })
                     console.log(this.state.squad_id);
                     
@@ -124,7 +128,6 @@ class GameDetail extends React.Component {
             .catch(e => {
                 console.error(e)
             })
-        this.forceUpdate();
     }
 
     updateMap = ()=>{
@@ -176,7 +179,7 @@ class GameDetail extends React.Component {
         if(unregistered) {
             return (
                 <Fragment>
-                    <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
+                    <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
                     <TitleFragment game_id={game_id} />
                     <GoogleMap game_id={game_id} player={player} />
                     <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id}/>

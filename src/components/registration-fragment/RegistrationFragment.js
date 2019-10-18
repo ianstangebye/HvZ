@@ -34,9 +34,7 @@ class RegistrationFragment extends React.Component {
             is_Patient_Zero: false,
             bite_Code: biteCode,
             user_id: this.props.user_id,
-            game_id: this.props.game_id,
-            squad_id: this.props.squad_id,
-            squad_member_id: this.props.squad_member_id
+            game_id: this.props.game_id
         }
 
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/player`;
@@ -61,27 +59,7 @@ class RegistrationFragment extends React.Component {
         const sid = this.state.squad_id;
         const smid = this.state.squad_member_id;
 
-        // Delete player object
-        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/player/${pid}`;
-
-        fetch(url, {
-            method: 'DELETE'
-        })
-        .then(resp => {
-            if (resp.status === 200) {
-                console.log(`Deleted player with id: ${pid}`);
-                if(sid === 0 && smid === 0) { 
-                    this.props.onUpdate()
-                }
-            } else {
-                throw new Error(`STATUS CODE: ${resp.status}`)
-            }
-        })
-        .catch(e => {
-            console.error(e);
-        });
-
-        //Delete SquadMember object
+        //Delete SquadMember object first
         if(sid != 0 && smid != 0) { 
             const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/squad/${sid}/member/${smid}`;
 
@@ -91,7 +69,7 @@ class RegistrationFragment extends React.Component {
             .then(resp => {
                 if (resp.status === 200) {
                     console.log(`Deleted squad_member with id: ${smid}`);
-                    this.props.onUpdate()
+                    //this.props.onUpdate()
                 } else {
                     throw new Error(`STATUS CODE: ${resp.status}`)
                 }
@@ -100,6 +78,24 @@ class RegistrationFragment extends React.Component {
                 console.error(e);
             });
         }
+
+        // Delete player object
+        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/player/${pid}`;
+
+        fetch(url, {
+            method: 'DELETE'
+        })
+        .then(resp => {
+            if (resp.status === 200) {
+                console.log(`Deleted player with id: ${pid}`);
+                this.props.onUpdate();
+            } else {
+                throw new Error(`STATUS CODE: ${resp.status}`)
+            }
+        })
+        .catch(e => {
+            console.error(e);
+        });
     }
 
     render() {
