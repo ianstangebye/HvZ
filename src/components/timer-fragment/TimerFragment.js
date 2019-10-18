@@ -129,17 +129,17 @@ class TimerFragment extends React.Component {
                         </div> */}
                         <div className={styles.TimerMoment}>
                             <div className={styles.Time}>
-                                <h3>Start Time: </h3>
-                                <Moment format="YYYY-MM-DD HH:mm">
-                                    {this.state.game.start_Time}
-                                </Moment>
+                                <p>Start Time: </p>
+                                <p><Moment format="YYYY-MM-DD HH:mm">
+                                   {this.state.game.start_Time}
+                                </Moment></p>
                             </div>
                             <div className={styles.FromNow}>
-                                <h3>From Now: </h3>
-                                <Moment fromNow className={styles.timer_fromNow} 
+                                <p>From Now: </p>
+                                <p><Moment fromNow className={styles.timer_fromNow} 
                                     onChange={(time) => {this.timerBeforeStart(time)}}>
-                                    {this.state.game.start_Time}
-                                </Moment>
+                                    is.state.game.start_Time}
+                                </Moment></p>
                             </div>
                         </div>
                     </div>
@@ -154,17 +154,17 @@ class TimerFragment extends React.Component {
                         </div> */}
                         <div className={styles.TimerMoment}>
                             <div className={styles.Time}>
-                                <h3>End Time: </h3>
-                                <Moment format="YYYY-MM-DD HH:mm">
+                                <p>End Time: </p>
+                                <p><Moment format="YYYY-MM-DD HH:mm">
                                     {this.state.game.end_Time}
-                                </Moment>
+                                </Moment></p>
                             </div>
                             <div className={styles.FromNow}>
-                                <h3>From Now: </h3>
-                                <Moment fromNow className={styles.timer_fromNow} 
+                                <p>From Now: </p>
+                                <p><Moment fromNow className={styles.timer_fromNow} 
                                     onChange={(time) => {this.timerBeforeEnd(time)}}>
                                     {this.state.game.end_Time}
-                                </Moment>
+                                </Moment></p>
                             </div>
                         </div>
                     </div>
