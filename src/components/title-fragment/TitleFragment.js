@@ -65,7 +65,7 @@ export default class TitleFragment extends React.Component {
         
         return (
             <React.Fragment>
-                <div className={styles.TitleFragment}>
+                <div className={styles.TitleFragment + " TitleFragment"}>
                     <div className={styles.Title}>
                         <h1>{this.state.game.name}</h1>
                         <button className={styles.CollapseBtn} id="CollapseBtn" type="button" onClick={this.handleClick}>?</button>

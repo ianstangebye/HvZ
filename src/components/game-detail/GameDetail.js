@@ -169,10 +169,12 @@ class GameDetail extends React.Component {
         if(admin) {
             return (
                 <Fragment>
-                    <TitleFragment game_id={game_id} />
-                    <GoogleMap game_id={game_id} player={player} />
-                    <SquadListFragment game_id={game_id} player_id={player_id} adminMode={true}/>
-                    <ChatFragment adminMode={true} game_id={game_id} player_id={player_id} />
+                    <div className={styles.Admin}>
+                        <TitleFragment game_id={game_id} />
+                        <GoogleMap game_id={game_id} player={player} />
+                        <SquadListFragment game_id={game_id} player_id={player_id} adminMode={true}/>
+                        <ChatFragment adminMode={true} game_id={game_id} player_id={player_id} />
+                    </div>
                 </Fragment>
             )
         }
@@ -180,10 +182,12 @@ class GameDetail extends React.Component {
         if(unregistered) {
             return (
                 <Fragment>
-                    <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
-                    <TitleFragment game_id={game_id} />
-                    <GoogleMap game_id={game_id} player={player} />
-                    <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id}/>
+                    <div className={styles.Unregistered}>
+                        <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
+                        <TitleFragment game_id={game_id} />
+                        <GoogleMap game_id={game_id} player={player} />
+                        <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id}/>
+                    </div>
                 </Fragment>
             )
         }

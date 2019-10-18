@@ -30,7 +30,7 @@ export default class SquadListFragment extends React.Component {
     }
 
     async getSquads(that) {
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad`
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad`
 
         await fetch(targetUrl).then(resp => resp.json())
         .then(resp => {
@@ -103,6 +103,8 @@ export default class SquadListFragment extends React.Component {
             squadComponents = this.state.squads.map((squad, index) => {
                 return <SquadListItem squad={squad} key={squad.squad_Id} adminMode={this.props.adminMode} player_id={this.props.player_id} onJoinSquad={this.handleJoinSquad.bind(this)}/>
             });
+        } else if (this.state.squads.length === 0) {
+            squadComponents = <p style={{margin: '10px', textAlign: 'center'}}>No squads created yet.</p>
         } else {
             squadComponents = <p>Loading squads...</p>
         }
@@ -117,12 +119,11 @@ export default class SquadListFragment extends React.Component {
                     
                     <div className={styles.SquadComponents} style={{display: this.state.isVisible ? 'none' : 'block'}}>
                         {squadComponents}
-                        <div style={{display: !this.props.player_id == null || this.props.squad_id == null || !this.props.adminMode ? 'none' : 'block'}}>
+                        <div style={{display: !this.props.player_id == null || this.props.squad_id == null || !this.props.adminMode ? 'block' : 'block'}}>
                             <SquadCreationFragment/>
                         </div>
                     </div>
                 </div>
-                
             </React.Fragment>
         )
     }
