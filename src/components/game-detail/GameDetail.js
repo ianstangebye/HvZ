@@ -155,7 +155,7 @@ class GameDetail extends React.Component {
                 <Fragment>
                     <TitleFragment game_id={game_id} />
                     <GoogleMap game_id={game_id} player={player} />
-                    <SquadListFragment game_id={game_id} player_id={player_id} />
+                    <SquadListFragment game_id={game_id} player_id={player_id} adminMode={true}/>
                     <ChatFragment adminMode={true} game_id={game_id} player_id={player_id} />
                 </Fragment>
             )
