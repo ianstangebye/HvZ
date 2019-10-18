@@ -74,7 +74,7 @@ export default class TitleFragment extends React.Component {
                     <div className={styles.Info}>
                         <p><span>Game State: </span> <span className={styles.GameState} style={{color: this.state.gameStateColor}}>{this.state.game.game_State}</span></p>
                         
-                        <p><span><TimerFragment game_id={this.state.game_id} /></span></p>
+                        <TimerFragment game_id={this.state.game_id} />
 
                         <p><span>Description: </span><br></br>{this.state.game.description}</p>
                         <div className={styles.Rules} style={{display: this.state.isVisible ? 'block' : 'none'}}>
