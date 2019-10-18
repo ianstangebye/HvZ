@@ -63,27 +63,27 @@ class GameDetail extends React.Component {
 
         // Get this user's player object, if it exists
         axios
-            .get(url)
-            .then(res => {
-                if (res.status === 200) {
-                    this.setState({
-                        player: res.data,
-                        ready: true
-                    }, () => {
-                        this.getSquad();
-                    })
-                } else if (res.status === 204) {
-                    this.setState({
-                        player: {},
-                        ready: true
-                    })
-                } else {
-                    throw new Error(`STATUS CODE: ${res.status}`)
-                }
-            })
-            .catch(e => {
-                console.error(e)
-            })
+        .get(url)
+        .then(res => {
+            if (res.status === 200) {
+                this.setState({
+                    player: res.data,
+                    ready: true
+                }, () => {
+                    this.getSquad();
+                })
+            } else if (res.status === 204) {
+                this.setState({
+                    player: {},
+                    ready: true
+                })
+            } else {
+                throw new Error(`STATUS CODE: ${res.status}`)
+            }
+        })
+        .catch(e => {
+            console.error(e)
+        })
     }
 
     getSquad = () => {
@@ -156,7 +156,7 @@ class GameDetail extends React.Component {
                     <TitleFragment game_id={game_id} />
                     <GoogleMap game_id={game_id} player={player} />
                     <SquadListFragment game_id={game_id} player_id={player_id} />
-                    <ChatFragment adminMode={true} game_id={game_id} player_id={player_id} />
+                    <ChatFragment adminMode={true} game_id={game_id} />
                 </Fragment>
             )
         }
@@ -184,7 +184,7 @@ class GameDetail extends React.Component {
 
                 {squadFragment}
                 
-                <ChatFragment player={player} squad_id={squad_id} />
+                <ChatFragment player={player} squad_id={squad_id} game_id={game_id} />
                 <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
                 <MissionList game_id={game_id} />
                 <TimerFragment game_id={game_id} />
