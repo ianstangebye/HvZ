@@ -109,7 +109,7 @@ class GameDetail extends React.Component {
                         player: {}
                     })
                 } else {
-                    throw new Error(`STATUS CODE: ${res.status}`)
+                    throw new Error(`STATUS CODE: ${res.status}`) 
                 }
             })
             .catch(e => {
