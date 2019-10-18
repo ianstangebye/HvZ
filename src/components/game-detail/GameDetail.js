@@ -155,7 +155,7 @@ class GameDetail extends React.Component {
 
         let squadFragment = null;
         if(squad_id) {
-            squadFragment = <SquadDetailsFragment></SquadDetailsFragment>
+            squadFragment = <SquadDetailsFragment game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
         } else {
             squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} />
         }
