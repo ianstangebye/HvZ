@@ -167,7 +167,7 @@ class GameDetail extends React.Component {
                     <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
                     <TitleFragment game_id={game_id} />
                     <GoogleMap game_id={game_id} player={player} />
-                    <SquadListFragment game_id={game_id} player_id={player_id} />
+                    <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id}/>
                 </Fragment>
             )
         }
