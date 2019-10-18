@@ -56,13 +56,15 @@ class RegistrationFragment extends React.Component {
     leaveGame = () => {
         const gid = this.state.game_id;
         const pid = this.state.player_id;
-        const sid = this.state.squad_id;
-        const smid = this.state.squad_member_id;
+        const sid = this.props.squad_id;
+        const smid = this.props.squad_member_id;
 
         //Delete SquadMember object first
         if(sid != 0 && smid != 0) { 
             const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/squad/${sid}/member/${smid}`;
 
+            console.log("Delete squad member url: " + url);
+            
             fetch(url, {
                 method: 'DELETE'
             })
