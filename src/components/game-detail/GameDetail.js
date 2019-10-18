@@ -21,6 +21,7 @@ class GameDetail extends React.Component {
         this.state = {
             game_id: 0,
             squad_id: 0,
+            squad_member_id: 0,
             player: {},
             user_id: 0,
             ready: false
@@ -57,6 +58,10 @@ class GameDetail extends React.Component {
         console.log(" ____________ GAME DETAIL ____________")
         console.log("| FETCHING PLAYER                     |")
 
+        this.setState({
+            ready: false
+        })
+
         const gid = this.state.game_id
         const uid = this.state.user_id
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/user/${uid}/player`
@@ -66,15 +71,19 @@ class GameDetail extends React.Component {
             .get(url)
             .then(res => {
                 if (res.status === 200) {
+                    console.log("getplayer success");
+                    
                     this.setState({
                         player: res.data,
-                        ready: true
+                        //ready: true
                     }, () => {
                         this.getSquad();
                     })
                 } else if (res.status === 204) {
                     this.setState({
                         player: {},
+                        squad_id: 0,
+                        squad_member_id: 0,
                         ready: true
                     })
                 } else {
@@ -99,23 +108,26 @@ class GameDetail extends React.Component {
             .get(url)
             .then(res => {
                 if (res.status === 200) {
+                    console.log("getSquad success");
+                    
                     this.setState({
-                        squad_id: res.data.squad_Id
+                        squad_id: res.data.squad_Id,
+                        squad_member_id: res.data.squad_Member_Id,
+                        ready: true
                     })
                     console.log(this.state.squad_id);
                     
-                } else if (res.status === 204) {
-                    this.setState({
-                        player: {}
-                    })
                 } else {
-                    throw new Error(`STATUS CODE: ${res.status}`) 
+                    this.setState({
+                        squad_id: 0,
+                        squad_member_id: 0,
+                        ready: true
+                    })
                 }
             })
             .catch(e => {
                 console.error(e)
             })
-        
     }
 
     updateMap = ()=>{
@@ -134,6 +146,7 @@ class GameDetail extends React.Component {
         const player_id = player.player_Id
         const squad_id = this.state.squad_id
         const game_id = this.state.game_id
+        const squad_member_id = this.state.squad_member_id
 
         console.log("| GAME   ID: " + game_id)
         console.log("| USER   ID: " + user_id)
@@ -145,9 +158,9 @@ class GameDetail extends React.Component {
 
         let squadFragment = null;
         if(squad_id) {
-            squadFragment = <SquadDetailsFragment></SquadDetailsFragment>
+            squadFragment = <SquadDetailsFragment game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
         } else {
-            squadFragment = <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id} />
+            squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} />
         }
 
         // let componentsToRender = []
@@ -166,10 +179,10 @@ class GameDetail extends React.Component {
         if(unregistered) {
             return (
                 <Fragment>
-                    <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
+                    <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
                     <TitleFragment game_id={game_id} />
                     <GoogleMap game_id={game_id} player={player} />
-                    <SquadListFragment game_id={game_id} player_id={player_id} />
+                    <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id}/>
                 </Fragment>
             )
         }
@@ -181,7 +194,7 @@ class GameDetail extends React.Component {
                     :
                     <BiteCodeEntry newBiteCode={this.updateMap} game_id={game_id} player={player} />
                 }
-                <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} />
+                <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id} />
                 <TitleFragment game_id={game_id} />
 
                 {squadFragment}

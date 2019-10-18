@@ -1,7 +1,5 @@
 import React from 'react';
 import styles from './SquadCreationFragment.module.css';
-import arrowUpIcon from '../../assets/arrow-up-icon.svg';
-import arrowDownIcon from '../../assets/arrow-down-icon.svg';
 
 export default class SquadCreationFragment extends React.Component {
 
@@ -81,31 +79,32 @@ export default class SquadCreationFragment extends React.Component {
         }
     }
 
-    handleCollapseClick = () => {
+    handleShowFormClick = () => {
         this.setState({
             isVisible: !this.state.isVisible
         });
+        document.getElementById("showForm").style.display = 'none';
+    }
 
-        //Replace text with icons
-        if (this.state.isVisible === false) {
-            document.getElementById("CollapseBtn").innerHTML = `<img src=${arrowUpIcon} />`;
-        } else {
-            document.getElementById("CollapseBtn").innerHTML = `<img src=${arrowDownIcon} />`;
-        }
+    handleCloseClick = () => {
+        this.setState({
+            isVisible: !this.state.isVisible
+        });
+        document.getElementById("showForm").style.display = 'block'
     }
 
     render(){
         return(
             <React.Fragment>
                 <div className={styles.SquadCreationFragment}>
-                    <div className={styles.Title}>
-                        <h2>Create a new squad</h2>
-                        <button id="CollapseBtn" type="button" onClick={this.handleCollapseClick}><img src={arrowUpIcon}/></button>
+                    <div id="showForm" className={styles.ShowForm}>
+                        <button className={styles.ShowFormBtn} type="button" onClick={this.handleShowFormClick}>+</button>
                     </div>
                     
-                    <div style={{display: this.state.isVisible ? 'block' : 'none'}}>
+                    <div className={styles.CreationForm} style={{display: this.state.isVisible ? 'block' : 'none'}}>
+                        <h2>Create a new squad</h2>
                         <form>
-                            <label>Name: </label>
+                            <label>Name</label>
                             <input autoFocus type="text" placeholder="Squad name here..." value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} required></input>
                             
                         </form>
@@ -114,6 +113,7 @@ export default class SquadCreationFragment extends React.Component {
                             this.onClickCreate();
                             this.onClickJoin();
                         }}>Create & Join</button>
+                        <button className={styles.CloseBtn} onClick={this.handleCloseClick}>Close</button>
                     </div>
                     
                 </div>

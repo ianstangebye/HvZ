@@ -3,6 +3,7 @@ import SquadListItem from '../squad-list-item/SquadListItem';
 import styles from './SquadListFragment.module.css';
 import arrowUpIcon from '../../assets/arrow-up-icon.svg';
 import arrowDownIcon from '../../assets/arrow-down-icon.svg';
+import SquadCreationFragment from '../squad-creation-fragment/SquadCreationFragment';
 
 export default class SquadListFragment extends React.Component {
 
@@ -75,6 +76,8 @@ export default class SquadListFragment extends React.Component {
 
         this.setState({
             joinedSquadId: squad_id
+        }, () => {
+            this.props.onUpdate();
         })
 
         //this.props.onJoinSquad(squad_id);
@@ -114,6 +117,9 @@ export default class SquadListFragment extends React.Component {
                     
                     <div className={styles.SquadComponents} style={{display: this.state.isVisible ? 'none' : 'block'}}>
                         {squadComponents}
+                        <div style={{display: !this.props.player_id == null || this.props.squad_id == null || !this.props.adminMode ? 'none' : 'block'}}>
+                            <SquadCreationFragment/>
+                        </div>
                     </div>
                 </div>
                 

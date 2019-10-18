@@ -48,7 +48,7 @@ export default class SquadDetailsFragment extends React.Component {
         //     "squad_Member_Id": 8
         // }
 
-        // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/check-in`
+        // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/check-in`
         // fetch(targetUrl, {
         //     method: 'POST',
         //     headers: {'Content-Type': 'application/json'},
@@ -63,12 +63,11 @@ export default class SquadDetailsFragment extends React.Component {
     }
 
     // Delete a squad-member
-    handleLeaveSquad() {
-        console.log('leaving squad');
+    handleLeaveSquad = () => {
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/member/${this.props.squad_member_id}`
 
-        //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/member/12`
-
+        console.log("squadDetail url : " + targetUrl);
+        
         fetch(targetUrl, {
             method: 'DELETE',
         }).then(resp => console.log('Deleted Squad-member: ', resp))
@@ -78,10 +77,10 @@ export default class SquadDetailsFragment extends React.Component {
         
     }
 
+    
     componentDidMount() {
         //Get squadmembers
-        //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-        const targetSquadUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/member`
+        const targetSquadUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/member`
 
         fetch(targetSquadUrl).then(resp => resp.json())
         .then(resp => {
@@ -93,7 +92,7 @@ export default class SquadDetailsFragment extends React.Component {
         })
 
         //Get squad name
-        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/'
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/`
         fetch(targetUrl).then(resp => resp.json())
         .then(resp => {
             this.setState(
