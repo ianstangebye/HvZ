@@ -75,7 +75,7 @@ class GameDetail extends React.Component {
                     
                     this.setState({
                         player: res.data,
-                        //ready: true
+                        ready: true
                     }, () => {
                         this.getSquad();
                     })
