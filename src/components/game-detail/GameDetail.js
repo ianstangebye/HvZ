@@ -21,6 +21,7 @@ class GameDetail extends React.Component {
         this.state = {
             game_id: 0,
             squad_id: 0,
+            squad_member_id: 0,
             player: {},
             user_id: 0,
             ready: false
@@ -100,7 +101,8 @@ class GameDetail extends React.Component {
             .then(res => {
                 if (res.status === 200) {
                     this.setState({
-                        squad_id: res.data.squad_Id
+                        squad_id: res.data.squad_Id,
+                        squad_member_id: res.data.squad_Member_Id
                     })
                     console.log(this.state.squad_id);
                     
@@ -134,6 +136,7 @@ class GameDetail extends React.Component {
         const player_id = player.player_Id
         const squad_id = this.state.squad_id
         const game_id = this.state.game_id
+        const squad_member_id = this.state.squad_member_id
 
         console.log("| GAME   ID: " + game_id)
         console.log("| USER   ID: " + user_id)
@@ -145,7 +148,7 @@ class GameDetail extends React.Component {
 
         let squadFragment = null;
         if(squad_id) {
-            squadFragment = <SquadDetailsFragment></SquadDetailsFragment>
+            squadFragment = <SquadDetailsFragment game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
         } else {
             squadFragment = <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id} />
         }
