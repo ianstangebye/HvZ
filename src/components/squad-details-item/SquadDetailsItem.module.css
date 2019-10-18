@@ -1,4 +1,4 @@
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 100px) {
     .SquadDetailsItem {
         display: grid;
         grid-template-columns: 60% 1fr 30%;
@@ -8,7 +8,7 @@
     .SquadDetailsItem p:first-child {
         font-weight: bold;
         color: #2C6974;
-
+        grid-column: 1;
     }
 
     .SquadDetailsItem p {
@@ -16,6 +16,7 @@
         font-size: 12px;
         padding-left: 5px;
         color: #303030;
+        overflow: hidden;
     }
 
     .SquadDetailsItem p:last-child {
@@ -23,20 +24,6 @@
     }
 }
 
-@media screen and (min-width: 600px) {
-    .SquadDetailsItem {
-        display: grid;
-        grid-template-columns: 50% 1fr 1fr;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.205);
-        margin: 0px 15px;
-    }
+@media screen and (min-width: 801px) {
 
-    .SquadDetailsItem p {
-        border-right: 1px solid rgba(0, 0, 0, 0.205); 
-    }
-
-    .SquadDetailsItem p:last-child {
-        border: none;
-        grid-column: 3;
-    }
 }
