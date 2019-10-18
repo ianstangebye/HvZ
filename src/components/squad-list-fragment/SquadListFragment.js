@@ -14,7 +14,8 @@ export default class SquadListFragment extends React.Component {
             squads: [],
             game_id: props.game_id,
             player_id: props.player_id,
-            joinedSquadId: props.squad_id
+            joinedSquadId: props.squad_id,
+            is_human: props.is_human
         }
     }
 
@@ -30,7 +31,7 @@ export default class SquadListFragment extends React.Component {
     }
 
     async getSquads(that) {
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad`
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/squad`
 
         await fetch(targetUrl).then(resp => resp.json())
         .then(resp => {
@@ -104,7 +105,7 @@ export default class SquadListFragment extends React.Component {
                 return <SquadListItem squad={squad} key={squad.squad_Id} adminMode={this.props.adminMode} player_id={this.props.player_id} onJoinSquad={this.handleJoinSquad.bind(this)}/>
             });
         } else {
-            squadComponents = <p>Loading squads...</p>
+            squadComponents = <p>No Squad Yet...</p>
         }
 
         return (
@@ -117,8 +118,8 @@ export default class SquadListFragment extends React.Component {
                     
                     <div className={styles.SquadComponents} style={{display: this.state.isVisible ? 'none' : 'block'}}>
                         {squadComponents}
-                        <div style={{display: !this.props.player_id == null || this.props.squad_id == null || !this.props.adminMode ? 'none' : 'block'}}>
-                            <SquadCreationFragment/>
+                        <div style={{display: this.props.player_id == null || this.props.squad_id != null && this.props.adminMode ? 'none' : 'block'}}>    
+                            <SquadCreationFragment onUpdate={this.props.onUpdate} game_id={this.state.game_id} player_id={this.state.player_id} is_human={this.state.is_human}/>
                         </div>
                     </div>
                 </div>

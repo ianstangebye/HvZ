@@ -2,11 +2,17 @@ import React from 'react';
 import styles from './NewGameForm.module.css';
 import { geolocated } from "react-geolocated";
 import { Redirect } from 'react-router';
+import Calendar from '@lls/react-light-calendar'
+import '@lls/react-light-calendar/dist/index.css'
 
 class NewGameForm extends React.Component {
 
     constructor(props) {
         super(props);
+
+        const date = new Date()
+        const startDate = date.getTime()
+        const endDate = new Date(startDate).setDate(date.getDate() + 1);
 
         this.state = {
             is_admin: false,
@@ -16,7 +22,10 @@ class NewGameForm extends React.Component {
             se_latitude: 0,
             se_longitude: 0,
             description: "",
-            creationSuccess: false
+            start_time: new Date(startDate).toLocaleString(), 
+            end_time: new Date(endDate).toLocaleString(),
+            creationSuccess: false,
+            calenderOn: false
         };
     }
 
@@ -41,6 +50,14 @@ class NewGameForm extends React.Component {
         }
     }
 
+    toggleCalender = () => {
+        const toggle = this.state.calenderOn ? false : true;
+
+        this.setState({
+            calenderOn: toggle
+        })
+    }
+
     createNewGame = () => {
         if (this.state.name === "") {
             alert("Please fill the input boxes");
@@ -52,7 +69,9 @@ class NewGameForm extends React.Component {
                 "nw_lng": this.state.nw_longitude,
                 "se_lat": this.state.se_latitude,
                 "se_lng": this.state.se_longitude,
-                "description": this.state.description
+                "description": this.state.description,
+                "start_time": this.state.start_time,
+                "end_time": this.state.end_time
             }
 
             const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game'
@@ -78,10 +97,31 @@ class NewGameForm extends React.Component {
     componentDidMount() {
 
     }
+    
+    onCalenderChange = (start_time, end_time) => {
+        console.log(start_time);
+        console.log(end_time);
+        
+        this.setState({
+            start_time: new Date(start_time).toLocaleString(),
+            end_time: new Date(end_time).toLocaleString()
+        })
+    }
 
     render() {
         if(this.state.creationSuccess) {
             return <Redirect push to="/" />; 
+        }
+
+        let calender = null;
+
+        const startDate = new Date(this.state.start_time).getTime()
+        const endDate = new Date(this.state.end_time).getTime()
+
+        if(this.state.calenderOn) {
+            calender = <Calendar startDate={startDate} endDate={endDate} onChange={this.onCalenderChange} range displayTime timezone="Europe/Oslo"/>
+        } else {
+            calender = null;
         }
 
         return (
@@ -113,10 +153,21 @@ class NewGameForm extends React.Component {
                         <textarea rows="4" cols="50" name="description" placeholder="Add a description of the game..." value={this.state.description} onChange={(e) => this.updateInputValue("description", e)}>
                         </textarea>
                     </div>
-
+                    <div>
+                        <label>Start Time</label>
+                        <input type="text" name="start_time" maxLength="50" value={this.state.start_time} onChange={(e) => this.updateInputValue("start_time", e)}></input>
+                    </div>
+                    <div>
+                        <label>End Time</label>
+                        <input type="text" name="end_time" maxLength="50" value={this.state.end_time} onChange={(e) => this.updateInputValue("end_time", e)}></input>
+                    </div>
                 </form>
+                
+                {calender}
+
                 <div className={styles.Btns}>
                     <button className={styles.BtnGetLocation} onClick={this.getLocation}>Get Location</button>
+                    <button className={styles.BtnGetLocation} onClick={this.toggleCalender}>Get Time</button>
                     <button className={styles.BtnCreate} onClick={this.createNewGame}>Create Game</button>
                 </div>
             </div>

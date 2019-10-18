@@ -8,10 +8,10 @@ export default class SquadCreationFragment extends React.Component {
 
         this.state = {
             name: '',
-            is_Human: '', // true or false
-            game_Id: '',
-            squad_Id: '',
-            player_Id: '',
+            is_human: props.is_human, // true or false
+            game_id: props.game_id,
+            squad_id: 0,
+            player_id: props.player_id,
             isVisible: false
         }
     }
@@ -27,14 +27,18 @@ export default class SquadCreationFragment extends React.Component {
 
         const newSquad = {
             "name": this.state.name,
-            "is_Human": this.state.is_Human,
-            "game_Id": this.state.game_Id
+            "is_human": this.state.is_human,
+            "game_id": this.state.game_id
         }
 
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/squad`
         
-        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad'
+        console.log(targetUrl);
+        console.log(newSquad);
+
+        const that = this;
         
-        if (this.state.name > 0) {
+        if (this.state.name.length > 0) {
             fetch(targetUrl, {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
@@ -43,6 +47,11 @@ export default class SquadCreationFragment extends React.Component {
                 return resp.json();
             }).then(function(data) {
                 console.log('Created Squad:', data);
+                that.setState({
+                    squad_id: data
+                }, () => {
+                    that.onClickJoin();
+                })
             }).catch(e => {
                 console.log(e);
             })
@@ -54,29 +63,25 @@ export default class SquadCreationFragment extends React.Component {
         console.log('Joined');
 
         const newSquadMember = {
-            "rank":"Squad Leader",
-            "game_Id": this.state.game_Id,
-            "squad_Id": this.state.squad_Id,
-            "player_Id": this.state.player_Id
+            "game_id": this.state.game_id,
+            "squad_id": this.state.squad_id,
+            "player_id": this.state.player_id
         }
 
-        
-        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/2/squad/1'
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/squad/${this.state.squad_id}/member`
 
-        if (this.state.name > 2) {
-            fetch(targetUrl, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(newSquadMember)
-            }).then(resp => resp.json()
-            ).then(data => console.log('Squadmember joined: ', data)
-            ).catch(e => {
-                console.log(e);
-                
-            })
-        } else {
-            alert('The name must be at least 3 characters')
-        }
+        fetch(targetUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(newSquadMember)
+        }).then(resp => resp.json()
+        ).then(data => console.log('Squadmember joined: ', data)
+        ).catch(e => {
+            console.log(e);
+            
+        })
+
+        this.props.onUpdate();
     }
 
     handleShowFormClick = () => {
@@ -111,7 +116,7 @@ export default class SquadCreationFragment extends React.Component {
                         <p className={styles.WarningMessage}>{this.state.message}</p>
                         <button className={styles.CreateBtn} onClick={() => {
                             this.onClickCreate();
-                            this.onClickJoin();
+                            //this.onClickJoin();
                         }}>Create & Join</button>
                         <button className={styles.CloseBtn} onClick={this.handleCloseClick}>Close</button>
                     </div>

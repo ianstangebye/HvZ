@@ -24,9 +24,9 @@ class TimerFragment extends React.Component {
                 game: {...resp}
             });
 
-            console.log("start_time: " + this.state.game.start_Time);
-            console.log("end_time: " + this.state.game.end_Time);
-            console.log("game_state: " + this.state.game.game_State);
+            // console.log("start_time: " + this.state.game.start_Time);
+            // console.log("end_time: " + this.state.game.end_Time);
+            // console.log("game_state: " + this.state.game.game_State);
             
         }).catch(error => {
             console.log('Something fucked up')
@@ -123,44 +123,59 @@ class TimerFragment extends React.Component {
         if(this.state.game.game_State === 'Registration') {
             return (
                 <React.Fragment>
-                    <div className={styles.timer}>
-                        <h2>Game State: {this.state.game.game_State}</h2>
-                        <h3 className={styles.timer_h3}>Start Time: </h3>
-                        <Moment format="YYYY-MM-DD HH:mm">
-                            {this.state.game.start_Time}
-                        </Moment>
-                        <h3 className={styles.timer_h3}>From Now: </h3>
-                        <Moment fromNow className={styles.timer_fromNow} 
-                            onChange={(time) => {this.timerBeforeStart(time)}}>
-                            {this.state.game.start_Time}
-                        </Moment>
+                    <div className={styles.Timer}>
+                        {/* <div className={styles.GameState}>
+                            <h2>Game State: {this.state.game.game_State}</h2>
+                        </div> */}
+                        <div className={styles.TimerMoment}>
+                            <div className={styles.Time}>
+                                <h3>Start Time: </h3>
+                                <Moment format="YYYY-MM-DD HH:mm">
+                                    {this.state.game.start_Time}
+                                </Moment>
+                            </div>
+                            <div className={styles.FromNow}>
+                                <h3>From Now: </h3>
+                                <Moment fromNow className={styles.timer_fromNow} 
+                                    onChange={(time) => {this.timerBeforeStart(time)}}>
+                                    {this.state.game.start_Time}
+                                </Moment>
+                            </div>
+                        </div>
                     </div>
                 </React.Fragment>
             )
         } else if (this.state.game.game_State === 'In Progress') {
-
             return (
                 <React.Fragment>
-                    <div className={styles.timer}>
-                        <h2>Game State: {this.state.game.game_State}</h2>
-                        <h3 className={styles.timer_h3}>End Time: </h3>
-                        <Moment format="YYYY-MM-DD HH:mm">
-                            {this.state.game.end_Time}
-                        </Moment>
-                        <h3 className={styles.timer_h3}>From Now: </h3>
-                        <Moment fromNow className={styles.timer_fromNow}
-                            onChange={(time) => {this.timerBeforeEnd(time)}}>
-                            {this.state.game.end_Time}
-                        </Moment>
+                    <div className={styles.Timer}>
+                        {/* <div className={styles.GameState}>
+                            <h2>Game State: {this.state.game.game_State}</h2>
+                        </div> */}
+                        <div className={styles.TimerMoment}>
+                            <div className={styles.Time}>
+                                <h3>End Time: </h3>
+                                <Moment format="YYYY-MM-DD HH:mm">
+                                    {this.state.game.end_Time}
+                                </Moment>
+                            </div>
+                            <div className={styles.FromNow}>
+                                <h3>From Now: </h3>
+                                <Moment fromNow className={styles.timer_fromNow} 
+                                    onChange={(time) => {this.timerBeforeEnd(time)}}>
+                                    {this.state.game.end_Time}
+                                </Moment>
+                            </div>
+                        </div>
                     </div>
                 </React.Fragment>
             )
         } else {
             return (
                 <React.Fragment>
-                    <div className={styles.timer}>
+                    {/* <div className={styles.timer}>
                         <h2>Game State: {this.state.game.game_State}</h2>
-                    </div>
+                    </div> */}
                 </React.Fragment>
             )
         }

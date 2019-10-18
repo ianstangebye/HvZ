@@ -33,7 +33,7 @@ class GameList extends React.Component {
         //const token = window.sessionStorage.getItem("token") || "";
         if(this.props.location.state) {
             const user_id = this.props.location.state.user_id || 0;
-            const is_admin = this.props.location.state.is_admin === "true" ? true : false;
+            const is_admin = this.props.location.state.is_admin || false;
             const token = this.props.location.state.token || ""; 
             
             this.setState((prevState, props) => {
