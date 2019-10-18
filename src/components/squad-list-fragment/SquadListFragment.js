@@ -115,7 +115,7 @@ export default class SquadListFragment extends React.Component {
                     
                     <div className={styles.SquadComponents} style={{display: this.state.isVisible ? 'none' : 'block'}}>
                         {squadComponents}
-                        <div style={{display: !this.props.player_id == null || this.props.squad_id == null || !this.props.adminMode ? 'block' : 'none'}}>
+                        <div style={{display: !this.props.player_id == null || this.props.squad_id == null || !this.props.adminMode ? 'none' : 'block'}}>
                             <SquadCreationFragment/>
                         </div>
                     </div>
