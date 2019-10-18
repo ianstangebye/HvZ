@@ -145,14 +145,24 @@ class GoogleMap extends React.Component {
 
         for (var i=0; i<this.state.missions.length; i++){
             var mission = this.state.missions[i];
+
             var rightNow = new Date();
             // console.log(rightNow);
             var missionDeadline = new Date(mission.end_Time)
-            // console.log(missionDeadline);
+            console.log(missionDeadline);
 
-            // if(rightNow < missionDeadline){
+            var contentString = `<div id="content">
+                                <h1 style="color:black;padding:0;margin:0;">${mission.name}</h1>
+                                <hr>
+                                <p style="color:black;top-padding:0;">${mission.description}</p>
+                              
+                                <b style="color:black;padding:2px;">Mission Deadline: ${mission.end_Time}</b>
+                                </div>`;
+
+            if(rightNow < missionDeadline){
+                
                 if(mission.is_Human_Visible && mission.is_Zombie_Visible){
-                    var marker = new window.google.maps.Marker({
+                    var globalMarker = new window.google.maps.Marker({
                         position: {lat: mission.latitude, lng: mission.longitude},
                         map: map,
                         icon: missionImage,
@@ -160,8 +170,14 @@ class GoogleMap extends React.Component {
                         title: mission.name,
                         zIndex: 4
                       });
+                      var infowindow = new window.google.maps.InfoWindow({
+                        content: contentString
+                      });
+                      globalMarker.addListener('click', function() {
+                        infowindow.open(map, globalMarker);
+                      });
                 } else if(mission.is_Human_Visible == false && player_status == false){
-                    var marker = new window.google.maps.Marker({
+                    var zombieMarker = new window.google.maps.Marker({
                         position: {lat: mission.latitude, lng: mission.longitude},
                         map: map,
                         icon: zombieMissionImage,
@@ -169,8 +185,14 @@ class GoogleMap extends React.Component {
                         title: mission.name,
                         zIndex: 4
                       });
+                      var infowindow = new window.google.maps.InfoWindow({
+                        content: contentString
+                      });
+                      zombieMarker.addListener('click', function() {
+                        infowindow.open(map, zombieMarker);
+                      });
                 } else if(mission.is_Human_Visible == true && player_status == true){
-                    var marker = new window.google.maps.Marker({
+                    var humanMarker = new window.google.maps.Marker({
                         position: {lat: mission.latitude, lng: mission.longitude},
                         map: map,
                         icon: humanMissionImage,
@@ -178,16 +200,24 @@ class GoogleMap extends React.Component {
                         title: mission.name,
                         zIndex: 4
                       });
+                      var infowindow = new window.google.maps.InfoWindow({
+                        content: contentString
+                      });
+                      humanMarker.addListener('click', function() {
+                        infowindow.open(map, humanMarker);
+                      });
     
                 } else {
                     console.log('Player' + this.props.player.player_Id + 'status is ' + player_status + '. The user_Id is ' + this.props.player.user_Id);
                     
                 }
 
-            // } else {
-            //     console.log('mission expired');
+            } else {
                 
-            // }      
+                console.log(rightNow < missionDeadline);
+                console.log('mission expired');
+                
+            }      
 
 
         }  
