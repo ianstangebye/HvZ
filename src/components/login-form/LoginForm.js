@@ -31,6 +31,9 @@ class LoginForm extends React.Component{
     }
 
     updateLoggedIn = (user_id, is_admin, token) => {
+        is_admin = is_admin == "Admin" ? true : false;
+        console.log(is_admin);
+        
         this.setState({
             user_id: user_id,
             is_admin: is_admin,
@@ -77,6 +80,8 @@ class LoginForm extends React.Component{
                 sessionStorage.setItem("user_id", decoded.nameid)
                 sessionStorage.setItem("role", decoded.role)
                 console.log("USER ID: " + sessionStorage.getItem("user_id"))
+                console.log("IS_ADMIN: " + decoded.role);
+                
                 this.updateLoggedIn(decoded.nameid, decoded.role, resp)
             } else {
                 console.log("Login failed")

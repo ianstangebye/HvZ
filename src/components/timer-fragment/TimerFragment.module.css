@@ -1,11 +1,23 @@
-.timer {
+/* .Timer {
     display: block;
-    margin: 20px;
+    margin: 20px 20px 0px 20px;
     float: right;
+    max-height: 50px;
 }
 
-.timer_h3 {
+.GameState {
+    max-width: 700px;
+    width: 100%;
+    margin: 10px auto;
+}
+
+.GameState h2 {
+    border-bottom: 2px solid #F5F5F5;
+    width: 100%;
+    font-size: 18px;
+} */
+
+.TimerMoment h3{
     display: inline;
-    margin: 10px 10px;
-    padding: 20px;
+    font-size: 1em;
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './TitleFragment.module.css';
+import TimerFragment from '../timer-fragment/TimerFragment';
 
 export default class TitleFragment extends React.Component {
 
@@ -72,6 +73,9 @@ export default class TitleFragment extends React.Component {
                     </div>
                     <div className={styles.Info}>
                         <p><span>Game State: </span> <span className={styles.GameState} style={{color: this.state.gameStateColor}}>{this.state.game.game_State}</span></p>
+                        
+                        <p><span><TimerFragment game_id={this.state.game_id} /></span></p>
+
                         <p><span>Description: </span><br></br>{this.state.game.description}</p>
                         <div className={styles.Rules} style={{display: this.state.isVisible ? 'block' : 'none'}}>
                             <p><span>Rules: </span><br></br> (Placeholder rules) HVZ is played with two teams: the Humans and the Zombies. Players are able to tell the two teams apart with the use of bandanas; Humans wear their bandanas around an arm or on a leg, whereas Zombies wear it around their head.

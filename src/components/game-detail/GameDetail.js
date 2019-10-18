@@ -9,7 +9,6 @@ import BiteCodeFragment from '../bite-code-fragment/BiteCodeFragment'
 import BiteCodeEntry from '../bite-code-entry/BiteCodeEntry'
 import GoogleMap from '../google-map/GoogleMap'
 import MissionList from '../mission-list/MissionList'
-import TimerFragment from '../timer-fragment/TimerFragment'
 import SquadDetailsFragment from '../squad-details-fragment/SquadDetailsFragment';
 
 class GameDetail extends React.Component {
@@ -161,7 +160,7 @@ class GameDetail extends React.Component {
         if(squad_id) {
             squadFragment = <SquadDetailsFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
         } else {
-            squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} />
+            squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human}/>
         }
 
         // let componentsToRender = []
@@ -207,7 +206,7 @@ class GameDetail extends React.Component {
                 <ChatFragment player={player} squad_id={squad_id} game_id={game_id} />
                 <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
                 <MissionList game_id={game_id} />
-                <TimerFragment game_id={game_id} />
+                
                 
             </React.Fragment>
         )
