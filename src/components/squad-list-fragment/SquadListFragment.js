@@ -76,6 +76,8 @@ export default class SquadListFragment extends React.Component {
 
         this.setState({
             joinedSquadId: squad_id
+        }, () => {
+            this.props.onUpdate();
         })
 
         //this.props.onJoinSquad(squad_id);
