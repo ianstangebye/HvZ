@@ -133,11 +133,11 @@ class ChatFragment extends React.Component {
                 is_human_global: this.state.activeTab === "Global" || this.state.activeTab === "Human",
                 is_zombie_global: this.state.activeTab === "Global" || this.state.activeTab === "Zombie",
                 chat_time: now,
-                game_id: this.props.player.game_Id,
-                player_id: this.props.player.player_Id
+                game_id: this.props.game_id,
+                player_id: this.props.adminMode ? 0 : this.props.player.player_Id
             }
 
-            axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.player.game_Id}/chat`, body)
+            axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat`, body)
             .catch(e => console.error(e));
             
             this.setState({ messageText: "" })
@@ -158,7 +158,6 @@ class ChatFragment extends React.Component {
             // If squad tab is selected while in adminMode and if there are any squads in the game
             if(tab === "Squad" && this.props.adminMode && isActive && this.state.squads.length > 0) {
                 let updateState = e => {
-                    console.log("SQUAD ID: " + e.target.value)
                     this.setState({ squad_id: e.target.value })
                 }
 
