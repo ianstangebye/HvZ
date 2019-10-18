@@ -33,12 +33,13 @@ export default class SquadListItem extends React.Component {
     }
 
     render() {
+
         return(
             <div className={styles.SquadListItem}>
                 <h4>{this.props.squad.name}</h4>
                 <p className={styles.Total}>Members: {this.state.squadMembers.length} </p>
                 <p className={styles.Deceased}>Deceased members: {this.state.deceasedMembers}</p>
-                <button onClick={this.joinSquad.bind(this)}>Join</button>
+                <button onClick={this.joinSquad.bind(this)} style={{display: this.props.adminMode || this.props.player_id == null ? 'none' : 'block'}}>Join</button>
             </div>
         )
     }

@@ -21,8 +21,9 @@ export default class SquadDetailsItem extends React.Component {
     }
 
     render() {
+
         return(
-            <div className={styles.SquadDetailsItem}>
+            <div className={styles.SquadDetailsItem} style={{display: this.props.squadMember.username === '' ? 'none' : ''}}>
                 <p>{this.props.squadMember.username}</p>
                 <p>{this.props.squadMember.rank}</p>
                 <p style={{color: this.state.memberStateColor}}>{this.state.isAlive}</p>

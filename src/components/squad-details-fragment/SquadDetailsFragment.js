@@ -48,7 +48,7 @@ export default class SquadDetailsFragment extends React.Component {
         //     "squad_Member_Id": 8
         // }
 
-        // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/check-in`
+        // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/check-in`
         // fetch(targetUrl, {
         //     method: 'POST',
         //     headers: {'Content-Type': 'application/json'},
@@ -63,25 +63,27 @@ export default class SquadDetailsFragment extends React.Component {
     }
 
     // Delete a squad-member
-    handleLeaveSquad() {
-        console.log('leaving squad');
-
-        //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/member/12`
-
+    handleLeaveSquad = () => {
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/member/${this.props.squad_member_id}`
+        
         fetch(targetUrl, {
             method: 'DELETE',
-        }).then(resp => console.log('Deleted Squad-member: ', resp))
+        }).then(resp => {
+            console.log('Deleted Squad-member: ', resp);
+            if (resp.status == 200) {
+                this.props.onUpdate()
+            }
+        })
         .catch(e => {
             console.log(e);
         })
         
     }
 
+    
     componentDidMount() {
         //Get squadmembers
-        //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-        const targetSquadUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/member`
+        const targetSquadUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/member`
 
         fetch(targetSquadUrl).then(resp => resp.json())
         .then(resp => {
@@ -93,7 +95,7 @@ export default class SquadDetailsFragment extends React.Component {
         })
 
         //Get squad name
-        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/1/'
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/`
         fetch(targetUrl).then(resp => resp.json())
         .then(resp => {
             this.setState(
@@ -138,10 +140,12 @@ export default class SquadDetailsFragment extends React.Component {
                         <h1>{this.state.squad.name}</h1>
                         <button className={styles.CollapseBtn} id="SquadMembersCollapseBtn" type="button" onClick={this.handleCollapseClick}><img src={arrowUpIcon} alt="up"/></button>
                     </div>
-                    <button className={styles.CheckInBtn} onClick={this.handleCheckIn} style={{display: this.state.isVisible ? 'none' : 'block'}}>Check-in</button>
+                    <div className={styles.CheckIn}>
+                        <button className={styles.CheckInBtn} onClick={this.handleCheckIn} style={{display: this.state.isVisible ? 'none' : 'block'}}>Check-in</button>
+                    </div>
                     
                     <div className={styles.SquadMembers} style={{display: this.state.isVisible ? 'none' : 'block'}}>
-                        <h2>Squad Members</h2>
+                        <h2> {this.state.squad.name} Members</h2>
                         {/* <div className={styles.SquadMemberTitle}>
                             <p>Name</p>
                             <p>Rank</p>

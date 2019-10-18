@@ -3,6 +3,7 @@ import SquadListItem from '../squad-list-item/SquadListItem';
 import styles from './SquadListFragment.module.css';
 import arrowUpIcon from '../../assets/arrow-up-icon.svg';
 import arrowDownIcon from '../../assets/arrow-down-icon.svg';
+import SquadCreationFragment from '../squad-creation-fragment/SquadCreationFragment';
 
 export default class SquadListFragment extends React.Component {
 
@@ -75,6 +76,8 @@ export default class SquadListFragment extends React.Component {
 
         this.setState({
             joinedSquadId: squad_id
+        }, () => {
+            this.props.onUpdate();
         })
 
         //this.props.onJoinSquad(squad_id);
@@ -98,7 +101,7 @@ export default class SquadListFragment extends React.Component {
 
         if (this.state.squads.length > 0) {
             squadComponents = this.state.squads.map((squad, index) => {
-                return <SquadListItem squad={squad} key={squad.squad_Id} onJoinSquad={this.handleJoinSquad.bind(this)}/>
+                return <SquadListItem squad={squad} key={squad.squad_Id} adminMode={this.props.adminMode} player_id={this.props.player_id} onJoinSquad={this.handleJoinSquad.bind(this)}/>
             });
         } else {
             squadComponents = <p>Loading squads...</p>
@@ -109,11 +112,14 @@ export default class SquadListFragment extends React.Component {
                 <div className={styles.SquadList}>
                     <div className={styles.Title}>
                         <h1>Squads</h1>
-                        <button className={styles.CollapseBtn} id="SquadCollapseBtn" type="button" onClick={this.handleClick}><img src={arrowUpIcon}/></button>
+                        <button className={styles.CollapseBtn} id="SquadCollapseBtn" type="button" onClick={this.handleClick}><img src={arrowUpIcon} alt="UP"/></button>
                     </div>
                     
                     <div className={styles.SquadComponents} style={{display: this.state.isVisible ? 'none' : 'block'}}>
                         {squadComponents}
+                        <div style={{display: !this.props.player_id == null || this.props.squad_id == null || !this.props.adminMode ? 'none' : 'block'}}>
+                            <SquadCreationFragment/>
+                        </div>
                     </div>
                 </div>
                 

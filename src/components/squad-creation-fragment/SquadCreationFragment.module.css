@@ -1,56 +1,56 @@
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 100px) {
     .SquadCreationFragment {
-        margin: 10px;
+        margin: 0 10px 10px 10px;
+        color: #303030;
     }
 
-    .Title {
-        position: relative;
-        margin: 25px 0;
+    .ShowFormBtn {
+        margin: 0;
+        width: 100%;
+        font-size: 2em;
     }
 
-    .Title h2 {
-        border-bottom: 2px solid #F5F5F5;
+    .CreationForm {
+        padding: 10px;
+        width: 100%;
+        border-radius: 15px;
+        background-color: #F5F5F5;
+    }
+
+    .CreationForm h2 {
         font-size: 18px;
+        text-transform: uppercase;
+        text-align: center;
+        color: #2C6974;
+        border-bottom: 2px solid #2C6974;
+        margin-top: 0;
+
     }
 
-    .Title button {
-        width: 40px;
-        height: 40px;
-        border: 2px solid #F5F5F5;
-        background-color: #2C6974;
-        position: absolute;
-        right: -5px;
-        top:0;
-        font-size: 1.5em;
-    }
-
-    .Title button:hover {
-        background-color: #DBA53D;
-    }
-
-    .SquadCreationFragment label {
+    .CreationForm label {
         display: block;
         font-size: 12px;
         text-transform: uppercase;
         font-weight: bold;
         margin-bottom: 10px;
+        color: #2C6974;
     }
 
-    .SquadCreationFragment input {
+    .CreationForm input {
         font-family: inherit;
         width: 100%;
-        background: none;
+        background-color: #E5E5E5;
+        border-radius: 5px;
         border: none;
-        border-bottom: 1px solid #F5F5F5;
-        color: #F5F5F5;
         padding: 10px;
+        color: #303030;
     }
 
-    .SquadCreationFragment input::placeholder {
-        color: rgba(245, 245, 245, 0.438);
+    .CreationForm input::placeholder {
+        color: rgba(48, 48, 48, 0.5)
     }
 
-    .SquadCreationFragment input:focus {
+    .CreationForm input:focus {
         outline: none;
     }
 
@@ -58,37 +58,22 @@
         margin: 0;
         width: 100%;
     }
+
+    .CloseBtn {
+        margin: 10px 0 0 0;
+        width: 100%;
+        background-color: transparent;
+        color: #DBA53D;
+        box-shadow: none;
+    }
+
+    .CloseBtn:hover {
+        background-color: transparent;
+        border: 2px solid #DBA53D;
+    }
 }
 
 
-@media screen and (min-width: 600px) {
-.SquadCreationFragment {
-    margin: 100px;
-    padding: 20px;
-    max-width: 300px;
-    width: 100%;
-    background-color: #e6e6e6;
-}
+@media screen and (min-width: 801px) {
 
-.SquadCreationFragment input {
-    border: none;
-    border-bottom: 1px solid black;
-    padding: 2px 5px;
-    background-color: transparent;
-    font-size: 1em;
-}
-
-.SquadCreationFragment input:focus {
-    outline: none;
-}
-
-.SquadCreationFragment button {
-    margin-top: 20px;
-    width: 50%;
-    height: 40px;
-    border: none;
-    background-color: #A7EAC6;
-    border-radius: 5px;
-    cursor: pointer;
-}
 }
