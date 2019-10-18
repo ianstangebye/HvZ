@@ -8,54 +8,39 @@ class ChatFragment extends React.Component {
         super(props);
 
         this.state = {
-            game_id: 0,
-            player_id: 0,
-
-            player: {
-                player_id: 1,
-                is_human: true,
-                is_patient_zero: false,
-                bite_code: null,
-                user_id: 1,
-                game_id: 1,
-                squad_id: 1
-            },
-
             messages: [],
-
-            // These will change depending on the logged in user's type (human, zombie),
-            // whether they have a squad or not, and if they are an admin on not
-            tabs: [
-                "Global",
-                "Human",
-                "Zombie",
-                "Squad"
-            ],
-
+            tabs: [],
             activeTab: "Global",
-
-            messageText: ""
+            messageText: "",
+            squad_id: 0,
+            squads: []
         }
     }
 
     componentDidMount() {
-        let tabs = []
+        let tabs = ["Global"]
 
         if(this.props.adminMode) {
-            tabs = [
-                "Global",
-                "Human",
-                "Zombie",
-                "Squad"
-            ]
+            tabs.push("Human")
+            tabs.push("Zombie")
+            tabs.push("Squad")
         } else {
+            tabs.push(this.props.player.is_Human ? "Human" : "Zombie")
 
+            if(this.props.squad_id) {
+                tabs.push("Squad")
+            }
         }
 
         this.setState({
-            game_id: this.props.game_id,
-            player_id: this.props.player_id
-        }, this.startAutoUpdate)
+            tabs: tabs
+        }, () => {
+            if(this.props.adminMode) {
+                this.getSquads()
+            } else {
+                this.startAutoUpdate()
+            }
+        })
     }
     
     componentWillUnmount() {
@@ -79,23 +64,50 @@ class ChatFragment extends React.Component {
         this.setState({
             activeTab: tab,
             messages: []
-        })
-
-        this.getMessages(tab);
-        this.startAutoUpdate();
+        }, this.startAutoUpdate)
     }
 
     getMessages = (tab) => {
-        let squad = tab === "Squad" ? this.state.player.squad_id : ""
-        let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.player.game_id}/chat/${tab}/${squad}`;
+        let squad = ""
+
+        if(tab === "Squad") {
+            squad = this.props.adminMode ? this.state.squad_id : this.props.squad_id
+        }
+
+        let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat/${tab}/${squad}`;
 
         // Get appropriate messages for the active tab from the backend API
-        axios.get(url)
+        axios
+        .get(url)
         .then(resp => {
-            if(!this.unmounted) {
+            if(resp.status === 200) {
+                if(!this.unmounted) {
+                    this.setState({
+                        messages: resp.data
+                    })
+                }
+            } else {
+                throw new Error(`STATUS CODE: ${resp.status}`)
+            }
+        })
+        .catch(err => {
+            console.error(err)
+        });
+    }
+
+    getSquads = () => {
+        let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad`;
+
+        // Get appropriate messages for the active tab from the backend API
+        axios
+        .get(url)
+        .then(resp => {
+            if (resp.status === 200) {
                 this.setState({
-                    messages: resp.data
-                })
+                    squads: resp.data
+                }, this.startAutoUpdate)
+            } else {
+                throw new Error(`STATUS CODE: ${resp.status}`)
             }
         })
         .catch(err => {
@@ -121,11 +133,11 @@ class ChatFragment extends React.Component {
                 is_human_global: this.state.activeTab === "Global" || this.state.activeTab === "Human",
                 is_zombie_global: this.state.activeTab === "Global" || this.state.activeTab === "Zombie",
                 chat_time: now,
-                game_id: this.state.player.game_id,
-                player_id: this.state.player.player_id
+                game_id: this.props.player.game_Id,
+                player_id: this.props.player.player_Id
             }
 
-            axios.post("http://case-hvzapi.northeurope.azurecontainer.io/game/1/chat", body)
+            axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.player.game_Id}/chat`, body)
             .catch(e => console.error(e));
             
             this.setState({ messageText: "" })
@@ -137,25 +149,56 @@ class ChatFragment extends React.Component {
     }
 
     render() {
+        // Set which tabs to render
         let tabs = this.state.tabs.map((tab, idx) => {
             let isActive = tab === this.state.activeTab;
             let classes = `${styles.Tab} ${isActive ? styles.Active : ""}`;
+            let innerHtml = tab
+            
+            // If squad tab is selected while in adminMode and if there are any squads in the game
+            if(tab === "Squad" && this.props.adminMode && isActive && this.state.squads.length > 0) {
+                let updateState = e => {
+                    console.log("SQUAD ID: " + e.target.value)
+                    this.setState({ squad_id: e.target.value })
+                }
 
-            return <div
-                key={idx}
-                className={classes}
-                onClick={() => this.tabClicked(tab)}
-            >{tab}</div>
+                // Build options for drop-down list
+                let squadOptions = this.state.squads.map((squad, idx) => {
+                    return <option key={idx} value={squad.squad_Id}>{squad.name}</option>
+                })
+
+                // Show drop-down list of all available squads
+                innerHtml = 
+                <select name="squads" onChange={updateState}>
+                    <option value={-1}>Select a squad</option>
+                    { squadOptions }
+                </select>
+            }
+
+            return (
+                <div
+                    key={idx}
+                    className={classes}
+                    onClick={() => this.tabClicked(tab)}
+                >
+                    {innerHtml}
+                </div>
+            )
         })
 
-        let messages = <p>No messages <span role="img" aria-label="crying-face-emoji">😢</span></p>;
+        let cryEmoji = <span role="img" aria-label="crying-face-emoji">😢</span>
+        let messages = <p>{this.state.activeTab === "Squads" ? "No squads in this game yet" : "No messages"} {cryEmoji}</p>;
 
         if(this.state.messages.length > 0) {
             messages = this.state.messages.map((msg, idx) => {
                 return <p key={idx} className={styles.Message}>{msg.message}</p>
-            });
+            })
         }
 
+        if (this.state.activeTab === "Squad" && this.props.adminMode && !this.state.squads.length > 0) {
+            messages = <p>No squads in this game yet</p>
+        }
+        
         return (
             <div className={styles.ChatFragment}>
                 <header className={styles.Tabs}>

@@ -26,18 +26,25 @@
         height: 35px;
         border-radius: 5px;
         margin: 0 auto;
+        opacity: 0.7;
+    }
+
+    .Tab:hover {
+        opacity: 1;
     }
 
     .Tab.Active {
+        opacity: 1;
         background-color: #2C6974;
         color: #F5F5F5;
     }
 
     .Messages {
-        margin-top: -5px;
+        margin-top: 5px;
         background-color: #F5F5F5;
         border: 3px solid #2C6974;
         padding: 10px;
+        min-height: 300px;
         max-height: 300px;
         overflow-y: scroll;
         border-radius: 5px;
@@ -53,7 +60,7 @@
     }
 
     .ChatFooter {
-        margin-top: 10px;
+        margin-top: 5px;
         height: 40px;
         display: flex;
     }
