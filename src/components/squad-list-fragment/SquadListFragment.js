@@ -112,7 +112,7 @@ export default class SquadListFragment extends React.Component {
 
         if (this.state.squads.length > 0) {
             squadComponents = this.state.squads.map((squad, index) => {
-                if(is_human === squad.isHuman) {
+                if(is_human === squad.is_Human) {
                     return <SquadListItem squad={squad} key={squad.squad_Id} adminMode={this.props.adminMode} player_id={this.props.player_id} onJoinSquad={this.handleJoinSquad.bind(this)} userInfo={this.state.userInfo} />
                 }
             });
