@@ -229,7 +229,7 @@ class GameDetail extends React.Component {
                 <ChatFragment player={player} squad_id={squad_id} game_id={game_id} userInfo={userInfo}/>
                 <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo}/>
                 {/* <MissionList game_id={game_id} userInfo={userInfo} /> */}
-                
+                </div>
                 
             </React.Fragment>
         )

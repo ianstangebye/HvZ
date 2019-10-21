@@ -131,7 +131,7 @@ class GameList extends React.Component {
             
             
             gameComponents = curGameComponents.map(game => {
-                return <GameItem game={game} key={game.game_Id} user_id={this.state.user_id} />
+                return <GameItem game={game} key={game.game_Id} user_id={this.state.user_id} userInfo={this.state.userInfo}/>
                 //return <p>hELLOOOO</p>
             });
         } else {
