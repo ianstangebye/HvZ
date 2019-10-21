@@ -138,7 +138,7 @@ class TimerFragment extends React.Component {
                                 <p>From Now: </p>
                                 <p><Moment fromNow className={styles.timer_fromNow} 
                                     onChange={(time) => {this.timerBeforeStart(time)}}>
-                                    is.state.game.start_Time}
+                                    {this.state.game.start_Time}
                                 </Moment></p>
                             </div>
                         </div>
