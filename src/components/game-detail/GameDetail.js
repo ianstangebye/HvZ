@@ -12,6 +12,7 @@ import MissionList from '../mission-list/MissionList'
 import SquadDetailsFragment from '../squad-details-fragment/SquadDetailsFragment';
 import TimerFragment from '../timer-fragment/TimerFragment'
 
+
 class GameDetail extends React.Component {
 
     constructor(props) {
@@ -101,7 +102,7 @@ class GameDetail extends React.Component {
 
         console.log("playerID: " + pid);
         
-        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/member/${pid}`
+        const url = `https://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/member/${pid}`
 
         // Get this player's squad member object, if it exists
         axios

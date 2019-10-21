@@ -231,6 +231,37 @@ class GoogleMap extends React.Component {
 
     }
 
+    getLocation(){
+        navigator.geolocation.watchPosition(position =>{
+            console.log(position.coords);
+
+            const location = {
+                url: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Blue_dot.png',
+                // This marker is 20 pixels wide by 32 pixels high.
+                scaledSize: new window.google.maps.Size(35, 35), // scaled size
+                origin: new window.google.maps.Point(0,0), // origin
+                anchor: new window.google.maps.Point(15, 0) // anchor
+              };
+
+            var globalMarker = new window.google.maps.Marker({
+                position: {lat:position.coords.latitude, lng: position.coords.longitude},
+                map: map,
+                icon: location,
+                title: 'Your current position',
+                zIndex: 4
+              });
+            
+            // lat = position.coords.latitude;
+            // lng = position.coords.longitude;
+        }, error =>{
+            alert(error)
+        });
+    }
+
+    setInt(){
+        setInterval(this.getLocation(), 10000);
+    }
+
     async componentDidMount() {
         const id = this.props.game_id;
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}`;
@@ -250,6 +281,7 @@ class GoogleMap extends React.Component {
         });
 
         this.renderMap();
+        this.setInt();
     }
 
     render() {
