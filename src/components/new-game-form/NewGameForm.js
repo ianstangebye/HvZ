@@ -25,7 +25,8 @@ class NewGameForm extends React.Component {
             start_time: new Date(startDate).toLocaleString(), 
             end_time: new Date(endDate).toLocaleString(),
             creationSuccess: false,
-            calenderOn: false
+            calenderOn: false,
+            userInfo: props.userInfo
         };
     }
 
@@ -110,7 +111,17 @@ class NewGameForm extends React.Component {
 
     render() {
         if(this.state.creationSuccess) {
-            return <Redirect push to="/" />; 
+            return <Redirect push to={{
+                pathname: '/',
+                state: { 
+                    userInfo: {
+                        user_id: this.state.user_id,
+                        is_admin: this.state.is_admin,
+                        token: this.state.token
+                    },
+                    loggedIn: true
+                }
+            }} />
         }
 
         let calender = null;
