@@ -1,7 +1,7 @@
 @media screen and (min-width: 100px) {
     .SquadDetailsFragment {
         margin: 10px auto;
-        max-width: 500px;
+        max-width: 600px;
         width: 100%;
         
     }
@@ -74,7 +74,20 @@
 
 
 @media screen and (min-width: 801px) {
+    .SquadDetailsFragment {
+        max-width: 800px;
+        width: 100%;
+    }
 
+    .CheckIn {
+        margin: 0 10px;
+    }
+    
+    .CheckInBtn {
+        max-width: 300px;
+        width: 100%;
+        margin: 0 auto;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -82,6 +95,7 @@
         margin: 10px;
         max-width: 800px;
         width: 100%;
+        height: 295px;
     }
     
     .Title {
@@ -94,8 +108,10 @@
 
     .SquadMembers {
         display: block!important;
-        max-height: 300px;
+        max-height: 350px;
         height: 100%;
         overflow-y: scroll;
     }
+
+    
 }

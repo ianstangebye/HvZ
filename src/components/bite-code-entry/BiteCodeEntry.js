@@ -11,7 +11,8 @@ class BiteCodeEntry extends React.Component{
             biteCode: '',
             lat: null,
             lng: null,
-            description: ''
+            description: '',
+            userInfo: props.userInfo
         }
 
     }
@@ -145,7 +146,10 @@ class BiteCodeEntry extends React.Component{
         
         await fetch(targetUrl, {
             method: 'POST',
-            headers: {'Content-Type':'application/json'},
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            },
             body: JSON.stringify(bite)
         }).then(resp =>{
             console.log(resp);

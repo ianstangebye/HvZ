@@ -7,11 +7,13 @@ class RegistrationFragment extends React.Component {
         super(props)
         
         this.state = {
-            player_id: this.props.player_id,
-            user_id: this.props.user_id,
-            game_id: this.props.game_id,
-            squad_id: this.props.squad_id,
-            squad_member_id: this.props.squad_member_id
+            player_id: props.player_id,
+            user_id: props.user_id,
+            game_id: props.game_id,
+            squad_id: props.squad_id,
+            squad_member_id: props.squad_member_id,
+            game_state: props.game_state,
+            userInfo: props.userInfo
         }
     }
 
@@ -21,7 +23,9 @@ class RegistrationFragment extends React.Component {
             user_id: this.props.user_id,
             game_id: this.props.game_id,
             squad_id: this.props.squad_id,
-            squad_member_id: this.props.squad_member_id
+            squad_member_id: this.props.squad_member_id,
+            game_state: this.props.game_state,
+            userInfo: this.props.userInfo
         })
     }
 
@@ -39,7 +43,12 @@ class RegistrationFragment extends React.Component {
 
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/player`;
 
-        axios.post(url, newPlayer)
+        axios.post(url, newPlayer, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        })
         .then(resp => {
             if (resp.status === 200) {
                 console.log(`Created player with id: ${resp.data}`)
@@ -66,7 +75,11 @@ class RegistrationFragment extends React.Component {
             console.log("Delete squad member url: " + url);
             
             fetch(url, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + this.state.userInfo.token
+                }
             })
             .then(resp => {
                 if (resp.status === 200) {
@@ -85,7 +98,11 @@ class RegistrationFragment extends React.Component {
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/player/${pid}`;
 
         fetch(url, {
-            method: 'DELETE'
+            method: 'DELETE', 
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
         })
         .then(resp => {
             if (resp.status === 200) {
@@ -103,11 +120,16 @@ class RegistrationFragment extends React.Component {
     render() {
         const pid = this.props.player_id
         const action = pid ? this.leaveGame : this.joinGame
-        const txt = pid ? "Leave Game" : "Join Game"
+        let txt = pid ? "Leave Game" : "Join Game"
+        const disableBtn = this.props.game_state === "Registration" ? false : true 
+        
+        if(this.props.game_state !== "Registration") { 
+            txt = "Can't join game"
+        }
 
         return (
             <div className={styles.RegistrationFragment}>
-                <button onClick={action}>{txt}</button>
+                <button onClick={action} disabled={disableBtn}>{txt}</button>
             </div>
             
         )

@@ -45,7 +45,6 @@
     .SquadComponents {
         width: 100%;
         background-color: #77A4AC;
-        padding: 0 10px;
         max-height: 30vh;
         height: fit-content;
         overflow-y: scroll;

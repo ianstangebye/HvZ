@@ -1,8 +1,12 @@
 @media screen and (min-width: 100px) {
     .ChatFragment {
-        margin: 10px 10px;
+        margin: 0 10px 0 0;
+    }
+    .ChatFragmentDiv {
+        margin: 10px auto;
         max-width: 600px;
-        background-color: #F5F5F5;
+        width: 100%;
+        background-color: #77A4AC;
         border-radius: 15px;
         color: #303030;
         padding: 10px 10px 20px 10px;
@@ -111,12 +115,31 @@
 
 @media screen and (min-width: 1200px) {
     .ChatFragment {
-        height: 600px;
+        margin: 0 10px;
+    }
+
+    .ChatFragmentDiv {
+        margin: 10px auto;
+        height: 610px;
         background-color: #77A4AC;
+        max-width: 1000px;
+        width: 100%;
     }
 
     .Messages {
-        max-height: 495px;
+        max-height: 505px;
         height: 100%;
+        max-width: 1000px;
+        width: 100%;
+    }
+
+    .Tabs {
+        max-width: 1000px;
+        width: 100%;
+    }
+
+    .ChatFooter {
+        max-width: 1000px;
+        width: 100%;
     }
 }

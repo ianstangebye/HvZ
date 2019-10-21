@@ -4,7 +4,7 @@
     }
     .Map {
         margin: 10px auto;
-        max-width: 500px;
+        max-width: 600px;
         height: 300px;
         width: 100%;
         border: 10px solid #77A4AC;
@@ -15,8 +15,9 @@
 
 @media screen and (min-width: 801px) {
     .Map {
-        max-width: 700px;
-        height: 500px;
+        max-width: 500px;
+        max-height: 500px;
+        height: 400px;
         width: 100%;
     }
 }
@@ -29,7 +30,7 @@
     .Map {
         margin: 10px auto;
         max-width: 100%;
-        max-height: 600px;
+        max-height: 610px;
         height: 100%;
     }
 

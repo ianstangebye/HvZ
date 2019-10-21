@@ -12,8 +12,9 @@ class ChatFragment extends React.Component {
             tabs: [],
             activeTab: "Global",
             messageText: "",
-            squad_id: 0,
-            squads: []
+            squad_id: props.squad_id || 0,
+            squads: [],
+            userInfo: props.userInfo
         }
     }
 
@@ -141,7 +142,12 @@ class ChatFragment extends React.Component {
 
         // Get appropriate messages for the active tab from the backend API
         axios
-        .get(url)
+        .get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        })
         .then(resp => {
             if(resp.status === 200) {
                 if(!this.unmounted || !this.cancelUpdate) {
@@ -163,7 +169,12 @@ class ChatFragment extends React.Component {
 
         // Get appropriate messages for the active tab from the backend API
         axios
-        .get(url)
+        .get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        })
         .then(resp => {
             if (resp.status === 200) {
                 this.setState({
@@ -200,7 +211,12 @@ class ChatFragment extends React.Component {
                 player_id: this.props.adminMode ? 0 : this.props.player.player_Id
             }
 
-            axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat`, body)
+            axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat`, body, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + this.state.userInfo.token
+                }
+            })
             .catch(e => console.error(e));
             
             this.setState({ messageText: "" })
@@ -264,24 +280,27 @@ class ChatFragment extends React.Component {
         
         return (
             <div className={styles.ChatFragment}>
-                <header className={styles.Tabs}>
-                    { tabs }
-                </header>
+                <div className={styles.ChatFragmentDiv}>
+                    <header className={styles.Tabs}>
+                        { tabs }
+                    </header>
 
-                <section className={styles.Messages}>
-                    { messages }
-                </section>
+                    <section className={styles.Messages}>
+                        { messages }
+                    </section>
 
-                {this.props.adminMode ? null : 
-                    <footer className={styles.ChatFooter}>
-                        <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
-                            onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
-                            value={this.state.messageText}
-                        />
+                    {this.props.adminMode ? null : 
+                        <footer className={styles.ChatFooter}>
+                            <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
+                                onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
+                                value={this.state.messageText}
+                            />
 
-                        <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} /></button>
-                    </footer>
-                }
+                            <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} /></button>
+                        </footer>
+                    }
+                </div>
+                
             </div>
         )
     }
