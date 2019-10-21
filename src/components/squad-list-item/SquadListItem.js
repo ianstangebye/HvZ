@@ -6,7 +6,8 @@ export default class SquadListItem extends React.Component {
         super(props);
         this.state = {
             squadMembers: [],
-            deceasedMembers: 0
+            deceasedMembers: 0,
+            userInfo: props.userInfo
         }
     }
 
@@ -15,7 +16,12 @@ export default class SquadListItem extends React.Component {
         
         const targetUrl =  `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/${this.props.squad.squad_Id}/member`
 
-        await fetch(targetUrl).then(resp => resp.json()).then(resp => {
+        await fetch(targetUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp => resp.json()).then(resp => {
             this.setState({squadMembers: [...resp]})
             for (let i = 0; i < this.state.squadMembers.length; i++) {
                 if (this.state.squadMembers[i].is_Human === false) {

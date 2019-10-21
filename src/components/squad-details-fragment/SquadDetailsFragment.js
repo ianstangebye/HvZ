@@ -13,7 +13,8 @@ export default class SquadDetailsFragment extends React.Component {
             squad: {},
             corLat: null,
             corLng: null,
-            isVisible: false
+            isVisible: false,
+            userInfo: props.userInfo
         }
     }
 
@@ -68,6 +69,10 @@ export default class SquadDetailsFragment extends React.Component {
         
         fetch(targetUrl, {
             method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
         }).then(resp => {
             console.log('Deleted Squad-member: ', resp);
             if (resp.status == 200) {
@@ -85,7 +90,12 @@ export default class SquadDetailsFragment extends React.Component {
         //Get squadmembers
         const targetSquadUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/member`
 
-        fetch(targetSquadUrl).then(resp => resp.json())
+        fetch(targetSquadUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp => resp.json())
         .then(resp => {
             this.setState(
                 { squadMembers: [...resp] }
@@ -96,7 +106,12 @@ export default class SquadDetailsFragment extends React.Component {
 
         //Get squad name
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/`
-        fetch(targetUrl).then(resp => resp.json())
+        fetch(targetUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp => resp.json())
         .then(resp => {
             this.setState(
                 { squad: {...resp} }
