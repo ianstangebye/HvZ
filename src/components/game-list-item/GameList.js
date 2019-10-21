@@ -113,7 +113,21 @@ class GameList extends React.Component {
         let gameComponents = null;
 
         if (this.state.games.length > 0) {
-            gameComponents = this.state.games.map(game => {
+            let curGameComponents = this.state.games;
+            curGameComponents.sort((a, b) => {
+                if (a.game_State < b.game_State) {
+                    return -1;
+                }
+                if (a.game_State > b.game_State) {
+                    return 1;
+                }
+                return 0;
+            }).reverse();
+            
+            console.log(curGameComponents);
+            
+            
+            gameComponents = curGameComponents.map(game => {
                 return <GameItem game={game} key={game.game_Id} user_id={this.state.user_id} />
                 //return <p>hELLOOOO</p>
             });

@@ -175,7 +175,7 @@ button:focus {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 10% 1fr 1fr;
-        padding: 10px 20px 10px 10px;
+        padding: 10px;
     }
 
     /* Register Button */ 
