@@ -105,3 +105,15 @@
     }
 
 }
+
+@media screen and (min-width: 1200px) {
+    .ShowFormBtn {
+        max-width: 300px;
+        width: 300px;
+    }
+
+    .BiteCodeEntry {
+        max-width: 800px;
+        width: 450px;
+    }
+}
