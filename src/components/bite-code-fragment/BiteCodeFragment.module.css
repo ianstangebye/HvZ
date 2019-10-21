@@ -87,7 +87,18 @@
 }
 
 @media screen and (min-width: 801px) {
+    .BiteCodeFragment {
 
+    }
+
+    .BtnGetCode {
+        width: 300px;
+    }
+
+    .CopyCode {
+        max-width: 300px;
+        width: 300px;
+    }
 }
 
 @media screen and (min-width: 1200px) {

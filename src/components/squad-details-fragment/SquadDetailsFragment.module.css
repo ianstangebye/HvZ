@@ -74,7 +74,10 @@
 
 
 @media screen and (min-width: 801px) {
-
+    .SquadDetailsFragment {
+        max-width: 800px;
+        width: 100%;
+    }
 }
 
 @media screen and (min-width: 1200px) {
