@@ -59,7 +59,8 @@ class ChatFragment extends React.Component {
     }
 
     tabClicked(tab) {
-        this.stopAutoUpdate();
+        this.cancelUpdate = true
+        this.stopAutoUpdate()
         
         this.setState({
             activeTab: tab,
@@ -81,10 +82,10 @@ class ChatFragment extends React.Component {
         .get(url)
         .then(resp => {
             if(resp.status === 200) {
-                if(!this.unmounted) {
+                if(!this.unmounted || !this.cancelUpdate) {
                     this.setState({
                         messages: resp.data
-                    })
+                    }, () => this.cancelUpdate = false)
                 }
             } else {
                 throw new Error(`STATUS CODE: ${resp.status}`)
@@ -208,14 +209,16 @@ class ChatFragment extends React.Component {
                     { messages }
                 </section>
 
-                <footer className={styles.ChatFooter}>
-                    <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
-                        onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
-                        value={this.state.messageText}
-                    />
+                {this.props.adminMode ? null : 
+                    <footer className={styles.ChatFooter}>
+                        <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
+                            onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
+                            value={this.state.messageText}
+                        />
 
-                    <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon}/></button>
-                </footer>
+                        <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} /></button>
+                    </footer>
+                }
             </div>
         )
     }

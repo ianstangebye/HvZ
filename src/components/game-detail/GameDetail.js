@@ -10,6 +10,7 @@ import BiteCodeEntry from '../bite-code-entry/BiteCodeEntry'
 import GoogleMap from '../google-map/GoogleMap'
 import MissionList from '../mission-list/MissionList'
 import SquadDetailsFragment from '../squad-details-fragment/SquadDetailsFragment';
+import TimerFragment from '../timer-fragment/TimerFragment'
 
 class GameDetail extends React.Component {
 
@@ -163,8 +164,6 @@ class GameDetail extends React.Component {
             squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human}/>
         }
 
-        // let componentsToRender = []
-
         if(admin) {
             return (
                 <Fragment>
@@ -191,6 +190,7 @@ class GameDetail extends React.Component {
             )
         }
         
+        // Registered player
         return (
             <React.Fragment>
                 <div className={styles.JoinedGame}>
@@ -201,9 +201,7 @@ class GameDetail extends React.Component {
                 }
                 <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id} />
                 <TitleFragment game_id={game_id} />
-
                 {squadFragment}
-                
                 <ChatFragment player={player} squad_id={squad_id} game_id={game_id} />
                 <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
                 {/* <MissionList game_id={game_id} /> */}
