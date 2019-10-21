@@ -21,6 +21,18 @@
     }
 }
 
+@media screen and (min-width: 1200px) {
+    .MapDiv {
+        margin: 0 10px;
+    }
+    
+    .Map {
+        max-width: 100%;
+        max-height: 600px;
+        height: 100%;
+    }
+
+}
 
 
 

@@ -193,6 +193,7 @@ class GameDetail extends React.Component {
         // Registered player
         return (
             <React.Fragment>
+                <div className={styles.JoinedGame}>
                 {player.is_Human && !player.is_Patient_Zero ? 
                     <BiteCodeFragment game_id={game_id} player={player} />
                     :
@@ -204,7 +205,8 @@ class GameDetail extends React.Component {
                 <ChatFragment player={player} squad_id={squad_id} game_id={game_id} />
                 <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
                 {/* <MissionList game_id={game_id} /> */}
-                <TimerFragment game_id={game_id} />
+                {/* <TimerFragment game_id={game_id} /> */}
+                </div>
             </React.Fragment>
         )
     }
