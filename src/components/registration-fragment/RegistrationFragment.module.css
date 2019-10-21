@@ -11,5 +11,9 @@
     }
 }
 
-@media screen and (min-width: 801px) {
+@media screen and (min-width: 801px){
+    .RegistrationFragment button {
+        max-width: 300px;
+        width: 100%;
+    }
 }

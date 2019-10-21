@@ -1,6 +1,6 @@
 @media screen and (min-width: 100px) {
     .TitleFragment {
-        max-width: 500px;
+        max-width: 600px;
         width: 100%;
         margin: 10px auto;
     }
@@ -47,16 +47,11 @@
     }
 }
 
-@media screen and (min-width: 600px) {
-
-}
-
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 801px) {
     .TitleFragment {
+        margin-top: -20px;
         max-width: 100%;
-        width: 100%;
-        height: 100%;
-        margin: 10px;
+        height: 425px;
     }
 
     .CollapseBtn {
@@ -65,5 +60,34 @@
 
     .Rules {
         display: block!important;
+        height: 250px;
+        overflow-y: scroll;
     }
+}
+
+@media screen and (min-width: 1200px) {
+    .TitleFragment {
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        margin: 20px 10px;
+    }
+
+    .Title {
+        margin: 0 10px;
+    }
+
+    .TitleFragment h1 {
+        border-bottom: 2px solid #F5F5F5;
+        width: 100%;
+        font-size: 24px;
+    }
+
+    .Rules {
+        display: block!important;
+        height: 150px;
+        overflow-y: scroll;
+    }
+
+    
 }

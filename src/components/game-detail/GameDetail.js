@@ -25,7 +25,10 @@ class GameDetail extends React.Component {
             squad_member_id: 0,
             player: {},
             user_id: 0,
-            ready: false
+            ready: false,
+            game_state: "",
+            time: "",
+            userInfo: props.location.state.userInfo
         }
     }
 
@@ -47,7 +50,8 @@ class GameDetail extends React.Component {
 
         this.setState({ 
             user_id: state.user_id,
-            game_id: game_id
+            game_id: game_id,
+            userInfo: state.userInfo
         }, this.getPlayer)
     }
 
@@ -64,16 +68,19 @@ class GameDetail extends React.Component {
         })
 
         const gid = this.state.game_id
-        const uid = this.state.user_id
+        const uid = this.state.userInfo.user_id
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/user/${uid}/player`
 
         // Get this user's player object, if it exists
         axios
-            .get(url)
+            .get(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + this.state.userInfo.token
+                }
+            })
             .then(res => {
                 if (res.status === 200) {
-                    console.log("getplayer success");
-                    
                     this.setState({
                         player: res.data,
                         ready: true
@@ -99,15 +106,19 @@ class GameDetail extends React.Component {
     getSquad = () => {
         const gid = this.state.game_id;
         const pid = this.state.player.player_Id;
-
-        console.log("playerID: " + pid);
         
         const url = `https://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/member/${pid}`
 
         // Get this player's squad member object, if it exists
         axios
-            .get(url)
+            .get(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + this.state.userInfo.token
+                }
+            })
             .then(res => {
+                if(!this.stop)
                 if (res.status === 200) {
                     console.log("getSquad success");
                     
@@ -139,10 +150,16 @@ class GameDetail extends React.Component {
         
     }
 
+    updateGameState = (game_state) => {
+        this.setState({
+            game_state: game_state
+        })
+    }
+
     render() {
         if (!this.state.ready) return <h1>Loading Game Detail...</h1>
 
-        const user_id = this.state.user_id
+        const user_id = this.state.userInfo.user_id
         const player = this.state.player
         const player_id = player.player_Id
         const squad_id = this.state.squad_id
@@ -150,29 +167,32 @@ class GameDetail extends React.Component {
         const squad_member_id = this.state.squad_member_id
 
         const unregistered = player_id ? false : true
-        const admin = sessionStorage.role === "Admin"
+        //const admin = sessionStorage.role === "Admin"
+        const admin = this.state.userInfo.is_admin
+        const userInfo = this.state.userInfo
 
         console.log("| GAME   ID: " + game_id)
         console.log("| USER   ID: " + user_id)
+        console.log("| SQUAD  ID: " + squad_id)
         console.log("| " + (admin ? "Admin" : "PLAYER ID: " + player_id))
         console.log("|_____________________________________|")
 
 
         let squadFragment = null;
         if(squad_id) {
-            squadFragment = <SquadDetailsFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
+            squadFragment = <SquadDetailsFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id} userInfo={userInfo} />
         } else {
-            squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human}/>
+            squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human} userInfo={userInfo} />
         }
 
         if(admin) {
             return (
                 <Fragment>
                     <div className={styles.Admin}>
-                        <TitleFragment game_id={game_id} />
-                        <GoogleMap game_id={game_id} player={player} />
-                        <SquadListFragment game_id={game_id} player_id={player_id} adminMode={true}/>
-                        <ChatFragment adminMode={true} game_id={game_id} player_id={player_id} />
+                        <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} />
+                        <GoogleMap game_id={game_id} player={player} userInfo={userInfo} />
+                        <SquadListFragment game_id={game_id} player_id={player_id} adminMode={true} userInfo={userInfo}/>
+                        <ChatFragment adminMode={true} game_id={game_id} player_id={player_id} userInfo={userInfo} />
                     </div>
                 </Fragment>
             )
@@ -182,10 +202,10 @@ class GameDetail extends React.Component {
             return (
                 <Fragment>
                     <div className={styles.Unregistered}>
-                        <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id}/>
-                        <TitleFragment game_id={game_id} />
-                        <GoogleMap game_id={game_id} player={player} />
-                        <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id}/>
+                        <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id} game_state={this.state.game_state} userInfo={userInfo} />
+                        <TitleFragment onUpdate={this.updateGameState} game_id={game_id}  userInfo={userInfo} />
+                        <GoogleMap game_id={game_id} player={player}  userInfo={userInfo} />
+                        <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id} userInfo={userInfo} />
                     </div>
                 </Fragment>
             )
@@ -196,18 +216,20 @@ class GameDetail extends React.Component {
             <React.Fragment>
                 <div className={styles.JoinedGame}>
                 {player.is_Human && !player.is_Patient_Zero ? 
-                    <BiteCodeFragment game_id={game_id} player={player} />
+                    <BiteCodeFragment game_id={game_id} player={player} userInfo={userInfo}/>
                     :
-                    <BiteCodeEntry newBiteCode={this.updateMap} game_id={game_id} player={player} />
+                    <BiteCodeEntry newBiteCode={this.updateMap} game_id={game_id} player={player} userInfo={userInfo}/>
                 }
-                <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id} />
-                <TitleFragment game_id={game_id} />
+                <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id} game_state={this.state.game_state} userInfo={userInfo}/>
+                <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo}/>
+
                 {squadFragment}
-                <ChatFragment player={player} squad_id={squad_id} game_id={game_id} />
-                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
-                {/* <MissionList game_id={game_id} /> */}
-                {/* <TimerFragment game_id={game_id} /> */}
+                
+                <ChatFragment player={player} squad_id={squad_id} game_id={game_id} userInfo={userInfo}/>
+                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo}/>
+                {/* <MissionList game_id={game_id} userInfo={userInfo} /> */}
                 </div>
+                
             </React.Fragment>
         )
     }

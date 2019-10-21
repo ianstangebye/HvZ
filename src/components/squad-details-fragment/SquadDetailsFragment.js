@@ -13,7 +13,8 @@ export default class SquadDetailsFragment extends React.Component {
             squad: {},
             corLat: null,
             corLng: null,
-            isVisible: false
+            isVisible: false,
+            userInfo: props.userInfo
         }
     }
 
@@ -68,6 +69,10 @@ export default class SquadDetailsFragment extends React.Component {
         
         fetch(targetUrl, {
             method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
         }).then(resp => {
             console.log('Deleted Squad-member: ', resp);
             if (resp.status == 200) {
@@ -85,7 +90,12 @@ export default class SquadDetailsFragment extends React.Component {
         //Get squadmembers
         const targetSquadUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/member`
 
-        fetch(targetSquadUrl).then(resp => resp.json())
+        fetch(targetSquadUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp => resp.json())
         .then(resp => {
             this.setState(
                 { squadMembers: [...resp] }
@@ -96,7 +106,12 @@ export default class SquadDetailsFragment extends React.Component {
 
         //Get squad name
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/`
-        fetch(targetUrl).then(resp => resp.json())
+        fetch(targetUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp => resp.json())
         .then(resp => {
             this.setState(
                 { squad: {...resp} }
@@ -140,9 +155,7 @@ export default class SquadDetailsFragment extends React.Component {
                         <h1>{this.state.squad.name}</h1>
                         <button className={styles.CollapseBtn} id="SquadMembersCollapseBtn" type="button" onClick={this.handleCollapseClick}><img src={arrowUpIcon} alt="up"/></button>
                     </div>
-                    <div className={styles.CheckIn}>
-                        <button className={styles.CheckInBtn} onClick={this.handleCheckIn} style={{display: this.state.isVisible ? 'none' : 'block'}}>Check-in</button>
-                    </div>
+                    
                     
                     <div className={styles.SquadMembers} style={{display: this.state.isVisible ? 'none' : 'block'}}>
                         <h2> {this.state.squad.name} Members</h2>
@@ -153,6 +166,9 @@ export default class SquadDetailsFragment extends React.Component {
                         </div> */}
                         {squadMemberComponents}
                         <button className={styles.LeaveBtn} onClick={this.handleLeaveSquad}>Leave Squad</button>
+                    </div>
+                    <div className={styles.CheckIn}>
+                        <button className={styles.CheckInBtn} onClick={this.handleCheckIn} style={{display: this.state.isVisible ? 'none' : 'block'}}>Check-in</button>
                     </div>
                     
                 </div>

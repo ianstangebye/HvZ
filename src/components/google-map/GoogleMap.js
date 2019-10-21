@@ -11,7 +11,8 @@ class GoogleMap extends React.Component {
         this.mapEl = React.createRef();
         this.state = {
             game: {},
-            missions: []
+            missions: [],
+            userInfo: props.userInfo
         }
     }
 
@@ -91,7 +92,12 @@ class GoogleMap extends React.Component {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}/kill`;
         
 
-        await fetch(targetUrl).then(resp=> resp.json())
+        await fetch(targetUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp=> resp.json())
         .then(resp=>{
             console.log(resp);
             for(i=0;i<resp.length; i++){
@@ -111,7 +117,12 @@ class GoogleMap extends React.Component {
 
         const missionsURL = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}/mission/`
 
-        await fetch(missionsURL).then(resp=>resp.json())
+        await fetch(missionsURL, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp=>resp.json())
         .then(resp=>{
             console.log(resp);
             this.setState({
@@ -267,7 +278,12 @@ class GoogleMap extends React.Component {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}`;
             
         //need to set in the correct 
-        await fetch(targetUrl).then(resp=> resp.json())
+        await fetch(targetUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp=> resp.json())
         .then(resp=>{
             // console.log(resp);
             this.setState({
