@@ -15,7 +15,8 @@ export default class SquadListFragment extends React.Component {
             game_id: props.game_id,
             player_id: props.player_id,
             joinedSquadId: props.squad_id,
-            is_human: props.is_human
+            is_human: props.is_human,
+            userInfo: props.userInfo
         }
     }
 
@@ -33,7 +34,12 @@ export default class SquadListFragment extends React.Component {
     async getSquads(that) {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/squad`
 
-        await fetch(targetUrl).then(resp => resp.json())
+        await fetch(targetUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp => resp.json())
         .then(resp => {
             that.setState({
                 squads: [...resp]
@@ -65,7 +71,10 @@ export default class SquadListFragment extends React.Component {
 
         fetch(targetUrl, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            },
             body: JSON.stringify(newSquadMember)
         }).then(resp => resp.json()
         ).then(data => {
@@ -99,10 +108,13 @@ export default class SquadListFragment extends React.Component {
 
     render() {
         let squadComponents = null;
+        const is_human = this.state.is_human;
 
         if (this.state.squads.length > 0) {
             squadComponents = this.state.squads.map((squad, index) => {
-                return <SquadListItem squad={squad} key={squad.squad_Id} adminMode={this.props.adminMode} player_id={this.props.player_id} onJoinSquad={this.handleJoinSquad.bind(this)}/>
+                if(is_human === squad.isHuman) {
+                    return <SquadListItem squad={squad} key={squad.squad_Id} adminMode={this.props.adminMode} player_id={this.props.player_id} onJoinSquad={this.handleJoinSquad.bind(this)} userInfo={this.state.userInfo} />
+                }
             });
         } else if (this.state.squads.length === 0) {
             squadComponents = <p style={{margin: '10px', textAlign: 'center'}}>No squads created yet.</p>
@@ -121,7 +133,7 @@ export default class SquadListFragment extends React.Component {
                     <div className={styles.SquadComponents} style={{display: this.state.isVisible ? 'none' : 'block'}}>
                         {squadComponents}
                         <div style={{display: this.props.player_id == null || this.props.squad_id != null && this.props.adminMode ? 'none' : 'block'}}>    
-                            <SquadCreationFragment onUpdate={this.props.onUpdate} game_id={this.state.game_id} player_id={this.state.player_id} is_human={this.state.is_human}/>
+                            <SquadCreationFragment onUpdate={this.props.onUpdate} game_id={this.state.game_id} player_id={this.state.player_id} is_human={this.state.is_human} userInfo={this.state.userInfo} />
                         </div>
                     </div>
                 </div>

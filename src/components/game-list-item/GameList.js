@@ -9,12 +9,15 @@ class GameList extends React.Component {
     constructor(props) {
         super(props);
 
+        const states = props.location.state || null;
+
         this.state = {
             games: [],
-            user_id: 0,
-            is_admin: false,
-            token: "",
-            joinedGameId: 0
+            //user_id: 0,
+            //is_admin: false,
+            //token: "",
+            loggedIn: states ? states.loggedIn : false,
+            userInfo: states ? states.userInfo : {}
         };
     }
 
@@ -32,17 +35,21 @@ class GameList extends React.Component {
         //const is_admin = window.sessionStorage.getItem("is_admin") === "true" ? true : false;
         //const token = window.sessionStorage.getItem("token") || "";
         if(this.props.location.state) {
-            const user_id = this.props.location.state.user_id || 0;
-            const is_admin = this.props.location.state.is_admin || false;
-            const token = this.props.location.state.token || ""; 
+            // const user_id = this.props.location.state.user_id || 0;
+            // const is_admin = this.props.location.state.is_admin || false;
+            // const token = this.props.location.state.token || ""; 
             
-            this.setState((prevState, props) => {
-                return {
-                    user_id: user_id,
-                    is_admin: is_admin,
-                    token: token
-                };
-            });
+            // this.setState((prevState, props) => {
+            //     return {
+            //         user_id: user_id,
+            //         is_admin: is_admin,
+            //         token: token
+            //     };
+            // });
+            this.setState({
+                loggedIn: this.props.location.state.loggedIn,
+                userInfo: this.props.location.state.userInfo
+            })
         }
         
         
@@ -55,7 +62,12 @@ class GameList extends React.Component {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game`;
 
         //need to set in the correct 
-        await fetch(targetUrl).then(resp => resp.json())
+        await fetch(targetUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(resp => resp.json())
             .then(resp => {
                 console.log(resp);
                 this.setState({
@@ -78,40 +90,31 @@ class GameList extends React.Component {
     clearStates = () => {
         //localStorage.clear();
         //window.sessionStorage.clear();
-
-        this.setState((prevState, props) => {
-            return {
-                user_id: 0,
-                is_admin: false,
-                token: ""
-            };
+        this.setState({
+            loggedIn: false,
+            userInfo: {}
         }, () => {
-            //this.forceUpdate();
-            this.props.history.replace({'pathname': '/', 
-                state: {
-                    user_id: 0,
-                    is_admin: false,
-                    token: ''
-                }})
-        });
+            this.props.history.replace({'pathname': '/'});
+            window.location.reload(false);
+        })
         //console.log("after clear: " + this.state.user_id);
 
         //this.forceUpdate();
     }
 
-    updateLoggedIn = (user_id, is_admin, token) => {
-        this.setState((prevState, props) => {
-            return {
-                user_id: user_id,
-                is_admin: is_admin,
-                token: token
-            };
-        });
-    }
+    // updateLoggedIn = (user_id, is_admin, token) => {
+    //     this.setState((prevState, props) => {
+    //         return {
+    //             user_id: user_id,
+    //             is_admin: is_admin,
+    //             token: token
+    //         };
+    //     });
+    // }
 
     render() {
         let gameComponents = null;
-
+        
         if (this.state.games.length > 0) {
             let curGameComponents = this.state.games;
             curGameComponents.sort((a, b) => {
@@ -141,7 +144,7 @@ class GameList extends React.Component {
                     pathname: '/login',
                     // onLoggedIn: this.updateLoggedIn
                     }}
-                    style={{ display: this.state.user_id === 0 ? 'inline' : 'none' }}>
+                    style={{ display: !this.state.loggedIn ? 'inline' : 'none' }}>
                     <button className={styles.Login_btn}>
                         Sign in
                     </button>
@@ -153,7 +156,7 @@ class GameList extends React.Component {
                     </button>
                 </Link> */}
                 <button className={styles.Logout_btn}
-                    style={{ display: this.state.user_id !== 0 ? 'inline' : 'none' }}
+                    style={{ display: this.state.loggedIn ? 'inline' : 'none' }}
                     onClick={this.clearStates}>
                         Sign out
                 </button>
@@ -162,7 +165,7 @@ class GameList extends React.Component {
                     {gameComponents}
                 </div>
                 <Link to={'/new-game-form'}
-                    style={{ display: this.state.is_admin === false ? 'none' : 'block' }}>
+                    style={{ display: this.state.userInfo.is_admin === true ? 'block' : 'none' }}>
                     <button className={styles.NewGame_btn}>
                         Create New Game
                     </button>

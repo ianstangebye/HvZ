@@ -10,7 +10,10 @@ function GameItem(props) {
     // };
 
     const { game } = props;
-    const user_id = props.user_id;
+    const { userInfo } = props || null;
+
+    const user_id = userInfo.user_id || 0;
+
     const [players, setPlayers] = useState([]);
     const [gameState, setGameState] = useState("");
 
@@ -64,7 +67,8 @@ function GameItem(props) {
                     <Link to={{
                                 pathname: '/game-detail/' + game.game_Id,
                                 state: {
-                                    user_id: user_id
+                                    user_id: userInfo.user_id,
+                                    userInfo: userInfo
                                 } 
                             }}
                             style={{textDecoration: 'none'}}>                   
@@ -72,8 +76,8 @@ function GameItem(props) {
                         <div className={styles.GameItem}>
                             <h4>{game.name}</h4>
                             <p className={styles.Players}><img src={playersIcon}/> {players.length}</p>
-                            <p className={styles.StartDate}>Start: 12.03.19 12:00</p>
-                            <p className={styles.EndDate}>End: 20.03.19 23:59</p>
+                            <p className={styles.StartDate}>Start: {game.start_Time}</p>
+                            <p className={styles.EndDate}>End: {game.end_Time}</p>
                             <p className={styles.GameState} style={{backgroundColor: gameState}}>{game.game_State}</p>
                         </div>
                     </Link>
