@@ -148,7 +148,7 @@ class GameList extends React.Component {
                     {gameComponents}
                 </div>
                 <Link to={'/new-game-form'}
-                    style={{ display: this.state.is_admin === true ? 'none' : 'block' }}>
+                    style={{ display: this.state.is_admin === false ? 'none' : 'block' }}>
                     <button className={styles.NewGame_btn}>
                         Create New Game
                     </button>
