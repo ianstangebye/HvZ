@@ -69,7 +69,7 @@ class GameList extends React.Component {
             }
         }).then(resp => resp.json())
             .then(resp => {
-                console.log(resp);
+                //console.log(resp);
                 this.setState({
                     games: [...resp]
                 });
@@ -164,8 +164,12 @@ class GameList extends React.Component {
                 <div className={styles.GameComponents}>
                     {gameComponents}
                 </div>
-                <Link to={'/new-game-form'}
-                    style={{ display: this.state.userInfo.is_admin === true ? 'block' : 'none' }}>
+                <Link to={{
+                    pathname: '/new-game-form',
+                    state: { 
+                        userInfo: this.state.userInfo,
+                        loggedIn: true
+                    }}} style={{ display: this.state.userInfo.is_admin === true ? 'block' : 'none' }}>
                     <button className={styles.NewGame_btn}>
                         Create New Game
                     </button>
