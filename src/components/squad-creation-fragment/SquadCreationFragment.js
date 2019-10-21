@@ -12,7 +12,8 @@ export default class SquadCreationFragment extends React.Component {
             game_id: props.game_id,
             squad_id: 0,
             player_id: props.player_id,
-            isVisible: false
+            isVisible: false,
+            userInfo: props.userInfo
         }
     }
 
@@ -41,7 +42,10 @@ export default class SquadCreationFragment extends React.Component {
         if (this.state.name.length > 0) {
             fetch(targetUrl, {
                 method: 'POST',
-                headers: {'Content-Type':'application/json'},
+                headers: {
+                    'Content-Type':'application/json',
+                    'Authorization': 'Bearer ' + this.state.userInfo.token
+                },
                 body: JSON.stringify(newSquad)
             }).then(function(resp) {
                 return resp.json();
@@ -72,7 +76,10 @@ export default class SquadCreationFragment extends React.Component {
 
         fetch(targetUrl, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            },
             body: JSON.stringify(newSquadMember)
         }).then(resp => resp.json()
         ).then(data => console.log('Squadmember joined: ', data)

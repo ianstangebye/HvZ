@@ -8,36 +8,39 @@ class TimerFragment extends React.Component {
         super(props)
 
         this.state = {
-            game: {},
+            game: props.game,
             game_id: props.game_id,
+            userInfo: props.userInfo
         }
     }
 
-    async componentDidMount() {
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}`;
-        //console.log("timer url: " + targetUrl);
+    componentWillReceiveProps() {
+        this.setState({
+            game: this.props.game,
+            game_id: this.props.game_id,
+            userInfo: this.props.userInfo
+        })
+        // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}`;
 
-        await fetch(targetUrl).then(resp => resp.json())
-        .then(resp => {
-            //console.log(resp);
-            this.setState({
-                game: {...resp}
-            });
+        // await fetch(targetUrl).then(resp => resp.json())
+        // .then(resp => {
+        //     //console.log(resp);
+        //     this.setState({
+        //         game: {...resp}
+        //     });
 
-            // console.log("start_time: " + this.state.game.start_Time);
-            // console.log("end_time: " + this.state.game.end_Time);
-            // console.log("game_state: " + this.state.game.game_State);
-            
-        }).catch(error => {
-            console.log('Something fucked up')
-            console.log(error);
-        });
+        // }).catch(error => {
+        //     console.log('Something fucked up')
+        //     console.log(error);
+        // });
     }
 
-    timerBeforeStart = (time) => {        
+    timerBeforeStart = (time) => {
         let currentTime = new Date();
 
-        if(moment(currentTime).isAfter(this.state.game.start_Time)) { 
+        console.log();
+
+        if (moment(currentTime).isAfter(this.state.game.start_Time)) {
             let game = this.state.game;
             game.game_State = "In Progress";
             this.setState({ game: game }, () => {
@@ -47,38 +50,41 @@ class TimerFragment extends React.Component {
     }
 
     startGame = async () => {
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/zero`
+        if (!this.state.game.has_Patient_Zero) {
+            const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/zero`
 
-        await fetch(targetUrl, {
-            method: 'POST',
-            body: JSON.stringify(this.state.game),
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(resp => {
-            if(resp.status === 200) {
-                return resp.json();
-            } else {
-                throw new Error(`STATUS CODE: ${resp.status}`)
-            }
-        })
-        .then(resp => {
-            console.log(resp);
-            this.updateGameState();
-        })
-        .catch(e => {
-            console.error(e);
-            alert("An unexpected error occured. Please try again later.")
-        });
-        //this.props.startGame();
+            await fetch(targetUrl, {
+                method: 'POST',
+                body: JSON.stringify(this.state.game),
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + this.state.userInfo.token
+                }
+            })
+                .then(resp => {
+                    if (resp.status === 200) {
+                        return resp.json();
+                    } else {
+                        throw new Error(`STATUS CODE: ${resp.status}`)
+                    }
+                })
+                .then(resp => {
+                    console.log(resp);
+                })
+                .catch(e => {
+                    console.error(e);
+                    alert("An unexpected error occured. Please try again later.")
+                });
+        }
+
+        this.updateGameState();
     }
 
     timerBeforeEnd = () => {
         let currentTime = new Date();
 
-        if(moment(currentTime).isAfter(this.state.game.end_Time)) { 
+        if (moment(currentTime).isAfter(this.state.game.end_Time)) {
             let game = this.state.game;
             game.game_State = "Complete";
             this.setState({ game: game }, () => {
@@ -100,27 +106,30 @@ class TimerFragment extends React.Component {
             body: JSON.stringify(this.state.game),
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
             }
         })
-        .then(resp => {
-            if(resp.status === 200) {
-                return resp.json();
-            } else {
-                throw new Error(`STATUS CODE: ${resp.status}`)
-            }
-        })
-        .then(resp => {
-            console.log(resp);
-        })
-        .catch(e => {
-            console.error(e);
-            alert("An unexpected error occured. Please try again later.")
-        });
+            .then(resp => {
+                if (resp.status === 200) {
+                    return resp.json();
+                } else {
+                    throw new Error(`STATUS CODE: ${resp.status}`)
+                }
+            })
+            .then(resp => {
+                console.log(resp);
+            })
+            .catch(e => {
+                console.error(e);
+                alert("An unexpected error occured. Please try again later.")
+            });
+
+        this.props.onUpdate();
     }
 
     render() {
-        if(this.state.game.game_State === 'Registration') {
+        if (this.state.game.game_State === 'Registration') {
             return (
                 <React.Fragment>
                     <div className={styles.Timer}>
@@ -131,13 +140,13 @@ class TimerFragment extends React.Component {
                             <div className={styles.Time}>
                                 <p>Start Time: </p>
                                 <p><Moment format="YYYY-MM-DD HH:mm">
-                                   {this.state.game.start_Time}
+                                    {this.state.game.start_Time}
                                 </Moment></p>
                             </div>
                             <div className={styles.FromNow}>
                                 <p>From Now: </p>
-                                <p><Moment fromNow className={styles.timer_fromNow} 
-                                    onChange={(time) => {this.timerBeforeStart(time)}}>
+                                <p><Moment fromNow className={styles.timer_fromNow}
+                                    onChange={(time) => { this.timerBeforeStart(time) }}>
                                     {this.state.game.start_Time}
                                 </Moment></p>
                             </div>
@@ -161,8 +170,8 @@ class TimerFragment extends React.Component {
                             </div>
                             <div className={styles.FromNow}>
                                 <p>From Now: </p>
-                                <p><Moment fromNow className={styles.timer_fromNow} 
-                                    onChange={(time) => {this.timerBeforeEnd(time)}}>
+                                <p><Moment fromNow className={styles.timer_fromNow}
+                                    onChange={(time) => { this.timerBeforeEnd(time) }}>
                                     {this.state.game.end_Time}
                                 </Moment></p>
                             </div>

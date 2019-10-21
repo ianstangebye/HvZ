@@ -11,15 +11,19 @@ class GoogleMap extends React.Component {
         this.mapEl = React.createRef();
         this.state = {
             game: {},
-            missions: []
+            missions: [],
+            userInfo: props.userInfo
         }
+        this.map = null;
+        this.locationImage = null;
+        this.positionMarker = null;
     }
 
 
     async renderMap() {
         // console.log("SHOW A FANCY MAP")
 
-        const map = new window.google.maps.Map(this.mapEl.current, 
+        this.map = new window.google.maps.Map(this.mapEl.current, 
             {
                 streetViewControl: false
             }
@@ -31,13 +35,29 @@ class GoogleMap extends React.Component {
         // }
         );
 
+        this.locationImage = {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Blue_dot.png',
+            // This marker is 20 pixels wide by 32 pixels high.
+            scaledSize: new window.google.maps.Size(20, 20), // scaled size
+            origin: new window.google.maps.Point(0,0), // origin
+            anchor: new window.google.maps.Point(15, 0) // anchor
+          };
+
+        this.positionMarker = new window.google.maps.Marker({
+            position: {lat: 59.914691, lng: 10.750862},
+            map: this.map,
+            icon: this.locationImage,
+            title: 'Your current position',
+            zIndex: 6
+          });
+
         const rectangle = new window.google.maps.Rectangle({
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,
             strokeWeight: 2,
             fillColor: '#FF0000',
             fillOpacity: 0.35,
-            map: map,
+            map: this.map,
             bounds: {
                 north: this.state.game.nw_Lat,
                 south: this.state.game.se_Lat,
@@ -91,7 +111,12 @@ class GoogleMap extends React.Component {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}/kill`;
         
 
-        await fetch(targetUrl).then(resp=> resp.json())
+        await fetch(targetUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp=> resp.json())
         .then(resp=>{
             console.log(resp);
             for(i=0;i<resp.length; i++){
@@ -111,7 +136,12 @@ class GoogleMap extends React.Component {
 
         const missionsURL = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}/mission/`
 
-        await fetch(missionsURL).then(resp=>resp.json())
+        await fetch(missionsURL, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp=>resp.json())
         .then(resp=>{
             console.log(resp);
             this.setState({
@@ -135,7 +165,7 @@ class GoogleMap extends React.Component {
             var beach = beaches[i];
             var marker = new window.google.maps.Marker({
               position: {lat: beach[1], lng: beach[2]},
-              map: map,
+              map: this.map,
               icon: image,
               shape: shape,
               title: beach[0],
@@ -164,7 +194,7 @@ class GoogleMap extends React.Component {
                 if(mission.is_Human_Visible && mission.is_Zombie_Visible){
                     var globalMarker = new window.google.maps.Marker({
                         position: {lat: mission.latitude, lng: mission.longitude},
-                        map: map,
+                        map: this.map,
                         icon: missionImage,
                         shape: shape,
                         title: mission.name,
@@ -174,12 +204,12 @@ class GoogleMap extends React.Component {
                         content: contentString
                       });
                       globalMarker.addListener('click', function() {
-                        infowindow.open(map, globalMarker);
+                        infowindow.open(this.map, globalMarker);
                       });
                 } else if(mission.is_Human_Visible == false && player_status == false){
                     var zombieMarker = new window.google.maps.Marker({
                         position: {lat: mission.latitude, lng: mission.longitude},
-                        map: map,
+                        map: this.map,
                         icon: zombieMissionImage,
                         shape: shape,
                         title: mission.name,
@@ -189,12 +219,12 @@ class GoogleMap extends React.Component {
                         content: contentString
                       });
                       zombieMarker.addListener('click', function() {
-                        infowindow.open(map, zombieMarker);
+                        infowindow.open(this.map, zombieMarker);
                       });
                 } else if(mission.is_Human_Visible == true && player_status == true){
                     var humanMarker = new window.google.maps.Marker({
                         position: {lat: mission.latitude, lng: mission.longitude},
-                        map: map,
+                        map: this.map,
                         icon: humanMissionImage,
                         shape: shape,
                         title: mission.name,
@@ -204,7 +234,7 @@ class GoogleMap extends React.Component {
                         content: contentString
                       });
                       humanMarker.addListener('click', function() {
-                        infowindow.open(map, humanMarker);
+                        infowindow.open(this.map, humanMarker);
                       });
     
                 } else {
@@ -225,18 +255,138 @@ class GoogleMap extends React.Component {
         const sw = new window.google.maps.LatLng(this.state.game.se_Lat, this.state.game.nw_Lng);
         const ne = new window.google.maps.LatLng(this.state.game.nw_Lat, this.state.game.se_Lng);
         let bounds = new window.google.maps.LatLngBounds(sw, ne);
-        map.fitBounds(bounds);
+        this.map.fitBounds(bounds);
+
+        // setInterval(this.getLocation(this.map), 10000);
 
         
 
     }
 
+    showLocation(position){
+        navigator.geolocation.getCurrentPosition(position =>{
+            console.log(position.coords);
+            console.log(this.map);
+            
+
+
+
+        const location = {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Blue_dot.png',
+            // This marker is 20 pixels wide by 32 pixels high.
+            scaledSize: new window.google.maps.Size(20, 20), // scaled size
+            origin: new window.google.maps.Point(0,0), // origin
+            anchor: new window.google.maps.Point(15, 0) // anchor
+          };
+
+        var positionMarker = new window.google.maps.Marker({
+            position: {lat:position.coords.latitude, lng: position.coords.longitude},
+            map: this.map,
+            icon: location,
+            title: 'Your current position',
+            zIndex: 4
+          });
+        
+        // lat = position.coords.latitude;
+        // lng = position.coords.longitude;
+    }, error =>{
+        alert(error)
+    });
+    }
+
+    // setInt(){
+    //     setInterval(this.getLocation(), 10000);
+    // }
+
     async componentDidMount() {
         const id = this.props.game_id;
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}`;
+        //This worked but gave errors about setting map
+        // setInterval(this.showLocation, 1000);
+        //Global marker for the user position
+        // navigator.geolocation.getCurrentPosition(initialPosition =>{
+        //     positionMarker.setPosition({lat: initialPosition.coords.latitude, lng: initialPosition.coords.longitude});
+
+        // }, error =>{
+        //     alert(error)
+        // });
+        // console.log(positionMarker.position);
+        
+
+        //this is probably the best way to do it at least for our purposes
+        setInterval(()=>{
+
+            navigator.geolocation.getCurrentPosition(position =>{
+                // console.log(position.coords);
+                // console.log(this.map);
+                var updatedPosition = new window.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                console.log(updatedPosition);
+                
+                this.positionMarker.setPosition(updatedPosition);
+
+        //can't seem to get anything else than this to work :(((((((())))))))        
+        // const locationImage = {
+        //     url: 'https://cdn0.iconfinder.com/data/icons/emoticon-filled/64/emoji-52-512.png',
+        //     // This marker is 20 pixels wide by 32 pixels high.
+        //     scaledSize: new window.google.maps.Size(20, 20), // scaled size
+        //     origin: new window.google.maps.Point(0,0), // origin
+        //     anchor: new window.google.maps.Point(15, 0) // anchor
+        //   };
+
+        // var positionMarker = new window.google.maps.Marker({
+        //     position: {lat: position.coords.latitude, lng: position.coords.longitude},
+        //     map: this.map,
+        //     icon: locationImage,
+        //     title: 'Your current position',
+        //     zIndex: 4
+        //   });
+    
+    
+
+            
+            // lat = position.coords.latitude;
+            // lng = position.coords.longitude;
+        }, error =>{
+            alert(error)
+        });
+
+        }, 1000)
+
+
+        //this also worked without giving errors about setmap, but with greater lag and less efficiency 
+        // navigator.geolocation.watchPosition(position =>{
+        //     console.log(position.coords);
+        //     positionMarker = null;
+    
+        //     const locationImage = {
+        //         url: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Blue_dot.png',
+        //         // This marker is 20 pixels wide by 32 pixels high.
+        //         scaledSize: new window.google.maps.Size(20, 20), // scaled size
+        //         origin: new window.google.maps.Point(0,0), // origin
+        //         anchor: new window.google.maps.Point(15, 0) // anchor
+        //       };
+    
+        //     positionMarker = new window.google.maps.Marker({
+        //         position: {lat:position.coords.latitude, lng: position.coords.longitude},
+        //         map: this.map,
+        //         icon: locationImage,
+        //         title: 'Your current position',
+        //         zIndex: 4
+        //       });
+            
+        //     // lat = position.coords.latitude;
+        //     // lng = position.coords.longitude;
+        //     }, error =>{
+        //        alert(error)
+        // });
             
         //need to set in the correct 
-        await fetch(targetUrl).then(resp=> resp.json())
+        await fetch(targetUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp=> resp.json())
         .then(resp=>{
             // console.log(resp);
             this.setState({
@@ -250,6 +400,8 @@ class GoogleMap extends React.Component {
         });
 
         this.renderMap();
+        // this.setInt();
+
     }
 
     render() {

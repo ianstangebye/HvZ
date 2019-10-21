@@ -12,8 +12,9 @@ class ChatFragment extends React.Component {
             tabs: [],
             activeTab: "Global",
             messageText: "",
-            squad_id: 0,
-            squads: []
+            squad_id: props.squad_id || 0,
+            squads: [],
+            userInfo: props.userInfo
         }
     }
 
@@ -24,12 +25,6 @@ class ChatFragment extends React.Component {
             tabs.push("Human")
             tabs.push("Zombie")
             tabs.push("Squad")
-        } else {
-            tabs.push(this.props.player.is_Human ? "Human" : "Zombie")
-
-            if(this.props.squad_id) {
-                tabs.push("Squad")
-            }
         }
 
         this.setState({
@@ -41,6 +36,74 @@ class ChatFragment extends React.Component {
                 this.startAutoUpdate()
             }
         })
+    }
+
+    componentDidUpdate() {
+        // No need to add/remove any tabs if admin,
+        // since all tabs should be visible at all times
+        if(!this.props.adminMode) this.updateTabs()
+    }
+
+    // Reevaluate which tabs this user should see
+    updateTabs() {
+        let tabs = this.state.tabs
+        let squadIdx = tabs.indexOf("Squad")
+        let humanIdx = tabs.indexOf("Human")
+        let zombieIdx = tabs.indexOf("Zombie")
+        let shouldUpdateState = false
+
+        // If the player is part of a squad
+        if (this.props.squad_id) {
+
+            // Add squad tab if not present
+            if (squadIdx === -1) {
+                tabs.push("Squad")
+                shouldUpdateState = true
+            }
+
+        // If the player is not part of a squad
+        } else {
+
+            // Remove squad tab if present
+            if (squadIdx !== -1) {
+                tabs.splice(squadIdx, 1)
+                shouldUpdateState = true
+            }
+        }
+
+        // If the player is human
+        if (this.props.player.is_Human) {
+
+            // Add human tab if not present
+            if(humanIdx === -1) {
+                tabs.push("Human")
+                shouldUpdateState = true
+            }
+
+            // Remove zombie tab if present
+            if(zombieIdx !== -1) {
+                tabs.splice(zombieIdx, 1)
+                shouldUpdateState = true
+            }
+
+        // If the player is a zombie
+        } else {
+
+            // Add zombie tab if not present
+            if (zombieIdx === -1) {
+                tabs.push("Zombie")
+                shouldUpdateState = true
+            }
+
+            // Remove human tab if present
+            if (humanIdx !== -1) {
+                tabs.splice(humanIdx, 1)
+                shouldUpdateState = true
+            }
+
+        }
+
+        if(shouldUpdateState) this.setState({ tabs: tabs })
     }
     
     componentWillUnmount() {
@@ -79,7 +142,12 @@ class ChatFragment extends React.Component {
 
         // Get appropriate messages for the active tab from the backend API
         axios
-        .get(url)
+        .get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        })
         .then(resp => {
             if(resp.status === 200) {
                 if(!this.unmounted || !this.cancelUpdate) {
@@ -101,7 +169,12 @@ class ChatFragment extends React.Component {
 
         // Get appropriate messages for the active tab from the backend API
         axios
-        .get(url)
+        .get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        })
         .then(resp => {
             if (resp.status === 200) {
                 this.setState({
@@ -138,7 +211,12 @@ class ChatFragment extends React.Component {
                 player_id: this.props.adminMode ? 0 : this.props.player.player_Id
             }
 
-            axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat`, body)
+            axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat`, body, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + this.state.userInfo.token
+                }
+            })
             .catch(e => console.error(e));
             
             this.setState({ messageText: "" })
@@ -150,6 +228,7 @@ class ChatFragment extends React.Component {
     }
 
     render() {
+        
         // Set which tabs to render
         let tabs = this.state.tabs.map((tab, idx) => {
             let isActive = tab === this.state.activeTab;

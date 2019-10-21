@@ -11,7 +11,10 @@ function GameItem(props) {
     // };
 
     const { game } = props;
-    const user_id = props.user_id;
+    const { userInfo } = props || null;
+
+    const user_id = userInfo.user_id || 0;
+
     const [players, setPlayers] = useState([]);
     const [gameState, setGameState] = useState("");
 
@@ -70,7 +73,8 @@ function GameItem(props) {
                     <Link to={{
                                 pathname: '/game-detail/' + game.game_Id,
                                 state: {
-                                    user_id: user_id
+                                    user_id: userInfo.user_id,
+                                    userInfo: userInfo
                                 } 
                             }}
                             style={{textDecoration: 'none'}}>                   

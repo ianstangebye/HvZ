@@ -11,7 +11,8 @@ export default class TitleFragment extends React.Component {
             game: {},
             game_id: props.game_id,
             isVisible: false,
-            gameStateColor: ''
+            gameStateColor: '',
+            userInfo: props.userInfo
         }
     }
 
@@ -25,7 +26,12 @@ export default class TitleFragment extends React.Component {
     getGameTitle = async () => { 
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}`
 
-        await fetch(targetUrl).then(resp => resp.json()).then(resp => {
+        await fetch(targetUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp => resp.json()).then(resp => {
             this.setState({ game: resp });
             
         }).catch(error => {
@@ -42,6 +48,8 @@ export default class TitleFragment extends React.Component {
         }
 
         console.log("title game_id: " + this.state.game_id);
+
+        this.props.onUpdate(this.state.game.game_State);
     }
 
     handleClick = () => {
@@ -57,7 +65,10 @@ export default class TitleFragment extends React.Component {
         }
     }
 
-    
+    updateGameState = () => {
+        this.props.onUpdate(this.state.game.game_State);
+    }
+
     render() {
         
         // if(this.state.game_id === 0) {
@@ -74,7 +85,7 @@ export default class TitleFragment extends React.Component {
                     <div className={styles.Info}>
                         <p><span>Game State: </span> <span className={styles.GameState} style={{color: this.state.gameStateColor}}>{this.state.game.game_State}</span></p>
                         
-                        <TimerFragment game_id={this.state.game_id} />
+                        <TimerFragment onUpdate={this.updateGameState} game={this.state.game} game_id={this.state.game_id} userInfo={this.state.userInfo} />
 
                         <p><span>Description: </span><br></br>{this.state.game.description}</p>
                         <div className={styles.Rules} style={{display: this.state.isVisible ? 'block' : 'none'}}>
