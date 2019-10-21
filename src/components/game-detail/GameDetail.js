@@ -53,7 +53,32 @@ class GameDetail extends React.Component {
             game_id: game_id,
             userInfo: state.userInfo
         }, this.getPlayer)
+
+
+        // setInterval(this.GoogleMapElement.current.getLocation(), 10000);
+        // this.GoogleMapElement.current.setInt();
+        // this.GoogleMapElement.current.setInterval(() => {
+        //     this.GoogleMapElement.current.getLoction()
+        // }, 10000);
+        // if(navigator.geolocation){
+        //     navigator.geolocation.watchPosition(showPosition);
+        // } else {
+        //     alert('Your browser does not support location tracking');
+        // }
+
+        // if(navigator.geolocation){
+        //     navigator.geolocation.watchPosition(this.updatePosition);
+        // } else {
+        //     alert('your browser does not support location tracking');
+        // }    
+
+        
+        
     }
+
+    // showPosition(position){
+    //     this.GoogleMapElement.current.showPosition(position);
+    // }
 
     // componentWillUnmount() {
     //     clearInterval(this.interval);
@@ -155,6 +180,17 @@ class GameDetail extends React.Component {
             game_state: game_state
         })
     }
+
+    // updatePosition = () =>{
+    //     console.log(position);
+    //     if(this.GoogleMapElement.current === null){
+    //         console.log("undefined");
+            
+    //     } else {
+    //          this.GoogleMapElement.current.showLocation(position);
+    //     }
+        
+    // }
 
     render() {
         if (!this.state.ready) return <h1>Loading Game Detail...</h1>
