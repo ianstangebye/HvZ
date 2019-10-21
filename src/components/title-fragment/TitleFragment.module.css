@@ -1,6 +1,6 @@
 @media screen and (min-width: 100px) {
     .TitleFragment {
-        max-width: 500px;
+        max-width: 600px;
         width: 100%;
         margin: 10px auto;
     }
@@ -51,7 +51,7 @@
     .TitleFragment {
         margin-top: -20px;
         max-width: 100%;
-        height: 420px;
+        height: 425px;
     }
 
     .CollapseBtn {
@@ -60,6 +60,8 @@
 
     .Rules {
         display: block!important;
+        height: 250px;
+        overflow-y: scroll;
     }
 }
 
@@ -79,6 +81,12 @@
         border-bottom: 2px solid #F5F5F5;
         width: 100%;
         font-size: 24px;
+    }
+
+    .Rules {
+        display: block!important;
+        height: 150px;
+        overflow-y: scroll;
     }
 
     

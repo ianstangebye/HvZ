@@ -5,6 +5,68 @@ button:focus {
 
 @media screen and (min-width: 100px) {
     /* Fikse rekkefølge på mobil/tablet format */
+
+    .Unregistered {
+        max-height: 90vh;
+        display: grid;
+        grid-template-rows: repeat(10, 1fr);
+    }
+
+    /* Register Button */ 
+    .Unregistered div:nth-child(1) {
+        grid-row: 1;
+    }
+
+    /* Title */
+    .Unregistered div:nth-child(2) {
+        grid-row: 2;
+    }
+
+    /* Map */
+    .Unregistered div:nth-child(3) {
+        grid-row: 3;
+    }
+
+    /* Squads */
+    .Unregistered div:nth-child(4) {
+        grid-row: 4;
+    }
+
+    .JoinedGame {
+        max-height: 90vh;
+        display: grid;
+        grid-template-rows: repeat(10, 1fr);
+    }
+
+    /* BiteCodeEntry or Fragment */
+    .JoinedGame div:nth-child(1) {
+        grid-row: 4;
+    }
+
+    /* Registration Button */
+    .JoinedGame div:nth-child(2) {
+        grid-row: 1;
+    }
+
+    /* Title */
+    .JoinedGame div:nth-child(3) {
+        grid-row: 2;
+    }
+
+    /* SquadList */
+    .JoinedGame div:nth-child(4) {
+        grid-row: 6;
+    }
+
+    /* Chat */
+    .JoinedGame div:nth-child(5) {
+        grid-row: 5;
+    }
+
+    /* Google Map */
+    .JoinedGame div:nth-child(6) {
+        grid-row: 3;
+    }
 }
 
 @media screen and (min-width: 801px) {
@@ -12,7 +74,7 @@ button:focus {
         max-height: 90vh;
         display: grid;
         grid-template-columns: 50% 50%;
-        grid-row: 50% 50%;
+        grid-template-rows: 50% 50%;
         padding: 10px;
     }
 
@@ -20,8 +82,8 @@ button:focus {
         max-height: 90vh;
         display: grid;
         grid-template-columns: 30% 20% 20% 30%;
-        grid-row: 10% 60% 30%;
-        padding: 10px 20px 10px 10px;
+        grid-template-rows: 10% 60% 30%;
+        padding: 10px 20px 10px 20px;
     }
 
     /* Register Button */ 
@@ -54,8 +116,8 @@ button:focus {
         max-height: 90vh;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-row: 50px 1fr 1fr 1fr;
-        padding-left: 10px;
+        grid-template-rows: 50px 1fr 1fr 1fr;
+        padding: 0 10px;
     }
 
     /* BiteCodeEntry or Fragment */
@@ -100,15 +162,19 @@ button:focus {
         max-height: 90vh;
         display: grid;
         grid-template-columns: 50% 50%;
-        grid-row: 50% 50%;
+        grid-template-rows: 50% 50%;
         padding: 10px;
+    }
+
+    .Admin div:nth-child(4) {
+        margin: 10px;
     }
 
     .Unregistered {
         max-height: 90vh;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        grid-row: 10% 1fr 1fr;
+        grid-template-rows: 10% 1fr 1fr;
         padding: 10px 20px 10px 10px;
     }
 
@@ -141,7 +207,7 @@ button:focus {
         max-height: 90vh;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        grid-row: 50px 1fr 1fr 1fr 1fr;
+        grid-template-rows: 50px 300px 1fr 1fr 1fr;
     }
 
     /* Registration Button */
@@ -159,7 +225,7 @@ button:focus {
     /* BiteCodeEntry or Fragment */
     .JoinedGame div:nth-child(1) {
         grid-column: 2;
-        grid-row: 5;
+        grid-row: 4;
     }
 
     /* Google Map */
@@ -171,13 +237,13 @@ button:focus {
     /* SquadList */
     .JoinedGame div:nth-child(4) {
         grid-column: 1;
-        grid-row: 3 / span 4;
+        grid-row: 3;
     }
 
     /* Chat */
     .JoinedGame div:nth-child(5) {
         grid-column: 3;
-        grid-row: 2 / span 3;
+        grid-row: 2 / span 4;
         
     }
 

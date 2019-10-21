@@ -201,24 +201,27 @@ class ChatFragment extends React.Component {
         
         return (
             <div className={styles.ChatFragment}>
-                <header className={styles.Tabs}>
-                    { tabs }
-                </header>
+                <div className={styles.ChatFragmentDiv}>
+                    <header className={styles.Tabs}>
+                        { tabs }
+                    </header>
 
-                <section className={styles.Messages}>
-                    { messages }
-                </section>
+                    <section className={styles.Messages}>
+                        { messages }
+                    </section>
 
-                {this.props.adminMode ? null : 
-                    <footer className={styles.ChatFooter}>
-                        <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
-                            onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
-                            value={this.state.messageText}
-                        />
+                    {this.props.adminMode ? null : 
+                        <footer className={styles.ChatFooter}>
+                            <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
+                                onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
+                                value={this.state.messageText}
+                            />
 
-                        <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} /></button>
-                    </footer>
-                }
+                            <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} /></button>
+                        </footer>
+                    }
+                </div>
+                
             </div>
         )
     }

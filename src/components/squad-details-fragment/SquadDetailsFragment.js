@@ -140,9 +140,7 @@ export default class SquadDetailsFragment extends React.Component {
                         <h1>{this.state.squad.name}</h1>
                         <button className={styles.CollapseBtn} id="SquadMembersCollapseBtn" type="button" onClick={this.handleCollapseClick}><img src={arrowUpIcon} alt="up"/></button>
                     </div>
-                    <div className={styles.CheckIn}>
-                        <button className={styles.CheckInBtn} onClick={this.handleCheckIn} style={{display: this.state.isVisible ? 'none' : 'block'}}>Check-in</button>
-                    </div>
+                    
                     
                     <div className={styles.SquadMembers} style={{display: this.state.isVisible ? 'none' : 'block'}}>
                         <h2> {this.state.squad.name} Members</h2>
@@ -153,6 +151,9 @@ export default class SquadDetailsFragment extends React.Component {
                         </div> */}
                         {squadMemberComponents}
                         <button className={styles.LeaveBtn} onClick={this.handleLeaveSquad}>Leave Squad</button>
+                    </div>
+                    <div className={styles.CheckIn}>
+                        <button className={styles.CheckInBtn} onClick={this.handleCheckIn} style={{display: this.state.isVisible ? 'none' : 'block'}}>Check-in</button>
                     </div>
                     
                 </div>
