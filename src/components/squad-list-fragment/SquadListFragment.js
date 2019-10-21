@@ -107,7 +107,7 @@ export default class SquadListFragment extends React.Component {
     }
 
     render() {
-        let squadComponents = null;
+        let squadComponents = "";
         const is_human = this.state.is_human;
 
         if (this.state.squads.length > 0) {
@@ -118,8 +118,10 @@ export default class SquadListFragment extends React.Component {
             });
         } else if (this.state.squads.length === 0) {
             squadComponents = <p style={{margin: '10px', textAlign: 'center'}}>No squads created yet.</p>
-        } else {
-            squadComponents = <p>No Squad Yet...</p>
+        } 
+        
+        if (squadComponents == "") {
+            squadComponents = <p style={{margin: '10px', textAlign: 'center'}}>No squads created yet.</p>
         }
 
         return (
