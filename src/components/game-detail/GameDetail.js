@@ -71,8 +71,6 @@ class GameDetail extends React.Component {
             .get(url)
             .then(res => {
                 if (res.status === 200) {
-                    console.log("getplayer success");
-                    
                     this.setState({
                         player: res.data,
                         ready: true
@@ -98,8 +96,6 @@ class GameDetail extends React.Component {
     getSquad = () => {
         const gid = this.state.game_id;
         const pid = this.state.player.player_Id;
-
-        console.log("playerID: " + pid);
         
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/member/${pid}`
 
@@ -107,6 +103,7 @@ class GameDetail extends React.Component {
         axios
             .get(url)
             .then(res => {
+                if(!this.stop)
                 if (res.status === 200) {
                     console.log("getSquad success");
                     
@@ -153,6 +150,7 @@ class GameDetail extends React.Component {
 
         console.log("| GAME   ID: " + game_id)
         console.log("| USER   ID: " + user_id)
+        console.log("| SQUAD  ID: " + squad_id)
         console.log("| " + (admin ? "Admin" : "PLAYER ID: " + player_id))
         console.log("|_____________________________________|")
 
