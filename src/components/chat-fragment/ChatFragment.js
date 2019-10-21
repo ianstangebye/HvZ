@@ -24,12 +24,6 @@ class ChatFragment extends React.Component {
             tabs.push("Human")
             tabs.push("Zombie")
             tabs.push("Squad")
-        } else {
-            tabs.push(this.props.player.is_Human ? "Human" : "Zombie")
-
-            if(this.props.squad_id) {
-                tabs.push("Squad")
-            }
         }
 
         this.setState({
@@ -41,6 +35,74 @@ class ChatFragment extends React.Component {
                 this.startAutoUpdate()
             }
         })
+    }
+
+    componentDidUpdate() {
+        // No need to add/remove any tabs if admin,
+        // since all tabs should be visible at all times
+        if(!this.props.adminMode) this.updateTabs()
+    }
+
+    // Reevaluate which tabs this user should see
+    updateTabs() {
+        let tabs = this.state.tabs
+        let squadIdx = tabs.indexOf("Squad")
+        let humanIdx = tabs.indexOf("Human")
+        let zombieIdx = tabs.indexOf("Zombie")
+        let shouldUpdateState = false
+
+        // If the player is part of a squad
+        if (this.props.squad_id) {
+
+            // Add squad tab if not present
+            if (squadIdx === -1) {
+                tabs.push("Squad")
+                shouldUpdateState = true
+            }
+
+        // If the player is not part of a squad
+        } else {
+
+            // Remove squad tab if present
+            if (squadIdx !== -1) {
+                tabs.splice(squadIdx, 1)
+                shouldUpdateState = true
+            }
+        }
+
+        // If the player is human
+        if (this.props.player.is_Human) {
+
+            // Add human tab if not present
+            if(humanIdx === -1) {
+                tabs.push("Human")
+                shouldUpdateState = true
+            }
+
+            // Remove zombie tab if present
+            if(zombieIdx !== -1) {
+                tabs.splice(zombieIdx, 1)
+                shouldUpdateState = true
+            }
+
+        // If the player is a zombie
+        } else {
+
+            // Add zombie tab if not present
+            if (zombieIdx === -1) {
+                tabs.push("Zombie")
+                shouldUpdateState = true
+            }
+
+            // Remove human tab if present
+            if (humanIdx !== -1) {
+                tabs.splice(humanIdx, 1)
+                shouldUpdateState = true
+            }
+
+        }
+
+        if(shouldUpdateState) this.setState({ tabs: tabs })
     }
     
     componentWillUnmount() {
@@ -150,6 +212,7 @@ class ChatFragment extends React.Component {
     }
 
     render() {
+        
         // Set which tabs to render
         let tabs = this.state.tabs.map((tab, idx) => {
             let isActive = tab === this.state.activeTab;
