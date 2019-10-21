@@ -11,6 +11,7 @@ import GoogleMap from '../google-map/GoogleMap'
 import MissionList from '../mission-list/MissionList'
 import SquadDetailsFragment from '../squad-details-fragment/SquadDetailsFragment';
 import TimerFragment from '../timer-fragment/TimerFragment'
+import zombieImg from '../../assets/zombie.png';
 
 class GameDetail extends React.Component {
 
@@ -151,10 +152,20 @@ class GameDetail extends React.Component {
         const unregistered = player_id ? false : true
         const admin = sessionStorage.role === "Admin"
 
+        let pictureId = '';
+
         console.log("| GAME   ID: " + game_id)
         console.log("| USER   ID: " + user_id)
         console.log("| " + (admin ? "Admin" : "PLAYER ID: " + player_id))
         console.log("|_____________________________________|")
+
+        if (admin) {
+            pictureId = zombieImg;
+        } else if (player.is_Human) {
+            pictureId = '';
+        } else if (!player.is_Human) {
+            pictureId = zombieImg;
+        }
 
 
         let squadFragment = null;
@@ -194,6 +205,7 @@ class GameDetail extends React.Component {
         return (
             <React.Fragment>
                 <div className={styles.JoinedGame}>
+                
                 {player.is_Human && !player.is_Patient_Zero ? 
                     <BiteCodeFragment game_id={game_id} player={player} />
                     :
@@ -206,6 +218,7 @@ class GameDetail extends React.Component {
                 <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
                 {/* <MissionList game_id={game_id} /> */}
                 {/* <TimerFragment game_id={game_id} /> */}
+                <img src={pictureId} className={styles.PictureId} alt="Player"></img>
                 </div>
             </React.Fragment>
         )

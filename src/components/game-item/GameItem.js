@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './GameItem.module.css';
 import { Link } from 'react-router-dom';
 import playersIcon from '../../assets/players-icon.svg';
+import Moment from 'react-moment';
 
 function GameItem(props) {
     // let game = {
@@ -13,8 +14,6 @@ function GameItem(props) {
     const user_id = props.user_id;
     const [players, setPlayers] = useState([]);
     const [gameState, setGameState] = useState("");
-    let gameStart = ''; 
-    let gameEnd = '';
 
     //const user_id = sessionStorage.getItem('user_id') || 0;
     //const loggedIn = localStorage.getItem('loggedIn') || "false";
@@ -62,18 +61,6 @@ function GameItem(props) {
 
     }, []);
 
-    if (game.start_Time != '') {
-        gameStart = game.start_Time;
-        gameStart = gameStart.replace("T", " ");
-        gameStart = gameStart.substring(0, gameStart.length - 3);
-    }
-
-    if (game.end_Time != '') {
-        gameEnd = game.end_Time;
-        gameEnd = gameEnd.replace("T", " ");
-        gameEnd = gameEnd.substring(0, gameEnd.length - 3);
-    }
-
     if (user_id !== 0) {
         
 
@@ -91,8 +78,12 @@ function GameItem(props) {
                         <div className={styles.GameItem}>
                             <h4>{game.name}</h4>
                             <p className={styles.Players}><img src={playersIcon}/> {players.length}</p>
-                            <p className={styles.StartDate}>Start: {gameStart}</p>
-                            <p className={styles.EndDate}>End: {gameEnd}</p>
+                            <p className={styles.StartDate}>Start: <Moment format="YYYY-MM-DD HH:mm">
+                                   {game.start_Time}
+                                </Moment></p>
+                            <p className={styles.EndDate}>End: <Moment format="YYYY-MM-DD HH:mm">
+                                   {game.end_Time}
+                                </Moment></p>
                             <p className={styles.GameState} style={{backgroundColor: gameState}}>{game.game_State}</p>
                         </div>
                     </Link>
@@ -105,8 +96,12 @@ function GameItem(props) {
                 <div className={styles.GameItem}>
                     <h4>{game.name}</h4>
                     <p className={styles.Players}><img src={playersIcon}/>{players.length}</p>
-                    <p className={styles.StartDate}>Start: {gameStart}</p>
-                    <p className={styles.EndDate}>End: {gameEnd}</p>
+                    <p className={styles.StartDate}>Start: <Moment format="YYYY-MM-DD HH:mm">
+                                   {game.start_Time}
+                                </Moment></p>
+                    <p className={styles.EndDate}>End: <Moment format="YYYY-MM-DD HH:mm">
+                                   {game.end_Time}
+                                </Moment></p>
                     <p className={styles.GameState} style={{backgroundColor: gameState}}>{game.game_State}</p>
                 </div>
             </React.Fragment>
