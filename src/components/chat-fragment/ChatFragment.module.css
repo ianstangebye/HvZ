@@ -74,9 +74,10 @@
     }
 
     #MsgInput {
-        width: 600px;
+        max-width: 600px;
+        width: 100%;
         border: none;
-        background-color: #E6E6E6;
+        background-color: #F5F5F5;
         border-radius: 5px;
         padding: 0 5px;
         height: 100%;
@@ -88,11 +89,6 @@
 
     #MsgInput::placeholder {
         color: rgba(48, 48, 48, 0.555);
-    }
-
-    #MsgInput:hover {
-
-        background-color: #E6E6E6;
     }
     
     #MsgInput:focus {
@@ -111,4 +107,16 @@
 
 @media screen and (min-width: 801px){
 
+}
+
+@media screen and (min-width: 1200px) {
+    .ChatFragment {
+        height: 600px;
+        background-color: #77A4AC;
+    }
+
+    .Messages {
+        max-height: 495px;
+        height: 100%;
+    }
 }
