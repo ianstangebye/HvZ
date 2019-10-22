@@ -234,12 +234,8 @@ class GameDetail extends React.Component {
         }
 
 
-        // let squadFragment = null;
-        // if(squad_id) {
-        //     squadFragment = <SquadDetailsFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id} userInfo={userInfo} />
-        // } else {
-        //     squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human} userInfo={userInfo} />
-        // }
+        let squadFragment = [<SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human} userInfo={userInfo} />]
+        if(squad_id) squadFragment.push(<SquadDetailsFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id} userInfo={userInfo} />)
 
         if(admin) {
             return (
@@ -282,6 +278,7 @@ class GameDetail extends React.Component {
                 <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} player={player}/>
 
                 <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human} userInfo={userInfo} />
+                
                 <ChatFragment player={player} squad_id={squad_id} game_id={game_id} userInfo={userInfo} />
                 <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo} />
                 {/* <MissionList game_id={game_id} /> */}
