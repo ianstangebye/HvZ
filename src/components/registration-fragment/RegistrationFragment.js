@@ -38,7 +38,8 @@ class RegistrationFragment extends React.Component {
             is_Patient_Zero: false,
             bite_Code: biteCode,
             user_id: this.props.user_id,
-            game_id: this.props.game_id
+            game_id: this.props.game_id,
+            username: this.state.userInfo.username
         }
 
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/player`;
