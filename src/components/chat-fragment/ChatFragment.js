@@ -209,7 +209,7 @@ class ChatFragment extends React.Component {
                 chat_time: now,
                 game_id: this.props.game_id,
                 player_id: this.state.userInfo.is_admin ? 0 : this.props.player.player_Id,
-                squad_id: this.state.squad_id,
+                squad_id: this.state.userInfo.is_admin ? 0 : this.props.squad_id,
                 username: this.state.userInfo.username,
                 is_admin: this.state.userInfo.is_admin
             }
@@ -276,19 +276,19 @@ class ChatFragment extends React.Component {
                 const date = new Date(msg.chat_Time);
                 const time = date.toLocaleTimeString();
                 if(msg.username === this.state.userInfo.username) {
-                    return <div className={styles.UserMessage}
+                    return <div key={idx} className={styles.UserMessage}
                             style={{ backgroundColor: msg.is_admin ? 'chocolate' : '#77A4AC',
                             fontWeight: msg.is_admin ? 'bold' : 'normal' }}>
-                                <p key={idx}>
+                                <p>
                                     {msg.username}: {msg.message} 
                                 </p>
                                 <span className={styles.TimeStamp}>({time})</span>
                             </div>
                 } else {
-                    return <div className={styles.Message}
+                    return <div key={idx} className={styles.Message}
                             style={{ backgroundColor: msg.is_admin ? 'chocolate' : '#77A4AC',
                             fontWeight: msg.is_admin ? 'bold' : 'normal' }}>
-                                <p key={idx}>
+                                <p>
                                     {msg.username}: {msg.message} 
                                 </p>
                                 <span className={styles.TimeStamp}>({time})</span>
@@ -299,6 +299,23 @@ class ChatFragment extends React.Component {
 
         if (this.state.activeTab === "Squad" && this.props.adminMode && !this.state.squads.length > 0) {
             messages = <p>No squads in this game yet</p>
+        }
+
+        let footer = 
+            <footer className={styles.ChatFooter}>
+                <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
+                    onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
+                    value={this.state.messageText}
+                />
+
+                <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} /></button>
+            </footer>
+
+        if(this.props.adminMode && this.state.activeTab === "Squad") {
+            footer = 
+                <footer className={styles.ChatFooter}>
+                    <p id={styles.NoSend}>Admins cannot send squad messages</p>
+                </footer>
         }
         
         return (
@@ -312,16 +329,7 @@ class ChatFragment extends React.Component {
                         { messages }
                     </section>
 
-                    {/* {this.props.adminMode ? null :  */}
-                        <footer className={styles.ChatFooter}>
-                            <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
-                                onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
-                                value={this.state.messageText}
-                            />
-
-                            <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} /></button>
-                        </footer>
-                    {/* } */}
+                    {footer}
                 </div>
                 
             </div>
