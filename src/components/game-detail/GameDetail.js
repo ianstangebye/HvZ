@@ -11,6 +11,7 @@ import GoogleMap from '../google-map/GoogleMap'
 import MissionList from '../mission-list/MissionList'
 import SquadDetailsFragment from '../squad-details-fragment/SquadDetailsFragment';
 import TimerFragment from '../timer-fragment/TimerFragment'
+import zombieImg from '../../assets/zombie.png';
 
 
 class GameDetail extends React.Component {
@@ -213,11 +214,21 @@ class GameDetail extends React.Component {
         const admin = this.state.userInfo.is_admin
         const userInfo = this.state.userInfo
 
+        let pictureId = '';
+
         console.log("| GAME   ID: " + game_id)
         console.log("| USER   ID: " + user_id)
         console.log("| SQUAD  ID: " + squad_id)
         console.log("| " + (admin ? "Admin" : "PLAYER ID: " + player_id))
         console.log("|_____________________________________|")
+
+        if (admin) {
+            pictureId = zombieImg;
+        } else if (player.is_Human) {
+            pictureId = '';
+        } else if (!player.is_Human) {
+            pictureId = zombieImg;
+        }
 
 
         let squadFragment = null;
@@ -257,6 +268,7 @@ class GameDetail extends React.Component {
         return (
             <React.Fragment>
                 <div className={styles.JoinedGame}>
+                
                 {player.is_Human && !player.is_Patient_Zero ? 
                     <BiteCodeFragment game_id={game_id} player={player} userInfo={userInfo}/>
                     :
@@ -266,10 +278,11 @@ class GameDetail extends React.Component {
                 <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo}/>
 
                 {squadFragment}
-                
-                <ChatFragment player={player} squad_id={squad_id} game_id={game_id} userInfo={userInfo}/>
-                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo}/>
-                {/* <MissionList game_id={game_id} userInfo={userInfo} /> */}
+                <ChatFragment player={player} squad_id={squad_id} game_id={game_id} />
+                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
+                {/* <MissionList game_id={game_id} /> */}
+                {/* <TimerFragment game_id={game_id} /> */}
+                <img src={pictureId} className={styles.PictureId} alt="Player"></img>
                 </div>
                 
             </React.Fragment>

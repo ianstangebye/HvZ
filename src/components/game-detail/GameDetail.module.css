@@ -3,6 +3,20 @@ button:focus {
     transition: ease 100ms;
 }
 
+*{
+    z-index: 1;
+}
+
+.PictureId {
+    position: absolute;
+    top: 22px;
+    right: -10px;
+    z-index: 0;
+    width: 200px;
+    transform: scaleX(-1);
+    
+}
+
 @media screen and (min-width: 100px) {
     /* Fikse rekkefølge på mobil/tablet format */
 

@@ -31,7 +31,7 @@ class LoginForm extends React.Component{
     }
 
     updateLoggedIn = (user_id, is_admin, token) => {
-        is_admin = is_admin == "Admin" ? true : false;
+        is_admin = is_admin === "Admin" ? true : false;
         console.log(is_admin);
         
         this.setState({

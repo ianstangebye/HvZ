@@ -75,7 +75,7 @@ export default class SquadDetailsFragment extends React.Component {
             }
         }).then(resp => {
             console.log('Deleted Squad-member: ', resp);
-            if (resp.status == 200) {
+            if (resp.status === 200) {
                 this.props.onUpdate()
             }
         })
