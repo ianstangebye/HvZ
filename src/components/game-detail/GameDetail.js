@@ -242,8 +242,12 @@ class GameDetail extends React.Component {
         }
 
 
-        let squadFragment = [<SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human} userInfo={userInfo} />]
-        if(squad_id) squadFragment.unshift(<SquadDetailsFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id} userInfo={userInfo} />)
+        let squadListIdx = 0;
+        let squadFragment = [<SquadListFragment key={squadListIdx} onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human} userInfo={userInfo} />]
+        if(squad_id) {
+            squadListIdx++;
+            squadFragment.push(<SquadDetailsFragment key={squadListIdx} onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id} userInfo={userInfo} />)
+        }
 
         if(admin) {
             return (
