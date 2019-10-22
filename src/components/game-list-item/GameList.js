@@ -94,7 +94,10 @@ class GameList extends React.Component {
             loggedIn: false,
             userInfo: {}
         }, () => {
-            this.props.history.replace({'pathname': '/'});
+            this.props.history.replace({'pathname': '/', state: {
+                loggedIn: false,
+                userInfo: {}
+            }});
             window.location.reload(false);
         })
         //console.log("after clear: " + this.state.user_id);
@@ -127,6 +130,8 @@ class GameList extends React.Component {
                 return 0;
             }).reverse();
             
+            console.log(curGameComponents);
+
             gameComponents = curGameComponents.map(game => {
                 return <GameItem game={game} key={game.game_Id} user_id={this.state.user_id} userInfo={this.state.userInfo}/>
                 //return <p>hELLOOOO</p>

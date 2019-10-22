@@ -20,6 +20,8 @@ class GameDetail extends React.Component {
         super(props);
         this.GoogleMapElement = React.createRef();
         
+
+
         this.state = {
             game_id: 0,
             squad_id: 0,
@@ -29,7 +31,7 @@ class GameDetail extends React.Component {
             ready: false,
             game_state: "",
             time: "",
-            userInfo: props.location.state.userInfo
+            userInfo: props.location.state ? props.location.state.userInfo : {}
         }
     }
 
@@ -144,7 +146,11 @@ class GameDetail extends React.Component {
                 }
             })
             .then(res => {
-                if(!this.stop)
+                console.log("Game detail getsquad res: ");
+                console.log(res);
+                
+                
+                //if(!this.stop)
                 if (res.status === 200) {
                     console.log("getSquad success");
                     
@@ -272,8 +278,8 @@ class GameDetail extends React.Component {
                 <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} player={player}/>
 
                 {squadFragment}
-                <ChatFragment player={player} squad_id={squad_id} game_id={game_id} />
-                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
+                <ChatFragment player={player} squad_id={squad_id} game_id={game_id} userInfo={userInfo} />
+                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo} />
                 {/* <MissionList game_id={game_id} /> */}
                 {/* <TimerFragment game_id={game_id} /> */}
                 <img src={pictureId} className={styles.PictureId} alt="Player"></img>
