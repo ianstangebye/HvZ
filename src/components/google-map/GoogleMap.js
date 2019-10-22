@@ -123,16 +123,7 @@ class GoogleMap extends React.Component {
                 beaches[i+1] = new Array('Player ' + resp[i].victim_Id + ' ' +resp[i].story, resp[i].lat, resp[i].lng)
             }
         });
-        // .then((data)=>{
-        //     console.log(data.results);
-            
-        //     // for(var i=1; i<data.length;i++){
-        //     //     // beaches[i] = new Array()
-        //     //     console.log(data.results[i]);
-                
-        //     // }
-
-        // })
+    
 
         const missionsURL = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}/mission/`
 
@@ -263,122 +254,42 @@ class GoogleMap extends React.Component {
 
     }
 
-    showLocation(position){
-        navigator.geolocation.getCurrentPosition(position =>{
-            console.log(position.coords);
-            console.log(this.map);
-            
 
-
-
-        const location = {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Blue_dot.png',
-            // This marker is 20 pixels wide by 32 pixels high.
-            scaledSize: new window.google.maps.Size(20, 20), // scaled size
-            origin: new window.google.maps.Point(0,0), // origin
-            anchor: new window.google.maps.Point(15, 0) // anchor
-          };
-
-        var positionMarker = new window.google.maps.Marker({
-            position: {lat:position.coords.latitude, lng: position.coords.longitude},
-            map: this.map,
-            icon: location,
-            title: 'Your current position',
-            zIndex: 4
-          });
-        
-        // lat = position.coords.latitude;
-        // lng = position.coords.longitude;
-    }, error =>{
-        alert(error)
-    });
-    }
-
-    // setInt(){
-    //     setInterval(this.getLocation(), 10000);
-    // }
 
     async componentDidMount() {
         const id = this.props.game_id;
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}`;
-        //This worked but gave errors about setting map
-        // setInterval(this.showLocation, 1000);
-        //Global marker for the user position
-        // navigator.geolocation.getCurrentPosition(initialPosition =>{
-        //     positionMarker.setPosition({lat: initialPosition.coords.latitude, lng: initialPosition.coords.longitude});
 
-        // }, error =>{
-        //     alert(error)
-        // });
-        // console.log(positionMarker.position);
         
 
         //this is probably the best way to do it at least for our purposes
         setInterval(()=>{
 
             navigator.geolocation.getCurrentPosition(position =>{
-                // console.log(position.coords);
-                // console.log(this.map);
                 var updatedPosition = new window.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                console.log(updatedPosition);
-                
                 this.positionMarker.setPosition(updatedPosition);
 
-        //can't seem to get anything else than this to work :(((((((())))))))        
-        // const locationImage = {
-        //     url: 'https://cdn0.iconfinder.com/data/icons/emoticon-filled/64/emoji-52-512.png',
-        //     // This marker is 20 pixels wide by 32 pixels high.
-        //     scaledSize: new window.google.maps.Size(20, 20), // scaled size
-        //     origin: new window.google.maps.Point(0,0), // origin
-        //     anchor: new window.google.maps.Point(15, 0) // anchor
-        //   };
+                for (var i=0; i<this.state.missions.length; i++){
+                    var latLng1 = new window.google.maps.LatLng(this.state.missions[i].latitude, this.state.missions[i].longitude);
+                    var latLng2 =  new window.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    var distanceBetween = window.google.maps.geometry.spherical.computeDistanceBetween(
+                        latLng1,
+                        latLng2
+                    );
+                    // console.log(distanceBetween);
+                    if(distanceBetween < 50){
+                        alert(`You have achieved ${this.state.mission[i].name}`);
+                    }
+                    
+                    
+                }
 
-        // var positionMarker = new window.google.maps.Marker({
-        //     position: {lat: position.coords.latitude, lng: position.coords.longitude},
-        //     map: this.map,
-        //     icon: locationImage,
-        //     title: 'Your current position',
-        //     zIndex: 4
-        //   });
-    
-    
-
-            
-            // lat = position.coords.latitude;
-            // lng = position.coords.longitude;
         }, error =>{
             alert(error)
         });
 
         }, 1000)
 
-
-        //this also worked without giving errors about setmap, but with greater lag and less efficiency 
-        // navigator.geolocation.watchPosition(position =>{
-        //     console.log(position.coords);
-        //     positionMarker = null;
-    
-        //     const locationImage = {
-        //         url: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Blue_dot.png',
-        //         // This marker is 20 pixels wide by 32 pixels high.
-        //         scaledSize: new window.google.maps.Size(20, 20), // scaled size
-        //         origin: new window.google.maps.Point(0,0), // origin
-        //         anchor: new window.google.maps.Point(15, 0) // anchor
-        //       };
-    
-        //     positionMarker = new window.google.maps.Marker({
-        //         position: {lat:position.coords.latitude, lng: position.coords.longitude},
-        //         map: this.map,
-        //         icon: locationImage,
-        //         title: 'Your current position',
-        //         zIndex: 4
-        //       });
-            
-        //     // lat = position.coords.latitude;
-        //     // lng = position.coords.longitude;
-        //     }, error =>{
-        //        alert(error)
-        // });
             
         //need to set in the correct 
         await fetch(targetUrl, {
