@@ -115,12 +115,13 @@ export default class SquadListFragment extends React.Component {
                 if(is_human === squad.is_Human) {
                     return <SquadListItem squad={squad} key={squad.squad_Id} adminMode={this.props.adminMode} player_id={this.props.player_id} onJoinSquad={this.handleJoinSquad.bind(this)} userInfo={this.state.userInfo} />
                 }
+                return null
             });
         } else if (this.state.squads.length === 0) {
             squadComponents = <p style={{margin: '10px', textAlign: 'center'}}>No squads created yet.</p>
         } 
         
-        if (squadComponents == "") {
+        if (squadComponents === "") {
             squadComponents = <p style={{margin: '10px', textAlign: 'center'}}>No squads created yet.</p>
         }
 
@@ -134,7 +135,7 @@ export default class SquadListFragment extends React.Component {
                     
                     <div className={styles.SquadComponents} style={{display: this.state.isVisible ? 'none' : 'block'}}>
                         {squadComponents}
-                        <div style={{display: this.props.player_id == null || this.props.squad_id != null && this.props.adminMode ? 'none' : 'block'}}>    
+                        <div style={{display: this.props.player_id && !this.props.squad_id ? 'block' : 'none'}}>
                             <SquadCreationFragment onUpdate={this.props.onUpdate} game_id={this.state.game_id} player_id={this.state.player_id} is_human={this.state.is_human} userInfo={this.state.userInfo} />
                         </div>
                     </div>

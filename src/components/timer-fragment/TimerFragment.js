@@ -14,7 +14,7 @@ class TimerFragment extends React.Component {
         }
     }
 
-    componentWillReceiveProps() {
+    UNSAFE_componentWillReceiveProps() {
         this.setState({
             game: this.props.game,
             game_id: this.props.game_id,

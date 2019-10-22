@@ -8,10 +8,12 @@ import RegistrationFragment from '../registration-fragment/RegistrationFragment'
 import BiteCodeFragment from '../bite-code-fragment/BiteCodeFragment'
 import BiteCodeEntry from '../bite-code-entry/BiteCodeEntry'
 import GoogleMap from '../google-map/GoogleMap'
-import MissionList from '../mission-list/MissionList'
 import SquadDetailsFragment from '../squad-details-fragment/SquadDetailsFragment';
-import TimerFragment from '../timer-fragment/TimerFragment'
 import zombieImg from '../../assets/zombie.png';
+// eslint-disable-next-line
+import TimerFragment from '../timer-fragment/TimerFragment'
+// eslint-disable-next-line
+import MissionList from '../mission-list/MissionList'
 import humanImg from '../../assets/human.png';
 import adminImg from '../../assets/admin.png';
 
