@@ -12,7 +12,8 @@ import MissionList from '../mission-list/MissionList'
 import SquadDetailsFragment from '../squad-details-fragment/SquadDetailsFragment';
 import TimerFragment from '../timer-fragment/TimerFragment'
 import zombieImg from '../../assets/zombie.png';
-
+import humanImg from '../../assets/human.png';
+import adminImg from '../../assets/admin.png';
 
 class GameDetail extends React.Component {
 
@@ -223,9 +224,9 @@ class GameDetail extends React.Component {
         console.log("|_____________________________________|")
 
         if (admin) {
-            pictureId = zombieImg;
+            pictureId = adminImg;
         } else if (player.is_Human) {
-            pictureId = '';
+            pictureId = humanImg;
         } else if (!player.is_Human) {
             pictureId = zombieImg;
         }
@@ -241,11 +242,13 @@ class GameDetail extends React.Component {
         if(admin) {
             return (
                 <Fragment>
+                    <img src={pictureId} className={styles.AdminPic} alt="Player"></img>
                     <div className={styles.Admin}>
                         <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} player={player} />
                         <GoogleMap game_id={game_id} player={player} userInfo={userInfo} />
                         <SquadListFragment game_id={game_id} player_id={player_id} adminMode={true} userInfo={userInfo}/>
                         <ChatFragment adminMode={true} game_id={game_id} player_id={player_id} userInfo={userInfo} />
+                        
                     </div>
                 </Fragment>
             )
