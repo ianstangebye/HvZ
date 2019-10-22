@@ -51,17 +51,9 @@
     .TitleFragment {
         margin-top: -20px;
         max-width: 100%;
-        height: 425px;
     }
-
     .CollapseBtn {
-        display: none;
-    }
-
-    .Rules {
-        display: block!important;
-        height: 250px;
-        overflow-y: scroll;
+        right: -15px;
     }
 }
 
@@ -69,8 +61,6 @@
     .TitleFragment {
         max-width: 100%;
         width: 100%;
-        height: 100%;
-        margin: 20px 10px;
     }
 
     .Title {
@@ -83,11 +73,7 @@
         font-size: 24px;
     }
 
-    .Rules {
-        display: block!important;
-        height: 150px;
-        overflow-y: scroll;
-    }
+    
 
     
 }
