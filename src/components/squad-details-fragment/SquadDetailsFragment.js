@@ -8,60 +8,122 @@ export default class SquadDetailsFragment extends React.Component {
 
     constructor(props) {
         super(props);
+        this.createSquadCheckin = this.createSquadCheckin.bind(this);
         this.state = {
             squadMembers: [],
             squad: {},
             corLat: null,
             corLng: null,
             isVisible: false,
-            userInfo: props.userInfo
+            userInfo: props.userInfo,
+            is_Human: null
         }
     }
 
     //Add a check-in marker (image etc.?)
-    handleCheckIn() {
-        this.props.newSquadCheckin();
+    handleCheckIn = async () => {
+        // this.props.newSquadCheckin();
+        // this.createSquadCheckin();
         // console.log('check in marker');
+
+        if(!this.props.is_Human){
+            console.log('not human');
+            this.setState({is_Human: false});
+            
+        } else {
+            console.log('human');
+            this.setState({is_Human: true});
+            
+        }
         
 
-        // //Get location
+        //Get location
         // if (navigator.geolocation) {
-        //     navigator.geolocation.getCurrentPosition(position =>
-        //         this.setState({corLat: position.coords.latitude, corLng: position.coords.longitude})
+        //     navigator.geolocation.getCurrentPosition( position =>
+        //         this.setState({corLat: position.coords.latitude, corLng: position.coords.longitude})//,
+        //         // console.log(position.coords.latitude + ' ' + position.coords.longitude)
+                
         //     );
         // } else {
         //     alert('Geolocation is not supported by this browser.');
         // }
 
+        navigator.geolocation.getCurrentPosition(
+        
+        // this.createSquadCheckin();
+            // On success
+            position =>
+            // {
+            //     this.state.lat = position.coords.latitude;
+            //     this.state.lng = position.coords.longitude
+            // }, 
+            this.setState({
+                    corLat: position.coords.latitude,
+                    corLng: position.coords.longitude
+                }, function () {
+                console.log('the squad checkin has been changed');
+                // console.log(this.state.lat + " | " + this.state.lng);
+                this.createSquadCheckin();
+            }),
+            // console.log(position.coords.latitude + ' ' + position.coords.longitude),                
+            // console.log(`Lat: ${position.coords.latitude} Lng: ${position.coords.longitude}`),                
+            // await this.setState({lat: position.coords.latitude,lng: position.coords.longitude }),
+            // console.log(this.state),
+            // On error
+            err => alert(`Error (${err.code}): ${err.message}`)
+         );
+
         // console.log(this.state.corLat);
-        
-        
+
         //Get location from geolocationthingy? 
         //or have input where player can set the coordinates themselves?
         
-        
-        // const newCheckIn = {
-        //     "start_Time":"", //Set time manually??
-        //     "end_Time": "",
-        //     "lat": corLat,
-        //     "lng": corLng,
-        //     "game_Id": 1,
-        //     "squad_Id": 1,
-        //     "squad_Member_Id": 8
-        // }
+    }
 
-        // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/check-in`
-        // fetch(targetUrl, {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify(newCheckIn)
-        // }).then(resp => resp.json())
-        // .then(data => console.log('Checked in: ', data))
-        // .catch(e => {
-        //     console.log(e);
-            
-        // })
+    createSquadCheckin = async() =>{
+        var startTime = new Date();
+        var endTime= new Date();
+        await endTime.setHours( endTime.getHours() + 2);
+        console.log('the time in two hours will be '+endTime);
         
+       
+        
+
+        const newCheckIn = {
+            "start_Time": startTime,
+            "end_Time": endTime,
+            "lat": this.state.corLat,
+            "lng": this.state.corLng,
+            "game_Id": this.props.game_id,
+            "squad_Id": this.props.squad_id,
+            "squad_Member_Id": this.props.squad_member_id
+        }
+
+        console.log(newCheckIn);
+
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/check-in`
+        
+        await fetch(targetUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            },
+            body: JSON.stringify(newCheckIn)
+        }).then(resp => resp.json())
+        .then(data => console.log('Checked in: ', data))
+        .catch(e => {
+            console.log(e);
+            
+        })
+
+        console.log(this.props.is_human);
+        
+
+
+
+
+        this.props.newSquadCheckin();
     }
 
     // Delete a squad-member

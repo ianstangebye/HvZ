@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './GoogleMap.module.css';
 import { array } from 'prop-types';
+import { stringify } from 'querystring';
 
 
 class GoogleMap extends React.Component {
@@ -12,6 +13,7 @@ class GoogleMap extends React.Component {
         this.state = {
             game: {},
             missions: [],
+            checkins: [],
             userInfo: props.userInfo
         }
         this.map = null;
@@ -249,9 +251,89 @@ class GoogleMap extends React.Component {
         this.map.fitBounds(bounds);
 
         // setInterval(this.getLocation(this.map), 10000);
-
+        this.renderCheckIns();
         
 
+    }
+
+    async renderCheckIns(){
+        console.log('Youve reached the google map element');
+
+        const checkinURL = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/check-in`;
+
+        const humanCheckinImage = {
+            url: 'https://purepng.com/public/uploads/large/purepng.com-men-pointing-thumbs-uppeoplepersonsgesturesmanmalepointing-thumbs-up-1121525088552izp1f.png',
+            // This marker is 20 pixels wide by 32 pixels high.
+            scaledSize: new window.google.maps.Size(75, 58), // scaled size
+            origin: new window.google.maps.Point(0,0), // origin
+            anchor: new window.google.maps.Point(15, 0) // anchor
+          };
+
+          const zombieCheckinImage = {
+            url: 'https://dejpknyizje2n.cloudfront.net/marketplace/products/thumbs-up-zombie-hand-sticker-1541548841.7296891.png',
+            // This marker is 20 pixels wide by 32 pixels high.
+            scaledSize: new window.google.maps.Size(35, 35), // scaled size
+            origin: new window.google.maps.Point(0,0), // origin
+            anchor: new window.google.maps.Point(15, 0) // anchor
+          };
+
+        await fetch(checkinURL, {
+            method: 'GET',
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp =>resp.json())
+        .then(resp=>{
+            console.log(resp);
+            this.setState({
+                checkins: [...resp]
+            })
+            console.log('you have now checked in');
+            
+        }).catch(error => {
+            console.log('you are not checked in');
+            
+            console.log(error);
+        })  
+
+        // console.log('This player is ' + this.props.player.is_Human);
+        
+
+        for(var i=0; i<this.state.checkins.length; i++){
+            var checkin = this.state.checkins[i];
+            var text = `Player ${checkin.squad_Member_Id} checked in at ${checkin.start_Time}`
+
+            if(this.props.player.is_Human){
+                var humanCheckin = new window.google.maps.Marker({
+                    position: {lat: checkin.lat, lng: checkin.lng},
+                    map: this.map,
+                    icon: humanCheckinImage,
+                    title: text,
+                    zIndex: 5
+                  });
+                //   var infowindow = new window.google.maps.InfoWindow({
+                //     content: contentString
+                //   });
+                //   humanCheckin.addListener('click', function() {
+                //     infowindow.open(this.map, humanCheckin);
+                //   });
+
+            } else {
+                var zombieCheckin = new window.google.maps.Marker({
+                    position: {lat: checkin.lat, lng: checkin.lng},
+                    map: this.map,
+                    icon: zombieCheckinImage,
+                    title: text,
+                    zIndex: 5
+                  });
+
+            }
+
+        }
+        
+        
+        
     }
 
 

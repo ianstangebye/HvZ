@@ -164,13 +164,13 @@ class GameDetail extends React.Component {
                     })
                     console.log(this.state.squad_id);
                     
-                // } else {
-                //     this.setState({
-                //         squad_id: 0,
-                //         squad_member_id: 0,
-                //         ready: true
-                //     })
-                // }
+                } else {
+                    this.setState({
+                        squad_id: 0,
+                        squad_member_id: 0,
+                        ready: true
+                    })
+                }
             })
             .catch(e => {
                 console.error(e)
@@ -193,6 +193,7 @@ class GameDetail extends React.Component {
 
     updateSquadDetails = () =>{
         console.log('Hello, you are attempting to create a new squad checkin');
+        this.GoogleMapElement.current.renderCheckIns();
         
     }
 
@@ -271,7 +272,7 @@ class GameDetail extends React.Component {
                     <div className={styles.Unregistered}>
                         <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id} game_state={this.state.game_state} userInfo={userInfo} />
                         <TitleFragment onUpdate={this.updateGameState} game_id={game_id}  userInfo={userInfo} player={player}/>
-                        <GoogleMap game_id={game_id} player={player}  userInfo={userInfo} />
+                        <GoogleMap game_id={game_id} player={player}  userInfo={userInfo} squad_id={squad_id} />
                         <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id} userInfo={userInfo} />
                     </div>
                 </Fragment>
@@ -293,7 +294,7 @@ class GameDetail extends React.Component {
 
                 {squadFragment}
                 <ChatFragment player={player} squad_id={squad_id} game_id={game_id} userInfo={userInfo} />
-                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo} />
+                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo}  squad_id={squad_id} />
                 {/* <MissionList game_id={game_id} /> */}
                 {/* <TimerFragment game_id={game_id} /> */}
                 <img src={pictureId} className={styles.PictureId} alt="Player"></img>
