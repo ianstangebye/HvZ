@@ -67,6 +67,8 @@
         border-radius: 5px;
         margin: 3px;
         padding: 10px;
+        float: left;
+        clear: both;
     }
 
     .ChatFooter {
@@ -105,7 +107,30 @@
         border-radius: 5px;
     }
     
-    
+    .UserMessage {
+        background-color: #77A4AC;
+        color: #F5F5F5;
+        width: fit-content;
+        border-radius: 5px;
+        margin: 3px;
+        padding: 10px;
+        float: right;
+        clear: both;
+    }
+
+    .TimeStamp {
+        font-weight: normal;
+        float: right;
+        font-size: small;
+    }
+
+    .Message p {
+        margin: 0 3px;
+    }
+
+    .UserMessage p {
+        margin: 0 3px;
+    }
 }
 
 
