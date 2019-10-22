@@ -90,16 +90,17 @@ class GameList extends React.Component {
     clearStates = () => {
         //localStorage.clear();
         //window.sessionStorage.clear();
-        this.setState({
-            loggedIn: false,
-            userInfo: {}
-        }, () => {
-            this.props.history.replace({'pathname': '/', state: {
-                loggedIn: false,
-                userInfo: {}
-            }});
-            window.location.reload(false);
-        })
+        // this.setState({
+        //     loggedIn: false,
+        //     userInfo: {}
+        // }, () => {
+            // this.props.history.replace({'pathname': '/', state: {
+            //     loggedIn: false,
+            //     userInfo: {}
+            // }});
+        window.history.replaceState(null, null, '/');
+        window.location.reload(false);
+        // })
         //console.log("after clear: " + this.state.user_id);
 
         //this.forceUpdate();
