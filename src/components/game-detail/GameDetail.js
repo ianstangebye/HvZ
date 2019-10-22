@@ -294,7 +294,7 @@ class GameDetail extends React.Component {
                 <div className={styles.SScreen}>
                     <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id} game_state={this.state.game_state} userInfo={userInfo}/>
                     <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} player={player}/>
-                    <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo} />
+                    <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo} squad_id={squad_id}/>
                     {player.is_Human && !player.is_Patient_Zero ? 
                         <BiteCodeFragment game_id={game_id} player={player} userInfo={userInfo}/>
                         :
@@ -312,7 +312,7 @@ class GameDetail extends React.Component {
                     </div>
                     <div className={styles.ColRight}>
                         <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id} game_state={this.state.game_state} userInfo={userInfo}/>
-                        <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo} />
+                        <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo} squad_id={squad_id} />
                         {player.is_Human && !player.is_Patient_Zero ? 
                             <BiteCodeFragment game_id={game_id} player={player} userInfo={userInfo}/>
                             :

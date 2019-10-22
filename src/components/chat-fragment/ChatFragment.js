@@ -209,7 +209,7 @@ class ChatFragment extends React.Component {
                 chat_time: now,
                 game_id: this.props.game_id,
                 player_id: this.state.userInfo.is_admin ? 0 : this.props.player.player_Id,
-                squad_id: this.state.squad_id,
+                squad_id: this.state.userInfo.is_admin ? 0 : this.props.squad_id,
                 username: this.state.userInfo.username,
                 is_admin: this.state.userInfo.is_admin
             }
