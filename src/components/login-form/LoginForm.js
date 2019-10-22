@@ -114,6 +114,7 @@ class LoginForm extends React.Component{
                 state: { 
                     userInfo: {
                         user_id: this.state.user_id,
+                        username: this.state.username,
                         is_admin: this.state.is_admin,
                         token: this.state.token
                     },

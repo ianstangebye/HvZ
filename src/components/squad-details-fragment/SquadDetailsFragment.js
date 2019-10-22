@@ -140,9 +140,11 @@ export default class SquadDetailsFragment extends React.Component {
 
         if (this.state.squadMembers.length > 0) {
             squadMemberComponents = (this.state.squadMembers.map(squadMember => {
+                // If squad member has not been deleted
                 if (squadMember.rank !== 255) {
                     return <SquadDetailsItem squadMember={squadMember} key={(squadMember.squad_Member_Id)}/>
                 }
+                return null
             }));
         } else {
             squadMemberComponents = <p>Loading squad members...</p>

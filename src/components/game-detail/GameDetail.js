@@ -8,11 +8,14 @@ import RegistrationFragment from '../registration-fragment/RegistrationFragment'
 import BiteCodeFragment from '../bite-code-fragment/BiteCodeFragment'
 import BiteCodeEntry from '../bite-code-entry/BiteCodeEntry'
 import GoogleMap from '../google-map/GoogleMap'
-import MissionList from '../mission-list/MissionList'
 import SquadDetailsFragment from '../squad-details-fragment/SquadDetailsFragment';
-import TimerFragment from '../timer-fragment/TimerFragment'
 import zombieImg from '../../assets/zombie.png';
-
+// eslint-disable-next-line
+import TimerFragment from '../timer-fragment/TimerFragment'
+// eslint-disable-next-line
+import MissionList from '../mission-list/MissionList'
+import humanImg from '../../assets/human.png';
+import adminImg from '../../assets/admin.png';
 
 class GameDetail extends React.Component {
 
@@ -135,7 +138,7 @@ class GameDetail extends React.Component {
         const gid = this.state.game_id;
         const pid = this.state.player.player_Id;
         
-        const url = `https://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/member/${pid}`
+        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/member/${pid}`
 
         // Get this player's squad member object, if it exists
         axios
@@ -230,9 +233,9 @@ class GameDetail extends React.Component {
         console.log("|_____________________________________|")
 
         if (admin) {
-            pictureId = zombieImg;
+            pictureId = adminImg;
         } else if (player.is_Human) {
-            pictureId = '';
+            pictureId = humanImg;
         } else if (!player.is_Human) {
             pictureId = zombieImg;
         }
@@ -250,11 +253,13 @@ class GameDetail extends React.Component {
         if(admin) {
             return (
                 <Fragment>
+                    <img src={pictureId} className={styles.AdminPic} alt="Player"></img>
                     <div className={styles.Admin}>
-                        <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} />
+                        <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} player={player} />
                         <GoogleMap game_id={game_id} player={player} userInfo={userInfo} />
                         <SquadListFragment game_id={game_id} player_id={player_id} adminMode={true} userInfo={userInfo}/>
                         <ChatFragment adminMode={true} game_id={game_id} player_id={player_id} userInfo={userInfo} />
+                        
                     </div>
                 </Fragment>
             )
@@ -265,7 +270,7 @@ class GameDetail extends React.Component {
                 <Fragment>
                     <div className={styles.Unregistered}>
                         <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id} game_state={this.state.game_state} userInfo={userInfo} />
-                        <TitleFragment onUpdate={this.updateGameState} game_id={game_id}  userInfo={userInfo} />
+                        <TitleFragment onUpdate={this.updateGameState} game_id={game_id}  userInfo={userInfo} player={player}/>
                         <GoogleMap game_id={game_id} player={player}  userInfo={userInfo} />
                         <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id} userInfo={userInfo} />
                     </div>
@@ -284,7 +289,7 @@ class GameDetail extends React.Component {
                     <BiteCodeEntry newBiteCode={this.updateMap} game_id={game_id} player={player} userInfo={userInfo}/>
                 }
                 <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id} game_state={this.state.game_state} userInfo={userInfo}/>
-                <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo}/>
+                <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} player={player}/>
 
                 {squadFragment}
                 <ChatFragment player={player} squad_id={squad_id} game_id={game_id} userInfo={userInfo} />
