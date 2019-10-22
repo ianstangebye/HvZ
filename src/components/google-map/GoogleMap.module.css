@@ -15,7 +15,7 @@
 
 @media screen and (min-width: 801px) {
     .MapDiv {
-        margin: 0 10px 0 0;
+        margin: 0 10px 0 10px;
     }
     .Map {
         max-width: 600px;
@@ -27,16 +27,14 @@
 
 @media screen and (min-width: 1200px) {
     .MapDiv {
-        margin: 0 10px;
+        margin: 0 10px 0 10px;
     }
-
     .Map {
-        margin: 10px auto;
-        max-width: 100%;
-        max-height: 610px;
-        height: 100%;
+        max-width: 1000px;
+        max-height: 500px;
+        height: 500px;
+        width: 100%;
     }
-
 }
 
 
