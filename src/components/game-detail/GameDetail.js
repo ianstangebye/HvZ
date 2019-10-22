@@ -278,6 +278,7 @@ class GameDetail extends React.Component {
                         <TitleFragment onUpdate={this.updateGameState} game_id={game_id}  userInfo={userInfo} player={player}/>
                         <GoogleMap game_id={game_id} player={player}  userInfo={userInfo} squad_id={squad_id} />
                         <SquadListFragment game_id={game_id} player_id={player_id} squad_id={squad_id} userInfo={userInfo} />
+                        </div>
                     </div>
                 </Fragment>
             )
