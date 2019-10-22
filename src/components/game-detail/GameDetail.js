@@ -14,7 +14,6 @@ import zombieImg from '../../assets/zombie.png';
 import TimerFragment from '../timer-fragment/TimerFragment'
 // eslint-disable-next-line
 import MissionList from '../mission-list/MissionList'
-import zombieImg from '../../assets/zombie.png';
 import humanImg from '../../assets/human.png';
 import adminImg from '../../assets/admin.png';
 
