@@ -136,7 +136,7 @@ class GameDetail extends React.Component {
         const gid = this.state.game_id;
         const pid = this.state.player.player_Id;
         
-        const url = `https://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/member/${pid}`
+        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/member/${pid}`
 
         // Get this player's squad member object, if it exists
         axios
