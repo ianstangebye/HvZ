@@ -300,6 +300,23 @@ class ChatFragment extends React.Component {
         if (this.state.activeTab === "Squad" && this.props.adminMode && !this.state.squads.length > 0) {
             messages = <p>No squads in this game yet</p>
         }
+
+        let footer = 
+            <footer className={styles.ChatFooter}>
+                <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
+                    onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
+                    value={this.state.messageText}
+                />
+
+                <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} /></button>
+            </footer>
+
+        if(this.props.adminMode && this.state.activeTab === "Squad") {
+            footer = 
+                <footer className={styles.ChatFooter}>
+                    <p id={styles.NoSend}>Admins cannot send squad messages</p>
+                </footer>
+        }
         
         return (
             <div className={styles.ChatFragment}>
@@ -312,16 +329,7 @@ class ChatFragment extends React.Component {
                         { messages }
                     </section>
 
-                    {/* {this.props.adminMode ? null :  */}
-                        <footer className={styles.ChatFooter}>
-                            <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
-                                onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
-                                value={this.state.messageText}
-                            />
-
-                            <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} /></button>
-                        </footer>
-                    {/* } */}
+                    {footer}
                 </div>
                 
             </div>
