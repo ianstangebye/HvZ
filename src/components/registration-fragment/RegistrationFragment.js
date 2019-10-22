@@ -17,7 +17,7 @@ class RegistrationFragment extends React.Component {
         }
     }
 
-    componentWillReceiveProps() {
+    UNSAFE_componentWillReceiveProps() {
         this.setState({
             player_id: this.props.player_id,
             user_id: this.props.user_id,
