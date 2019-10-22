@@ -10,12 +10,12 @@ import BiteCodeEntry from '../bite-code-entry/BiteCodeEntry'
 import GoogleMap from '../google-map/GoogleMap'
 import SquadDetailsFragment from '../squad-details-fragment/SquadDetailsFragment';
 import zombieImg from '../../assets/zombie.png';
+import humanImg from '../../assets/human.png';
+import adminImg from '../../assets/admin.png';
 // eslint-disable-next-line
 import TimerFragment from '../timer-fragment/TimerFragment'
 // eslint-disable-next-line
 import MissionList from '../mission-list/MissionList'
-import humanImg from '../../assets/human.png';
-import adminImg from '../../assets/admin.png';
 
 class GameDetail extends React.Component {
 
@@ -234,12 +234,12 @@ class GameDetail extends React.Component {
         }
 
 
-        let squadFragment = null;
-        if(squad_id) {
-            squadFragment = [<SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human} userInfo={userInfo} />, <SquadDetailsFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id} userInfo={userInfo} />]
-        } else {
-            squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human} userInfo={userInfo} />
-        }
+        // let squadFragment = null;
+        // if(squad_id) {
+        //     squadFragment = <SquadDetailsFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id} userInfo={userInfo} />
+        // } else {
+        //     squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human} userInfo={userInfo} />
+        // }
 
         if(admin) {
             return (
