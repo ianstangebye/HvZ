@@ -278,8 +278,8 @@ class GameDetail extends React.Component {
                 <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo}/>
 
                 {squadFragment}
-                <ChatFragment player={player} squad_id={squad_id} game_id={game_id} />
-                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} />
+                <ChatFragment player={player} squad_id={squad_id} game_id={game_id} userInfo={userInfo} />
+                <GoogleMap ref={this.GoogleMapElement} game_id={game_id} player={player} userInfo={userInfo} />
                 {/* <MissionList game_id={game_id} /> */}
                 {/* <TimerFragment game_id={game_id} /> */}
                 <img src={pictureId} className={styles.PictureId} alt="Player"></img>
