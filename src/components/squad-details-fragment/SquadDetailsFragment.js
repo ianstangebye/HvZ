@@ -20,19 +20,20 @@ export default class SquadDetailsFragment extends React.Component {
 
     //Add a check-in marker (image etc.?)
     handleCheckIn() {
-        console.log('check in marker');
+        this.props.newSquadCheckin();
+        // console.log('check in marker');
         
 
-        //Get location
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position =>
-                this.setState({corLat: position.coords.latitude, corLng: position.coords.longitude})
-            );
-        } else {
-            alert('Geolocation is not supported by this browser.');
-        }
+        // //Get location
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(position =>
+        //         this.setState({corLat: position.coords.latitude, corLng: position.coords.longitude})
+        //     );
+        // } else {
+        //     alert('Geolocation is not supported by this browser.');
+        // }
 
-        console.log(this.state.corLat);
+        // console.log(this.state.corLat);
         
         
         //Get location from geolocationthingy? 

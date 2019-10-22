@@ -161,13 +161,13 @@ class GameDetail extends React.Component {
                     })
                     console.log(this.state.squad_id);
                     
-                } else {
-                    this.setState({
-                        squad_id: 0,
-                        squad_member_id: 0,
-                        ready: true
-                    })
-                }
+                // } else {
+                //     this.setState({
+                //         squad_id: 0,
+                //         squad_member_id: 0,
+                //         ready: true
+                //     })
+                // }
             })
             .catch(e => {
                 console.error(e)
@@ -186,6 +186,11 @@ class GameDetail extends React.Component {
         this.setState({
             game_state: game_state
         })
+    }
+
+    updateSquadDetails = () =>{
+        console.log('Hello, you are attempting to create a new squad checkin');
+        
     }
 
     // updatePosition = () =>{
@@ -220,6 +225,8 @@ class GameDetail extends React.Component {
         console.log("| USER   ID: " + user_id)
         console.log("| SQUAD  ID: " + squad_id)
         console.log("| " + (admin ? "Admin" : "PLAYER ID: " + player_id))
+        console.log("| user info token " + this.state.userInfo.token);
+        
         console.log("|_____________________________________|")
 
         if (admin) {
@@ -233,7 +240,9 @@ class GameDetail extends React.Component {
 
         let squadFragment = null;
         if(squad_id) {
-            squadFragment = <SquadDetailsFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id} userInfo={userInfo} />
+            console.log('you are indeed a member of a squad');
+            
+            squadFragment = <SquadDetailsFragment newSquadCheckin={this.updateSquadDetails} onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id} userInfo={userInfo} />
         } else {
             squadFragment = <SquadListFragment onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human} userInfo={userInfo} />
         }
