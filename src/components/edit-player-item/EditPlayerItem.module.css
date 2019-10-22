@@ -1,0 +1,24 @@
+.EditPlayerItem {
+    display: grid;
+    grid-template-columns: 40% 40% 20%;
+    margin: 10px;
+    background-color: #F5F5F5;
+    padding: 5px;
+    border-radius: 15px;
+    color: #303030;
+}
+
+.EditPlayerItem p:first-child {
+    grid-column: 1;
+    margin: 0 10px;
+    
+}
+
+.EditPlayerItem p:last-child {
+    grid-column: 2;
+    margin: 0 10px;
+}
+
+.EditPlayerItem button {
+    grid-column: 3;
+}

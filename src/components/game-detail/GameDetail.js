@@ -12,6 +12,7 @@ import SquadDetailsFragment from '../squad-details-fragment/SquadDetailsFragment
 import zombieImg from '../../assets/zombie.png';
 import humanImg from '../../assets/human.png';
 import adminImg from '../../assets/admin.png';
+import EditPlayerFragment from '../edit-player-fragment/EditPlayerFragment';
 // eslint-disable-next-line
 import TimerFragment from '../timer-fragment/TimerFragment'
 // eslint-disable-next-line
@@ -253,7 +254,7 @@ class GameDetail extends React.Component {
                         <div className={styles.ColLeft}>
                             <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} player={player} />
                             <SquadListFragment game_id={game_id} player_id={player_id} adminMode={true} userInfo={userInfo}/>
-                            
+                            <EditPlayerFragment game_id={game_id} userInfo={userInfo}/>
                         </div>
                         <div className={styles.ColRight}>
                             <GoogleMap game_id={game_id} player={player} userInfo={userInfo} />
