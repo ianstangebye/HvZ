@@ -16,7 +16,8 @@ export default class SquadListFragment extends React.Component {
             player_id: props.player_id,
             joinedSquadId: props.squad_id,
             is_human: props.is_human,
-            userInfo: props.userInfo
+            userInfo: props.userInfo,
+            isVisible: true
         }
     }
 
@@ -96,44 +97,38 @@ export default class SquadListFragment extends React.Component {
     handleClick = () => {
         this.setState({
             isVisible: !this.state.isVisible
-        });
-
-        //Replace text with icons
-        if (this.state.isVisible === false) {
-            document.getElementById("SquadCollapseBtn").innerHTML = `<img src=${arrowDownIcon} />`;
-        } else {
-            document.getElementById("SquadCollapseBtn").innerHTML = `<img src=${arrowUpIcon} />`;
-        }
+        })
     }
 
     render() {
-        let squadComponents = "";
-        const is_human = this.state.is_human;
+        const hasJoined = this.state.player_id
+        const adminMode = this.props.adminMode
+        const is_human = this.state.is_human
+        let squadComponents = <p style={{ margin: '10px', textAlign: 'center' }}>No squads created yet</p>
 
         if (this.state.squads.length > 0) {
-            squadComponents = this.state.squads.map((squad, index) => {
-                if(is_human === squad.is_Human) {
-                    return <SquadListItem squad={squad} key={squad.squad_Id} adminMode={this.props.adminMode} player_id={this.props.player_id} onJoinSquad={this.handleJoinSquad.bind(this)} userInfo={this.state.userInfo} />
-                }
-                return null
-            });
-        } else if (this.state.squads.length === 0) {
-            squadComponents = <p style={{margin: '10px', textAlign: 'center'}}>No squads created yet.</p>
-        } 
-        
-        if (squadComponents === "") {
-            squadComponents = <p style={{margin: '10px', textAlign: 'center'}}>No squads created yet.</p>
+            squadComponents = <p style={{ margin: '10px', textAlign: 'center' }}>No {is_human ? "human" : "zombie"} squads created yet</p>
+            let filteredSquads = adminMode || !hasJoined ? this.state.squads : this.state.squads.filter(squad => squad.is_Human === is_human)
+            
+            if(filteredSquads.length > 0) {
+                squadComponents = filteredSquads.map((squad, index) =>
+                    <SquadListItem key={index} squad={squad} key={squad.squad_Id} adminMode={adminMode} player_id={this.props.player_id} onJoinSquad={this.handleJoinSquad.bind(this)} userInfo={this.state.userInfo} />
+                )
+            }
         }
+
+        let visible = this.state.isVisible
+        let arrow = <img src={visible ? arrowUpIcon : arrowDownIcon} alt={visible ? "UP" : "DOWN"} />
 
         return (
             <React.Fragment>
                 <div className={styles.SquadList}>
                     <div className={styles.Title}>
                         <h1>Squads</h1>
-                        <button className={styles.CollapseBtn} id="SquadCollapseBtn" type="button" onClick={this.handleClick}><img src={arrowUpIcon} alt="UP"/></button>
+                        <button className={styles.CollapseBtn} id="SquadCollapseBtn" type="button" onClick={this.handleClick}>{arrow}</button>
                     </div>
                     
-                    <div className={styles.SquadComponents} style={{display: this.state.isVisible ? 'none' : 'block'}}>
+                    <div className={styles.SquadComponents} style={{display: this.state.isVisible ? 'block' : 'none'}}>
                         {squadComponents}
                         <div style={{display: this.props.player_id && !this.props.squad_id ? 'block' : 'none'}}>
                             <SquadCreationFragment onUpdate={this.props.onUpdate} game_id={this.state.game_id} player_id={this.state.player_id} is_human={this.state.is_human} userInfo={this.state.userInfo} />
