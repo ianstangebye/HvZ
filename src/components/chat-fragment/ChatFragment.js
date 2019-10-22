@@ -208,7 +208,10 @@ class ChatFragment extends React.Component {
                 is_zombie_global: this.state.activeTab === "Global" || this.state.activeTab === "Zombie",
                 chat_time: now,
                 game_id: this.props.game_id,
-                player_id: this.props.adminMode ? 0 : this.props.player.player_Id
+                player_id: this.state.userInfo.is_admin ? 0 : this.props.player.player_Id,
+                squad_id: this.state.squad_id,
+                username: this.state.userInfo.username,
+                is_admin: this.state.userInfo.is_admin
             }
 
             axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat`, body, {
@@ -270,7 +273,27 @@ class ChatFragment extends React.Component {
 
         if(this.state.messages.length > 0) {
             messages = this.state.messages.map((msg, idx) => {
-                return <p key={idx} className={styles.Message}>{msg.message}</p>
+                const date = new Date(msg.chat_Time);
+                const time = date.toLocaleTimeString();
+                if(msg.username === this.state.userInfo.username) {
+                    return <div className={styles.UserMessage}
+                            style={{ backgroundColor: msg.is_admin ? 'chocolate' : '#77A4AC',
+                            fontWeight: msg.is_admin ? 'bold' : 'normal' }}>
+                                <p key={idx}>
+                                    {msg.username}: {msg.message} 
+                                </p>
+                                <span className={styles.TimeStamp}>({time})</span>
+                            </div>
+                } else {
+                    return <div className={styles.Message}
+                            style={{ backgroundColor: msg.is_admin ? 'chocolate' : '#77A4AC',
+                            fontWeight: msg.is_admin ? 'bold' : 'normal' }}>
+                                <p key={idx}>
+                                    {msg.username}: {msg.message} 
+                                </p>
+                                <span className={styles.TimeStamp}>({time})</span>
+                            </div>
+                }
             })
         }
 
@@ -289,7 +312,7 @@ class ChatFragment extends React.Component {
                         { messages }
                     </section>
 
-                    {this.props.adminMode ? null : 
+                    {/* {this.props.adminMode ? null :  */}
                         <footer className={styles.ChatFooter}>
                             <input placeholder="Write your message here..." id={styles.MsgInput} type="text" onChange={this.updateMessage}
                                 onKeyDown={(e) => e.key === "Enter" ? this.sendMessage() : null}
@@ -298,7 +321,7 @@ class ChatFragment extends React.Component {
 
                             <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} /></button>
                         </footer>
-                    }
+                    {/* } */}
                 </div>
                 
             </div>
