@@ -174,6 +174,7 @@ class GoogleMap extends React.Component {
             // console.log(rightNow);
             var missionDeadline = new Date(mission.end_Time)
             console.log(missionDeadline);
+            var missionStartTime = new Date(mission.start_Time)
 
             var contentString = `<div id="content">
                                 <h1 style="color:black;padding:0;margin:0;">${mission.name}</h1>
@@ -183,7 +184,7 @@ class GoogleMap extends React.Component {
                                 <b style="color:black;padding:2px;">Mission Deadline: ${mission.end_Time}</b>
                                 </div>`;
 
-            if (rightNow < missionDeadline) {
+            if (rightNow > missionStartTime && rightNow < missionDeadline) {
 
                 if (mission.is_Human_Visible && mission.is_Zombie_Visible) {
                     var globalMarker = new window.google.maps.Marker({
@@ -237,7 +238,8 @@ class GoogleMap extends React.Component {
                 }
 
             } else {
-
+                console.log(rightNow > missionStartTime);
+                console.log('mission started');
                 console.log(rightNow < missionDeadline);
                 console.log('mission expired');
 
@@ -405,7 +407,7 @@ class GoogleMap extends React.Component {
                     <div id="map" ref={this.mapEl} className={styles.Map}>
                     </div>
                 </div>
-                <MissionList game_id={this.state.game.game_Id} userInfo={this.state.userInfo} missions={this.state.missions}></MissionList>
+                <MissionList onUpdateMap={this.renderMap} game_id={this.state.game.game_Id} userInfo={this.state.userInfo} missions={this.state.missions}></MissionList>
             </React.Fragment>
 
         )
