@@ -13,6 +13,7 @@ import zombieImg from '../../assets/zombie.png';
 import humanImg from '../../assets/human.png';
 import adminImg from '../../assets/admin.png';
 import EditPlayerFragment from '../edit-player-fragment/EditPlayerFragment';
+import { Redirect } from 'react-router'
 // eslint-disable-next-line
 import TimerFragment from '../timer-fragment/TimerFragment'
 // eslint-disable-next-line
@@ -24,8 +25,6 @@ class GameDetail extends React.Component {
         super(props);
         this.GoogleMapElement = React.createRef();
         
-
-
         this.state = {
             game_id: 0,
             squad_id: 0,
@@ -44,23 +43,9 @@ class GameDetail extends React.Component {
         //this.interval = setInterval(() => this.setState({ time: Date.now() }), 60000);
 
         const { game_id } = this.props.match.params
-        const state = this.props.location.state
-        
-        // If user isn't logged in; redirect to GameList
-        if(!state) {
-            this.props.history.replace({
-                pathname: "/"
-            })
-            
-            return
-        }
-
-        this.setState({ 
-            user_id: state.user_id,
-            game_id: game_id,
-            userInfo: state.userInfo
+        this.setState({
+            game_id: game_id
         }, this.getPlayer)
-
 
         // setInterval(this.GoogleMapElement.current.getLocation(), 10000);
         // this.GoogleMapElement.current.setInt();
@@ -77,10 +62,7 @@ class GameDetail extends React.Component {
         //     navigator.geolocation.watchPosition(this.updatePosition);
         // } else {
         //     alert('your browser does not support location tracking');
-        // }    
-
-        
-        
+        // }
     }
 
     // showPosition(position){
@@ -210,6 +192,11 @@ class GameDetail extends React.Component {
     // }
 
     render() {
+        const loggedIn = sessionStorage.getItem("user_id")
+        if(!loggedIn) {
+            return <Redirect to="/" />
+        }
+
         if (!this.state.ready) return <h1>Loading Game Detail...</h1>
 
         const user_id = this.state.userInfo.user_id
@@ -220,7 +207,6 @@ class GameDetail extends React.Component {
         const squad_member_id = this.state.squad_member_id
 
         const unregistered = player_id ? false : true
-        //const admin = sessionStorage.role === "Admin"
         const admin = this.state.userInfo.is_admin
         const userInfo = this.state.userInfo
 

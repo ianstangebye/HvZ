@@ -14,7 +14,7 @@ export default class SquadListItem extends React.Component {
     // Need game_Id??
     async componentDidMount() {
         
-        const targetUrl =  `http://case-hvzapi.northeurope.azurecontainer.io/game/1/squad/${this.props.squad.squad_Id}/member`
+        const targetUrl =  `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad.squad_Id}/member`
 
         await fetch(targetUrl, {
             headers: {
@@ -22,6 +22,9 @@ export default class SquadListItem extends React.Component {
                 'Authorization': 'Bearer ' + this.state.userInfo.token
             }
         }).then(resp => resp.json()).then(resp => {
+            console.log("Got squad members");
+            console.log(resp);
+            
             this.setState({squadMembers: [...resp]})
             for (let i = 0; i < this.state.squadMembers.length; i++) {
                 if (this.state.squadMembers[i].is_Human === false) {

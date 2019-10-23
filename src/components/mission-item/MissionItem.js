@@ -1,47 +1,100 @@
 import React, {useState, useEffect} from 'react';
+// import { styles } from 'ansi-colors';
+import styles from './MissionItem.module.css';
+import Moment from 'react-moment';
+import moment from 'moment';
 
-function MissionItem (props){
+class MissionItem extends React.Component {
+    constructor(props) {
+        super(props) 
 
-    const { mission } = props;
-    const { userInfo } = props;
+        this.state = {
+            mission: props.mission,
+            userInfo: props.userInfo,
+            onMore: false,
+            started: false,
+            ended: false
+        }
+    }
 
+    componentDidMount() {
 
-    useEffect(()=>{
-        console.log(mission.start_Time);
-        
+    }
+    
+    startTimer() {
+        this.interval = setInterval(() => {
+            this.timerAction();
+        }, 1000);
+    }
 
-    });
-    // const[data, setData] = useState();
+    timerAction = () => {
+        let currentTime = new Date();
 
-    // useEffect(async()=>{
-    //     const game_id = mission.game_Id;
-    //     const mission_id = mission.mission_Id;
-    //     const url= `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/mission/${mission_id}`;
+        // if (moment(currentTime).isAfter(this.state.game.end_Time)) {
+        // if(!this.state.started ) {
+        // }
+    }
 
-    //     await fetch(url, {
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': 'Bearer ' + userInfo.token
-    //         }
-    //     }).then(resp=>resp.json())
-    //     .then(resp=>{
-    //         console.log(resp);
-    //         setData(resp);
-    //     }).catch(error=>{
-    //         console.log(error);
-            
-    //     });
+    onClickMore = () => {
+        const toggle = !this.state.onMore;
+        this.setState({
+            onMore: toggle
+        })
+    }
 
-    // });
+    setMarker = () => {
+        //this.props.setMissionMarker(this.state.mission);
+    }
 
-    return (
-        <div>
-            <h4>{mission.name}</h4>
-            <p>{mission.description}</p>
-        </div>
-    )
+    deleteMission = () => {
+        //this.props.deleteMissionMarker(this.state.mission);
+    }
+    
 
+    render() {
+        const mission = this.state.mission;
+        const startDate = new Date(mission.start_Time);
+        const endDate = new Date(mission.end_Time);
+        let missionType = '';
+        let missionColor = '';
+    
+        if(mission.is_Human_Visible && mission.is_Zombie_Visible) {
+            missionType = 'For All Players';
+            missionColor = 'purple';
+        } else if (mission.is_Human_Visible) {
+            missionType = 'For Only Humans';
+            missionColor = 'blue';
+        } else if (mission.is_Zombie_Visible) {
+            missionType = 'For Only Zombies';
+            missionColor = 'red';
+        }
+    
+        return (
+            <React.Fragment>
+                <div className={styles.MissionListItem}>
+                    <div className={styles.Time}>
+                        <p>Start: {startDate.toLocaleString()}</p>
+                        <p>End: {endDate.toLocaleString()}</p>
+                    </div>
+                    <h4>{mission.name}</h4>
+                    <p className={styles.Type} style={{ color: missionColor }}>{missionType}</p>
+                    {/* <p className={styles.Descripiton}>{mission.description}</p> */}
+                    <button onClick={this.onClickMore}>More</button>
 
+                    <div className={styles.More} style={{ display: this.state.onMore ? 'block' : 'none' }}>
+                        <p>Description: {mission.description}</p>
+                        {/* <div className={styles.MoreBtns}>
+                            <button style={{ gridColumn: 1 }} onClick={this.onClickEdit}>Edit</button>
+                            <button style={{ gridColumn: 2 }} onClick={this.onClickSetMarker}>Set Marker</button>
+                            <button style={{ gridColumn: 3 }} onClick={this.onClickDeleteMarker}>Delete Marker</button>
+                        </div> */}
+                    </div>
+                </div>
+
+                
+            </React.Fragment>
+        )
+    }
 }
 
 export default MissionItem;

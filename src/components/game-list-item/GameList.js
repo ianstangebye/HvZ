@@ -104,6 +104,9 @@ class GameList extends React.Component {
         //console.log("after clear: " + this.state.user_id);
 
         //this.forceUpdate();
+
+
+        sessionStorage.clear()
     }
 
     // updateLoggedIn = (user_id, is_admin, token) => {
