@@ -126,9 +126,12 @@ class ChatFragment extends React.Component {
         this.stopAutoUpdate()
         
         this.setState({
-            activeTab: tab,
-            messages: []
-        }, this.startAutoUpdate)
+            activeTab: tab
+        }, () => {
+            this.cancelUpdate = false
+            this.getMessages(this.state.activeTab)
+            this.startAutoUpdate()
+        })
     }
 
     getMessages = (tab) => {
@@ -150,10 +153,10 @@ class ChatFragment extends React.Component {
         })
         .then(resp => {
             if(resp.status === 200) {
-                if(!this.unmounted || !this.cancelUpdate) {
+                if(!this.unmounted && !this.cancelUpdate) {
                     this.setState({
                         messages: resp.data
-                    }, () => this.cancelUpdate = false)
+                    })
                 }
             } else {
                 throw new Error(`STATUS CODE: ${resp.status}`)
@@ -177,9 +180,11 @@ class ChatFragment extends React.Component {
         })
         .then(resp => {
             if (resp.status === 200) {
-                this.setState({
-                    squads: resp.data
-                }, this.startAutoUpdate)
+                if (!this.unmounted && !this.cancelUpdate) {
+                    this.setState({
+                        squads: resp.data
+                    }, this.startAutoUpdate)
+                }
             } else {
                 throw new Error(`STATUS CODE: ${resp.status}`)
             }
