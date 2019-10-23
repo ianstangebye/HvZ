@@ -1,3 +1,22 @@
+#editButton {
+    border-radius: 25%;
+    padding-left: .5em;
+    /* position: absolute;
+    left: 80%;
+    top: -10px; */
+    font-size: 1em;
+    height: 1.6em;
+    display: inline-flex;
+}
+
+.TitleFragment h1:focus {
+    /* background: #fff; */
+    background-image: linear-gradient(to right, rgba(252, 252, 252, 1), rgba(255,0,0,0));
+    outline: none;
+    color: #000;
+    cursor: auto;
+}
+
 @media screen and (min-width: 100px) {
     .TitleFragment {
         max-width: 600px;
