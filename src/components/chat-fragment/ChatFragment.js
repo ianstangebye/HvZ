@@ -330,9 +330,12 @@ class ChatFragment extends React.Component {
                         { tabs }
                     </header>
 
-                    <section className={styles.Messages}>
-                        { messages }
-                    </section>
+                    <div className={styles.MessagesDiv}>
+                        <section className={styles.Messages}>
+                            { messages }
+                        </section>
+                    </div>
+                    
 
                     {footer}
                 </div>

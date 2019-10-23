@@ -47,19 +47,23 @@
         color: #F5F5F5;
     }
 
+    .MessagesDiv {
+        display: flex;
+        flex-direction: column-reverse;
+        min-height: 300px;
+        max-height: 300px;
+        overflow-y: scroll;
+        border: 3px solid #2C6974;
+        background-color: #F5F5F5;
+    }
+
     .Messages {
         margin-top: 0px;
         max-width: 600px;
         width: 100%;
         background-color: #F5F5F5;
-        border: 3px solid #2C6974;
         padding: 10px;
-        min-height: 300px;
-        max-height: 300px;
-        overflow-y: scroll;
         border-radius: 0 0 5px 5px;
-        display: flex;
-        flex-direction: column-reverse;
     }
     
     .Message {
