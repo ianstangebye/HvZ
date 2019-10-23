@@ -160,11 +160,11 @@ class GameDetail extends React.Component {
             })
     }
 
-    updateMap = ()=>{
+    updateMap(){
         // this.GoogleMapElement.current.render();
         // this.GoogleMapElement.current.forceUpdate();
         this.GoogleMapElement.current.renderMap();
-        // console.log('the map should be rerendered');
+        console.log('the map should be rerendered');
         
     }
 
@@ -176,7 +176,7 @@ class GameDetail extends React.Component {
 
     updateSquadDetails = () =>{
         console.log('Hello, you are attempting to create a new squad checkin');
-        this.GoogleMapElement.current.renderCheckIns();
+        this.GoogleMapElement.current.renderMap();
         
     }
 

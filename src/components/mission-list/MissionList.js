@@ -54,11 +54,11 @@ class MissionList extends React.Component{
         })
     }
 
-    updateGameDetail () {
-        // console.log('Attempting to update game detail');
-        this.props.trynaCommunicate();
+    // updateGameDetail () {
+    //     // console.log('Attempting to update game detail');
+    //     this.props.trynaCommunicate();
         
-    }
+    // }
 
     render(){
 
@@ -85,7 +85,7 @@ class MissionList extends React.Component{
                 </div>
                 <div className={styles.MissionComponents} style={{display: this.state.isVisible ? 'block' : 'none'}}>
                     {missionComponents}
-                    <NewMissionForm newMission={this.updateGameDetail}/>
+                    <NewMissionForm onUpdateMissions={this.props.updateMissions} game_id={this.state.game_id} userInfo={this.state.userInfo}/>
                 </div>
                 
             </React.Fragment>
