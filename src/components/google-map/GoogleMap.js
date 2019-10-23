@@ -411,7 +411,7 @@ class GoogleMap extends React.Component {
                     <div id="map" ref={this.mapEl} className={styles.Map}>
                     </div>
                 </div>
-                <MissionList trynaCommunicate={this.sendMeASign} game_id={this.state.game.game_Id} userInfo={this.state.userInfo} missions={this.state.missions}></MissionList>
+                <MissionList trynaCommunicate={this.sendMeASign} game_id={this.state.game.game_Id} userInfo={this.state.userInfo} missions={this.state.missions} onUpdateMap={this.renderMap}></MissionList>
             </React.Fragment>
 
         )
