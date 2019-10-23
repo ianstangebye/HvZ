@@ -19,14 +19,14 @@
 
 @media screen and (min-width: 100px) {
     .TitleFragment {
-        max-width: 600px;
-        width: 100%;
-        margin: 10px auto;
+        margin: 10px;
     }
 
     .Title {
         position: relative;
-        margin: 0 10px;
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
     }
 
     .TitleFragment h1 {
@@ -42,12 +42,14 @@
         background-color: #2C6974;
         position: absolute;
         right: -5px;
-        top: 0;
+        top: 15px;
         font-size: 1.5em;
     }
 
     .Info {
-        margin: 0 10px;
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
     }
 
     .TitleFragment span {
@@ -69,30 +71,37 @@
 @media screen and (min-width: 801px) {
     .TitleFragment {
         margin-top: -20px;
-        max-width: 100%;
+    }
+
+    .Title {
+        max-width: 800px;
+        width: 100%;
     }
     .CollapseBtn {
-        right: -15px;
+        top: 15px;
+    }
+
+    .Info {
+        max-width: 800px;
+        width: 100%;
     }
 }
 
 @media screen and (min-width: 1200px) {
-    .TitleFragment {
-        max-width: 100%;
-        width: 100%;
-    }
 
     .Title {
-        margin: 0 10px;
-    }
-
-    .TitleFragment h1 {
-        border-bottom: 2px solid #F5F5F5;
+        max-width: 1200px;
         width: 100%;
-        font-size: 24px;
     }
 
-    
+    .CollapseBtn {
+        top: 15px;
+    }
+
+    .Info {
+        max-width: 1200px;
+        width: 100%;
+    }
 
     
 }

@@ -241,17 +241,15 @@ class GameDetail extends React.Component {
                 <Fragment>
                     <img src={pictureId} className={styles.AdminPic} alt="Player"></img>
                     <div className={styles.Admin}>
-                        <div className={styles.ColLeft}>
+                        <div className={styles.AdColLeft}>
                             <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} player={player} />
                             <SquadListFragment game_id={game_id} player_id={player_id} adminMode={true} userInfo={userInfo}/>
                             <EditPlayerFragment game_id={game_id} userInfo={userInfo}/>
                         </div>
-                        <div className={styles.ColRight}>
+                        <div className={styles.AdColRight}>
                             <GoogleMap game_id={game_id} player={player} userInfo={userInfo} />
                             <ChatFragment adminMode={true} game_id={game_id} player_id={player_id} userInfo={userInfo} />
                         </div>
-                        
-                        
                     </div>
                 </Fragment>
             )

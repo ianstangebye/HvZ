@@ -70,11 +70,11 @@ button:active {
         display: flex;
     }
 
-    .Admin .ColLeft {
+    .Admin .AdColLeft {
         width: 50%;
     }
 
-    .Admin .ColRight {
+    .Admin .AdColRight {
         width: 50%;
     }
 
