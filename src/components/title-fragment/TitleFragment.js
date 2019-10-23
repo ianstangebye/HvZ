@@ -12,7 +12,12 @@ export default class TitleFragment extends React.Component {
             game_id: props.game_id,
             isVisible: false,
             gameStateColor: '',
-            userInfo: props.userInfo
+            userInfo: props.userInfo,
+            editing: false,
+            editButtonText: '',
+            editButtonSymbol: 'fas fa-edit',
+            editButtonFunction: this.editing,
+            // newName: ''
         }
     }
 
@@ -70,6 +75,64 @@ export default class TitleFragment extends React.Component {
         this.props.onUpdate(this.state.game.game_State);
     }
 
+    editing =()=>{
+        var list = document.querySelector('h1');
+        list.contentEditable = true;
+        list.focus();
+        this.setState({
+            editing: true,
+            // editButtonText: 'Save Changes',
+            editButtonSymbol: 'fas fa-save',
+            editButtonFunction: this.saving
+        });
+
+    }
+
+    saving= async ()=>{
+        console.log("you are currently attempting to save a new game name");
+        console.log(this.refs.gameName.innerText);
+        var newName = {
+            name: this.refs.gameName.innerText,
+            game_State: this.state.game.game_State,
+            nw_Lat: this.state.game.nw_Lat,
+            nw_Lng: this.state.game.nw_Lng,
+            se_Lat: this.state.game.se_Lat,
+            se_Lng: this.state.game.se_Lng,
+            description: this.state.game.description,
+            start_Time: this.state.game.start_Time,
+            end_Time: this.state.game.end_Time
+
+        };
+
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}`
+
+        await fetch(targetUrl, {
+            method: 'PUT',
+            body: JSON.stringify(newName),
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        }).then(resp => resp.json())
+        .then(data => console.log('changed name: ', data))
+        .catch(e => {
+            console.log(e);
+            
+        })
+
+        this.setState({
+            editing: false,
+            // editButtonText: 'Save Changes',
+            editButtonSymbol: 'fas fa-edit',
+            editButtonFunction: this.editing
+        });
+        
+        
+    }
+
+
+
     render() {
         
         // if(this.state.game_id === 0) {
@@ -80,7 +143,14 @@ export default class TitleFragment extends React.Component {
             <React.Fragment>
                 <div className={styles.TitleFragment + " TitleFragment"}>
                     <div className={styles.Title}>
-                        <h1>{this.state.game.name}</h1>
+                        <h1 suppressContentEditableWarning={true} ref="gameName">{this.state.game.name}
+                        <span suppressContentEditableWarning={true} contentEditable="false">
+                        <button suppressContentEditableWarning={true} contentEditable="false" onClick={this.state.editButtonFunction} id={styles.editButton} class={this.state.editButtonSymbol}>
+                        {this.state.editButtonText}
+                        </button>
+                        </span>
+                        </h1>
+                        {/* <button onClick={this.editing} id={styles.editButton} class={this.state.editButtonSymbol}>{this.state.editButtonText}</button> */}
                         <button className={styles.CollapseBtn} id="CollapseBtn" type="button" onClick={this.handleClick}>?</button>
                     </div>
                     <div className={styles.Info}>
