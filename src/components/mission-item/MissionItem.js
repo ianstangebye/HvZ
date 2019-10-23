@@ -89,13 +89,13 @@ class MissionItem extends React.Component {
     
         if(mission.is_Human_Visible && mission.is_Zombie_Visible) {
             missionType = 'For All Players';
-            missionColor = 'purple';
+            missionColor = '#303030';
         } else if (mission.is_Human_Visible) {
             missionType = 'For Only Humans';
-            missionColor = 'blue';
+            missionColor = '#303030';
         } else if (mission.is_Zombie_Visible) {
             missionType = 'For Only Zombies';
-            missionColor = 'red';
+            missionColor = '#303030';
         }
     
         let mission_state = '';

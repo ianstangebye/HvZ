@@ -1,8 +1,14 @@
 @media screen and (min-width: 100px) {
+    .MissionListDiv {
+        margin: 10px;
+        
+    }
+
     .MissionComponents {
+        max-width: 600px;
         width: 100%;
         background-color: #77A4AC;
-        margin: 20px 0;
+        margin: 0 auto;
         padding: 1px;
         border-radius: 15px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -10,7 +16,6 @@
     
     .MissionList {
         margin: 10px auto;
-        padding: 0 10px;
         max-width: 600px;
         width: 100%;
     }
@@ -42,15 +47,8 @@
 
 @media screen and (min-width: 801px) {
 
-    .MissionComponents {
-        width: 100%;
-        background-color: #77A4AC;
-        max-height: 30vh;
-        height: fit-content;
-        overflow-y: scroll;
-        margin: 20px 0;
-        border-radius: 15px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    .Title {
+        margin-bottom: 10px;
     }
 
     .CollapseBtn {
@@ -61,12 +59,12 @@
 @media screen and (min-width: 1200px) {
     .MissionComponents {
         display: block!important;
+        max-width: 1200px;
+        width: 100%;
     }
 
     .MissionList {
-        max-width: 800px;
+        max-width: 1200px;
         width: 100%;
-        max-height: 400px;
-        height: 100%;
     }
 }
