@@ -24,8 +24,6 @@ class GameDetail extends React.Component {
         super(props);
         this.GoogleMapElement = React.createRef();
         
-
-
         this.state = {
             game_id: 0,
             squad_id: 0,

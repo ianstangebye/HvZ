@@ -112,7 +112,7 @@ export default class SquadListFragment extends React.Component {
             
             if(filteredSquads.length > 0) {
                 squadComponents = filteredSquads.map((squad, index) =>
-                    <SquadListItem key={index} squad={squad} key={squad.squad_Id} adminMode={adminMode} player_id={this.props.player_id} squad_id={this.props.squad_id} onJoinSquad={this.handleJoinSquad.bind(this)} userInfo={this.state.userInfo} />
+                    <SquadListItem key={index} squad={squad} adminMode={adminMode} game_id={this.props.game_id} player_id={this.props.player_id} squad_id={this.props.squad_id} onJoinSquad={this.handleJoinSquad.bind(this)} userInfo={this.state.userInfo} />
                 )
             }
         }
