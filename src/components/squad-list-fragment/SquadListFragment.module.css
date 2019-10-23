@@ -47,14 +47,18 @@
         background-color: #77A4AC;
         max-height: 30vh;
         height: fit-content;
-        overflow-y: scroll;
-        margin: 20px 0;
+        overflow-y: auto;
+        margin: 10px 0;
         border-radius: 15px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     }
 
     .CollapseBtn {
         display: none;
+    }
+
+    .Title {
+        margin-bottom: 0;
     }
 } 
 

@@ -77,16 +77,19 @@ class MissionList extends React.Component{
 
         return (
             <React.Fragment>
-                <div className={styles.MissionList}>
-                    <div className={styles.Title}>
-                        <h1>Missions</h1>
-                        <button className={styles.CollapseBtn} id="MissionCollapseBtn" type="button" onClick={this.handleClick}>{arrow}</button>
+                <div className={styles.MissionListDiv}>
+                    <div className={styles.MissionList}>
+                        <div className={styles.Title}>
+                            <h1>Missions</h1>
+                            <button className={styles.CollapseBtn} id="MissionCollapseBtn" type="button" onClick={this.handleClick}>{arrow}</button>
+                        </div>
+                    </div>
+                    <div className={styles.MissionComponents} style={{display: this.state.isVisible ? 'block' : 'none'}}>
+                        {missionComponents}
+                        {/* <NewMissionForm newMission={this.updateGameDetail}/> */}
                     </div>
                 </div>
-                <div className={styles.MissionComponents} style={{display: this.state.isVisible ? 'block' : 'none'}}>
-                    {missionComponents}
-                    {/* <NewMissionForm newMission={this.updateGameDetail}/> */}
-                </div>
+                
                 
             </React.Fragment>
         )

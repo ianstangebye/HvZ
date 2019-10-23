@@ -52,7 +52,7 @@
         flex-direction: column-reverse;
         min-height: 300px;
         max-height: 300px;
-        overflow-y: scroll;
+        overflow-y: auto;
         border: 3px solid #2C6974;
         background-color: #F5F5F5;
     }
@@ -157,9 +157,12 @@
         width: 100%;
     }
 
-    .Messages {
+    .MessagesDiv {
         max-height: 505px;
         height: 100%;
+    }
+
+    .Messages {
         max-width: 1000px;
         width: 100%;
     }
