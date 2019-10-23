@@ -55,9 +55,9 @@ export default class EditPlayerItem extends React.Component {
         return (
             <React.Fragment>
                 <div className={styles.EditPlayerItem}>
-                    <p>Player: {this.props.player.username}</p>
-                    <p>State: {this.state.playerState}</p>
-                    <button type="button" onClick={this.handleEditClick}>Edit</button>
+                    <p><b>Player: </b>{this.props.player.username}</p>
+                    <p><b>State: </b>{this.state.playerState}</p>
+                    <button type="button" onClick={this.handleEditClick}>Edit State</button>
                 </div>
             </React.Fragment>
         )

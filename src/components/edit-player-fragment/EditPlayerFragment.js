@@ -10,23 +10,21 @@ export default class EditPlayerFragment extends React.Component {
         this.state = {
             players: [],
             game_id: props.game_id,
-            userInfo: props.userInfo
+            userInfo: props.userInfo,
+            isVisible: false
         }
+
+        
     }
 
     componentDidMount() {
         
-            
-        this.handleGetPlayers(this);
-    }
-
-    handleGetPlayers = async (that) => {
         console.log(this.state.game_id);
         
         
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player`
     
-        await fetch(targetUrl, {
+        fetch(targetUrl, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + this.state.userInfo.token
@@ -39,7 +37,15 @@ export default class EditPlayerFragment extends React.Component {
         }).catch(e => {
             console.log(e);
         })
+    }
 
+    handleShowPlayers = async () => {
+        this.setState({isVisible: !this.state.isVisible})
+        if (this.state.isVisible === false) {
+            document.getElementById("ShowPlayersBtn").innerText = 'Close Edit';
+        } else {
+            document.getElementById("ShowPlayersBtn").innerText = 'Edit Players';
+        }
 
     }
 
@@ -55,10 +61,13 @@ export default class EditPlayerFragment extends React.Component {
 
         return(
             <React.Fragment>
-                <button onClick={this.handleGetPlayers}>Click to edit players</button>
-                <div>
-                    {playerComponents}
+                <div className={styles.EditPlayerFragment} style={{display: this.state.players.length === 0 ? 'none' : 'block'}}>
+                    <button id="ShowPlayersBtn" className={styles.Btn} onClick={this.handleShowPlayers}>Edit players</button>
+                    <div className={styles.PlayerComponents} style={{display: this.state.isVisible ? 'block' : 'none'}}>
+                        {playerComponents}
+                    </div>
                 </div>
+                
             </React.Fragment>
             
         )

@@ -1,24 +1,36 @@
-.EditPlayerItem {
-    display: grid;
-    grid-template-columns: 40% 40% 20%;
-    margin: 10px;
-    background-color: #F5F5F5;
-    padding: 5px;
-    border-radius: 15px;
-    color: #303030;
-}
 
-.EditPlayerItem p:first-child {
-    grid-column: 1;
-    margin: 0 10px;
+@media screen and (min-width: 100px) {
+    .EditPlayerItem {
+        /* display: grid;
+        grid-template-columns: 35% 35% 30%; */
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+        background-color: #F5F5F5;
+        padding: 5px;
+        border-radius: 15px;
+        color: #303030;
+        height: 60px;
+    }
+
+    .EditPlayerItem p:first-child {
+        width: 130px;
+        margin-left: 5px;
+    }
+
+    .EditPlayerItem p {
+        font-size: 14px;
+    }
     
+    .EditPlayerItem button {
+        font-size: 14px;
+    }
 }
 
-.EditPlayerItem p:last-child {
-    grid-column: 2;
-    margin: 0 10px;
+@media screen and (min-width: 801px) {
+
 }
 
-.EditPlayerItem button {
-    grid-column: 3;
-}
+@media screen and (min-width: 1200px) {
+
+} 

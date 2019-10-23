@@ -1,0 +1,32 @@
+@media screen and (min-width: 100px) {
+    .EditPlayerFragment {
+        margin: 10px auto;
+        padding: 10px;
+        max-width: 600px;
+    }
+    
+    .Btn {
+        margin: 0;
+        max-width: 100%;
+        width: 100%;
+        
+    }
+    
+    .Btn:focus {
+        transform: scale(1);
+    }
+
+    .PlayerComponents {
+        background-color: #77A4AC;
+        padding: 5px 0;
+        margin: 10px 0;
+        border-radius: 15px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .EditPlayerFragment {
+        max-width: 1200px;
+    }
+}
+
