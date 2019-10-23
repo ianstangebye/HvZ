@@ -18,10 +18,12 @@ export default class EditPlayerFragment extends React.Component {
     }
 
     componentDidMount() {
-        
-        console.log(this.state.game_id);
-        
-        
+
+        this.getPlayers();
+
+    }
+
+    getPlayers = () => {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player`
     
         fetch(targetUrl, {
@@ -55,7 +57,7 @@ export default class EditPlayerFragment extends React.Component {
 
         if(this.state.players.length > 0) {
             playerComponents = this.state.players.map((player) =>
-                <EditPlayerItem player={player} key={player.player_Id} game_id={this.state.game_id} userInfo={this.state.userInfo} />
+                <EditPlayerItem onUpdate={this.getPlayers} player={player} key={player.player_Id} game_id={this.state.game_id} userInfo={this.state.userInfo} />
             )
         }
 

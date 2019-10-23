@@ -5,6 +5,8 @@ import Moment from 'react-moment';
 import moment from 'moment';
 
 class MissionItem extends React.Component {
+    _didMounted = false;
+
     constructor(props) {
         super(props) 
 
@@ -18,7 +20,25 @@ class MissionItem extends React.Component {
     }
 
     componentDidMount() {
+        this._didMounted = true;
 
+        if(this._didMounted) {
+            let currentTime = new Date();
+            const start_Time = this.state.mission.start_Time;
+            const end_Time = this.state.mission.end_Time;
+
+            if (!this.state.started && moment(currentTime).isAfter(start_Time)) {
+                this.setState({
+                    started: true
+                })
+            } else if (this.state.started && !this.state.ended && moment(currentTime).isAfter(end_Time)) {
+                this.setState({
+                    ended: true
+                })
+            }
+
+            this.startTimer();
+        }
     }
     
     startTimer() {
@@ -29,10 +49,28 @@ class MissionItem extends React.Component {
 
     timerAction = () => {
         let currentTime = new Date();
+        const start_Time = this.state.mission.start_Time;
+        const end_Time = this.state.mission.end_Time;
 
-        // if (moment(currentTime).isAfter(this.state.game.end_Time)) {
-        // if(!this.state.started ) {
-        // }
+        if (!this.state.started && moment(currentTime).isAfter(start_Time)) {
+            this.startMission();
+        } else if (this.state.started && !this.state.ended && moment(currentTime).isAfter(end_Time)) {
+            this.endMission();
+        }
+    }
+
+    startMission = () => {
+        this.setState({
+            started: true
+        })
+        this.props.onUpdateMap();
+    }
+
+    endMission = () => {
+        this.setState({
+            ended: true
+        })
+        this.props.onUpdateMap();
     }
 
     onClickMore = () => {
@@ -41,15 +79,6 @@ class MissionItem extends React.Component {
             onMore: toggle
         })
     }
-
-    setMarker = () => {
-        //this.props.setMissionMarker(this.state.mission);
-    }
-
-    deleteMission = () => {
-        //this.props.deleteMissionMarker(this.state.mission);
-    }
-    
 
     render() {
         const mission = this.state.mission;
@@ -69,20 +98,35 @@ class MissionItem extends React.Component {
             missionColor = 'red';
         }
     
+        let mission_state = '';
+        let state_color = '';
+
+        if(!this.state.started) {
+            mission_state = "Not Started";
+            state_color = "#A7C57C";
+        } else if (this.state.started && !this.state.ended) {
+            mission_state = "Ongoing";
+            state_color = "#F5DA81";
+        } else if (this.state.ended) {
+            mission_state = "Ended";
+            state_color = "#ED553B";
+        }
+
         return (
             <React.Fragment>
                 <div className={styles.MissionListItem}>
-                    <div className={styles.Time}>
-                        <p>Start: {startDate.toLocaleString()}</p>
-                        <p>End: {endDate.toLocaleString()}</p>
-                    </div>
+                    
                     <h4>{mission.name}</h4>
                     <p className={styles.Type} style={{ color: missionColor }}>{missionType}</p>
-                    {/* <p className={styles.Descripiton}>{mission.description}</p> */}
-                    <button onClick={this.onClickMore}>More</button>
+                    <h5 className={styles.State} style={{ color: state_color }}>{mission_state}</h5>
+                    <button className={styles.MoreBtn} onClick={this.onClickMore}>More</button>
 
                     <div className={styles.More} style={{ display: this.state.onMore ? 'block' : 'none' }}>
                         <p>Description: {mission.description}</p>
+                        <div className={styles.Time}>
+                            <p>Start: {startDate.toLocaleString()}</p>
+                            <p>End: {endDate.toLocaleString()}</p>
+                        </div>
                         {/* <div className={styles.MoreBtns}>
                             <button style={{ gridColumn: 1 }} onClick={this.onClickEdit}>Edit</button>
                             <button style={{ gridColumn: 2 }} onClick={this.onClickSetMarker}>Set Marker</button>
@@ -90,8 +134,6 @@ class MissionItem extends React.Component {
                         </div> */}
                     </div>
                 </div>
-
-                
             </React.Fragment>
         )
     }

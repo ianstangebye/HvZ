@@ -20,6 +20,16 @@ export default class EditPlayerItem extends React.Component {
         }
     }
 
+    updatePlayerState = () => {
+        this.setState({newPlayerState: !this.state.newPlayerState})
+
+        if (this.state.newPlayerState === false) {
+            this.setState({playerState: 'Human'})
+        } else if (this.state.newPlayerState === true) {
+            this.setState({playerState: 'Zombie'})
+        }
+    }
+
     handleEditClick = async () => {
         console.log(this.state.selectedPlayerState);
         console.log('THIS PLAYER:', this.props.player.player_Id);
@@ -46,6 +56,7 @@ export default class EditPlayerItem extends React.Component {
         }).then(resp => resp.json())
         .then(data => {
             console.log('Updated Player: ', data);
+            this.updatePlayerState();
         })
         .catch(e => {
             console.log(e);
