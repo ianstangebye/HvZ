@@ -58,6 +58,8 @@
         max-height: 300px;
         overflow-y: scroll;
         border-radius: 0 0 5px 5px;
+        display: flex;
+        flex-direction: column-reverse;
     }
     
     .Message {

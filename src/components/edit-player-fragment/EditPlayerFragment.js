@@ -19,11 +19,6 @@ export default class EditPlayerFragment extends React.Component {
 
     componentDidMount() {
 
-        this.getPlayers();
-
-    }
-
-    getPlayers = () => {
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player`
     
         fetch(targetUrl, {
@@ -39,7 +34,10 @@ export default class EditPlayerFragment extends React.Component {
         }).catch(e => {
             console.log(e);
         })
+
     }
+
+    
 
     handleShowPlayers = async () => {
         this.setState({isVisible: !this.state.isVisible})
