@@ -3,7 +3,7 @@ import MissionItem from '../mission-item/MissionItem';
 import styles from './MissionList.module.css';
 import arrowUpIcon from '../../assets/arrow-up-icon.svg';
 import arrowDownIcon from '../../assets/arrow-down-icon.svg';
-import NewMissionForm from '../new-mission-form/NewMissionForm';
+// import NewMissionForm from '../new-mission-form/NewMissionForm';
 
 class MissionList extends React.Component{
     constructor(props) {
@@ -85,7 +85,7 @@ class MissionList extends React.Component{
                 </div>
                 <div className={styles.MissionComponents} style={{display: this.state.isVisible ? 'block' : 'none'}}>
                     {missionComponents}
-                    <NewMissionForm newMission={this.updateGameDetail}/>
+                    {/* <NewMissionForm newMission={this.updateGameDetail}/> */}
                 </div>
                 
             </React.Fragment>
