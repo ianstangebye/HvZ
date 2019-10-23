@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './TitleFragment.module.css';
 import TimerFragment from '../timer-fragment/TimerFragment';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FaEdit } from 'react-icons/fa';
 
 export default class TitleFragment extends React.Component {
 
@@ -145,8 +147,9 @@ export default class TitleFragment extends React.Component {
                     <div className={styles.Title}>
                         <h1 suppressContentEditableWarning={true} ref="gameName">{this.state.game.name}
                         <span suppressContentEditableWarning={true} contentEditable="false">
-                        <button suppressContentEditableWarning={true} contentEditable="false" onClick={this.state.editButtonFunction} id={styles.editButton} class={this.state.editButtonSymbol}>
-                        {this.state.editButtonText}
+                        <button suppressContentEditableWarning={true} contentEditable="false" onClick={this.state.editButtonFunction} id={styles.editButton} >
+                            {/* {this.state.editButtonText} */}
+                            <FaEdit />
                         </button>
                         </span>
                         </h1>
