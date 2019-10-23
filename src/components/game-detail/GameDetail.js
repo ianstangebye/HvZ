@@ -39,39 +39,11 @@ class GameDetail extends React.Component {
     }
 
     componentDidMount() {
-        //Update the component in every minute
-        //this.interval = setInterval(() => this.setState({ time: Date.now() }), 60000);
-
         const { game_id } = this.props.match.params
         this.setState({
             game_id: game_id
         }, this.getPlayer)
-
-        // setInterval(this.GoogleMapElement.current.getLocation(), 10000);
-        // this.GoogleMapElement.current.setInt();
-        // this.GoogleMapElement.current.setInterval(() => {
-        //     this.GoogleMapElement.current.getLoction()
-        // }, 10000);
-        // if(navigator.geolocation){
-        //     navigator.geolocation.watchPosition(showPosition);
-        // } else {
-        //     alert('Your browser does not support location tracking');
-        // }
-
-        // if(navigator.geolocation){
-        //     navigator.geolocation.watchPosition(this.updatePosition);
-        // } else {
-        //     alert('your browser does not support location tracking');
-        // }
     }
-
-    // showPosition(position){
-    //     this.GoogleMapElement.current.showPosition(position);
-    // }
-
-    // componentWillUnmount() {
-    //     clearInterval(this.interval);
-    // }
 
     getPlayer = () => {
         console.log(" ____________ GAME DETAIL ____________")
@@ -82,7 +54,7 @@ class GameDetail extends React.Component {
         })
 
         const gid = this.state.game_id
-        const uid = this.state.userInfo.user_id
+        const uid = sessionStorage.getItem("user_id")
         const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/user/${uid}/player`
 
         // Get this user's player object, if it exists
@@ -135,8 +107,6 @@ class GameDetail extends React.Component {
                 console.log("Game detail getsquad res: ");
                 console.log(res);
                 
-                
-                //if(!this.stop)
                 if (res.status === 200) {
                     console.log("getSquad success");
                     
@@ -161,10 +131,7 @@ class GameDetail extends React.Component {
     }
 
     updateMap = ()=>{
-        // this.GoogleMapElement.current.render();
-        // this.GoogleMapElement.current.forceUpdate();
         this.GoogleMapElement.current.renderMap();
-        // console.log('the map should be rerendered');
         
     }
 
@@ -179,17 +146,6 @@ class GameDetail extends React.Component {
         this.GoogleMapElement.current.renderCheckIns();
         
     }
-
-    // updatePosition = () =>{
-    //     console.log(position);
-    //     if(this.GoogleMapElement.current === null){
-    //         console.log("undefined");
-            
-    //     } else {
-    //          this.GoogleMapElement.current.showLocation(position);
-    //     }
-        
-    // }
 
     render() {
         const loggedIn = sessionStorage.getItem("user_id")
