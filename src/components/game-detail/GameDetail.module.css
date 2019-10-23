@@ -1,4 +1,4 @@
-button:focus {
+button:active {
     transform: scale(1.1);
     transition: ease 100ms;
 }
