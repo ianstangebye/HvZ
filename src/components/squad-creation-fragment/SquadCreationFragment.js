@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './SquadCreationFragment.module.css';
 
+
 export default class SquadCreationFragment extends React.Component {
 
     constructor(props) {

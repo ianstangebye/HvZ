@@ -1,0 +1,82 @@
+@media screen and (min-width: 100px) {
+
+
+    .SquadCreationFragment {
+        margin: 0 10px 10px 10px;
+        color: #303030;
+    }
+
+    .ShowFormBtn {
+        margin: 0;
+        width: 100%;
+        font-size: 2em;
+    }
+
+    .CreationForm {
+        padding: 10px;
+        width: 100%;
+        border-radius: 15px;
+        background-color: #F5F5F5;
+    }
+
+    .CreationForm h2 {
+        font-size: 18px;
+        text-transform: uppercase;
+        text-align: center;
+        color: #2C6974;
+        border-bottom: 2px solid #2C6974;
+        margin-top: 0;
+
+    }
+
+    .CreationForm label {
+        display: block;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #2C6974;
+    }
+
+    .CreationForm input {
+        font-family: inherit;
+        width: 100%;
+        background-color: #E5E5E5;
+        border-radius: 5px;
+        border: none;
+        padding: 10px;
+        color: #303030;
+    }
+
+    .CreationForm input::placeholder {
+        color: rgba(48, 48, 48, 0.5)
+    }
+
+    .CreationForm input:focus {
+        outline: none;
+    }
+
+    .CreateBtn {
+        margin: 0;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .CloseBtn {
+        margin: 10px 0 0 0;
+        width: 100%;
+        background-color: transparent;
+        color: #DBA53D;
+        box-shadow: none;
+    }
+
+    .CloseBtn:hover {
+        background-color: transparent;
+        border: 2px solid #DBA53D;
+    }
+}
+
+
+@media screen and (min-width: 801px) {
+
+}

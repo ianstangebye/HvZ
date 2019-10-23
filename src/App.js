@@ -12,6 +12,7 @@ import GameDetail from './components/game-detail/GameDetail';
 import NewGameForm from './components/new-game-form/NewGameForm';
 import ChatFragment from './components/chat-fragment/ChatFragment';
 import MissionList from './components/mission-list/MissionList';
+import NewMissionForm from './components/new-mission-form/NewMissionForm';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <Route path='/new-game-form/' component={NewGameForm} />
       <Route path='/chat-test/' component={ChatFragment} />
       <Route path='/missions' component={MissionList}/>
+      <Route path='/new-mission' component={NewMissionForm}/>
     </React.Fragment>
   );
 }

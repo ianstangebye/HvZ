@@ -335,7 +335,6 @@ class GoogleMap extends React.Component {
                 }
 
             }
-
         }
     }
 
@@ -400,6 +399,11 @@ class GoogleMap extends React.Component {
 
     }
 
+    sendMeASign () {
+        console.log("Help me out here");
+        
+    }
+
     render() {
         return (
             <React.Fragment /*loadMap={this.renderMap}*/>
@@ -407,7 +411,7 @@ class GoogleMap extends React.Component {
                     <div id="map" ref={this.mapEl} className={styles.Map}>
                     </div>
                 </div>
-                <MissionList onUpdateMap={this.renderMap} game_id={this.state.game.game_Id} userInfo={this.state.userInfo} missions={this.state.missions}></MissionList>
+                <MissionList trynaCommunicate={this.sendMeASign} game_id={this.state.game.game_Id} userInfo={this.state.userInfo} missions={this.state.missions}></MissionList>
             </React.Fragment>
 
         )
