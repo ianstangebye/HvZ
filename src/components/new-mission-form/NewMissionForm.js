@@ -17,12 +17,18 @@ class NewMissionForm extends React.Component {
             name: '',
             lat: null,
             lng: null,
+            description: '',
             zombie_Visible: false,
             human_Visible: false,
             isVisible: false,
             start_time: new Date(startDate).toLocaleString(), 
             end_time: new Date(endDate).toLocaleString(),
         }
+    }
+
+    updateInputValue = (name, e) => {
+        this.setState({ [name]: e.target.value});
+        
     }
 
     showForm = ()=>{
@@ -46,14 +52,50 @@ class NewMissionForm extends React.Component {
         this.setState({
             isVisible: !this.state.isVisible
         });
-        document.getElementById("showForm").style.display = 'block'
+        document.getElementById("showForm").style.display = 'block';
     }
 
     onClickCreate = async () => {
         // console.log("this works");
         console.log("you are reaching the onclickcreate function");
+
+        var newMission= {
+            name: this.state.name,
+            is_Human_Visible: this.state.human_Visible,
+            is_Zombie_Visible: this.state.zombie_Visible,
+            description: this.state.description,
+            game_Id: this.props.game_id,
+            latitude: this.state.lat,
+            longitude: this.state.lng,
+            start_Time: this.state.start_time,
+            end_Time: this.state.end_time
+        }
+
+        console.log(newMission);
+
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/mission`
+
+        // console.log(JSON.stringify(bite));
         
-        this.props.newMission();
+        await fetch(targetUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': 'Bearer ' + this.props.userInfo.token
+            },
+            body: JSON.stringify(newMission)
+        }).then(resp =>{
+            console.log(resp);
+            console.log('you are indeed getting a response');
+            
+        }).catch(error => {
+            console.log('you are indeed getting an error');
+            
+            console.log(error);
+        })
+        
+        
+        this.props.onUpdateMissions();
         
 
 
@@ -90,6 +132,8 @@ class NewMissionForm extends React.Component {
                     <form>
                         <label>Name:</label>
                             <input autoFocus type="text" placeholder="Mission name here..." value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} required/>
+                        <label>Description:</label>
+                            <input value={this.state.description} onChange={(e) => this.updateInputValue("description", e)} placeholder="Enter a description here..." type="text" />
                         <label>Visibility:</label><br/>
                             <label><input onClick={this.humanVisible} type="checkbox" value="Human"/>Human</label>
                             <label><input onClick={this.zombieVisible} type="checkbox"/>Zombie</label>

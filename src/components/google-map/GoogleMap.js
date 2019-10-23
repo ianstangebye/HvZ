@@ -399,8 +399,13 @@ class GoogleMap extends React.Component {
 
     }
 
-    sendMeASign () {
-        console.log("Help me out here");
+    // sendMeASign () {
+    //     console.log("Help me out here");
+        
+    // }
+
+    updateMissions(){
+        console.log("really hoping this works");
         
     }
 
@@ -411,7 +416,7 @@ class GoogleMap extends React.Component {
                     <div id="map" ref={this.mapEl} className={styles.Map}>
                     </div>
                 </div>
-                <MissionList trynaCommunicate={this.sendMeASign} game_id={this.state.game.game_Id} userInfo={this.state.userInfo} missions={this.state.missions} onUpdateMap={this.renderMap}></MissionList>
+                <MissionList game_id={this.state.game.game_Id} userInfo={this.state.userInfo} missions={this.state.missions} onUpdateMap={this.renderMap} updateMissions={this.updateMissions}></MissionList>
             </React.Fragment>
 
         )
