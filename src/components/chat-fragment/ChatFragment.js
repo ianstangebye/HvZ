@@ -282,7 +282,7 @@ class ChatFragment extends React.Component {
                 const time = date.toLocaleTimeString();
                 if(msg.username === this.state.userInfo.username) {
                     return <div key={idx} className={styles.UserMessage}
-                            style={{ backgroundColor: msg.is_admin ? 'chocolate' : '#77A4AC',
+                            style={{ backgroundColor: msg.is_admin ? '#A7C57C' : '#77A4AC',
                             fontWeight: msg.is_admin ? 'bold' : 'normal' }}>
                                 <p>
                                     {msg.username}: {msg.message} 
@@ -291,7 +291,7 @@ class ChatFragment extends React.Component {
                             </div>
                 } else {
                     return <div key={idx} className={styles.Message}
-                            style={{ backgroundColor: msg.is_admin ? 'chocolate' : '#77A4AC',
+                            style={{ backgroundColor: msg.is_admin ? '#A7C57C' : '#77A4AC',
                             fontWeight: msg.is_admin ? 'bold' : 'normal' }}>
                                 <p>
                                     {msg.username}: {msg.message} 
