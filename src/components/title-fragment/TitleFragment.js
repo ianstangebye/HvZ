@@ -29,6 +29,8 @@ export default class TitleFragment extends React.Component {
             this.getGameTitle();
         });
 
+        console.log('IS ADMIN:', this.state.userInfo.is_admin);
+        
     }
 
     getGameTitle = async () => { 
@@ -87,7 +89,6 @@ export default class TitleFragment extends React.Component {
             editButtonSymbol: 'fas fa-save',
             editButtonFunction: this.saving
         });
-
     }
 
     saving= async ()=>{
@@ -129,24 +130,15 @@ export default class TitleFragment extends React.Component {
             editButtonSymbol: 'fas fa-edit',
             editButtonFunction: this.editing
         });
-        
-        
     }
 
-
-
     render() {
-        
-        // if(this.state.game_id === 0) {
-        //     return <h1>Loading...</h1>
-        // }
-        
         return (
             <React.Fragment>
                 <div className={styles.TitleFragment + " TitleFragment"}>
                     <div className={styles.Title}>
                         <h1 suppressContentEditableWarning={true} ref="gameName">{this.state.game.name}
-                        <span suppressContentEditableWarning={true} contentEditable="false">
+                        <span suppressContentEditableWarning={true} contentEditable="false" style={{visibility: this.state.userInfo.is_admin ? 'visible' : 'hidden'}}>
                         <button suppressContentEditableWarning={true} contentEditable="false" onClick={this.state.editButtonFunction} id={styles.editButton} >
                             {/* {this.state.editButtonText} */}
                             <FaEdit />
