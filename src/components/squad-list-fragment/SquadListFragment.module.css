@@ -61,6 +61,10 @@
         display: none;
     }
 
+    .SquadComponents {
+        display: block!important;
+    }
+
     .Title {
         max-width: 800px;
         width: 100%;

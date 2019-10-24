@@ -29,7 +29,6 @@ class NewMissionForm extends React.Component {
 
     updateInputValue = (name, e) => {
         this.setState({ [name]: e.target.value});
-        
     }
 
     showForm = ()=>{
@@ -66,7 +65,6 @@ class NewMissionForm extends React.Component {
             })
         }
     }
-
 
     handleCloseClick = () => {
         this.setState({
