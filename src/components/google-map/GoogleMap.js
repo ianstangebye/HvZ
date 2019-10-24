@@ -369,7 +369,7 @@ class GoogleMap extends React.Component {
                 }
 
             }, error => {
-                alert(error)
+                console.error(error)
             });
 
         }, 1000)
