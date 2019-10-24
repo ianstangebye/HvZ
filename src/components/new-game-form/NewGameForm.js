@@ -4,6 +4,8 @@ import { geolocated } from "react-geolocated";
 import { Redirect } from 'react-router';
 import Calendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
+import { DatePicker, RangePicker, theme } from 'react-trip-date';
+import {ThemeProvider} from 'styled-components';
 
 class NewGameForm extends React.Component {
 
@@ -108,6 +110,17 @@ class NewGameForm extends React.Component {
         })
     }
 
+    onCalendarChange = (days) => {
+        console.log(days[0]);
+        console.log(days[days.length-1]);
+        
+        this.setState({
+            start_time: new Date(days[0]).toLocaleString(),
+            end_time: new Date(days[days.length-1]).toLocaleString()
+        })
+    }
+
+
     render() {
         if(this.state.creationSuccess) {
             return <Redirect push to={{
@@ -123,13 +136,47 @@ class NewGameForm extends React.Component {
             }} />
         }
 
+        const  handleResponsive  =  setNumberOfMonth  =>  {
+            let  width  =  document.querySelector('.tp-calendar').clientWidth;
+            if  (width  >  900)  {
+                setNumberOfMonth(3);
+            }  else  if  (width  <  900  &&  width  >  580)  {
+                setNumberOfMonth(2);
+            }  else  if  (width  <  580)  {
+                setNumberOfMonth(1);
+            }
+        };
+        
+        const  Day = ({  day  }) => {
+            return  (
+                <>
+                    <p  className="date">{day.format('DD')}</p>
+                </>
+            );
+        };
+
         let calendar = null;
 
         const startDate = new Date(this.state.start_time).getTime()
         const endDate = new Date(this.state.end_time).getTime()
 
         if(this.state.calendarOn) {
-            calendar = <Calendar startDate={startDate} endDate={endDate} onChange={this.onCalendarChange} range displayTime/>
+            // calendar = <Calendar startDate={startDate} endDate={endDate} onChange={this.onCalendarChange} range displayTime/>
+            calendar = <ThemeProvider theme={theme}>
+                <DatePicker
+                handleChange={(days) => this.onCalendarChange(days)}
+                // selectedDays={[startDate]} //initial selected days
+                jalali={false}
+                numberOfMonths={3}
+                // numberOfSelectableDays={3} // number of days you need 
+                // disabledDays={['2019-12-02']} //disabeld days
+                responsive={handleResponsive} // custom responsive, when using it, `numberOfMonths` props not working
+                disabledBeforToday={true} 
+                disabled={false} // disable calendar 
+                dayComponent={Day} //custom day component 
+                // titleComponent={Title} // custom title of days
+                />
+            </ThemeProvider>
         } else {
             calendar = null;
         }
