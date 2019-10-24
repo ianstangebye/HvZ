@@ -15,7 +15,7 @@
         margin: 0;
         grid-column: 1;
         grid-row: 1;
-        font-size: 18px;
+        font-size: 14px;
         color: #2C6974;
     }
     
@@ -104,7 +104,16 @@
 }
 
 @media screen and (min-width: 801px) {
+    .MissionListItem {
+        grid-template-columns: 35% 1fr 20%;
+        grid-template-rows: 20px 15px; 
+    }
+
     .MissionListItem button {
+        font-size: 18px;
+    }
+
+    .MissionListItem h4 {
         font-size: 18px;
     }
 }

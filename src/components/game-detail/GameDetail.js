@@ -189,13 +189,13 @@ class GameDetail extends React.Component {
         let squadFragment = [<SquadListFragment key={squadListIdx} onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} is_human={player.is_Human} userInfo={userInfo} />]
         if(squad_id) {
             squadListIdx++;
-            squadFragment.push(<SquadDetailsFragment newSquadCheckin={this.updateSquadDetails} key={squadListIdx} onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id} userInfo={userInfo} />)
+            squadFragment.unshift(<SquadDetailsFragment newSquadCheckin={this.updateSquadDetails} key={squadListIdx} onUpdate={this.getPlayer} game_id={game_id} player_id={player_id} squad_id={squad_id} squad_member_id={squad_member_id} userInfo={userInfo} />)
         }
 
         if(admin) {
             return (
                 <Fragment>
-                    <img src={pictureId} className={styles.AdminPic} alt="Player"></img>
+                    <img src={pictureId} className={styles.PictureId} alt="Player"></img>
                     <div className={styles.Admin}>
                         <div className={styles.AdColLeft}>
                             <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} player={player} />
