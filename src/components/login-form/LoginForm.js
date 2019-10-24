@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './LoginForm.module.css';
 import { Redirect } from 'react-router';
 import jwt_decode from 'jwt-decode';
-import { Link } from 'react-router-dom';
 
 class LoginForm extends React.Component{
 

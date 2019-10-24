@@ -2,7 +2,6 @@ import React from 'react';
 import Calendar from '@lls/react-light-calendar';
 import '@lls/react-light-calendar/dist/index.css';
 import styles from './NewMissionForm.module.css';
-import { isLVal } from '@babel/types';
 
 class NewMissionForm extends React.Component {
 

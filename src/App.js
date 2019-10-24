@@ -4,7 +4,7 @@ import Header from './components/header/Header';
 import GameList from './components/game-list-item/GameList';
 import BiteCodeEntry from './components/bite-code-entry/BiteCodeEntry';
 import MapFragment from './components/map-fragment/MapFragment';
-import MapFragTest from './components/map-frag-test/MapFragTest';
+//import MapFragTest from './components/map-frag-test/MapFragTest';
 import GoogleMap from './components/google-map/GoogleMap';
 import LoginForm from './components/login-form/LoginForm';
 import RegisterForm from './components/register-form/RegisterForm'
