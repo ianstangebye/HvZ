@@ -100,24 +100,33 @@ class NewGameForm extends React.Component {
 
     }
     
-    onCalendarChange = (start_time, end_time) => {
-        console.log(start_time);
-        console.log(end_time);
+    // onCalendarChange = (start_time, end_time) => {
+    //     console.log(start_time);
+    //     console.log(end_time);
         
-        this.setState({
-            start_time: new Date(start_time).toLocaleString(),
-            end_time: new Date(end_time).toLocaleString()
-        })
-    }
+    //     this.setState({
+    //         start_time: new Date(start_time).toLocaleString(),
+    //         end_time: new Date(end_time).toLocaleString()
+    //     })
+    // }
 
     onCalendarChange = (days) => {
-        console.log(days[0]);
-        console.log(days[days.length-1]);
-        
-        this.setState({
-            start_time: new Date(days[0]).toLocaleString(),
-            end_time: new Date(days[days.length-1]).toLocaleString()
-        })
+        if(days.length == 1) {
+            this.setState({
+                start_time: new Date(days[0]).toLocaleString(),
+                end_time: new Date(days[days.length-1]).toLocaleString()
+            })
+        } else if (days[0] < days[1]) {
+            this.setState({
+                start_time: new Date(days[0]).toLocaleString(),
+                end_time: new Date(days[1]).toLocaleString()
+            })
+        } else {
+            this.setState({
+                start_time: new Date(days[1]).toLocaleString(),
+                end_time: new Date(days[0]).toLocaleString()
+            })
+        }
     }
 
 
@@ -162,13 +171,14 @@ class NewGameForm extends React.Component {
 
         if(this.state.calendarOn) {
             // calendar = <Calendar startDate={startDate} endDate={endDate} onChange={this.onCalendarChange} range displayTime/>
-            calendar = <ThemeProvider theme={theme}>
+            calendar = 
+            <ThemeProvider theme={theme}>
                 <DatePicker
                 handleChange={(days) => this.onCalendarChange(days)}
                 // selectedDays={[startDate]} //initial selected days
                 jalali={false}
                 numberOfMonths={3}
-                // numberOfSelectableDays={3} // number of days you need 
+                numberOfSelectableDays={2} // number of days you need 
                 // disabledDays={['2019-12-02']} //disabeld days
                 responsive={handleResponsive} // custom responsive, when using it, `numberOfMonths` props not working
                 disabledBeforToday={true} 

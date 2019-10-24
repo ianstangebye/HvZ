@@ -2,6 +2,8 @@ import React from 'react';
 import Calendar from '@lls/react-light-calendar';
 import '@lls/react-light-calendar/dist/index.css';
 import styles from './NewMissionForm.module.css';
+import { DatePicker, RangePicker, theme } from 'react-trip-date';
+import {ThemeProvider} from 'styled-components';
 
 class NewMissionForm extends React.Component {
 
@@ -37,15 +39,34 @@ class NewMissionForm extends React.Component {
         document.getElementById("showForm").style.display = 'none';
     }
 
-    onCalenderChange = (start_time, end_time) => {
-        console.log(start_time);
-        console.log(end_time);
+    // onCalenderChange = (start_time, end_time) => {
+    //     console.log(start_time);
+    //     console.log(end_time);
         
-        this.setState({
-            start_time: new Date(start_time).toLocaleString(),
-            end_time: new Date(end_time).toLocaleString()
-        })
+    //     this.setState({
+    //         start_time: new Date(start_time).toLocaleString(),
+    //         end_time: new Date(end_time).toLocaleString()
+    //     })
+    // }
+    onCalendarChange = (days) => {
+        if(days.length == 1) {
+            this.setState({
+                start_time: new Date(days[0]).toLocaleString(),
+                end_time: new Date(days[days.length-1]).toLocaleString()
+            })
+        } else if (days[0] < days[1]) {
+            this.setState({
+                start_time: new Date(days[0]).toLocaleString(),
+                end_time: new Date(days[1]).toLocaleString()
+            })
+        } else {
+            this.setState({
+                start_time: new Date(days[1]).toLocaleString(),
+                end_time: new Date(days[0]).toLocaleString()
+            })
+        }
     }
+
 
     handleCloseClick = () => {
         this.setState({
@@ -115,6 +136,25 @@ class NewMissionForm extends React.Component {
 
     render(){
 
+        const  handleResponsive  =  setNumberOfMonth  =>  {
+            let  width  =  document.querySelector('.tp-calendar').clientWidth;
+            if  (width  >  900)  {
+                setNumberOfMonth(3);
+            }  else  if  (width  <  900  &&  width  >  580)  {
+                setNumberOfMonth(2);
+            }  else  if  (width  <  580)  {
+                setNumberOfMonth(1);
+            }
+        };
+        
+        const  Day = ({  day  }) => {
+            return  (
+                <>
+                    <p  className="date">{day.format('DD')}</p>
+                </>
+            );
+        };
+
         const startDate = new Date(this.state.start_time).getTime()
         const endDate = new Date(this.state.end_time).getTime()
 
@@ -141,7 +181,22 @@ class NewMissionForm extends React.Component {
                         <label>Longitude:</label>
                             <input value={this.state.lng} onChange={(e) => this.updateInputValue("lng", e)} placeholder="Enter a longitude here..." type="text" />
                         <label>Start and End Time</label>
-                            <Calendar className={styles.calendar} startDate={startDate} endDate={endDate} onChange={this.onCalenderChange} range displayTime timezone="Europe/Oslo"/>
+                            {/* <Calendar className={styles.calendar} startDate={startDate} endDate={endDate} onChange={this.onCalenderChange} range displayTime timezone="Europe/Oslo"/> */}
+                            <ThemeProvider theme={theme}>
+                                <DatePicker
+                                handleChange={(days) => this.onCalendarChange(days)}
+                                // selectedDays={[startDate]} //initial selected days
+                                jalali={false}
+                                numberOfMonths={3}
+                                numberOfSelectableDays={2} // number of days you need 
+                                // disabledDays={['2019-12-02']} //disabeld days
+                                responsive={handleResponsive} // custom responsive, when using it, `numberOfMonths` props not working
+                                disabledBeforToday={true} 
+                                disabled={false} // disable calendar 
+                                dayComponent={Day} //custom day component 
+                                // titleComponent={Title} // custom title of days
+                                />
+                            </ThemeProvider>
                     </form>
                     <button className={styles.CreateBtn} onClick={() => {
                             this.onClickCreate();
