@@ -15,8 +15,7 @@ class GoogleMap extends React.Component {
             game: {},
             missions: [],
             checkins: [],
-            userInfo: props.userInfo,
-            player: props.player || {}
+            userInfo: props.userInfo
         }
         this.map = null;
         this.locationImage = null;
@@ -471,7 +470,7 @@ class GoogleMap extends React.Component {
                     <div id="map" ref={this.mapEl} className={styles.Map}>
                     </div>
                 </div>
-                <div style={{display:  this.state.player.player_Id == undefined ? 'none' : 'block'}}>
+                <div style={{display: this.state.userInfo.is_admin === false ? 'none' : 'block'}}>
                     <MissionList game_id={this.state.game.game_Id} userInfo={this.state.userInfo} missions={this.state.missions} onUpdateMap={this.renderMap} updateMissions={this.updateMissions}></MissionList>
                 </div>
                 
