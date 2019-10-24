@@ -31,7 +31,7 @@ class RegistrationFragment extends React.Component {
 
     joinGame = () => {
         const crypto = require("crypto");
-        const biteCode = crypto.randomBytes(10).toString('hex');
+        const biteCode = crypto.randomBytes(3).toString('hex');
 
         const newPlayer = {
             is_Human: true,

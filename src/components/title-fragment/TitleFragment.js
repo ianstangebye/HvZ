@@ -28,8 +28,6 @@ export default class TitleFragment extends React.Component {
         this.setState({ game_id : game_id }, () => {
             this.getGameTitle();
         });
-
-        console.log('IS ADMIN:', this.state.userInfo.is_admin);
         
     }
 
