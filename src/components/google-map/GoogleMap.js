@@ -15,7 +15,8 @@ class GoogleMap extends React.Component {
             game: {},
             missions: [],
             checkins: [],
-            userInfo: props.userInfo
+            userInfo: props.userInfo,
+            player: props.player || {}
         }
         this.map = null;
         this.locationImage = null;
@@ -390,7 +391,7 @@ class GoogleMap extends React.Component {
 
         this.renderMap();
         // this.setInt();
-
+        
     }
 
     handleLocationError(err) {
@@ -470,7 +471,10 @@ class GoogleMap extends React.Component {
                     <div id="map" ref={this.mapEl} className={styles.Map}>
                     </div>
                 </div>
-                <MissionList game_id={this.state.game.game_Id} userInfo={this.state.userInfo} missions={this.state.missions} onUpdateMap={this.renderMap} updateMissions={this.updateMissions}></MissionList>
+                <div style={{display:  this.state.player.player_Id == undefined ? 'none' : 'block'}}>
+                    <MissionList game_id={this.state.game.game_Id} userInfo={this.state.userInfo} missions={this.state.missions} onUpdateMap={this.renderMap} updateMissions={this.updateMissions}></MissionList>
+                </div>
+                
             </React.Fragment>
 
         )
