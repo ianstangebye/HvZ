@@ -93,7 +93,7 @@ class NewMissionForm extends React.Component {
             console.log(error);
         })
         
-        
+        this.handleCloseClick();
         this.props.onUpdateMissions();
         
 

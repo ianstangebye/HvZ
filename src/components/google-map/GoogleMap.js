@@ -167,6 +167,9 @@ class GoogleMap extends React.Component {
             });
         }
 
+        const infoWindows = [];
+        let idx = 0;
+
         for (var i = 0; i < this.state.missions.length; i++) {
             var mission = this.state.missions[i];
 
@@ -198,10 +201,15 @@ class GoogleMap extends React.Component {
                     var infowindow = new window.google.maps.InfoWindow({
                         content: contentString
                     });
-                    globalMarker.addListener('click', function () {
-                        infowindow.open(this.map, globalMarker);
+                    infoWindows.push({ "title": mission.name, "info": infowindow });
+                    globalMarker.addListener('click', function () {                        
+                        for(var i = 0; i < infoWindows.length; i++) {
+                            if(infoWindows[i].title == this.title) {
+                                infoWindows[i].info.open(this.map, this);
+                            }
+                        }
                     });
-                } else if (mission.is_Human_Visible == false && player_status == false) {
+                } else if (mission.is_Human_Visible == false && (player_status == false || this.state.userInfo.is_admin)) {
                     var zombieMarker = new window.google.maps.Marker({
                         position: { lat: mission.latitude, lng: mission.longitude },
                         map: this.map,
@@ -213,10 +221,15 @@ class GoogleMap extends React.Component {
                     var infowindow = new window.google.maps.InfoWindow({
                         content: contentString
                     });
-                    zombieMarker.addListener('click', function () {
-                        infowindow.open(this.map, zombieMarker);
+                    infoWindows.push({ "title": mission.name, "info": infowindow });
+                    zombieMarker.addListener('click', function () {                        
+                        for(var i = 0; i < infoWindows.length; i++) {
+                            if(infoWindows[i].title == this.title) {
+                                infoWindows[i].info.open(this.map, this);
+                            }
+                        }
                     });
-                } else if (mission.is_Human_Visible == true && player_status == true) {
+                } else if (mission.is_Human_Visible == true && (player_status == true || this.state.userInfo.is_admin)) {
                     var humanMarker = new window.google.maps.Marker({
                         position: { lat: mission.latitude, lng: mission.longitude },
                         map: this.map,
@@ -228,10 +241,14 @@ class GoogleMap extends React.Component {
                     var infowindow = new window.google.maps.InfoWindow({
                         content: contentString
                     });
-                    humanMarker.addListener('click', function () {
-                        infowindow.open(this.map, humanMarker);
+                    infoWindows.push({ "title": mission.name, "info": infowindow });
+                    humanMarker.addListener('click', function () {                        
+                        for(var i = 0; i < infoWindows.length; i++) {
+                            if(infoWindows[i].title == this.title) {
+                                infoWindows[i].info.open(this.map, this);
+                            }
+                        }
                     });
-
                 } else {
                     console.log('Player' + this.props.player.player_Id + 'status is ' + player_status + '. The user_Id is ' + this.props.player.user_Id);
 
@@ -404,9 +421,9 @@ class GoogleMap extends React.Component {
         
     // }
 
-    updateMissions(){
+    updateMissions = () => {
         console.log("really hoping this works");
-        
+        this.renderMap();
     }
 
     render() {
