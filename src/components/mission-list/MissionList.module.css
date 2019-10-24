@@ -47,6 +47,12 @@
 
 @media screen and (min-width: 801px) {
 
+    .MissionComponents {
+        max-height: 400px;
+        height: 100%;
+        overflow: auto;
+    }
+
     .Title {
         margin-bottom: 10px;
     }

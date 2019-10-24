@@ -361,10 +361,63 @@ class GoogleMap extends React.Component {
         const id = this.props.game_id;
         const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}`;
 
+        if(!navigator.geolocation) {
+            alert("Your browser does not support geolocation. Some features will be unavailable.")
+            return
+        }
 
+        navigator.geolocation.getCurrentPosition(this.startContinuousLocationPolling, this.handleLocationError)
 
+        //need to set in the correct 
+        await fetch(targetUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userInfo.token
+            }
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            // console.log(resp);
+            this.setState({
+                game: resp
+            });
+            console.log(this.state.game.nw_Lng);
+
+        }).catch(error => {
+            console.log(error);
+
+        });
+
+        this.renderMap();
+        // this.setInt();
+
+    }
+
+    handleLocationError(err) {
+        let msg = ""
+        let note = "Some features will be unavailable."
+
+        switch(err.code) {
+            case err.PERMISSION_DENIED:
+                msg = `Humans vs Zombies does not have permission to use your location. ${note} Please change your settings.`
+                break
+            case err.POSITION_UNAVAILABLE:
+                msg = `Could not find your position. ${note} Try changing your settings or refreshing the page.`
+                break
+            case err.TIMEOUT:
+                msg = `Location request timed out. Check your internet connection. ${note}`
+                break
+            default:
+                msg = `An unknown error occured. ${note} Please refresh the page to try again.`
+                break
+        }
+
+        alert(msg)
+    }
+
+    startContinuousLocationPolling = () => {
         //this is probably the best way to do it at least for our purposes
-        setInterval(() => {
+        this.interval = setInterval(() => {
 
             navigator.geolocation.getCurrentPosition(position => {
                 var updatedPosition = new window.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -386,34 +439,18 @@ class GoogleMap extends React.Component {
                 }
 
             }, error => {
-                alert(error)
+                console.error(error)
             });
 
         }, 1000)
+    }
 
+    stopContinuousLocationPolling() {
+        clearInterval(this.interval)
+    }
 
-        //need to set in the correct 
-        await fetch(targetUrl, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + this.state.userInfo.token
-            }
-        }).then(resp => resp.json())
-            .then(resp => {
-                // console.log(resp);
-                this.setState({
-                    game: resp
-                });
-                console.log(this.state.game.nw_Lng);
-
-            }).catch(error => {
-                console.log(error);
-
-            });
-
-        this.renderMap();
-        // this.setInt();
-
+    componentWillUnmount() {
+        this.stopContinuousLocationPolling()
     }
 
     // sendMeASign () {
