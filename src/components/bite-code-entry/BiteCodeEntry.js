@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './BiteCodeEntry.module.css';
-import { isLVal } from '@babel/types';
 
 class BiteCodeEntry extends React.Component{
     constructor(props) {

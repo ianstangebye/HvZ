@@ -81,7 +81,7 @@ function GameItem(props) {
                         {/* style={{ display: user_id !== 0? 'block': 'none', textDecoration: 'none'}}> */}
                         <div className={styles.GameItem}>
                             <h4>{game.name}</h4>
-                            <p className={styles.Players}><img src={playersIcon}/> {players.length}</p>
+                            <p className={styles.Players}><img src={playersIcon} alt="players"/> {players.length}</p>
                             <p className={styles.StartDate}>Start: <Moment format="YYYY-MM-DD HH:mm">
                                    {game.start_Time}
                                 </Moment></p>
@@ -99,7 +99,7 @@ function GameItem(props) {
             <React.Fragment>
                 <div className={styles.GameItem}>
                     <h4>{game.name}</h4>
-                    <p className={styles.Players}><img src={playersIcon}/>{players.length}</p>
+                    <p className={styles.Players}><img src={playersIcon} alt="players"/>{players.length}</p>
                     <p className={styles.StartDate}>Start: <Moment format="YYYY-MM-DD HH:mm">
                                    {game.start_Time}
                                 </Moment></p>

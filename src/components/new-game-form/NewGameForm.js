@@ -10,10 +10,9 @@ class NewGameForm extends React.Component {
     constructor(props) {
         super(props);
 
-        const date = new Date()
-        const startDate = date.getTime()
-        const endDate = new Date(startDate).setDate(date.getDate() + 1);
-
+        const startDate = Date.now();
+        const endDate = new Date(startDate).setDate(new Date(startDate).getDate() + 1);
+        
         this.state = {
             is_admin: false,
             name: "",
@@ -25,7 +24,7 @@ class NewGameForm extends React.Component {
             start_time: new Date(startDate).toLocaleString(), 
             end_time: new Date(endDate).toLocaleString(),
             creationSuccess: false,
-            calenderOn: false,
+            calendarOn: false,
             userInfo: props.userInfo
         };
     }
@@ -51,11 +50,11 @@ class NewGameForm extends React.Component {
         }
     }
 
-    toggleCalender = () => {
-        const toggle = this.state.calenderOn ? false : true;
+    toggleCalendar = () => {
+        const toggle = this.state.calendarOn ? false : true;
 
         this.setState({
-            calenderOn: toggle
+            calendarOn: toggle
         })
     }
 
@@ -99,7 +98,7 @@ class NewGameForm extends React.Component {
 
     }
     
-    onCalenderChange = (start_time, end_time) => {
+    onCalendarChange = (start_time, end_time) => {
         console.log(start_time);
         console.log(end_time);
         
@@ -124,15 +123,15 @@ class NewGameForm extends React.Component {
             }} />
         }
 
-        let calender = null;
+        let calendar = null;
 
         const startDate = new Date(this.state.start_time).getTime()
         const endDate = new Date(this.state.end_time).getTime()
 
-        if(this.state.calenderOn) {
-            calender = <Calendar startDate={startDate} endDate={endDate} onChange={this.onCalenderChange} range displayTime timezone="Europe/Oslo"/>
+        if(this.state.calendarOn) {
+            calendar = <Calendar startDate={startDate} endDate={endDate} onChange={this.onCalendarChange} range displayTime/>
         } else {
-            calender = null;
+            calendar = null;
         }
 
         return (
@@ -174,11 +173,11 @@ class NewGameForm extends React.Component {
                     </div>
                 </form>
                 
-                {calender}
+                {calendar}
 
                 <div className={styles.Btns}>
                     <button className={styles.BtnGetLocation} onClick={this.getLocation}>Get Location</button>
-                    <button className={styles.BtnGetLocation} onClick={this.toggleCalender}>Get Time</button>
+                    <button className={styles.BtnGetLocation} onClick={this.toggleCalendar}>Get Time</button>
                     <button className={styles.BtnCreate} onClick={this.createNewGame}>Create Game</button>
                 </div>
             </div>
