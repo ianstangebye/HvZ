@@ -313,7 +313,7 @@ class ChatFragment extends React.Component {
                     value={this.state.messageText}
                 />
 
-                <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} /></button>
+                <button id={styles.BtnSend} onClick={this.sendMessage}><img src={sendIcon} alt="Send"/></button>
             </footer>
 
         if(this.props.adminMode && this.state.activeTab === "Squad") {
