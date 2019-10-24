@@ -62,9 +62,11 @@ export default class EditPlayerFragment extends React.Component {
         return(
             <React.Fragment>
                 <div className={styles.EditPlayerFragment} style={{display: this.state.players.length === 0 ? 'none' : 'block'}}>
-                    <button id="ShowPlayersBtn" className={styles.Btn} onClick={this.handleShowPlayers}>Edit players</button>
-                    <div className={styles.PlayerComponents} style={{display: this.state.isVisible ? 'block' : 'none'}}>
-                        {playerComponents}
+                    <div className={styles.EditPlayer}>
+                        <button id="ShowPlayersBtn" className={styles.Btn} onClick={this.handleShowPlayers}>Edit players</button>
+                        <div className={styles.PlayerComponents} style={{display: this.state.isVisible ? 'block' : 'none'}}>
+                            {playerComponents}
+                        </div>
                     </div>
                 </div>
                 

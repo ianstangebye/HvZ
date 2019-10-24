@@ -1,7 +1,10 @@
 @media screen and (min-width: 100px) {
     .EditPlayerFragment {
-        margin: 10px auto;
-        padding: 10px;
+        margin: 10px;
+    }
+
+    .EditPlayer {
+        margin: 0 auto;
         max-width: 600px;
     }
     
@@ -24,8 +27,14 @@
     }
 }
 
+@media screen and (min-width: 801px) {
+    .EditPlayer {
+        max-width: 800px;
+    }
+}
+
 @media screen and (min-width: 1200px) {
-    .EditPlayerFragment {
+    .EditPlayer {
         max-width: 1200px;
     }
 }

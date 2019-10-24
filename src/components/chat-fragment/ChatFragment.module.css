@@ -70,7 +70,7 @@
         background-color: #77A4AC;
         color: #F5F5F5;
         width: fit-content;
-        border-radius: 5px;
+        border-radius: 15px;
         margin: 3px;
         padding: 10px;
         float: left;
@@ -109,15 +109,16 @@
     }
     #BtnSend {
         margin: 10px 0 10px 10px;
-        width: 100px;
+        max-width: 70px;
+        width: 100%;
         border-radius: 5px;
     }
     
     .UserMessage {
-        background-color: #77A4AC;
+        background-color: #2C6974;
         color: #F5F5F5;
         width: fit-content;
-        border-radius: 5px;
+        border-radius: 15px;
         margin: 3px;
         padding: 10px;
         float: right;
@@ -142,6 +143,8 @@
 
 @media screen and (min-width: 801px){
 
+   
+
 }
 
 @media screen and (min-width: 1200px) {
@@ -165,6 +168,15 @@
     .Messages {
         max-width: 1000px;
         width: 100%;
+    }
+
+    #MsgInput {
+        max-width: 1200px;
+        width: 100%;
+    }
+
+    #BtnSend {
+        max-width: 120px;
     }
 
     .Tabs {

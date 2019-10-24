@@ -1,24 +1,23 @@
 @media screen and (min-width: 100px) {
     .SquadComponents {
+        max-width: 600px;
         width: 100%;
         background-color: #77A4AC;
-        margin: 20px 0;
+        margin: 20px auto;
         padding: 1px;
         border-radius: 15px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     }   
     
     .SquadList {
-        margin: 10px auto;
-        padding: 0 10px;
-        max-width: 600px;
-        width: 100%;
+        margin: 10px;
     }
 
     .Title {
         position: relative;
+        max-width: 600px;
         width: 100%;
-        margin-bottom: 30px;
+        margin: 0 auto 30px auto;
     }
 
     .Title h1 {
@@ -41,14 +40,19 @@
 }
 
 @media screen and (min-width: 801px) {
+    .SquadList {
+        margin: 10px;
+        padding: 0;
+    }
 
     .SquadComponents {
+        max-width: 800px;
         width: 100%;
         background-color: #77A4AC;
         max-height: 30vh;
         height: fit-content;
         overflow-y: auto;
-        margin: 10px 0;
+        margin: 10px auto;
         border-radius: 15px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     }
@@ -58,18 +62,27 @@
     }
 
     .Title {
-        margin-bottom: 0;
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
     }
 } 
 
 @media screen and (min-width: 1200px) {
+    .SquadList {
+        margin: 10px;
+    }
+
+    .Title {
+        max-width: 1200px;
+
+    }
+
     .SquadComponents {
         display: block!important;
+        max-width: 1200px;
     }
 
     .SquadList {
-        max-width: 1200px;
-        width: 100%;
-        max-height: 400px;
     }
 }
