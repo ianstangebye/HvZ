@@ -24,7 +24,7 @@ class TimerFragment extends React.Component {
             game_id: this.props.game_id,
             userInfo: this.props.userInfo
         })
-        // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}`;
+        // const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.state.game_id}`;
 
         // await fetch(targetUrl).then(resp => resp.json())
         // .then(resp => {
@@ -55,7 +55,7 @@ class TimerFragment extends React.Component {
 
     startGame = async () => {
         if (!this.state.game.has_Patient_Zero) {
-            const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/zero`
+            const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.state.game_id}/zero`
 
             await fetch(targetUrl, {
                 method: 'POST',
@@ -103,7 +103,7 @@ class TimerFragment extends React.Component {
     }
 
     updateGameState = async () => {
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}`
+        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.state.game_id}`
 
         await fetch(targetUrl, {
             method: 'PUT',

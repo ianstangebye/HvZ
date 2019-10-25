@@ -141,8 +141,8 @@ class ChatFragment extends React.Component {
             squad = this.props.adminMode ? this.state.squad_id : this.props.squad_id
         }
         
-        //let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat/${tab}/${squad}`;
-        let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat/${tab}/${squad}`;
+        //let url = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/chat/${tab}/${squad}`;
+        let url = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/chat/${tab}/${squad}`;
 
         // Get appropriate messages for the active tab from the backend API
         axios
@@ -169,8 +169,8 @@ class ChatFragment extends React.Component {
     }
 
     getSquads = () => {
-        // let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad`;
-        let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad`;
+        // let url = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/squad`;
+        let url = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/squad`;
 
         // Get appropriate messages for the active tab from the backend API
         axios
@@ -221,8 +221,8 @@ class ChatFragment extends React.Component {
                 is_admin: this.state.userInfo.is_admin
             }
             
-            // axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat`, body, {
-            axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat`, body, {
+            // axios.post(`https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/chat`, body, {
+            axios.post(`https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/chat`, body, {
                     headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + this.state.userInfo.token

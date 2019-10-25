@@ -75,7 +75,7 @@ class NewGameForm extends React.Component {
                 "end_time": this.state.end_time
             }
 
-            const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game'
+            const targetUrl = 'https://hvz-webapi.azurewebsites.net/game'
 
             fetch(targetUrl, {
                 method: 'POST',

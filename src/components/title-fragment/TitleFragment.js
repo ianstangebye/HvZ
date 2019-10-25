@@ -33,7 +33,7 @@ export default class TitleFragment extends React.Component {
     }
 
     getGameTitle = async () => { 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}`
+        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}`
 
         await fetch(targetUrl, {
             headers: {
@@ -108,7 +108,7 @@ export default class TitleFragment extends React.Component {
 
         };
 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}`
+        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}`
 
         await fetch(targetUrl, {
             method: 'PUT',

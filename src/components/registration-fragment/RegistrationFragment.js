@@ -42,7 +42,7 @@ class RegistrationFragment extends React.Component {
             username: this.state.userInfo.username
         }
 
-        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/player`;
+        const url = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/player`;
 
         axios.post(url, newPlayer, {
             headers: {
@@ -71,7 +71,7 @@ class RegistrationFragment extends React.Component {
 
         //Delete SquadMember object first
         if(sid != 0 && smid != 0) { 
-            const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/squad/${sid}/member/${smid}`;
+            const url = `https://hvz-webapi.azurewebsites.net/game/${gid}/squad/${sid}/member/${smid}`;
 
             console.log("Delete squad member url: " + url);
             
@@ -96,7 +96,7 @@ class RegistrationFragment extends React.Component {
         }
 
         // Delete player object
-        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/player/${pid}`;
+        const url = `https://hvz-webapi.azurewebsites.net/game/${gid}/player/${pid}`;
 
         fetch(url, {
             method: 'DELETE', 

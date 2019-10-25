@@ -13,7 +13,7 @@ export default class SquadListItem extends React.Component {
 
     async componentDidMount() {
         
-        const targetUrl =  `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad.squad_Id}/member`
+        const targetUrl =  `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/squad/${this.props.squad.squad_Id}/member`
 
         await fetch(targetUrl, {
             headers: {

@@ -59,8 +59,8 @@ class GameList extends React.Component {
         // console.log("list is_admin: " + this.state.is_admin);
 
         //const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game`;
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game`;
+        // const targetUrl = `https://hvz-webapi.azurewebsites.net/game`;
+        const targetUrl = `https://hvz-webapi.azurewebsites.net/game`;
         
         //need to set in the correct 
         await fetch(targetUrl, {
