@@ -1,3 +1,7 @@
+.hidden{
+    display: none;
+}
+
 @media screen and (min-width: 100px) {
     .MapDiv {
         margin: 0 10px;
