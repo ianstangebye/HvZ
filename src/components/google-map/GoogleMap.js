@@ -201,8 +201,8 @@ class GoogleMap extends React.Component {
                 <hr>
                 <p style="color:black;top-padding:0;">${mission.description}</p>
               
-                <b style="color:black;padding:2px;">Mission Deadline: ${mission.end_Time}</b>
-                <button type="button" onClick="(async function(){
+                <b style="color:black;padding:2px;">Mission Deadline: ${mission.end_Time}</b><br/>
+                <button style="display:inline-block;" type="button" onClick="(async function(){
                     const missionsURL = 'http://case-hvzapi.northeurope.azurecontainer.io/game/${id}/mission/${mission.mission_Id}';
                     console.log(missionsURL);
 await fetch(missionsURL, {
@@ -223,7 +223,7 @@ console.log(error);
 
 document.getElementById('HiddenButton').click();
 
-                })()">DeleteV3</button>
+                })()">Delete Mission</button>
                 </div>`;
                 
             } else {

@@ -1,3 +1,21 @@
+.Checkbox{
+    display: inline;
+}
+
+
+.CheckboxLabels{
+    display: none;
+}
+
+.Calendar {
+    background-color: #DBA53D;
+}
+
+.tpcalendar{
+    background-color: #DBA53D;
+
+}
+
 @media screen and (min-width: 100px) {
 
     .NewMissionForm {
@@ -112,3 +130,5 @@
 @media screen and (min-width: 801px) {
 
 }
+
+
