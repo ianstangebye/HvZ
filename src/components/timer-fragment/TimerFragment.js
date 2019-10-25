@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import styles from './TimerFragment.module.css';
 import Moment from 'react-moment';
 import moment from 'moment';
@@ -74,7 +74,7 @@ class TimerFragment extends React.Component {
                 })
                 .catch(e => {
                     console.error(e);
-                    alert("An unexpected error occured. Please try again later.")
+                    alert("An unexpected error occurred. Please try again later.")
                 });
         }
 
@@ -122,72 +122,51 @@ class TimerFragment extends React.Component {
             })
             .catch(e => {
                 console.error(e);
-                alert("An unexpected error occured. Please try again later.")
+                alert("An unexpected error occurred. Please try again later.")
             });
 
         this.props.onUpdate();
     }
-
+    
     render() {
-        if (this.state.game.game_State === 'Registration') {
-            return (
-                <React.Fragment>
-                    <div className={styles.Timer}>
-                        {/* <div className={styles.GameState}>
-                            <h2>Game State: {this.state.game.game_State}</h2>
-                        </div> */}
-                        <div className={styles.TimerMoment}>
-                            <div className={styles.Time}>
-                                <p>Start Time: </p>
-                                <p><Moment format="YYYY-MM-DD HH:mm">
-                                    {this.state.game.start_Time}
-                                </Moment></p>
-                            </div>
-                            <div className={styles.FromNow}>
-                                <p>From Now: </p>
-                                <p><Moment fromNow className={styles.timer_fromNow}
-                                    onChange={(time) => { this.timerBeforeStart(time) }}>
-                                    {this.state.game.start_Time}
-                                </Moment></p>
-                            </div>
-                        </div>
-                    </div>
-                </React.Fragment>
-            )
-        } else if (this.state.game.game_State === 'In Progress') {
-            return (
-                <React.Fragment>
-                    <div className={styles.Timer}>
-                        {/* <div className={styles.GameState}>
-                            <h2>Game State: {this.state.game.game_State}</h2>
-                        </div> */}
-                        <div className={styles.TimerMoment}>
-                            <div className={styles.Time}>
-                                <p>End Time: </p>
-                                <p><Moment format="YYYY-MM-DD HH:mm">
-                                    {this.state.game.end_Time}
-                                </Moment></p>
-                            </div>
-                            <div className={styles.FromNow}>
-                                <p>From Now: </p>
-                                <p><Moment fromNow className={styles.timer_fromNow}
-                                    onChange={(time) => { this.timerBeforeEnd(time) }}>
-                                    {this.state.game.end_Time}
-                                </Moment></p>
-                            </div>
-                        </div>
-                    </div>
-                </React.Fragment>
-            )
-        } else {
-            return (
-                <React.Fragment>
-                    {/* <div className={styles.timer}>
-                        <h2>Game State: {this.state.game.game_State}</h2>
-                    </div> */}
-                </React.Fragment>
-            )
+        const game = this.state.game
+        const gameState = game.game_State
+
+        const hasStarted = gameState !== "Registration"
+        let timeTxt = ""
+
+        switch(gameState) {
+            case "Registration":
+                timeTxt = "STARTS: "
+                break
+            case "In Progress":
+                timeTxt = "ENDS: "
+                break
+            case "Complete":
+                timeTxt = "ENDED: "
         }
+
+        return (
+            <Fragment>
+                <div className={styles.Timer}>
+                    <div className={styles.TimerMoment}>
+                        <div className={styles.Time}>
+                            <p>{hasStarted ? "END TIME: " : "START TIME: "}</p>
+                            <p><Moment format="YYYY-MM-DD HH:mm">
+                                {hasStarted ? game.end_Time : game.start_Time}
+                            </Moment></p>
+                        </div>
+                        <div className={styles.FromNow}>
+                            <p>{timeTxt}</p>
+                            <p><Moment fromNow className={styles.timer_fromNow}
+                                onChange={hasStarted ? this.timerBeforeEnd : this.timerBeforeStart}>
+                                {hasStarted ? game.end_Time : game.start_Time}
+                            </Moment></p>
+                        </div>
+                    </div>
+                </div>
+            </Fragment>
+        )
     }
 }
 

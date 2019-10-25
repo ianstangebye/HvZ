@@ -457,7 +457,7 @@ document.getElementById('HiddenButton').click();
                 msg = `Location request timed out. Check your internet connection. ${note}`
                 break
             default:
-                msg = `An unknown error occured. ${note} Please refresh the page to try again.`
+                msg = `An unknown error occurred. ${note} Please refresh the page to try again.`
                 break
         }
 
