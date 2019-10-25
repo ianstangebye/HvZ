@@ -76,7 +76,7 @@
 //         // const id = this.props.match.params.id;
 
 //         // 
-//         // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}`;
+//         // const targetUrl = `https://52.142.92.199/game/${id}`;
 
 //         // useEffect(()=>{
 //         //             //need to set in the correct 
