@@ -17,7 +17,7 @@ class MissionList extends React.Component{
         }
     }
 
-    componentWillReceiveProps() {
+    UNSAFE_componentWillReceiveProps() {
         this.setState({
             game_id: this.props.game_id,
             missions: this.props.missions,
@@ -66,7 +66,7 @@ class MissionList extends React.Component{
 
         if(this.props.missions.length>0){
             missionComponents = this.props.missions.map(mission=>{
-                return <MissionItem onUpdateMap={this.props.onUpdateMap} mission={mission} key={mission.mission_Id} userInfo={this.state.userInfo} onUpdateMap={this.props.onUpdateMap} />
+                return <MissionItem onUpdateMap={this.props.onUpdateMap} mission={mission} key={mission.mission_Id} userInfo={this.state.userInfo} />
             });
         } else {
             missionComponents = <p>Loading missions...</p>

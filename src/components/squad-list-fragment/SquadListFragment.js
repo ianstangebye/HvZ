@@ -49,15 +49,12 @@ export default class SquadListFragment extends React.Component {
             console.log(e);
         })
 
-        console.log("squadlist game_id: " + that.state.game_id);
+        //console.log("squadlist game_id: " + that.state.game_id);
         
     }
 
-    /*================
-    Need Id's!
-    ================ */
     handleJoinSquad(squad_id) {
-        console.log("handleJoinSquad from child " + squad_id);
+        //console.log("handleJoinSquad from child " + squad_id);
 
         const game_id = this.props.game_id;
         const player_id = this.props.player_id;

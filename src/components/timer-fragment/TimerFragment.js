@@ -144,6 +144,7 @@ class TimerFragment extends React.Component {
                 break
             case "Complete":
                 timeTxt = "ENDED: "
+                break
         }
 
         return (

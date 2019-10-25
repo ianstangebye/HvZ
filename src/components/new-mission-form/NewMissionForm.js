@@ -1,7 +1,7 @@
 import React from 'react';
 import '@lls/react-light-calendar/dist/index.css';
 import styles from './NewMissionForm.module.css';
-import { DatePicker, RangePicker, theme } from 'react-trip-date';
+import { DatePicker, theme } from 'react-trip-date';
 import {ThemeProvider} from 'styled-components';
 
 class NewMissionForm extends React.Component {
@@ -15,8 +15,8 @@ class NewMissionForm extends React.Component {
         
         this.state= {
             name: '',
-            lat: null,
-            lng: null,
+            lat: 0,
+            lng: 0,
             description: '',
             zombie_Visible: false,
             human_Visible: false,
@@ -47,7 +47,7 @@ class NewMissionForm extends React.Component {
     //     })
     // }
     onCalendarChange = (days) => {
-        if(days.length == 1) {
+        if(days.length === 1) {
             this.setState({
                 start_time: new Date(days[0]).toLocaleString(),
                 end_time: new Date(days[days.length-1]).toLocaleString()
@@ -152,15 +152,15 @@ class NewMissionForm extends React.Component {
             );
         };
 
-        const startDate = new Date(this.state.start_time).getTime()
-        const endDate = new Date(this.state.end_time).getTime()
+        //const startDate = new Date(this.state.start_time).getTime()
+        //const endDate = new Date(this.state.end_time).getTime()
 
         return(
             <React.Fragment>
                 <div className={styles.NewMissionForm}>
-                        <div className={styles.ShowForm} id="showForm">
-                            <button className={styles.ShowFormBtn} type="button" onClick={this.showForm}>+</button>
-                        </div> 
+                    <div className={styles.ShowForm} id="showForm">
+                        <button className={styles.ShowFormBtn} type="button" onClick={this.showForm}>+</button>
+                    </div> 
 
                     <div className={styles.CreationForm} style={{display: this.state.isVisible ? 'block' : 'none'}}>
                         <h2>Add new mission marker</h2>
@@ -171,11 +171,11 @@ class NewMissionForm extends React.Component {
                                 <input className={styles.Input} value={this.state.description} onChange={(e) => this.updateInputValue("description", e)} placeholder="Enter a description here..." type="text" />
                             <label className={styles.Label}>Visibility:</label>
                                 <div className={styles.VisibilityHuman}>
-                                    <label className={styles.VisibilityLabel} for="human">Human</label>
+                                    <label className={styles.VisibilityLabel} htmlFor="human">Human</label>
                                     <input className={styles.CheckBox} onClick={this.humanVisible} name="human" type="checkbox" value="Human"/>
                                 </div>
                                 <div className={styles.VisibilityZombie}>
-                                    <label className={styles.VisibilityLabel} for="zombie">Zombie</label>
+                                    <label className={styles.VisibilityLabel} htmlFor="zombie">Zombie</label>
                                     <input className={styles.CheckBox} onClick={this.zombieVisible} name="zombie" type="checkbox"/>
                                 </div>
                             <label className={styles.Label}>Latitude:</label>
