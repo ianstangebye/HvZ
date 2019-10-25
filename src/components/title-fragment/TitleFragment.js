@@ -90,11 +90,11 @@ export default class TitleFragment extends React.Component {
         });
     }
 
-    saving= async ()=>{
+    saving = async ()=>{
         console.log("you are currently attempting to save a new game name");
         console.log(this.refs.gameName.innerText);
-        var button = document.querySelector('#editButton');
-        button.innerHTML = this.state.editButtonText;
+        // var button = document.querySelector('#editButton');
+        // button.innerHTML = this.state.editButtonText;
 
         var newName = {
             name: this.refs.gameName.innerText,
@@ -143,7 +143,7 @@ export default class TitleFragment extends React.Component {
                         <span suppressContentEditableWarning={true} contentEditable="false" style={{visibility: this.state.userInfo.is_admin ? 'visible' : 'hidden'}}>
                         <button suppressContentEditableWarning={true} contentEditable="false" onClick={this.state.editButtonFunction} id={styles.editButton} >
                             {/* {this.state.editButtonText} */}
-                            <FaEdit />
+                            {this.state.editing ? <FaSave /> : <FaEdit />}
                         </button>
                         </span>
                         </h1>

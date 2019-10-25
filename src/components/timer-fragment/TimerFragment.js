@@ -1,7 +1,11 @@
-import React, {Fragment} from 'react';
-import styles from './TimerFragment.module.css';
-import Moment from 'react-moment';
-import moment from 'moment';
+import React, {Fragment} from 'react'
+import styles from './TimerFragment.module.css'
+import Moment from 'react-moment'
+import moment from 'moment'
+import { FaEdit } from 'react-icons/fa'
+import { FaSave } from 'react-icons/fa'
+import { DatePicker, RangePicker, theme } from 'react-trip-date';
+import { ThemeProvider } from 'styled-components';
 
 class TimerFragment extends React.Component {
     constructor(props) {
@@ -127,6 +131,15 @@ class TimerFragment extends React.Component {
 
         this.props.onUpdate();
     }
+
+    editTime = () => {
+        if(this.state.editing) {
+            // Save the selected dates (if different) with a put request
+            console.log("Successfully edited start/end-time")
+        }
+
+        this.setState({editing: !this.state.editing})
+    }
     
     render() {
         const game = this.state.game
@@ -146,6 +159,35 @@ class TimerFragment extends React.Component {
                 timeTxt = "ENDED: "
         }
 
+        let editButton = null
+        if(this.state.userInfo.is_admin) {
+            editButton = <div style={{display: "inline", marginLeft: "5px", padding: "0"}} onClick={this.editTime}>{this.state.editing ? <FaSave /> : <FaEdit />}</div>
+        }
+
+        const Day = ({ day }) => {
+            return (
+                <p className="date">{day.format('DD')}</p>
+            )
+        }
+
+        const calendar =
+            <div className={styles.DatePickerContainer}>
+                <ThemeProvider theme={theme}>
+                    <DatePicker
+                        // handleChange={(days) => this.editTime(days)}
+                        // selectedDays={[startDate]} //initial selected days
+                        numberOfMonths={1}
+                        numberOfSelectableDays={2}
+                        disabledBeforToday={false}
+                        dayComponent={Day}
+                    />
+                </ThemeProvider>
+                <p>From: {`${game.start_Time}`.replace("T", " ")}</p>
+                <br />
+                <p>To: {`${game.end_Time}`.replace("T", " ")}</p>
+            </div>
+        
+
         return (
             <Fragment>
                 <div className={styles.Timer}>
@@ -155,6 +197,8 @@ class TimerFragment extends React.Component {
                             <p><Moment format="YYYY-MM-DD HH:mm">
                                 {hasStarted ? game.end_Time : game.start_Time}
                             </Moment></p>
+                            {editButton}
+                            {this.state.editing ? calendar : null}
                         </div>
                         <div className={styles.FromNow}>
                             <p>{timeTxt}</p>
