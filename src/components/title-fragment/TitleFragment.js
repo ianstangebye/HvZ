@@ -150,7 +150,7 @@ export default class TitleFragment extends React.Component {
                             </span>
                             </h1>
                             {/* <button onClick={this.editing} id={styles.editButton} class={this.state.editButtonSymbol}>{this.state.editButtonText}</button> */}
-                            <button className={styles.CollapseBtn} id="CollapseBtn" type="button" onClick={this.handleClick}>?</button>
+                            <button className={styles.CollapseBtnAdmin} id="CollapseBtn" type="button" onClick={this.handleClick}>?</button>
                         </div>
                         <div className={styles.Info}>
                             <p><span>Game State: </span> <span className={styles.GameState} style={{color: this.state.gameStateColor}}>{this.state.game.game_State}</span></p>
