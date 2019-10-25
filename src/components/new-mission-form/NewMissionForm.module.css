@@ -1,3 +1,7 @@
+.CalendarContainer {
+    background-color: #77A4AC;
+}
+
 @media screen and (min-width: 100px) {
 
     .NewMissionForm {
