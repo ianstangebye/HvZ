@@ -33,7 +33,7 @@ export default class SquadListFragment extends React.Component {
     }
 
     async getSquads(that) {
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/squad`
+        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.state.game_id}/squad`
 
         await fetch(targetUrl, {
             headers: {
@@ -65,7 +65,7 @@ export default class SquadListFragment extends React.Component {
             "player_Id": player_id
         }
 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/squad/${squad_id}/member`
+        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${game_id}/squad/${squad_id}/member`
 
         fetch(targetUrl, {
             method: 'POST',

@@ -33,7 +33,7 @@ export default class SquadCreationFragment extends React.Component {
             "game_id": this.state.game_id
         }
 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/squad`
+        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.state.game_id}/squad`
         
         console.log(targetUrl);
         console.log(newSquad);
@@ -73,7 +73,7 @@ export default class SquadCreationFragment extends React.Component {
             "player_id": this.state.player_id
         }
 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/squad/${this.state.squad_id}/member`
+        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.state.game_id}/squad/${this.state.squad_id}/member`
 
         fetch(targetUrl, {
             method: 'POST',

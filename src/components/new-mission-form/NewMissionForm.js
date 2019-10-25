@@ -90,7 +90,7 @@ class NewMissionForm extends React.Component {
 
         console.log(newMission);
 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/mission`
+        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/mission`
 
         // console.log(JSON.stringify(bite));
         

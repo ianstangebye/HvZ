@@ -50,7 +50,7 @@ class LoginForm extends React.Component{
             "password": this.state.password
         }
 
-        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth/authenticate'
+        const targetUrl = 'https://hvz-webapi.azurewebsites.net/game/auth/authenticate'
 
         // 'POST' using username and password in body (Success if 200 etc..)
         fetch(targetUrl, {

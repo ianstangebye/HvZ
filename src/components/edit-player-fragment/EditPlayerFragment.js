@@ -19,7 +19,7 @@ export default class EditPlayerFragment extends React.Component {
 
     componentDidMount() {
 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/player`
+        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.state.game_id}/player`
     
         fetch(targetUrl, {
             headers: {
