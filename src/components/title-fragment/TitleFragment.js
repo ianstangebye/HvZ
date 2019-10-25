@@ -3,6 +3,7 @@ import styles from './TitleFragment.module.css';
 import TimerFragment from '../timer-fragment/TimerFragment';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FaEdit } from 'react-icons/fa';
+import { FaSave } from 'react-icons/fa';
 
 export default class TitleFragment extends React.Component {
 
@@ -17,7 +18,7 @@ export default class TitleFragment extends React.Component {
             userInfo: props.userInfo,
             editing: false,
             editButtonText: '',
-            editButtonSymbol: 'fas fa-edit',
+            editButtonSymbol: '<FaSave/>',
             editButtonFunction: this.editing,
             // newName: ''
         }
@@ -84,7 +85,7 @@ export default class TitleFragment extends React.Component {
         this.setState({
             editing: true,
             // editButtonText: 'Save Changes',
-            editButtonSymbol: 'fas fa-save',
+            editButtonSymbol: '<FaSave/>',
             editButtonFunction: this.saving
         });
     }
@@ -92,6 +93,9 @@ export default class TitleFragment extends React.Component {
     saving= async ()=>{
         console.log("you are currently attempting to save a new game name");
         console.log(this.refs.gameName.innerText);
+        var button = document.querySelector('#editButton');
+        button.innerHTML = this.state.editButtonText;
+
         var newName = {
             name: this.refs.gameName.innerText,
             game_State: this.state.game.game_State,
