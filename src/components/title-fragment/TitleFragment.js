@@ -18,7 +18,7 @@ export default class TitleFragment extends React.Component {
             userInfo: props.userInfo,
             editing: false,
             editButtonText: '',
-            editButtonSymbol: '<FaSave/>',
+            editButtonSymbol: <FaEdit/>,
             editButtonFunction: this.editing,
             // newName: ''
         }
@@ -84,16 +84,16 @@ export default class TitleFragment extends React.Component {
         this.setState({
             editing: true,
             // editButtonText: 'Save Changes',
-            editButtonSymbol: '<FaSave/>',
+            editButtonSymbol: <FaSave/>,
             editButtonFunction: this.saving
         });
     }
 
     saving= async ()=>{
-        console.log("you are currently attempting to save a new game name");
-        console.log(this.refs.gameName.innerText);
-        var button = document.querySelector('#editButton');
-        button.innerHTML = this.state.editButtonText;
+        //console.log("you are currently attempting to save a new game name");
+        //console.log(this.refs.gameName.innerText);
+        //var button = document.querySelector('#editButton');
+        //button.innerHTML = this.state.editButtonSymbol;
 
         var newName = {
             name: this.refs.gameName.innerText,
@@ -128,7 +128,7 @@ export default class TitleFragment extends React.Component {
         this.setState({
             editing: false,
             // editButtonText: 'Save Changes',
-            editButtonSymbol: 'fas fa-edit',
+            editButtonSymbol: <FaEdit/>,
             editButtonFunction: this.editing
         });
     }
@@ -141,8 +141,8 @@ export default class TitleFragment extends React.Component {
                         <h1 suppressContentEditableWarning={true} ref="gameName">{this.state.game.name}
                         <span suppressContentEditableWarning={true} contentEditable="false" style={{visibility: this.state.userInfo.is_admin ? 'visible' : 'hidden'}}>
                         <button suppressContentEditableWarning={true} contentEditable="false" onClick={this.state.editButtonFunction} id={styles.editButton} >
-                            {/* {this.state.editButtonText} */}
-                            <FaEdit />
+                            {this.state.editButtonSymbol}
+                            {/* <FaEdit /> */}
                         </button>
                         </span>
                         </h1>
