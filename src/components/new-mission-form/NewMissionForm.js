@@ -90,7 +90,7 @@ class NewMissionForm extends React.Component {
 
         console.log(newMission);
 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/mission`
+        const targetUrl = `https://52.142.92.199/game/${this.props.game_id}/mission`
 
         // console.log(JSON.stringify(bite));
         
@@ -184,21 +184,23 @@ class NewMissionForm extends React.Component {
                                 <input className={styles.Input} value={this.state.lng} onChange={(e) => this.updateInputValue("lng", e)} placeholder="Enter a longitude here..." type="text" />
                             <label className={styles.Label}>Start and End Time</label>
                                 {/* <Calendar className={styles.calendar} startDate={startDate} endDate={endDate} onChange={this.onCalenderChange} range displayTime timezone="Europe/Oslo"/> */}
-                                <ThemeProvider theme={theme}>
-                                    <DatePicker
-                                    handleChange={(days) => this.onCalendarChange(days)}
-                                    // selectedDays={[startDate]} //initial selected days
-                                    jalali={false}
-                                    numberOfMonths={3}
-                                    numberOfSelectableDays={2} // number of days you need 
-                                    // disabledDays={['2019-12-02']} //disabeld days
-                                    responsive={handleResponsive} // custom responsive, when using it, `numberOfMonths` props not working
-                                    disabledBeforToday={true} 
-                                    disabled={false} // disable calendar 
-                                    dayComponent={Day} //custom day component 
-                                    // titleComponent={Title} // custom title of days
-                                    />
-                                </ThemeProvider>
+                                <div className={styles.CalendarContainer}>
+                                    <ThemeProvider theme={theme}>
+                                        <DatePicker
+                                        handleChange={(days) => this.onCalendarChange(days)}
+                                        // selectedDays={[startDate]} //initial selected days
+                                        jalali={false}
+                                        numberOfMonths={3}
+                                        numberOfSelectableDays={2} // number of days you need 
+                                        // disabledDays={['2019-12-02']} //disabeld days
+                                        responsive={handleResponsive} // custom responsive, when using it, `numberOfMonths` props not working
+                                        disabledBeforToday={true} 
+                                        disabled={false} // disable calendar 
+                                        dayComponent={Day} //custom day component 
+                                        // titleComponent={Title} // custom title of days
+                                        />
+                                    </ThemeProvider>
+                                </div>
                         </form>
                         <button className={styles.CreateBtn} onClick={() => {
                                 this.onClickCreate();

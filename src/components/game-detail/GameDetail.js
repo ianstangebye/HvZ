@@ -55,7 +55,7 @@ class GameDetail extends React.Component {
 
         const gid = this.state.game_id
         const uid = sessionStorage.getItem("user_id")
-        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/user/${uid}/player`
+        const url = `https://52.142.92.199/game/${gid}/user/${uid}/player`
 
         // Get this user's player object, if it exists
         axios
@@ -93,7 +93,7 @@ class GameDetail extends React.Component {
         const gid = this.state.game_id;
         const pid = this.state.player.player_Id;
         
-        const url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${gid}/member/${pid}`
+        const url = `https://52.142.92.199/game/${gid}/member/${pid}`
 
         // Get this player's squad member object, if it exists
         axios

@@ -45,7 +45,7 @@ export default class EditPlayerItem extends React.Component {
             username: this.props.player.username
         }
 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/player/${this.props.player.player_Id}/state` 
+        const targetUrl = `https://52.142.92.199/game/${this.props.game_id}/player/${this.props.player.player_Id}/state` 
         await fetch(targetUrl, {
             method: 'PUT',
             headers: {

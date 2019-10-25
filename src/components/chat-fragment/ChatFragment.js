@@ -140,8 +140,9 @@ class ChatFragment extends React.Component {
         if(tab === "Squad") {
             squad = this.props.adminMode ? this.state.squad_id : this.props.squad_id
         }
-
-        let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat/${tab}/${squad}`;
+        
+        //let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat/${tab}/${squad}`;
+        let url = `https://52.142.92.199/game/${this.props.game_id}/chat/${tab}/${squad}`;
 
         // Get appropriate messages for the active tab from the backend API
         axios
@@ -168,7 +169,8 @@ class ChatFragment extends React.Component {
     }
 
     getSquads = () => {
-        let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad`;
+        // let url = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad`;
+        let url = `https://52.142.92.199/game/${this.props.game_id}/squad`;
 
         // Get appropriate messages for the active tab from the backend API
         axios
@@ -218,9 +220,10 @@ class ChatFragment extends React.Component {
                 username: this.state.userInfo.username,
                 is_admin: this.state.userInfo.is_admin
             }
-
-            axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat`, body, {
-                headers: {
+            
+            // axios.post(`http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/chat`, body, {
+            axios.post(`https://52.142.92.199/game/${this.props.game_id}/chat`, body, {
+                    headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + this.state.userInfo.token
                 }
