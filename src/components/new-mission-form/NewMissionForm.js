@@ -1,5 +1,4 @@
 import React from 'react';
-import Calendar from '@lls/react-light-calendar';
 import '@lls/react-light-calendar/dist/index.css';
 import styles from './NewMissionForm.module.css';
 import { DatePicker, RangePicker, theme } from 'react-trip-date';
@@ -158,51 +157,52 @@ class NewMissionForm extends React.Component {
 
         return(
             <React.Fragment>
-                <div className={styles.SquadCreationFragment}>
-                    <div className={styles.ShowForm} id="showForm">
-                        <button className={styles.ShowFormBtn} type="button" onClick={this.showForm}>+</button>
-                    </div> 
-                </div>
+                <div className={styles.NewMissionForm}>
+                        <div className={styles.ShowForm} id="showForm">
+                            <button className={styles.ShowFormBtn} type="button" onClick={this.showForm}>+</button>
+                        </div> 
 
-                <div className={styles.CreationForm} style={{display: this.state.isVisible ? 'block' : 'none'}}>
-                    <h2>Add new mission marker</h2>
-                    <form>
-                        <label>Name:</label>
-                            <input autoFocus type="text" placeholder="Mission name here..." value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} required/>
-                        <label>Description:</label>
-                            <input value={this.state.description} onChange={(e) => this.updateInputValue("description", e)} placeholder="Enter a description here..." type="text" />
-                        <label>Visibility:</label><br/>
-                            <label><input onClick={this.humanVisible} type="checkbox" value="Human"/>Human</label>
-                            <label><input onClick={this.zombieVisible} type="checkbox"/>Zombie</label>
-                        <label>Latitude:</label>
-                            <input value={this.state.lat} onChange={(e) => this.updateInputValue("lat", e)} placeholder="Enter a latitude here..." type="text" />
-                        <label>Longitude:</label>
-                            <input value={this.state.lng} onChange={(e) => this.updateInputValue("lng", e)} placeholder="Enter a longitude here..." type="text" />
-                        <label>Start and End Time</label>
-                            {/* <Calendar className={styles.calendar} startDate={startDate} endDate={endDate} onChange={this.onCalenderChange} range displayTime timezone="Europe/Oslo"/> */}
-                            <ThemeProvider theme={theme}>
-                                <DatePicker
-                                handleChange={(days) => this.onCalendarChange(days)}
-                                // selectedDays={[startDate]} //initial selected days
-                                jalali={false}
-                                numberOfMonths={3}
-                                numberOfSelectableDays={2} // number of days you need 
-                                // disabledDays={['2019-12-02']} //disabeld days
-                                responsive={handleResponsive} // custom responsive, when using it, `numberOfMonths` props not working
-                                disabledBeforToday={true} 
-                                disabled={false} // disable calendar 
-                                dayComponent={Day} //custom day component 
-                                // titleComponent={Title} // custom title of days
-                                />
-                            </ThemeProvider>
-                    </form>
-                    <button className={styles.CreateBtn} onClick={() => {
-                            this.onClickCreate();
-                            //this.onClickJoin();
-                        }}>Create Mission</button>
-                        <button className={styles.CloseBtn} onClick={this.handleCloseClick}>Close</button>
+                    <div className={styles.CreationForm} style={{display: this.state.isVisible ? 'block' : 'none'}}>
+                        <h2>Add new mission marker</h2>
+                        <form>
+                            <label>Name:</label>
+                                <input autoFocus type="text" placeholder="Mission name here..." value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} required/>
+                            <label>Description:</label>
+                                <input value={this.state.description} onChange={(e) => this.updateInputValue("description", e)} placeholder="Enter a description here..." type="text" />
+                            <label>Visibility:</label><br/>
+                                <label><input onClick={this.humanVisible} type="checkbox" value="Human"/>Human</label>
+                                <label><input onClick={this.zombieVisible} type="checkbox"/>Zombie</label>
+                            <label>Latitude:</label>
+                                <input value={this.state.lat} onChange={(e) => this.updateInputValue("lat", e)} placeholder="Enter a latitude here..." type="text" />
+                            <label>Longitude:</label>
+                                <input value={this.state.lng} onChange={(e) => this.updateInputValue("lng", e)} placeholder="Enter a longitude here..." type="text" />
+                            <label>Start and End Time</label>
+                                {/* <Calendar className={styles.calendar} startDate={startDate} endDate={endDate} onChange={this.onCalenderChange} range displayTime timezone="Europe/Oslo"/> */}
+                                <ThemeProvider theme={theme}>
+                                    <DatePicker
+                                    handleChange={(days) => this.onCalendarChange(days)}
+                                    // selectedDays={[startDate]} //initial selected days
+                                    jalali={false}
+                                    numberOfMonths={3}
+                                    numberOfSelectableDays={2} // number of days you need 
+                                    // disabledDays={['2019-12-02']} //disabeld days
+                                    responsive={handleResponsive} // custom responsive, when using it, `numberOfMonths` props not working
+                                    disabledBeforToday={true} 
+                                    disabled={false} // disable calendar 
+                                    dayComponent={Day} //custom day component 
+                                    // titleComponent={Title} // custom title of days
+                                    />
+                                </ThemeProvider>
+                        </form>
+                        <button className={styles.CreateBtn} onClick={() => {
+                                this.onClickCreate();
+                                //this.onClickJoin();
+                            }}>Create Mission</button>
+                            <button className={styles.CloseBtn} onClick={this.handleCloseClick}>Close</button>
 
+                    </div>
                 </div>
+                
 
             </React.Fragment>
         )

@@ -129,10 +129,9 @@ class RegistrationFragment extends React.Component {
         }
 
         return (
-            <div className={styles.RegistrationFragment}>
+            <div className={styles.RegistrationFragment} style={{display: this.props.game_state === 'Complete' ? 'none' : 'block'}}>
                 <button onClick={action} disabled={disableBtn}>{txt}</button>
             </div>
-            
         )
     }
 }

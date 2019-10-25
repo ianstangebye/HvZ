@@ -1,9 +1,7 @@
 @media screen and (min-width: 100px) {
 
-
-    .SquadCreationFragment {
-        margin: 0 10px 10px 10px;
-        color: #303030;
+    .NewMissionForm {
+        margin: 10px;
     }
 
     .ShowFormBtn {
@@ -13,6 +11,7 @@
     }
 
     .CreationForm {
+        margin-top: 10px;
         padding: 10px;
         width: 100%;
         border-radius: 15px;
@@ -48,6 +47,17 @@
         padding: 10px;
         color: #303030;
     }
+
+    /* .CheckboxLabel {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .Checkbox {
+        width: 10px;
+        margin: 0;
+        padding: 0;
+    } */
 
     .CreationForm input::placeholder {
         color: rgba(48, 48, 48, 0.5)

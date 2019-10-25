@@ -55,7 +55,7 @@ export default class TitleFragment extends React.Component {
         } else if (this.state.game.game_State === 'Complete' || this.state.game.game_State === 'complete') {
             this.setState({gameStateColor: "#ED553B"})
         }
-
+        
         console.log("title game_id: " + this.state.game_id);
 
         this.props.onUpdate(this.state.game.game_State);
