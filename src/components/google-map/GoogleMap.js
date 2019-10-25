@@ -191,37 +191,50 @@ class GoogleMap extends React.Component {
             // console.log(rightNow);
             var missionDeadline = new Date(mission.end_Time)
             console.log(missionDeadline);
-            var missionStartTime = new Date(mission.start_Time)
+            var missionStartTime = new Date(mission.start_Time);
+            var contentString;
 
-            var contentString = `<div id="content">
-                                <h1 style="color:black;padding:0;margin:0;">${mission.mission_Id}: ${mission.name}</h1>
-                                <hr>
-                                <p style="color:black;top-padding:0;">${mission.description}</p>
-                              
-                                <b style="color:black;padding:2px;">Mission Deadline: ${mission.end_Time}</b>
-                                <button type="button" onClick="(async function(){
-                                    const missionsURL = 'http://case-hvzapi.northeurope.azurecontainer.io/game/${id}/mission/${mission.mission_Id}';
-                                    console.log(missionsURL);
-        await fetch(missionsURL, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + '${this.state.userInfo.token}'
+            if(this.props.userInfo.is_admin){
+                console.log("i is admin");
+                contentString = `<div id="content">
+                <h1 style="color:black;padding:0;margin:0;">${mission.mission_Id}: ${mission.name}</h1>
+                <hr>
+                <p style="color:black;top-padding:0;">${mission.description}</p>
+              
+                <b style="color:black;padding:2px;">Mission Deadline: ${mission.end_Time}</b>
+                <button type="button" onClick="(async function(){
+                    const missionsURL = 'http://case-hvzapi.northeurope.azurecontainer.io/game/${id}/mission/${mission.mission_Id}';
+                    console.log(missionsURL);
+await fetch(missionsURL, {
+method: 'DELETE',
+headers: {
+'Content-Type': 'application/json',
+'Authorization': 'Bearer ' + '${this.state.userInfo.token}'
+}
+}).then(resp => resp.json())
+.then(resp => {
+console.log(resp);
+console.log('its deleted');
+
+}).catch(error => {
+console.log(error);
+
+});
+
+document.getElementById('HiddenButton').click();
+
+                })()">DeleteV3</button>
+                </div>`;
+                
+            } else {
+                contentString = `<div id="content">
+                <h1 style="color:black;padding:0;margin:0;">${mission.mission_Id}: ${mission.name}</h1>
+                <hr>
+                <p style="color:black;top-padding:0;">${mission.description}</p>
+              
+                <b style="color:black;padding:2px;">Mission Deadline: ${mission.end_Time}</b>`;
             }
-        }).then(resp => resp.json())
-            .then(resp => {
-                console.log(resp);
-                console.log('its deleted');
 
-            }).catch(error => {
-                console.log(error);
-
-            });
-
-            document.getElementById('HiddenButton').click();
-
-                                })()">DeleteV3</button>
-                                </div>`;
 
             if (rightNow > missionStartTime && rightNow < missionDeadline) {
 
