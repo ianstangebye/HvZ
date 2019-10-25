@@ -17,7 +17,7 @@ class MissionList extends React.Component{
         }
     }
 
-    componentWillReceiveProps() {
+    UNSAFE_componentWillReceiveProps() {
         this.setState({
             game_id: this.props.game_id,
             missions: this.props.missions,
@@ -29,7 +29,7 @@ class MissionList extends React.Component{
 
         // const game_id = this.state.game_id;
 
-        // fetch(`http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/mission`, {
+        // fetch(`https://52.142.92.199/game/${game_id}/mission`, {
         //     headers: {
         //         'Content-Type': 'application/json',
         //         'Authorization': 'Bearer ' + this.state.userInfo.token
@@ -66,7 +66,7 @@ class MissionList extends React.Component{
 
         if(this.props.missions.length>0){
             missionComponents = this.props.missions.map(mission=>{
-                return <MissionItem onUpdateMap={this.props.onUpdateMap} mission={mission} key={mission.mission_Id} userInfo={this.state.userInfo} onUpdateMap={this.props.onUpdateMap} />
+                return <MissionItem onUpdateMap={this.props.onUpdateMap} mission={mission} key={mission.mission_Id} userInfo={this.state.userInfo} />
             });
         } else {
             missionComponents = <p>Loading missions...</p>

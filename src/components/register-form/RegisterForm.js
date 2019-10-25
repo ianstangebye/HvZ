@@ -42,7 +42,7 @@ export default class RegisterForm extends React.Component {
             "is_admin": false
         }
 
-        const targetUrl = 'http://case-hvzapi.northeurope.azurecontainer.io/game/auth'
+        const targetUrl = 'https://52.142.92.199/game/auth'
         
         const that = this;
 

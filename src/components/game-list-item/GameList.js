@@ -59,8 +59,9 @@ class GameList extends React.Component {
         // console.log("list is_admin: " + this.state.is_admin);
 
         //const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game`;
-
+        // const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game`;
+        const targetUrl = `https://52.142.92.199/game`;
+        
         //need to set in the correct 
         await fetch(targetUrl, {
             method: 'GET',
@@ -133,8 +134,6 @@ class GameList extends React.Component {
                 }
                 return 0;
             }).reverse();
-            
-            console.log(curGameComponents);
 
             gameComponents = curGameComponents.map(game => {
                 return <GameItem game={game} key={game.game_Id} user_id={this.state.user_id} userInfo={this.state.userInfo}/>

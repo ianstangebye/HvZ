@@ -33,7 +33,7 @@ export default class SquadListFragment extends React.Component {
     }
 
     async getSquads(that) {
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.state.game_id}/squad`
+        const targetUrl = `https://52.142.92.199/game/${this.state.game_id}/squad`
 
         await fetch(targetUrl, {
             headers: {
@@ -49,15 +49,12 @@ export default class SquadListFragment extends React.Component {
             console.log(e);
         })
 
-        console.log("squadlist game_id: " + that.state.game_id);
+        //console.log("squadlist game_id: " + that.state.game_id);
         
     }
 
-    /*================
-    Need Id's!
-    ================ */
     handleJoinSquad(squad_id) {
-        console.log("handleJoinSquad from child " + squad_id);
+        //console.log("handleJoinSquad from child " + squad_id);
 
         const game_id = this.props.game_id;
         const player_id = this.props.player_id;
@@ -68,7 +65,7 @@ export default class SquadListFragment extends React.Component {
             "player_Id": player_id
         }
 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/squad/${squad_id}/member`
+        const targetUrl = `https://52.142.92.199/game/${game_id}/squad/${squad_id}/member`
 
         fetch(targetUrl, {
             method: 'POST',

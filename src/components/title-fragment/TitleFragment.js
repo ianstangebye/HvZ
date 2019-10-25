@@ -18,7 +18,7 @@ export default class TitleFragment extends React.Component {
             userInfo: props.userInfo,
             editing: false,
             editButtonText: '',
-            editButtonSymbol: '<FaSave/>',
+            editButtonSymbol: <FaEdit/>,
             editButtonFunction: this.editing,
             // newName: ''
         }
@@ -33,7 +33,7 @@ export default class TitleFragment extends React.Component {
     }
 
     getGameTitle = async () => { 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}`
+        const targetUrl = `https://52.142.92.199/game/${this.props.game_id}`
 
         await fetch(targetUrl, {
             headers: {
@@ -44,7 +44,6 @@ export default class TitleFragment extends React.Component {
             this.setState({ game: resp });
             
         }).catch(error => {
-            console.log('Something fucked up')
             console.log(error);
         });       
         
@@ -56,7 +55,7 @@ export default class TitleFragment extends React.Component {
             this.setState({gameStateColor: "#ED553B"})
         }
         
-        console.log("title game_id: " + this.state.game_id);
+        //console.log("title game_id: " + this.state.game_id);
 
         this.props.onUpdate(this.state.game.game_State);
     }
@@ -85,16 +84,16 @@ export default class TitleFragment extends React.Component {
         this.setState({
             editing: true,
             // editButtonText: 'Save Changes',
-            editButtonSymbol: '<FaSave/>',
+            editButtonSymbol: <FaSave/>,
             editButtonFunction: this.saving
         });
     }
 
-    saving = async ()=>{
-        console.log("you are currently attempting to save a new game name");
-        console.log(this.refs.gameName.innerText);
-        // var button = document.querySelector('#editButton');
-        // button.innerHTML = this.state.editButtonText;
+    saving= async ()=>{
+        //console.log("you are currently attempting to save a new game name");
+        //console.log(this.refs.gameName.innerText);
+        //var button = document.querySelector('#editButton');
+        //button.innerHTML = this.state.editButtonSymbol;
 
         var newName = {
             name: this.refs.gameName.innerText,
@@ -109,7 +108,7 @@ export default class TitleFragment extends React.Component {
 
         };
 
-        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}`
+        const targetUrl = `https://52.142.92.199/game/${this.props.game_id}`
 
         await fetch(targetUrl, {
             method: 'PUT',
@@ -129,7 +128,7 @@ export default class TitleFragment extends React.Component {
         this.setState({
             editing: false,
             // editButtonText: 'Save Changes',
-            editButtonSymbol: 'fas fa-edit',
+            editButtonSymbol: <FaEdit/>,
             editButtonFunction: this.editing
         });
     }
