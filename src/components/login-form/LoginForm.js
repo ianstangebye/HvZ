@@ -88,7 +88,7 @@ class LoginForm extends React.Component{
         })
         .catch(e => {
             console.error(e);
-            alert("An unexpected error occured. Please try again later.")
+            alert("An unexpected error occurred. Please try again later.")
         });
     }
 
