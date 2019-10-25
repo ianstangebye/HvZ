@@ -28,7 +28,7 @@ function GameItem(props) {
 
     // let [players, setPlayers] = useState(0);
 
-    const getPlayers = `https://52.142.92.199/game/${game.game_Id}/player`;
+    const getPlayers = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game.game_Id}/player`;
 
     useEffect(() => {
         fetch(getPlayers).then(resp => resp.json())

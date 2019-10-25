@@ -27,7 +27,7 @@ class MapFragment extends Component{
         const id = this.props.match.params.id;
     
         
-        const targetUrl = `https://52.142.92.199/game/${id}`;
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${id}`;
             
         //need to set in the correct 
         fetch(targetUrl).then(resp=> resp.json())

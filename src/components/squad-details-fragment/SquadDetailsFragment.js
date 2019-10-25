@@ -101,7 +101,7 @@ export default class SquadDetailsFragment extends React.Component {
 
         console.log(newCheckIn);
 
-        const targetUrl = `https://52.142.92.199/game/${this.props.game_id}/squad/${this.props.squad_id}/check-in`
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/check-in`
         
         await fetch(targetUrl, {
             method: 'POST',
@@ -128,7 +128,7 @@ export default class SquadDetailsFragment extends React.Component {
 
     // Delete a squad-member
     handleLeaveSquad = () => {
-        const targetUrl = `https://52.142.92.199/game/${this.props.game_id}/squad/${this.props.squad_id}/member/${this.props.squad_member_id}`
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/member/${this.props.squad_member_id}`
         
         fetch(targetUrl, {
             method: 'DELETE',
@@ -151,7 +151,7 @@ export default class SquadDetailsFragment extends React.Component {
     
     componentDidMount() {
         //Get squadmembers
-        const targetSquadUrl = `https://52.142.92.199/game/${this.props.game_id}/squad/${this.props.squad_id}/member`
+        const targetSquadUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/member`
 
         fetch(targetSquadUrl, {
             headers: {
@@ -168,7 +168,7 @@ export default class SquadDetailsFragment extends React.Component {
         })
 
         //Get squad name
-        const targetUrl = `https://52.142.92.199/game/${this.props.game_id}/squad/${this.props.squad_id}/`
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${this.props.game_id}/squad/${this.props.squad_id}/`
         fetch(targetUrl, {
             headers: {
                 'Content-Type': 'application/json',

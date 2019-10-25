@@ -140,7 +140,7 @@ class BiteCodeEntry extends React.Component{
         
             
         //const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/kill`
-        const targetUrl = `https://52.142.92.199/game/${game_id}/kill`
+        const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/kill`
 
         // console.log(JSON.stringify(bite));
         
