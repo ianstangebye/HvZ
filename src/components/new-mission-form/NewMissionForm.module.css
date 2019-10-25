@@ -28,7 +28,7 @@
 
     }
 
-    .CreationForm label {
+    .Label {
         display: block;
         font-size: 12px;
         text-transform: uppercase;
@@ -37,7 +37,7 @@
         color: #2C6974;
     }
 
-    .CreationForm input {
+    .Input {
         font-family: inherit;
         width: 100%;
         background-color: #E5E5E5;
@@ -48,6 +48,27 @@
         color: #303030;
     }
 
+    .VisibilityHuman {
+        margin: 10px 0;
+    }
+
+    .VisibilityZombie {
+        margin: 10px 0;
+    }
+
+    .VisibilityLabel {
+        font-size: 12px;
+        text-transform: capitalize;
+        font-weight: normal;
+        color: #303030;
+    }
+
+    .Checkbox{
+        width: 20px;
+        background-color: rgb(117, 67, 76);
+        border-radius: 5px;
+        border: none;
+    }
     /* .CheckboxLabel {
         width: 100%;
         margin: 0 auto;

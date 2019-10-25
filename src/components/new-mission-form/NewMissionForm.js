@@ -165,18 +165,24 @@ class NewMissionForm extends React.Component {
                     <div className={styles.CreationForm} style={{display: this.state.isVisible ? 'block' : 'none'}}>
                         <h2>Add new mission marker</h2>
                         <form>
-                            <label>Name:</label>
-                                <input autoFocus type="text" placeholder="Mission name here..." value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} required/>
-                            <label>Description:</label>
-                                <input value={this.state.description} onChange={(e) => this.updateInputValue("description", e)} placeholder="Enter a description here..." type="text" />
-                            <label>Visibility:</label><br/>
-                                <label><input onClick={this.humanVisible} type="checkbox" value="Human"/>Human</label>
-                                <label><input onClick={this.zombieVisible} type="checkbox"/>Zombie</label>
-                            <label>Latitude:</label>
-                                <input value={this.state.lat} onChange={(e) => this.updateInputValue("lat", e)} placeholder="Enter a latitude here..." type="text" />
-                            <label>Longitude:</label>
-                                <input value={this.state.lng} onChange={(e) => this.updateInputValue("lng", e)} placeholder="Enter a longitude here..." type="text" />
-                            <label>Start and End Time</label>
+                            <label className={styles.Label}>Name:</label>
+                                <input className={styles.Input} autoFocus type="text" placeholder="Mission name here..." value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} required/>
+                            <label className={styles.Label}>Description:</label>
+                                <input className={styles.Input} value={this.state.description} onChange={(e) => this.updateInputValue("description", e)} placeholder="Enter a description here..." type="text" />
+                            <label className={styles.Label}>Visibility:</label>
+                                <div className={styles.VisibilityHuman}>
+                                    <label className={styles.VisibilityLabel} for="human">Human</label>
+                                    <input className={styles.CheckBox} onClick={this.humanVisible} name="human" type="checkbox" value="Human"/>
+                                </div>
+                                <div className={styles.VisibilityZombie}>
+                                    <label className={styles.VisibilityLabel} for="zombie">Zombie</label>
+                                    <input className={styles.CheckBox} onClick={this.zombieVisible} name="zombie" type="checkbox"/>
+                                </div>
+                            <label className={styles.Label}>Latitude:</label>
+                                <input className={styles.Input} value={this.state.lat} onChange={(e) => this.updateInputValue("lat", e)} placeholder="Enter a latitude here..." type="text" />
+                            <label className={styles.Label}>Longitude:</label>
+                                <input className={styles.Input} value={this.state.lng} onChange={(e) => this.updateInputValue("lng", e)} placeholder="Enter a longitude here..." type="text" />
+                            <label className={styles.Label}>Start and End Time</label>
                                 {/* <Calendar className={styles.calendar} startDate={startDate} endDate={endDate} onChange={this.onCalenderChange} range displayTime timezone="Europe/Oslo"/> */}
                                 <ThemeProvider theme={theme}>
                                     <DatePicker

@@ -2,9 +2,8 @@ import React from 'react';
 import styles from './NewGameForm.module.css';
 import { geolocated } from "react-geolocated";
 import { Redirect } from 'react-router';
-import Calendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
-import { DatePicker, RangePicker, theme } from 'react-trip-date';
+import { DatePicker, theme } from 'react-trip-date';
 import {ThemeProvider} from 'styled-components';
 
 class NewGameForm extends React.Component {
@@ -111,7 +110,7 @@ class NewGameForm extends React.Component {
     // }
 
     onCalendarChange = (days) => {
-        if(days.length == 1) {
+        if(days.length === 1) {
             this.setState({
                 start_time: new Date(days[0]).toLocaleString(),
                 end_time: new Date(days[days.length-1]).toLocaleString()
@@ -166,8 +165,8 @@ class NewGameForm extends React.Component {
 
         let calendar = null;
 
-        const startDate = new Date(this.state.start_time).getTime()
-        const endDate = new Date(this.state.end_time).getTime()
+        //const startDate = new Date(this.state.start_time).getTime()
+        //const endDate = new Date(this.state.end_time).getTime()
 
         if(this.state.calendarOn) {
             // calendar = <Calendar startDate={startDate} endDate={endDate} onChange={this.onCalendarChange} range displayTime/>
