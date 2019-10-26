@@ -100,7 +100,7 @@ class BiteCodeEntry extends React.Component{
 
         
         
-        // const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${game_id}/kill`
+        // const targetUrl = `backEndUrl/${game_id}/kill`
 
         // // console.log(JSON.stringify(bite));
         
@@ -139,8 +139,8 @@ class BiteCodeEntry extends React.Component{
 
         
             
-        //const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${game_id}/kill`
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${game_id}/kill`
+        //const targetUrl = `backEndUrl/${game_id}/kill`
+        const targetUrl = `backEndUrl/${game_id}/kill`
 
         // console.log(JSON.stringify(bite));
         

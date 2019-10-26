@@ -3,6 +3,7 @@ import SquadDetailsItem from '../squad-details-item/SquadDetailsItem';
 import styles from './SquadDetailsFragment.module.css';
 import arrowUpIcon from '../../assets/arrow-up-icon.svg';
 import arrowDownIcon from '../../assets/arrow-down-icon.svg';
+import backEndUrl from '../../backEndUrl';
 
 export default class SquadDetailsFragment extends React.Component {
 
@@ -101,7 +102,7 @@ export default class SquadDetailsFragment extends React.Component {
 
         console.log(newCheckIn);
 
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/squad/${this.props.squad_id}/check-in`
+        const targetUrl = backEndUrl + `${this.props.game_id}/squad/${this.props.squad_id}/check-in`
         
         await fetch(targetUrl, {
             method: 'POST',
@@ -128,7 +129,7 @@ export default class SquadDetailsFragment extends React.Component {
 
     // Delete a squad-member
     handleLeaveSquad = () => {
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/squad/${this.props.squad_id}/member/${this.props.squad_member_id}`
+        const targetUrl = backEndUrl + `${this.props.game_id}/squad/${this.props.squad_id}/member/${this.props.squad_member_id}`
         
         fetch(targetUrl, {
             method: 'DELETE',
@@ -151,7 +152,7 @@ export default class SquadDetailsFragment extends React.Component {
     
     componentDidMount() {
         //Get squadmembers
-        const targetSquadUrl = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/squad/${this.props.squad_id}/member`
+        const targetSquadUrl = backEndUrl + `${this.props.game_id}/squad/${this.props.squad_id}/member`
 
         fetch(targetSquadUrl, {
             headers: {
@@ -168,7 +169,7 @@ export default class SquadDetailsFragment extends React.Component {
         })
 
         //Get squad name
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/squad/${this.props.squad_id}/`
+        const targetUrl = backEndUrl + `${this.props.game_id}/squad/${this.props.squad_id}/`
         fetch(targetUrl, {
             headers: {
                 'Content-Type': 'application/json',

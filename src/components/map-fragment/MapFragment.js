@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact, { Circle, Marker, Polygon, Rectangle, Map, GoogleApiWrapper, fitBounds } from 'google-maps-react';
 // import { fitBounds } from 'google-map-react/utils';
 import styles from './MapFragment.module.css';
+import backEndUrl from '../../backEndUrl';
 
 class MapFragment extends Component{
 
@@ -27,7 +28,7 @@ class MapFragment extends Component{
         const id = this.props.match.params.id;
     
         
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${id}`;
+        const targetUrl = backEndUrl + `${id}`;
             
         //need to set in the correct 
         fetch(targetUrl).then(resp=> resp.json())

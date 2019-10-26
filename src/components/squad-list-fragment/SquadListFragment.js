@@ -4,6 +4,7 @@ import styles from './SquadListFragment.module.css';
 import arrowUpIcon from '../../assets/arrow-up-icon.svg';
 import arrowDownIcon from '../../assets/arrow-down-icon.svg';
 import SquadCreationFragment from '../squad-creation-fragment/SquadCreationFragment';
+import backEndUrl from '../../backEndUrl';
 
 export default class SquadListFragment extends React.Component {
 
@@ -33,7 +34,7 @@ export default class SquadListFragment extends React.Component {
     }
 
     async getSquads(that) {
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.state.game_id}/squad`
+        const targetUrl = backEndUrl + `${this.state.game_id}/squad`
 
         await fetch(targetUrl, {
             headers: {
@@ -65,7 +66,7 @@ export default class SquadListFragment extends React.Component {
             "player_Id": player_id
         }
 
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${game_id}/squad/${squad_id}/member`
+        const targetUrl = backEndUrl + `${game_id}/squad/${squad_id}/member`
 
         fetch(targetUrl, {
             method: 'POST',

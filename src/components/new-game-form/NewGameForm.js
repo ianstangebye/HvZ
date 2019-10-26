@@ -6,6 +6,7 @@ import '@lls/react-light-calendar/dist/index.css'
 import { DatePicker, theme } from 'react-trip-date';
 import {ThemeProvider} from 'styled-components';
 import Header from '../header/Header';
+import backEndUrl from '../../backEndUrl';
 
 class NewGameForm extends React.Component {
 
@@ -76,7 +77,7 @@ class NewGameForm extends React.Component {
                 "end_time": this.state.end_time
             }
 
-            const targetUrl = 'https://hvz-webapi.azurewebsites.net/game'
+            const targetUrl = backEndUrl;
 
             fetch(targetUrl, {
                 method: 'POST',

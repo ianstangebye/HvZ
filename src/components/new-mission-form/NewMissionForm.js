@@ -3,6 +3,7 @@ import '@lls/react-light-calendar/dist/index.css';
 import styles from './NewMissionForm.module.css';
 import { DatePicker, theme } from 'react-trip-date';
 import {ThemeProvider} from 'styled-components';
+import backEndUrl from '../../backEndUrl';
 
 class NewMissionForm extends React.Component {
 
@@ -90,7 +91,7 @@ class NewMissionForm extends React.Component {
 
         console.log(newMission);
 
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/mission`
+        const targetUrl = backEndUrl + `${this.props.game_id}/mission`
 
         // console.log(JSON.stringify(bite));
         

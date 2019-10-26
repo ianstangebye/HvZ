@@ -3,6 +3,7 @@ import styles from './LoginForm.module.css';
 import { Redirect } from 'react-router';
 import jwt_decode from 'jwt-decode';
 import Header from '../header/Header';
+import backEndUrl from '../../backEndUrl';
 
 class LoginForm extends React.Component{
 
@@ -51,7 +52,7 @@ class LoginForm extends React.Component{
             "password": this.state.password
         }
 
-        const targetUrl = 'https://hvz-webapi.azurewebsites.net/game/auth/authenticate'
+        const targetUrl = backEndUrl + 'auth/authenticate'
 
         // 'POST' using username and password in body (Success if 200 etc..)
         fetch(targetUrl, {

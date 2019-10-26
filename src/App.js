@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
-import Header from './components/header/Header';
+// import Header from './components/header/Header';
 import GameList from './components/game-list-item/GameList';
 import BiteCodeEntry from './components/bite-code-entry/BiteCodeEntry';
 import MapFragment from './components/map-fragment/MapFragment';

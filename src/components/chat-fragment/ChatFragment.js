@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import styles from './ChatFragment.module.css';
 import sendIcon from '../../assets/send-icon.svg';
+import backEndUrl from '../../backEndUrl';
 
 class ChatFragment extends React.Component {
     constructor(props) {
@@ -142,7 +143,7 @@ class ChatFragment extends React.Component {
         }
         
         //let url = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/chat/${tab}/${squad}`;
-        let url = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/chat/${tab}/${squad}`;
+        let url = backEndUrl + `${this.props.game_id}/chat/${tab}/${squad}`;
 
         // Get appropriate messages for the active tab from the backend API
         axios
@@ -170,7 +171,7 @@ class ChatFragment extends React.Component {
 
     getSquads = () => {
         // let url = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/squad`;
-        let url = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/squad`;
+        let url = backEndUrl + `${this.props.game_id}/squad`;
 
         // Get appropriate messages for the active tab from the backend API
         axios
@@ -222,7 +223,7 @@ class ChatFragment extends React.Component {
             }
             
             // axios.post(`https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/chat`, body, {
-            axios.post(`https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/chat`, body, {
+            axios.post(backEndUrl + `${this.props.game_id}/chat`, body, {
                     headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + this.state.userInfo.token
