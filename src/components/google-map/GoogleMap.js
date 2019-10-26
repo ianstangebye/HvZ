@@ -54,9 +54,9 @@ class GoogleMap extends React.Component {
         );
 
         this.locationImage = {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Blue_dot.png',
+            url: 'https://media.giphy.com/media/WpTLELKe3tOJLWl6FG/giphy.gif',
             // This marker is 20 pixels wide by 32 pixels high.
-            scaledSize: new window.google.maps.Size(20, 20), // scaled size
+            scaledSize: new window.google.maps.Size(50 , 50), // scaled size
             origin: new window.google.maps.Point(0, 0), // origin
             anchor: new window.google.maps.Point(15, 0) // anchor
         };
@@ -471,6 +471,7 @@ document.getElementById('HiddenButton').click();
 
             navigator.geolocation.getCurrentPosition(position => {
                 var updatedPosition = new window.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                
                 this.positionMarker.setPosition(updatedPosition);
 
                 for (var i = 0; i < this.state.missions.length; i++) {
