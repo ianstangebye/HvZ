@@ -15,6 +15,7 @@ import adminImg from '../../assets/admin.png';
 import EditPlayerFragment from '../edit-player-fragment/EditPlayerFragment';
 import { Redirect } from 'react-router'
 import Header from '../header/Header';
+import backEndUrl from '../../backEndUrl';
 // eslint-disable-next-line
 import TimerFragment from '../timer-fragment/TimerFragment'
 // eslint-disable-next-line
@@ -56,7 +57,7 @@ class GameDetail extends React.Component {
 
         const gid = this.state.game_id
         const uid = sessionStorage.getItem("user_id")
-        const url = `https://hvz-webapi.azurewebsites.net/game/${gid}/user/${uid}/player`
+        const url = backEndUrl + `${gid}/user/${uid}/player`
 
         // Get this user's player object, if it exists
         axios
@@ -94,7 +95,7 @@ class GameDetail extends React.Component {
         const gid = this.state.game_id;
         const pid = this.state.player.player_Id;
         
-        const url = `https://hvz-webapi.azurewebsites.net/game/${gid}/member/${pid}`
+        const url = backEndUrl + `${gid}/member/${pid}`
 
         // Get this player's squad member object, if it exists
         axios

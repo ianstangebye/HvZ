@@ -3,6 +3,7 @@ import styles from './GameItem.module.css';
 import { Link } from 'react-router-dom';
 import playersIcon from '../../assets/players-icon.svg';
 import Moment from 'react-moment';
+import backEndUrl from '../../backEndUrl';
 
 function GameItem(props) {
     // let game = {
@@ -28,7 +29,7 @@ function GameItem(props) {
 
     // let [players, setPlayers] = useState(0);
 
-    const getPlayers = `https://hvz-webapi.azurewebsites.net/game/${game.game_Id}/player`;
+    const getPlayers = backEndUrl + `${game.game_Id}/player`;
 
     useEffect(() => {
         fetch(getPlayers).then(resp => resp.json())
@@ -62,7 +63,7 @@ function GameItem(props) {
 
         
 
-    }, []);
+    }, [game.game_State]);
 
     if (user_id !== 0 && user_id !== undefined) {
         return (

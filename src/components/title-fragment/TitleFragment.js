@@ -4,6 +4,7 @@ import TimerFragment from '../timer-fragment/TimerFragment';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FaEdit } from 'react-icons/fa';
 import { FaSave } from 'react-icons/fa';
+import backEndUrl from '../../backEndUrl';
 
 export default class TitleFragment extends React.Component {
 
@@ -33,7 +34,7 @@ export default class TitleFragment extends React.Component {
     }
 
     getGameTitle = async () => { 
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}`
+        const targetUrl = backEndUrl + `${this.props.game_id}`
 
         await fetch(targetUrl, {
             headers: {
@@ -108,7 +109,7 @@ export default class TitleFragment extends React.Component {
 
         };
 
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}`
+        const targetUrl = backEndUrl + `${this.props.game_id}`
 
         await fetch(targetUrl, {
             method: 'PUT',

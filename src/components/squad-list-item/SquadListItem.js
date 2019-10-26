@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './SquadListItem.module.css';
+import backEndUrl from '../../backEndUrl';
 
 export default class SquadListItem extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ export default class SquadListItem extends React.Component {
 
     async componentDidMount() {
         
-        const targetUrl =  `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/squad/${this.props.squad.squad_Id}/member`
+        const targetUrl =  backEndUrl + `${this.props.game_id}/squad/${this.props.squad.squad_Id}/member`
 
         await fetch(targetUrl, {
             headers: {

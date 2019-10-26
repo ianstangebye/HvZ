@@ -3,6 +3,7 @@ import styles from './GameList.module.css';
 import GameItem from '../game-item/GameItem';
 import { Link } from 'react-router-dom';
 import Header from '../header/Header';
+import backEndUrl from '../../backEndUrl';
 // import { read } from 'fs';
 
 class GameList extends React.Component {
@@ -60,11 +61,10 @@ class GameList extends React.Component {
         // console.log("list is_admin: " + this.state.is_admin);
 
         //const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        // const targetUrl = `https://hvz-webapi.azurewebsites.net/game`;
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game`;
+        //const targetUrl = `https://hvz-webapi.azurewebsites.net/game`;
         
         //need to set in the correct 
-        await fetch(targetUrl, {
+        await fetch(backEndUrl, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

@@ -3,6 +3,7 @@ import styles from './GoogleMap.module.css';
 import { array } from 'prop-types';
 import { stringify } from 'querystring';
 import MissionList from '../mission-list/MissionList';
+import backEndUrl from '../../backEndUrl';
 
 function internalDoSomething(text){
     console.log(text);
@@ -125,7 +126,7 @@ class GoogleMap extends React.Component {
         const id = this.props.game_id;
         const player_status = this.props.player.is_Human;
 
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${id}/kill`;
+        const targetUrl = backEndUrl + `${id}/kill`;
 
 
         await fetch(targetUrl, {
@@ -142,7 +143,7 @@ class GoogleMap extends React.Component {
             });
             
 
-        const missionsURL = `https://hvz-webapi.azurewebsites.net/game/${id}/mission/`
+        const missionsURL = backEndUrl + `${id}/mission/`
 
         await fetch(missionsURL, {
             headers: {
@@ -203,7 +204,7 @@ class GoogleMap extends React.Component {
               
                 <b style="color:black;padding:2px;">Mission Deadline: ${mission.end_Time}</b>
                 <button type="button" onClick="(async function(){
-                    const missionsURL = 'https://hvz-webapi.azurewebsites.net/game/${id}/mission/${mission.mission_Id}';
+                    const missionsURL = ${backEndUrl} + '${id}/mission/${mission.mission_Id}';
                     console.log(missionsURL);
 await fetch(missionsURL, {
 method: 'DELETE',
@@ -329,7 +330,7 @@ document.getElementById('HiddenButton').click();
         console.log('Youve reached the google map element');
 
         if (this.props.squad_id) {
-            const checkinURL = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/squad/${this.props.squad_id}/check-in`;
+            const checkinURL = backEndUrl + `${this.props.game_id}/squad/${this.props.squad_id}/check-in`;
 
             const humanCheckinImage = {
                 url: 'https://purepng.com/public/uploads/large/purepng.com-men-pointing-thumbs-uppeoplepersonsgesturesmanmalepointing-thumbs-up-1121525088552izp1f.png',
@@ -408,7 +409,7 @@ document.getElementById('HiddenButton').click();
 
     async componentDidMount() {
         const id = this.props.game_id;
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${id}`;
+        const targetUrl = backEndUrl + `${id}`;
 
         if(!navigator.geolocation) {
             alert("Your browser does not support geolocation. Some features will be unavailable.")

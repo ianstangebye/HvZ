@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './EditPlayerFragment.module.css';
 import EditPlayerItem from '../edit-player-item/EditPlayerItem';
+import backEndUrl from '../../backEndUrl';
 
 export default class EditPlayerFragment extends React.Component {
 
@@ -19,7 +20,7 @@ export default class EditPlayerFragment extends React.Component {
 
     componentDidMount() {
 
-        const targetUrl = `https://hvz-webapi.azurewebsites.net/game/${this.state.game_id}/player`
+        const targetUrl = backEndUrl + `${this.state.game_id}/player`
     
         fetch(targetUrl, {
             headers: {

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './RegisterForm.module.css';
 import { Redirect } from 'react-router';
 import Header from '../header/Header';
+import backEndUrl from '../../backEndUrl';
 
 export default class RegisterForm extends React.Component {
 
@@ -43,7 +44,7 @@ export default class RegisterForm extends React.Component {
             "is_admin": false
         }
 
-        const targetUrl = 'https://hvz-webapi.azurewebsites.net/game/auth'
+        const targetUrl = backEndUrl + 'auth'
         
         const that = this;
 

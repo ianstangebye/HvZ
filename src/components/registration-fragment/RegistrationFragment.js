@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './RegistrationFragment.module.css';
 import axios from 'axios'
+import backEndUrl from '../../backEndUrl';
 
 class RegistrationFragment extends React.Component {
     constructor(props) {
@@ -42,7 +43,7 @@ class RegistrationFragment extends React.Component {
             username: this.state.userInfo.username
         }
 
-        const url = `https://hvz-webapi.azurewebsites.net/game/${this.props.game_id}/player`;
+        const url = backEndUrl + `${this.props.game_id}/player`;
 
         axios.post(url, newPlayer, {
             headers: {
@@ -70,8 +71,8 @@ class RegistrationFragment extends React.Component {
         const smid = this.props.squad_member_id;
 
         //Delete SquadMember object first
-        if(sid != 0 && smid != 0) { 
-            const url = `https://hvz-webapi.azurewebsites.net/game/${gid}/squad/${sid}/member/${smid}`;
+        if(sid !== 0 && smid !== 0) { 
+            const url = backEndUrl + `${gid}/squad/${sid}/member/${smid}`;
 
             console.log("Delete squad member url: " + url);
             
@@ -96,7 +97,7 @@ class RegistrationFragment extends React.Component {
         }
 
         // Delete player object
-        const url = `https://hvz-webapi.azurewebsites.net/game/${gid}/player/${pid}`;
+        const url = backEndUrl + `${gid}/player/${pid}`;
 
         fetch(url, {
             method: 'DELETE', 
