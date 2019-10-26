@@ -18,7 +18,7 @@ import NewMissionForm from './components/new-mission-form/NewMissionForm';
 function App() {
   return (
     <React.Fragment>
-      <Header/>
+      {/* <Header/> */}
       <Route path="/" exact component={GameList} />
       <Route path="/game/:game_id/kill" exact component={BiteCodeEntry} />
       <Route path="/map/:id" component={MapFragment} />

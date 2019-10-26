@@ -41,7 +41,7 @@ class MissionItem extends React.Component {
         }
     }
     
-    startTimer() {
+    startTimer = () => {
         this.interval = setInterval(() => {
             this.timerAction();
         }, 1000);

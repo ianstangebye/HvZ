@@ -5,6 +5,7 @@ import { Redirect } from 'react-router';
 import '@lls/react-light-calendar/dist/index.css'
 import { DatePicker, theme } from 'react-trip-date';
 import {ThemeProvider} from 'styled-components';
+import Header from '../header/Header';
 
 class NewGameForm extends React.Component {
 
@@ -26,7 +27,7 @@ class NewGameForm extends React.Component {
             end_time: new Date(endDate).toLocaleString(),
             creationSuccess: false,
             calendarOn: false,
-            userInfo: props.userInfo
+            userInfo: props.location.state.userInfo
         };
     }
 
@@ -191,52 +192,56 @@ class NewGameForm extends React.Component {
         }
 
         return (
-            <div className={styles.RegisterForm}>
-                <h4>Create a new game</h4>
-                <form>
-                    <div>
-                        <label>Name</label>
-                        <input autoFocus type="text" name="name" placeholder="Type in a name..." maxLength="50" value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} />
-                    </div>
-                    <div>
-                        <label>North-west Latitude</label>
-                        <input type="text" name="nw_latitude" maxLength="50" value={this.state.nw_latitude} onChange={(e) => this.updateInputValue("nw_latitude", e)}></input>
-                    </div>
-                    <div>
-                        <label>North-west Longitude</label>
-                        <input type="text" name="nw_longitude" maxLength="50" value={this.state.nw_longitude} onChange={(e) => this.updateInputValue("nw_longitude", e)}></input>
-                    </div>
-                    <div>
-                        <label>South-east Latitude</label>
-                        <input type="text" name="se_latitude" maxLength="50" value={this.state.se_latitude} onChange={(e) => this.updateInputValue("se_latitude", e)}></input>
-                    </div>
-                    <div>
-                        <label>South-east Longitude</label>
-                        <input type="text" name="se_longitude" maxLength="50" value={this.state.se_longitude} onChange={(e) => this.updateInputValue("se_longitude", e)}></input>
-                    </div>
-                    <div>
-                        <label>Description</label>
-                        <textarea rows="4" cols="50" name="description" placeholder="Add a description of the game..." value={this.state.description} onChange={(e) => this.updateInputValue("description", e)}>
-                        </textarea>
-                    </div>
-                    <div>
-                        <label>Start Time</label>
-                        <input type="text" name="start_time" maxLength="50" value={this.state.start_time} onChange={(e) => this.updateInputValue("start_time", e)}></input>
-                    </div>
-                    <div>
-                        <label>End Time</label>
-                        <input type="text" name="end_time" maxLength="50" value={this.state.end_time} onChange={(e) => this.updateInputValue("end_time", e)}></input>
-                    </div>
-                </form>
+            <React.Fragment>
+                <Header userInfo={this.state.userInfo} loggedIn={true}></Header>
                 
-                {calendar}
+                <div className={styles.RegisterForm}>
+                    <h4>Create a new game</h4>
+                    <form>
+                        <div>
+                            <label>Name</label>
+                            <input autoFocus type="text" name="name" placeholder="Type in a name..." maxLength="50" value={this.state.name} onChange={(e) => this.updateInputValue("name", e)} />
+                        </div>
+                        <div>
+                            <label>North-west Latitude</label>
+                            <input type="text" name="nw_latitude" maxLength="50" value={this.state.nw_latitude} onChange={(e) => this.updateInputValue("nw_latitude", e)}></input>
+                        </div>
+                        <div>
+                            <label>North-west Longitude</label>
+                            <input type="text" name="nw_longitude" maxLength="50" value={this.state.nw_longitude} onChange={(e) => this.updateInputValue("nw_longitude", e)}></input>
+                        </div>
+                        <div>
+                            <label>South-east Latitude</label>
+                            <input type="text" name="se_latitude" maxLength="50" value={this.state.se_latitude} onChange={(e) => this.updateInputValue("se_latitude", e)}></input>
+                        </div>
+                        <div>
+                            <label>South-east Longitude</label>
+                            <input type="text" name="se_longitude" maxLength="50" value={this.state.se_longitude} onChange={(e) => this.updateInputValue("se_longitude", e)}></input>
+                        </div>
+                        <div>
+                            <label>Description</label>
+                            <textarea rows="4" cols="50" name="description" placeholder="Add a description of the game..." value={this.state.description} onChange={(e) => this.updateInputValue("description", e)}>
+                            </textarea>
+                        </div>
+                        <div>
+                            <label>Start Time</label>
+                            <input type="text" name="start_time" maxLength="50" value={this.state.start_time} onChange={(e) => this.updateInputValue("start_time", e)}></input>
+                        </div>
+                        <div>
+                            <label>End Time</label>
+                            <input type="text" name="end_time" maxLength="50" value={this.state.end_time} onChange={(e) => this.updateInputValue("end_time", e)}></input>
+                        </div>
+                    </form>
+                    
+                    {calendar}
 
-                <div className={styles.Btns}>
-                    <button className={styles.BtnGetLocation} onClick={this.getLocation}>Get Location</button>
-                    <button className={styles.BtnGetLocation} onClick={this.toggleCalendar}>Get Time</button>
-                    <button className={styles.BtnCreate} onClick={this.createNewGame}>Create Game</button>
+                    <div className={styles.Btns}>
+                        <button className={styles.BtnGetLocation} onClick={this.getLocation}>Get Location</button>
+                        <button className={styles.BtnGetLocation} onClick={this.toggleCalendar}>Get Time</button>
+                        <button className={styles.BtnCreate} onClick={this.createNewGame}>Create Game</button>
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         )
     }
 }

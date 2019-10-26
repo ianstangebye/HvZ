@@ -14,6 +14,7 @@ import humanImg from '../../assets/human.png';
 import adminImg from '../../assets/admin.png';
 import EditPlayerFragment from '../edit-player-fragment/EditPlayerFragment';
 import { Redirect } from 'react-router'
+import Header from '../header/Header';
 // eslint-disable-next-line
 import TimerFragment from '../timer-fragment/TimerFragment'
 // eslint-disable-next-line
@@ -195,6 +196,7 @@ class GameDetail extends React.Component {
         if(admin) {
             return (
                 <Fragment>
+                    <Header userInfo={this.state.userInfo} loggedIn={true}></Header>
                     <img src={pictureId} className={styles.PictureId} alt="Player"></img>
                     <div className={styles.Admin}>
                         <div className={styles.AdColLeft}>
@@ -215,6 +217,7 @@ class GameDetail extends React.Component {
         if(unregistered) {
             return (
                 <Fragment>
+                    <Header userInfo={this.state.userInfo} loggedIn={true}></Header>
                     <div className={styles.Unregistered}>
                         <div className={styles.ColLeft}>
                             <TitleFragment onUpdate={this.updateGameState} game_id={game_id}  userInfo={userInfo} player={player}/>
@@ -232,6 +235,7 @@ class GameDetail extends React.Component {
         // Registered player
         return (
             <React.Fragment>
+                <Header userInfo={this.state.userInfo} loggedIn={true}></Header>
                 <div className={styles.SScreen}>
                     <RegistrationFragment onUpdate={this.getPlayer} player_id={player_id} user_id={user_id} game_id={game_id} squad_id={squad_id} squad_member_id={squad_member_id} game_state={this.state.game_state} userInfo={userInfo}/>
                     <TitleFragment onUpdate={this.updateGameState} game_id={game_id} userInfo={userInfo} player={player}/>
