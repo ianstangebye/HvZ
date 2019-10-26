@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './GameList.module.css';
 import GameItem from '../game-item/GameItem';
 import { Link } from 'react-router-dom';
+import Header from '../header/Header';
 // import { read } from 'fs';
 
 class GameList extends React.Component {
@@ -143,8 +144,11 @@ class GameList extends React.Component {
             gameComponents = <p>Loading games...</p>
         }
 
+        const is_admin = this.state.userInfo ? this.state.userInfo.is_admin : false;
+
         return (
             <React.Fragment>
+                <Header userInfo={this.state.userInfo} loggedIn={this.state.loggedIn}></Header>
                 <Link to={{
                     pathname: '/login',
                     // onLoggedIn: this.updateLoggedIn
@@ -174,7 +178,7 @@ class GameList extends React.Component {
                     state: { 
                         userInfo: this.state.userInfo,
                         loggedIn: true
-                    }}} style={{ display: this.state.userInfo.is_admin === true ? 'block' : 'none' }}>
+                    }}} style={{ display: is_admin === true ? 'block' : 'none' }}>
                     <button className={styles.NewGame_btn}>
                         Create New Game
                     </button>

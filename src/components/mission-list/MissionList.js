@@ -29,7 +29,7 @@ class MissionList extends React.Component{
 
         // const game_id = this.state.game_id;
 
-        // fetch(`http://case-hvzapi.northeurope.azurecontainer.io/game/${game_id}/mission`, {
+        // fetch(`https://hvz-webapi.azurewebsites.net/game/${game_id}/mission`, {
         //     headers: {
         //         'Content-Type': 'application/json',
         //         'Authorization': 'Bearer ' + this.state.userInfo.token

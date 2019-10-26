@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './LoginForm.module.css';
 import { Redirect } from 'react-router';
 import jwt_decode from 'jwt-decode';
+import Header from '../header/Header';
 
 class LoginForm extends React.Component{
 
@@ -123,22 +124,26 @@ class LoginForm extends React.Component{
     />
         }
         return (
-            <div className={styles.LoginForm}>
-                <form>
-                    <div className="Username">
-                        <label>Username</label>
-                        <input autoFocus required type="text" name="username" placeholder="Your username..." maxLength="20" value={this.state.username} onChange={(e) => this.updateInputValue("username", e)}/>
-                    </div>
-                    <div className="Password">
-                        <label>Password</label>
-                        <input required type="password" name="password" placeholder="Your password..." value={this.state.password} onChange={(e) => this.updateInputValue("password", e)}/>
-                    </div>
-                    <div className={styles.Btns}>
-                        <button className={styles.BtnSignIn} onClick={this.handleSignInClick}>Sign in</button>
-                        <button className={styles.BtnRegister} onClick={this.handleRegisterClick}>Register</button>
-                    </div>
-                </form>
-            </div>
+            <React.Fragment>
+                <Header userInfo={this.state.userInfo} loggedIn={false}></Header>
+                
+                <div className={styles.LoginForm}>
+                    <form>
+                        <div className="Username">
+                            <label>Username</label>
+                            <input autoFocus required type="text" name="username" placeholder="Your username..." maxLength="20" value={this.state.username} onChange={(e) => this.updateInputValue("username", e)}/>
+                        </div>
+                        <div className="Password">
+                            <label>Password</label>
+                            <input required type="password" name="password" placeholder="Your password..." value={this.state.password} onChange={(e) => this.updateInputValue("password", e)}/>
+                        </div>
+                        <div className={styles.Btns}>
+                            <button className={styles.BtnSignIn} onClick={this.handleSignInClick}>Sign in</button>
+                            <button className={styles.BtnRegister} onClick={this.handleRegisterClick}>Register</button>
+                        </div>
+                    </form>
+                </div>
+            </React.Fragment>
         )
     }
 }

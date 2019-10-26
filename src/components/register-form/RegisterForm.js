@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './RegisterForm.module.css';
 import { Redirect } from 'react-router';
+import Header from '../header/Header';
 
 export default class RegisterForm extends React.Component {
 
@@ -78,30 +79,33 @@ export default class RegisterForm extends React.Component {
         }
 
         return (
-            <div className={styles.RegisterForm}>
-                <form>
-                <div className="FirstName">
-                        <label>First Name</label>
-                        <input autoFocus required type="text" name="firstname" placeholder="Your first name" maxLength="50" value={this.state.firstName} onChange={(e) => this.updateInputValue("firstName", e)}/>
+            <React.Fragment>
+                <Header userInfo={this.state.userInfo} loggedIn={false}></Header>
+                <div className={styles.RegisterForm}>
+                    <form>
+                    <div className="FirstName">
+                            <label>First Name</label>
+                            <input autoFocus required type="text" name="firstname" placeholder="Your first name" maxLength="50" value={this.state.firstName} onChange={(e) => this.updateInputValue("firstName", e)}/>
+                        </div>
+                        <div className="LastName">
+                            <label>Last Name</label>
+                            <input required type="text" name="lastname" placeholder="Your last name" maxLength="50" value={this.state.lastName} onChange={(e) => this.updateInputValue("lastName", e)}/>
+                        </div>
+                        <div className="Username">
+                            <label>Username</label>
+                            <input required type="text" name="username" placeholder="Create a username" maxLength="25" value={this.state.username} onChange={(e) => this.updateInputValue("username", e)}/>
+                        </div>
+                        <div className="Password">
+                            <label>Password</label>
+                            <input required type="password" name="password" placeholder="Password" value={this.state.password} onChange={(e) => this.updateInputValue("password", e)}/>
+                        </div>
+                    </form>
+                    <div className={styles.Btns}>
+                        <button className={styles.BtnRegister} onClick={this.handleRegisterClick}>Register</button>
+                        <button className={styles.BtnSignIn} onClick={this.handleSignInClick}>Sign in</button>
                     </div>
-                    <div className="LastName">
-                        <label>Last Name</label>
-                        <input required type="text" name="lastname" placeholder="Your last name" maxLength="50" value={this.state.lastName} onChange={(e) => this.updateInputValue("lastName", e)}/>
-                    </div>
-                    <div className="Username">
-                        <label>Username</label>
-                        <input required type="text" name="username" placeholder="Create a username" maxLength="25" value={this.state.username} onChange={(e) => this.updateInputValue("username", e)}/>
-                    </div>
-                    <div className="Password">
-                        <label>Password</label>
-                        <input required type="password" name="password" placeholder="Password" value={this.state.password} onChange={(e) => this.updateInputValue("password", e)}/>
-                    </div>
-                </form>
-                <div className={styles.Btns}>
-                    <button className={styles.BtnRegister} onClick={this.handleRegisterClick}>Register</button>
-                    <button className={styles.BtnSignIn} onClick={this.handleSignInClick}>Sign in</button>
                 </div>
-            </div>
+            </React.Fragment>
         )
     }
 

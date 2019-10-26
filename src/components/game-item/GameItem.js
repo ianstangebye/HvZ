@@ -11,9 +11,9 @@ function GameItem(props) {
     // };
 
     const { game } = props;
-    const { userInfo } = props || null;
+    const { userInfo } = props;
 
-    const user_id = userInfo.user_id || 0;
+    const user_id = userInfo ? userInfo.user_id : 0;
 
     const [players, setPlayers] = useState([]);
     const [gameState, setGameState] = useState("");
@@ -64,9 +64,7 @@ function GameItem(props) {
 
     }, []);
 
-    if (user_id !== 0) {
-        
-
+    if (user_id !== 0 && user_id !== undefined) {
         return (
             <React.Fragment>
                 <div>
