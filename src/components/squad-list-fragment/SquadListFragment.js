@@ -47,15 +47,15 @@ export default class SquadListFragment extends React.Component {
                 squads: [...resp]
             });
         }).catch(e => {
-            console.log(e);
+            console.error(e);
         })
 
-        //console.log("squadlist game_id: " + that.state.game_id);
+        //// console.log("squadlist game_id: " + that.state.game_id);
         
     }
 
     handleJoinSquad(squad_id) {
-        //console.log("handleJoinSquad from child " + squad_id);
+        //// console.log("handleJoinSquad from child " + squad_id);
 
         const game_id = this.props.game_id;
         const player_id = this.props.player_id;
@@ -77,10 +77,10 @@ export default class SquadListFragment extends React.Component {
             body: JSON.stringify(newSquadMember)
         }).then(resp => resp.json()
         ).then(data => {
-            console.log('Squadmember joined: ', data);
+            // console.log('Squadmember joined: ', data);
 
         }).catch(e => {
-            console.log(e);
+            console.error(e);
         }) 
 
         this.setState({

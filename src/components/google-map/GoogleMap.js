@@ -6,7 +6,7 @@ import MissionList from '../mission-list/MissionList';
 import backEndUrl from '../../backEndUrl';
 
 function internalDoSomething(text){
-    console.log(text);
+    // console.log(text);
     
 }
 
@@ -29,17 +29,17 @@ class GoogleMap extends React.Component {
     }
 
     // doSomething (event) {
-    //     // console.log(event.data.param1);
+    //     // // console.log(event.data.param1);
         
-    //     // console.log('Youre killing it, specifically ' + event.data.param1);
-    //     console.log('youre killing it twice as much');
+    //     // // console.log('Youre killing it, specifically ' + event.data.param1);
+    //     // console.log('youre killing it twice as much');
         
         
     // }
 
 
     renderMap = async () => {
-        // console.log("SHOW A FANCY MAP")
+        // // console.log("SHOW A FANCY MAP")
 
         this.map = new window.google.maps.Map(this.mapEl.current,
             {
@@ -138,7 +138,7 @@ class GoogleMap extends React.Component {
             }
         }).then(resp => resp.json())
             .then(resp => {
-                console.log(resp);
+                // console.log(resp);
                 for (i = 0; i < resp.length; i++) {
                     beaches[i + 1] = new Array('Player ' + resp[i].victim_Id + ' ' + resp[i].story, resp[i].lat, resp[i].lng, resp[i].kill_Id)
                 }
@@ -154,14 +154,14 @@ class GoogleMap extends React.Component {
             }
         }).then(resp => resp.json())
             .then(resp => {
-                console.log(resp);
+                // console.log(resp);
                 this.setState({
                     missions: [...resp]
                 });
-                console.log(this.state.missions);
+                // console.log(this.state.missions);
 
             }).catch(error => {
-                console.log(error);
+                // console.log(error);
 
             });
 
@@ -179,14 +179,14 @@ class GoogleMap extends React.Component {
             var contentBite;
 
             if(this.props.userInfo.is_admin){
-                console.log("trying to get the bitcontent set");
+                // console.log("trying to get the bitcontent set");
                 contentBite = `<div id="content">
                 <h4 style="color:black;padding:0;margin:0;">${beach[0]}</h4>
                 <hr>
                 <p style="color:black;top-padding:0;">lat: ${beach[1]}, lng: ${beach[2]}</p>
                 <button type="button" onClick="(async function(){
                     const missionsURL = ${backEndUrl} + '${id}/kill/${beach[3]}';
-                    console.log(missionsURL);
+                    // console.log(missionsURL);
                     await fetch(missionsURL, {
                     method: 'DELETE',
                     headers: {
@@ -195,11 +195,11 @@ class GoogleMap extends React.Component {
                     }
                     }).then(resp => resp.json())
                     .then(resp => {
-                    console.log(resp);
-                    console.log('its deleted');
+                    // console.log(resp);
+                    // console.log('its deleted');
 
                     }).catch(error => {
-                    console.log(error);
+                    // console.log(error);
 
                     });
 
@@ -244,14 +244,14 @@ class GoogleMap extends React.Component {
             var mission = this.state.missions[i];
 
             var rightNow = new Date();
-            // console.log(rightNow);
+            // // console.log(rightNow);
             var missionDeadline = new Date(mission.end_Time)
-            console.log(missionDeadline);
+            // console.log(missionDeadline);
             var missionStartTime = new Date(mission.start_Time);
             var contentString;
 
             if(this.props.userInfo.is_admin){
-                console.log("i is admin");
+                // console.log("i is admin");
                 contentString = `<div id="content">
                 <h1 style="color:black;padding:0;margin:0;">${mission.mission_Id}: ${mission.name}</h1>
                 <hr>
@@ -260,7 +260,7 @@ class GoogleMap extends React.Component {
                 <b style="color:black;padding:2px;">Mission Deadline: ${mission.end_Time}</b>
                 <button type="button" onClick="(async function(){
                     const missionsURL = ${backEndUrl} + '${id}/mission/${mission.mission_Id}';
-                    console.log(missionsURL);
+                    // console.log(missionsURL);
 await fetch(missionsURL, {
 method: 'DELETE',
 headers: {
@@ -269,11 +269,11 @@ headers: {
 }
 }).then(resp => resp.json())
 .then(resp => {
-console.log(resp);
-console.log('its deleted');
+// console.log(resp);
+// console.log('its deleted');
 
 }).catch(error => {
-console.log(error);
+// console.log(error);
 
 });
 
@@ -355,15 +355,15 @@ document.getElementById('HiddenButton').click();
                         }
                     });
                 } else {
-                    console.log('Player' + this.props.player.player_Id + 'status is ' + player_status + '. The user_Id is ' + this.props.player.user_Id);
+                    // console.log('Player' + this.props.player.player_Id + 'status is ' + player_status + '. The user_Id is ' + this.props.player.user_Id);
 
                 }
 
             } else {
-                console.log(rightNow > missionStartTime);
-                console.log('mission started');
-                console.log(rightNow < missionDeadline);
-                console.log('mission expired');
+                // console.log(rightNow > missionStartTime);
+                // console.log('mission started');
+                // console.log(rightNow < missionDeadline);
+                // console.log('mission expired');
 
             }
 
@@ -382,7 +382,7 @@ document.getElementById('HiddenButton').click();
     }
 
     async renderCheckIns() {
-        console.log('Youve reached the google map element');
+        // console.log('Youve reached the google map element');
 
         if (this.props.squad_id) {
             const checkinURL = backEndUrl + `${this.props.game_id}/squad/${this.props.squad_id}/check-in`;
@@ -411,19 +411,19 @@ document.getElementById('HiddenButton').click();
                 }
             }).then(resp => resp.json())
                 .then(resp => {
-                    console.log(resp);
+                    // console.log(resp);
                     this.setState({
                         checkins: [...resp]
                     })
-                    console.log('you have now checked in');
+                    // console.log('you have now checked in');
 
                 }).catch(error => {
-                    console.log('you are not checked in');
+                    // console.log('you are not checked in');
 
-                    console.log(error);
+                    // console.log(error);
                 })
 
-            // console.log('This player is ' + this.props.player.is_Human);
+            // // console.log('This player is ' + this.props.player.is_Human);
 
 
             for (var i = 0; i < this.state.checkins.length; i++) {
@@ -482,14 +482,14 @@ document.getElementById('HiddenButton').click();
         })
         .then(resp => resp.json())
         .then(resp => {
-            // console.log(resp);
+            // // console.log(resp);
             this.setState({
                 game: resp
             });
-            console.log(this.state.game.nw_Lng);
+            // console.log(this.state.game.nw_Lng);
 
         }).catch(error => {
-            console.log(error);
+            // console.log(error);
 
         });
 
@@ -536,7 +536,7 @@ document.getElementById('HiddenButton').click();
                         latLng1,
                         latLng2
                     );
-                    // console.log(distanceBetween);
+                    // // console.log(distanceBetween);
                     if (distanceBetween < 50) {
                         alert(`You have achieved ${this.state.mission[i].name}`);
                     }
@@ -560,12 +560,12 @@ document.getElementById('HiddenButton').click();
     }
 
     // sendMeASign () {
-    //     console.log("Help me out here");
+    //     // console.log("Help me out here");
         
     // }
 
     updateMissions = () => {
-        console.log("really hoping this works");
+        // console.log("really hoping this works");
         this.renderMap();
     }
 

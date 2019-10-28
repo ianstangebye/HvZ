@@ -33,7 +33,7 @@ class LoginForm extends React.Component{
 
     updateLoggedIn = (user_id, is_admin, token) => {
         is_admin = is_admin === "Admin" ? true : false;
-        console.log(is_admin);
+        // console.log(is_admin);
         
         this.setState({
             user_id: user_id,
@@ -45,7 +45,7 @@ class LoginForm extends React.Component{
 
     handleSignInClick = event => {
         event.preventDefault();
-        console.log('clicked sign-in button');
+        // console.log('clicked sign-in button');
 
         const user = {
             "username": this.state.username,
@@ -76,16 +76,16 @@ class LoginForm extends React.Component{
         })
         .then(resp => {
             if(resp) {
-                console.log('Login succeeded')
+                // console.log('Login succeeded')
                 let decoded = jwt_decode(resp)
                 sessionStorage.setItem("user_id", decoded.nameid)
                 sessionStorage.setItem("role", decoded.role)
-                console.log("USER ID: " + sessionStorage.getItem("user_id"))
-                console.log("IS_ADMIN: " + decoded.role);
+                // console.log("USER ID: " + sessionStorage.getItem("user_id"))
+                // console.log("IS_ADMIN: " + decoded.role);
                 
                 this.updateLoggedIn(decoded.nameid, decoded.role, resp)
             } else {
-                console.log("Login failed")
+                // console.log("Login failed")
             }
         })
         .catch(e => {
@@ -95,11 +95,11 @@ class LoginForm extends React.Component{
     }
 
     handleRegisterClick = event => {
-        console.log('clicked register button');
+        // console.log('clicked register button');
 
         //Show Register Form here
         this.setState({register: true});
-        console.log(this.state.register);
+        // console.log(this.state.register);
         
     }
     

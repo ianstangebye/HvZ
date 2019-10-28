@@ -33,7 +33,7 @@ export default class EditPlayerFragment extends React.Component {
                 players: [...resp]
             });
         }).catch(e => {
-            console.log(e);
+            console.error(e);
         })
 
     }

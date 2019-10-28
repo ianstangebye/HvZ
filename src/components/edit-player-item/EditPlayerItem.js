@@ -32,8 +32,8 @@ export default class EditPlayerItem extends React.Component {
     }
 
     handleEditClick = async () => {
-        console.log(this.state.selectedPlayerState);
-        console.log('THIS PLAYER:', this.props.player.player_Id);
+        // console.log(this.state.selectedPlayerState);
+        // console.log('THIS PLAYER:', this.props.player.player_Id);
         
 
         const updatedPlayer = {
@@ -56,11 +56,11 @@ export default class EditPlayerItem extends React.Component {
             body: JSON.stringify(updatedPlayer)
         }).then(resp => resp.json())
         .then(data => {
-            console.log('Updated Player: ', data);
+            // console.log('Updated Player: ', data);
             this.updatePlayerState();
         })
         .catch(e => {
-            console.log(e);
+            console.error(e);
         })
     }
     render() {

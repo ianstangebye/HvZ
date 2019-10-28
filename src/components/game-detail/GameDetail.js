@@ -48,8 +48,8 @@ class GameDetail extends React.Component {
     }
 
     getPlayer = () => {
-        console.log(" ____________ GAME DETAIL ____________")
-        console.log("| FETCHING PLAYER                     |")
+        // console.log(" ____________ GAME DETAIL ____________")
+        // console.log("| FETCHING PLAYER                     |")
 
         this.setState({
             ready: false
@@ -106,18 +106,18 @@ class GameDetail extends React.Component {
                 }
             })
             .then(res => {
-                console.log("Game detail getsquad res: ");
-                console.log(res);
+                // console.log("Game detail getsquad res: ");
+                // console.log(res);
                 
                 if (res.status === 200) {
-                    console.log("getSquad success");
+                    // console.log("getSquad success");
                     
                     this.setState({
                         squad_id: res.data.squad_Id,
                         squad_member_id: res.data.squad_Member_Id,
                         ready: true
                     })
-                    console.log(this.state.squad_id);
+                    // console.log(this.state.squad_id);
                     
                 } else {
                     this.setState({
@@ -144,7 +144,7 @@ class GameDetail extends React.Component {
     }
 
     updateSquadDetails = () =>{
-        console.log('Hello, you are attempting to create a new squad checkin');
+        // console.log('Hello, you are attempting to create a new squad checkin');
         this.GoogleMapElement.current.renderMap();
         
     }
@@ -170,13 +170,13 @@ class GameDetail extends React.Component {
 
         let pictureId = '';
 
-        console.log("| GAME   ID: " + game_id)
-        console.log("| USER   ID: " + user_id)
-        console.log("| SQUAD  ID: " + squad_id)
-        console.log("| " + (admin ? "Admin" : "PLAYER ID: " + player_id))
-        console.log("| user info token " + this.state.userInfo.token);
+        // console.log("| GAME   ID: " + game_id)
+        // console.log("| USER   ID: " + user_id)
+        // console.log("| SQUAD  ID: " + squad_id)
+        // console.log("| " + (admin ? "Admin" : "PLAYER ID: " + player_id))
+        // console.log("| user info token " + this.state.userInfo.token);
         
-        console.log("|_____________________________________|")
+        // console.log("|_____________________________________|")
 
         if (admin) {
             pictureId = adminImg;

@@ -29,7 +29,7 @@ export default class SquadListItem extends React.Component {
                 }
             }
         }).catch(e => {
-            console.log(e); 
+            console.error(e); 
         })                    
     }
 

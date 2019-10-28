@@ -45,7 +45,7 @@ export default class TitleFragment extends React.Component {
             this.setState({ game: resp });
             
         }).catch(error => {
-            console.log(error);
+            // console.log(error);
         });       
         
         if (this.state.game.game_State === 'Registration' || this.state.game.game_State === 'registration') {
@@ -56,7 +56,7 @@ export default class TitleFragment extends React.Component {
             this.setState({gameStateColor: "#ED553B"})
         }
         
-        //console.log("title game_id: " + this.state.game_id);
+        //// console.log("title game_id: " + this.state.game_id);
 
         this.props.onUpdate(this.state.game.game_State);
     }
@@ -91,8 +91,8 @@ export default class TitleFragment extends React.Component {
     }
 
     saving= async ()=>{
-        //console.log("you are currently attempting to save a new game name");
-        //console.log(this.refs.gameName.innerText);
+        //// console.log("you are currently attempting to save a new game name");
+        //// console.log(this.refs.gameName.innerText);
         //var button = document.querySelector('#editButton');
         //button.innerHTML = this.state.editButtonSymbol;
 
@@ -120,9 +120,9 @@ export default class TitleFragment extends React.Component {
                 'Authorization': 'Bearer ' + this.state.userInfo.token
             }
         }).then(resp => resp.json())
-        .then(data => console.log('changed name: ', data))
+        // .then(data => // console.log('changed name: ', data))
         .catch(e => {
-            console.log(e);
+            console.error(e);
             
         })
 
@@ -137,7 +137,7 @@ export default class TitleFragment extends React.Component {
     render() {
 
         if(this.props.userInfo.is_admin){
-            console.log("iAdmin");
+            // console.log("iAdmin");
             return (
                 <React.Fragment>
                     <div className={styles.TitleFragment + " TitleFragment"}>

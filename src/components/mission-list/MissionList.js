@@ -36,14 +36,14 @@ class MissionList extends React.Component{
         //     }
         // }).then(resp=>resp.json())
         // .then(resp=>{
-        //     console.log("MissionList");
+        //     // console.log("MissionList");
             
-        //     console.log(resp);
+        //     // console.log(resp);
         //     this.setState({
         //         missions: [...resp]
         //     });
         // }).catch(error=>{
-        //     console.log(error);
+        //     // console.log(error);
             
         // });
     }
@@ -55,7 +55,7 @@ class MissionList extends React.Component{
     }
 
     // updateGameDetail () {
-    //     // console.log('Attempting to update game detail');
+    //     // // console.log('Attempting to update game detail');
     //     this.props.trynaCommunicate();
         
     // }

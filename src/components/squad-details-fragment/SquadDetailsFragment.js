@@ -25,14 +25,14 @@ export default class SquadDetailsFragment extends React.Component {
     handleCheckIn = async () => {
         // this.props.newSquadCheckin();
         // this.createSquadCheckin();
-        // console.log('check in marker');
+        // // console.log('check in marker');
 
         if(!this.props.is_Human){
-            console.log('not human');
+            // console.log('not human');
             this.setState({is_Human: false});
             
         } else {
-            console.log('human');
+            // console.log('human');
             this.setState({is_Human: true});
             
         }
@@ -42,7 +42,7 @@ export default class SquadDetailsFragment extends React.Component {
         // if (navigator.geolocation) {
         //     navigator.geolocation.getCurrentPosition( position =>
         //         this.setState({corLat: position.coords.latitude, corLng: position.coords.longitude})//,
-        //         // console.log(position.coords.latitude + ' ' + position.coords.longitude)
+        //         // // console.log(position.coords.latitude + ' ' + position.coords.longitude)
                 
         //     );
         // } else {
@@ -62,19 +62,19 @@ export default class SquadDetailsFragment extends React.Component {
                     corLat: position.coords.latitude,
                     corLng: position.coords.longitude
                 }, function () {
-                console.log('the squad checkin has been changed');
-                // console.log(this.state.lat + " | " + this.state.lng);
+                // console.log('the squad checkin has been changed');
+                // // console.log(this.state.lat + " | " + this.state.lng);
                 this.createSquadCheckin();
             }),
-            // console.log(position.coords.latitude + ' ' + position.coords.longitude),                
-            // console.log(`Lat: ${position.coords.latitude} Lng: ${position.coords.longitude}`),                
+            // // console.log(position.coords.latitude + ' ' + position.coords.longitude),                
+            // // console.log(`Lat: ${position.coords.latitude} Lng: ${position.coords.longitude}`),                
             // await this.setState({lat: position.coords.latitude,lng: position.coords.longitude }),
-            // console.log(this.state),
+            // // console.log(this.state),
             // On error
             err => alert(`Error (${err.code}): ${err.message}`)
          );
 
-        // console.log(this.state.corLat);
+        // // console.log(this.state.corLat);
 
         //Get location from geolocationthingy? 
         //or have input where player can set the coordinates themselves?
@@ -85,7 +85,7 @@ export default class SquadDetailsFragment extends React.Component {
         var startTime = new Date();
         var endTime= new Date();
         await endTime.setHours( endTime.getHours() + 2);
-        console.log('the time in two hours will be '+endTime);
+        // console.log('the time in two hours will be '+endTime);
         
        
         
@@ -100,7 +100,7 @@ export default class SquadDetailsFragment extends React.Component {
             "squad_Member_Id": this.props.squad_member_id
         }
 
-        console.log(newCheckIn);
+        // console.log(newCheckIn);
 
         const targetUrl = backEndUrl + `${this.props.game_id}/squad/${this.props.squad_id}/check-in`
         
@@ -112,13 +112,13 @@ export default class SquadDetailsFragment extends React.Component {
             },
             body: JSON.stringify(newCheckIn)
         }).then(resp => resp.json())
-        .then(data => console.log('Checked in: ', data))
+        // .then(data => // console.log('Checked in: ', data))
         .catch(e => {
-            console.log(e);
+            console.error(e);
             
         })
 
-        console.log(this.props.is_human);
+        // console.log(this.props.is_human);
         
 
 
@@ -138,13 +138,13 @@ export default class SquadDetailsFragment extends React.Component {
                 'Authorization': 'Bearer ' + this.state.userInfo.token
             }
         }).then(resp => {
-            console.log('Deleted Squad-member: ', resp);
+            // console.log('Deleted Squad-member: ', resp);
             if (resp.status === 200) {
                 this.props.onUpdate()
             }
         })
         .catch(e => {
-            console.log(e);
+            console.error(e);
         })
         
     }
@@ -165,7 +165,7 @@ export default class SquadDetailsFragment extends React.Component {
                 { squadMembers: [...resp] }
             )
         }).catch(e => {
-            console.log(e);
+            console.error(e);
         })
 
         //Get squad name
@@ -181,7 +181,7 @@ export default class SquadDetailsFragment extends React.Component {
                 { squad: {...resp} }
             )
         }).catch(e => {
-            console.log(e);
+            console.error(e);
         })
     }
 

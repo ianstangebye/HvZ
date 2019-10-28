@@ -53,7 +53,7 @@ class RegistrationFragment extends React.Component {
         })
         .then(resp => {
             if (resp.status === 200) {
-                console.log(`Created player with id: ${resp.data}`)
+                // console.log(`Created player with id: ${resp.data}`)
                 this.props.onUpdate()
             } else {
                 throw new Error(`STATUS CODE: ${resp.status}`)
@@ -74,7 +74,7 @@ class RegistrationFragment extends React.Component {
         if(sid !== 0 && smid !== 0) { 
             const url = backEndUrl + `${gid}/squad/${sid}/member/${smid}`;
 
-            console.log("Delete squad member url: " + url);
+            // console.log("Delete squad member url: " + url);
             
             fetch(url, {
                 method: 'DELETE',
@@ -85,7 +85,7 @@ class RegistrationFragment extends React.Component {
             })
             .then(resp => {
                 if (resp.status === 200) {
-                    console.log(`Deleted squad_member with id: ${smid}`);
+                    // console.log(`Deleted squad_member with id: ${smid}`);
                     //this.props.onUpdate()
                 } else {
                     throw new Error(`STATUS CODE: ${resp.status}`)
@@ -108,7 +108,7 @@ class RegistrationFragment extends React.Component {
         })
         .then(resp => {
             if (resp.status === 200) {
-                console.log(`Deleted player with id: ${pid}`);
+                // console.log(`Deleted player with id: ${pid}`);
                 this.props.onUpdate();
             } else {
                 throw new Error(`STATUS CODE: ${resp.status}`)

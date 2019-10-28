@@ -21,11 +21,11 @@ function GameItem(props) {
 
     //const user_id = sessionStorage.getItem('user_id') || 0;
     //const loggedIn = localStorage.getItem('loggedIn') || "false";
-    //console.log("loggedIn " + loggedIn);
+    //// console.log("loggedIn " + loggedIn);
 
-    //console.log("user_id: " + user_id);
+    //// console.log("user_id: " + user_id);
 
-    //console.log(game.game_Id);
+    //// console.log(game.game_Id);
 
     // let [players, setPlayers] = useState(0);
 
@@ -34,18 +34,18 @@ function GameItem(props) {
     useEffect(() => {
         fetch(getPlayers).then(resp => resp.json())
             .then(resp => {
-                //console.log('Game ' + game.game_Id + 'and players ' + resp);
+                //// console.log('Game ' + game.game_Id + 'and players ' + resp);
                 setPlayers(resp);
 
                 // setPlayers(players = [resp]);
                 // this.setPlayers({players: [...resp]});
 
-                // console.log('there are '+ this.players.length+ ' in this game');
+                // // console.log('there are '+ this.players.length+ ' in this game');
 
 
             }).catch(error => {
-                console.log('Something fucked up in the game item')
-                console.log(error);
+                // console.log('Something fucked up in the game item')
+                // console.log(error);
 
             })
 

@@ -39,9 +39,9 @@ class NewGameForm extends React.Component {
 
     getLocation = () => {
         if (!this.props.isGeolocationAvailable) {
-            console.log("Your browser does not support Geolocation");
+            // console.log("Your browser does not support Geolocation");
         } else if (!this.props.isGeolocationEnabled) {
-            console.log("Geolocation is not enabled");
+            // console.log("Geolocation is not enabled");
         }
         if (this.props.coords) {
             this.setState({
@@ -102,8 +102,8 @@ class NewGameForm extends React.Component {
     }
     
     // onCalendarChange = (start_time, end_time) => {
-    //     console.log(start_time);
-    //     console.log(end_time);
+    //     // console.log(start_time);
+    //     // console.log(end_time);
         
     //     this.setState({
     //         start_time: new Date(start_time).toLocaleString(),

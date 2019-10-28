@@ -39,8 +39,8 @@ class NewMissionForm extends React.Component {
     }
 
     // onCalenderChange = (start_time, end_time) => {
-    //     console.log(start_time);
-    //     console.log(end_time);
+    //     // console.log(start_time);
+    //     // console.log(end_time);
         
     //     this.setState({
     //         start_time: new Date(start_time).toLocaleString(),
@@ -74,8 +74,8 @@ class NewMissionForm extends React.Component {
     }
 
     onClickCreate = async () => {
-        // console.log("this works");
-        console.log("you are reaching the onclickcreate function");
+        // // console.log("this works");
+        // console.log("you are reaching the onclickcreate function");
 
         var newMission= {
             name: this.state.name,
@@ -89,11 +89,11 @@ class NewMissionForm extends React.Component {
             end_Time: this.state.end_time
         }
 
-        console.log(newMission);
+        // console.log(newMission);
 
         const targetUrl = backEndUrl + `${this.props.game_id}/mission`
 
-        // console.log(JSON.stringify(bite));
+        // // console.log(JSON.stringify(bite));
         
         await fetch(targetUrl, {
             method: 'POST',
@@ -103,13 +103,13 @@ class NewMissionForm extends React.Component {
             },
             body: JSON.stringify(newMission)
         }).then(resp =>{
-            console.log(resp);
-            console.log('you are indeed getting a response');
+            // console.log(resp);
+            // console.log('you are indeed getting a response');
             
         }).catch(error => {
-            console.log('you are indeed getting an error');
+            // console.log('you are indeed getting an error');
             
-            console.log(error);
+            // console.log(error);
         })
         
         this.handleCloseClick();

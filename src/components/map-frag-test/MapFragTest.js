@@ -82,14 +82,14 @@
 //         //             //need to set in the correct 
 //         // fetch(targetUrl).then(resp=> resp.json())
 //         // .then(resp=>{
-//         //     console.log(resp);
+//         //     // console.log(resp);
 //         //     this.setState({
 //         //        game: resp
 //         //     });
-//         //     console.log(this.state.game);
+//         //     // console.log(this.state.game);
 
 //         // }).catch(error=>{
-//         //     console.log(error);
+//         //     // console.log(error);
 
 //         // })
 

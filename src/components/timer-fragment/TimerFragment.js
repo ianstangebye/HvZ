@@ -29,21 +29,21 @@ class TimerFragment extends React.Component {
 
         // await fetch(targetUrl).then(resp => resp.json())
         // .then(resp => {
-        //     //console.log(resp);
+        //     //// console.log(resp);
         //     this.setState({
         //         game: {...resp}
         //     });
 
         // }).catch(error => {
-        //     console.log('Something fucked up')
-        //     console.log(error);
+        //     // console.log('Something fucked up')
+        //     // console.log(error);
         // });
     }
 
     timerBeforeStart = (time) => {
         let currentTime = new Date();
 
-        console.log();
+        // console.log();
 
         if (moment(currentTime).isAfter(this.state.game.start_Time)) {
             let game = this.state.game;
@@ -75,7 +75,7 @@ class TimerFragment extends React.Component {
                     }
                 })
                 .then(resp => {
-                    console.log(resp);
+                    // console.log(resp);
                 })
                 .catch(e => {
                     console.error(e);
@@ -123,7 +123,7 @@ class TimerFragment extends React.Component {
                 }
             })
             .then(resp => {
-                console.log(resp);
+                // console.log(resp);
             })
             .catch(e => {
                 console.error(e);
@@ -136,7 +136,7 @@ class TimerFragment extends React.Component {
     editTime = () => {
         if(this.state.editing) {
             // Save the selected dates (if different) with a put request
-            console.log("Successfully edited start/end-time")
+            // console.log("Successfully edited start/end-time")
         }
 
         this.setState({editing: !this.state.editing})

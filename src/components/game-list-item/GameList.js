@@ -55,10 +55,10 @@ class GameList extends React.Component {
         }
         
         
-        // console.log(window.sessionStorage.getItem("user_id"));
+        // // console.log(window.sessionStorage.getItem("user_id"));
 
-        // console.log("list user_id: " + this.state.user_id);
-        // console.log("list is_admin: " + this.state.is_admin);
+        // // console.log("list user_id: " + this.state.user_id);
+        // // console.log("list is_admin: " + this.state.is_admin);
 
         //const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         //const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game`;
@@ -72,14 +72,14 @@ class GameList extends React.Component {
             }
         }).then(resp => resp.json())
             .then(resp => {
-                //console.log(resp);
+                //// console.log(resp);
                 this.setState({
                     games: [...resp]
                 });
 
             }).catch(error => {
-                console.log('Something fucked up')
-                console.log(error);
+                // console.log('Something fucked up')
+                // console.log(error);
 
             });
 
@@ -104,7 +104,7 @@ class GameList extends React.Component {
         window.history.replaceState(null, null, '/');
         window.location.reload(false);
         // })
-        //console.log("after clear: " + this.state.user_id);
+        //// console.log("after clear: " + this.state.user_id);
 
         //this.forceUpdate();
 

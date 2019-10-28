@@ -24,8 +24,8 @@ export default class SquadCreationFragment extends React.Component {
 
     // Create a new squad
     onClickCreate = event => {
-        console.log(this.state.name);
-        console.log('Created');
+        // console.log(this.state.name);
+        // console.log('Created');
 
         const newSquad = {
             "name": this.state.name,
@@ -35,8 +35,8 @@ export default class SquadCreationFragment extends React.Component {
 
         const targetUrl = backEndUrl + `${this.state.game_id}/squad`
         
-        console.log(targetUrl);
-        console.log(newSquad);
+        // console.log(targetUrl);
+        // console.log(newSquad);
 
         const that = this;
         
@@ -51,21 +51,21 @@ export default class SquadCreationFragment extends React.Component {
             }).then(function(resp) {
                 return resp.json();
             }).then(function(data) {
-                console.log('Created Squad:', data);
+                // console.log('Created Squad:', data);
                 that.setState({
                     squad_id: data
                 }, () => {
                     that.onClickJoin();
                 })
             }).catch(e => {
-                console.log(e);
+                console.error(e);
             })
         }
     }
 
     //Join the new squad 
     onClickJoin = event => {
-        console.log('Joined');
+        // console.log('Joined');
 
         const newSquadMember = {
             "game_id": this.state.game_id,
@@ -82,10 +82,11 @@ export default class SquadCreationFragment extends React.Component {
                 'Authorization': 'Bearer ' + this.state.userInfo.token
             },
             body: JSON.stringify(newSquadMember)
-        }).then(resp => resp.json()
-        ).then(data => console.log('Squadmember joined: ', data)
-        ).catch(e => {
-            console.log(e);
+        })
+        .then(resp => resp.json())
+        // .then(data => // console.log('Squadmember joined: ', data))
+        .catch(e => {
+            console.error(e);
             
         })
 

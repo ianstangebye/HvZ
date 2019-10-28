@@ -64,14 +64,14 @@ class BiteCodeEntry extends React.Component{
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     }, function () {
-                    console.log('the state has been changed');
-                    console.log(this.state.lat + " | " + this.state.lng);
+                    // console.log('the state has been changed');
+                    // console.log(this.state.lat + " | " + this.state.lng);
                     this.createBite();
                 }),
-                // console.log(position.coords.latitude + ' ' + position.coords.longitude),                
-                // console.log(`Lat: ${position.coords.latitude} Lng: ${position.coords.longitude}`),                
+                // // console.log(position.coords.latitude + ' ' + position.coords.longitude),                
+                // // console.log(`Lat: ${position.coords.latitude} Lng: ${position.coords.longitude}`),                
                 // await this.setState({lat: position.coords.latitude,lng: position.coords.longitude }),
-                // console.log(this.state),
+                // // console.log(this.state),
                 // On error
                 err => alert(`Error (${err.code}): ${err.message}`)
              );
@@ -79,10 +79,10 @@ class BiteCodeEntry extends React.Component{
             
         
             // const game_id = this.props.match.params.game_id;
-            // console.log(game_id);
-            // console.log(new Date().toISOString());
-            // console.log(sessionStorage.getItem("user_id"));
-            // console.log(this.state.biteCode);
+            // // console.log(game_id);
+            // // console.log(new Date().toISOString());
+            // // console.log(sessionStorage.getItem("user_id"));
+            // // console.log(this.state.biteCode);
             
             // let bite={
             //     time_Of_Death: new Date().toISOString(),
@@ -94,7 +94,7 @@ class BiteCodeEntry extends React.Component{
             //     bite_Code: this.state.biteCode
             // }
 
-            // console.log(bite);
+            // // console.log(bite);
             
 
 
@@ -102,14 +102,14 @@ class BiteCodeEntry extends React.Component{
         
         // const targetUrl = `backEndUrl/${game_id}/kill`
 
-        // // console.log(JSON.stringify(bite));
+        // // // console.log(JSON.stringify(bite));
         
         // fetch(targetUrl, {
         //     method: 'POST',
         //     headers: {'Content-Type':'application/json'},
         //     body: JSON.stringify(bite)
         // }).catch(error => {
-        //     console.log(error);
+        //     // console.log(error);
         // })
     }
 
@@ -117,10 +117,10 @@ class BiteCodeEntry extends React.Component{
     createBite = async () => {
             // const game_id = this.props.match.params.game_id;
             const game_id = this.props.game_id;
-            console.log(game_id);
-            console.log(new Date().toISOString());
-            console.log(sessionStorage.getItem("user_id"));
-            console.log(this.state.biteCode);
+            // console.log(game_id);
+            // console.log(new Date().toISOString());
+            // console.log(sessionStorage.getItem("user_id"));
+            // console.log(this.state.biteCode);
 
         let bite={
                 time_Of_Death: new Date().toISOString(),
@@ -133,7 +133,7 @@ class BiteCodeEntry extends React.Component{
                 story: this.state.description
             }
 
-            console.log(bite);
+            // console.log(bite);
             
 
 
@@ -142,7 +142,7 @@ class BiteCodeEntry extends React.Component{
         //const targetUrl = `backEndUrl/${game_id}/kill`
         const targetUrl = `backEndUrl/${game_id}/kill`
 
-        // console.log(JSON.stringify(bite));
+        // // console.log(JSON.stringify(bite));
         
         await fetch(targetUrl, {
             method: 'POST',
@@ -152,13 +152,13 @@ class BiteCodeEntry extends React.Component{
             },
             body: JSON.stringify(bite)
         }).then(resp =>{
-            console.log(resp);
-            console.log('you are indeed getting a response');
+            // console.log(resp);
+            // console.log('you are indeed getting a response');
             
         }).catch(error => {
-            console.log('you are indeed getting an error');
+            // console.log('you are indeed getting an error');
             
-            console.log(error);
+            // console.log(error);
         })
 
         // this.props.renderMap();
@@ -172,7 +172,7 @@ class BiteCodeEntry extends React.Component{
     }
 
     render(){ 
-        // console.log(this.state);
+        // // console.log(this.state);
         
         return(
 
