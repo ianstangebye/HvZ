@@ -115,7 +115,7 @@ class ChatFragment extends React.Component {
     startAutoUpdate = () => {
         this.interval = setInterval(() => {
             this.getMessages(this.state.activeTab)
-        }, 300)
+        }, 1000)
     }
     
     stopAutoUpdate = () => {
@@ -158,6 +158,9 @@ class ChatFragment extends React.Component {
                 if(!this.unmounted && !this.cancelUpdate) {
                     this.setState({
                         messages: resp.data
+                    }, () => {
+                        console.log("chat getMessages!");
+                        
                     })
                 }
             } else {
