@@ -130,7 +130,7 @@ class RegistrationFragment extends React.Component {
         }
 
         return (
-            <div className={styles.RegistrationFragment} style={{display: this.props.game_state === 'Complete' || (this.props.game_state === 'In Progress' && this.props.player_id) ? 'none' : 'block'}}>
+            <div className={styles.RegistrationFragment} style={{visibility: this.props.game_state === 'Complete' || (this.props.game_state === 'In Progress' && this.props.player_id) ? 'hidden' : 'visible'}}>
                 <button onClick={action} disabled={disableBtn}>{txt}</button>
             </div>
         )
