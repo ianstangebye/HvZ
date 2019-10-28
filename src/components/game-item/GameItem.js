@@ -32,7 +32,8 @@ function GameItem(props) {
     const getPlayers = backEndUrl + `${game.game_Id}/player`;
 
     useEffect(() => {
-        fetch(getPlayers).then(resp => resp.json())
+        async function fetchData() {
+            fetch(getPlayers).then(resp => resp.json())
             .then(resp => {
                 //// console.log('Game ' + game.game_Id + 'and players ' + resp);
                 setPlayers(resp);
@@ -42,13 +43,13 @@ function GameItem(props) {
 
                 // // console.log('there are '+ this.players.length+ ' in this game');
 
-
             }).catch(error => {
-                // console.log('Something fucked up in the game item')
                 console.error(error);
 
             })
-
+        }
+         
+        fetchData();
     }, [game.game_Id, getPlayers]);
 
     // Adds background-color depending on the game-state
