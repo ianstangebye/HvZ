@@ -128,7 +128,7 @@ class BiteCodeEntry extends React.Component{
                 game_Id: game_id,
                 lat: this.state.lat,
                 lng: this.state.lng,
-                killer_Id: this.state.userInfo.user_id,
+                killer_Id: this.props.player.player_Id,
                 // killer_Id: this.props.player_id,
                 bite_Code: this.state.biteCode,
                 story: this.state.description
