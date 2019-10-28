@@ -185,7 +185,7 @@ class GoogleMap extends React.Component {
                 <hr>
                 <p style="color:black;top-padding:0;">lat: ${beach[1]}, lng: ${beach[2]}</p>
                 <button type="button" onClick="(async function(){
-                    const missionsURL = ${backEndUrl} + '${id}/kill/${beach[3]}';
+                    const missionsURL = '${backEndUrl}${id}/kill/${beach[3]}';
                     //console.log(missionsURL);
                     await fetch(missionsURL, {
                     method: 'DELETE',
@@ -260,7 +260,7 @@ class GoogleMap extends React.Component {
               
                 <b style="color:black;padding:2px;">Mission Deadline: ${mission.end_Time}</b>
                 <button type="button" onClick="(async function(){
-                    const missionsURL = ${backEndUrl} + '${id}/mission/${mission.mission_Id}';
+                    const missionsURL = '${backEndUrl}${id}/mission/${mission.mission_Id}';
                     //console.log(missionsURL);
 await fetch(missionsURL, {
 method: 'DELETE',
@@ -274,7 +274,6 @@ headers: {
 //console.log('its deleted');
 
 }).catch(error => {
-//console.log(error);
 
 });
 
