@@ -136,11 +136,7 @@ class NewGameForm extends React.Component {
             return <Redirect push to={{
                 pathname: '/',
                 state: { 
-                    userInfo: {
-                        user_id: this.state.user_id,
-                        is_admin: this.state.is_admin,
-                        token: this.state.token
-                    },
+                    userInfo: this.state.userInfo,
                     loggedIn: true
                 }
             }} />
