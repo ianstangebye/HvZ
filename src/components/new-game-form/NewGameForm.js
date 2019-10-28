@@ -16,6 +16,34 @@ class NewGameForm extends React.Component {
         const startDate = Date.now();
         const endDate = new Date(startDate).setDate(new Date(startDate).getDate() + 1);
         
+        Date.prototype.format = function(f) {
+            if (!this.valueOf()) return " ";
+         
+            var weekName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            var d = this;
+            var h = 0;
+             
+            return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
+                switch ($1) {
+                    case "yyyy": return d.getFullYear();
+                    case "yy": return (d.getFullYear() % 1000).zf(2);
+                    case "MM": return (d.getMonth() + 1).zf(2);
+                    case "dd": return d.getDate().zf(2);
+                    case "E": return weekName[d.getDay()];
+                    case "HH": return d.getHours().zf(2);
+                    case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
+                    case "mm": return d.getMinutes().zf(2);
+                    case "ss": return d.getSeconds().zf(2);
+                    case "a/p": return d.getHours() < 12 ? "AM" : "PM";
+                    default: return $1;
+                }
+            });
+        };
+         
+        String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
+        String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
+        Number.prototype.zf = function(len){return this.toString().zf(len);};
+
         this.state = {
             is_admin: false,
             name: "",
@@ -24,8 +52,9 @@ class NewGameForm extends React.Component {
             se_latitude: 0,
             se_longitude: 0,
             description: "",
-            start_time: new Date(startDate).toLocaleString([], { hour12: true}),
-            end_time: new Date(endDate).toLocaleString([], { hour12: true}),
+            start_time: new Date(startDate).format("MM/dd/yyyy, hh:mm:ss a/p"),
+            // end_time: new Date(endDate).toLocaleString([], { hour12: true}).format("MM/dd/yyyy, hh:mm:ss a/p"),
+            end_time: new Date(endDate).format("MM/dd/yyyy, hh:mm:ss a/p"),
             creationSuccess: false,
             calendarOn: false,
             userInfo: props.location.state.userInfo
@@ -119,18 +148,18 @@ class NewGameForm extends React.Component {
     onCalendarChange = (days) => {
         if(days.length === 1) {
             this.setState({
-                start_time: new Date(days[0]).toLocaleString([], { hour12: true}),
-                end_time: new Date(days[days.length-1]).toLocaleString([], { hour12: true})
+                start_time: new Date(days[0]).format("MM/dd/yyyy, hh:mm:ss a/p"),
+                end_time: new Date(days[days.length-1]).format("MM/dd/yyyy, hh:mm:ss a/p")
             })
         } else if (days[0] < days[1]) {
             this.setState({
-                start_time: new Date(days[0]).toLocaleString([], { hour12: true}),
-                end_time: new Date(days[1]).toLocaleString([], { hour12: true})
+                start_time: new Date(days[0]).format("MM/dd/yyyy, hh:mm:ss a/p"),
+                end_time: new Date(days[1]).format("MM/dd/yyyy, hh:mm:ss a/p")
             })
         } else {
             this.setState({
-                start_time: new Date(days[1]).toLocaleString([], { hour12: true}),
-                end_time: new Date(days[0]).toLocaleString([], { hour12: true})
+                start_time: new Date(days[1]).format("MM/dd/yyyy, hh:mm:ss a/p"),
+                end_time: new Date(days[0]).format("MM/dd/yyyy, hh:mm:ss a/p")
             })
         }
     }
