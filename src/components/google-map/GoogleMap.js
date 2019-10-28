@@ -118,10 +118,12 @@ class GoogleMap extends React.Component {
             anchor: new window.google.maps.Point(15, 0) // anchor
         };
 
-
+        //this is actually the bite entries
         var beaches = [
             ['Player 1 had their limbs torn off', -1000, -1000, -10000],
         ];
+
+        var biteWindows =[];
 
         const id = this.props.game_id;
         const player_status = this.props.player.is_Human;
@@ -138,7 +140,7 @@ class GoogleMap extends React.Component {
             .then(resp => {
                 console.log(resp);
                 for (i = 0; i < resp.length; i++) {
-                    beaches[i + 1] = new Array('Player ' + resp[i].victim_Id + ' ' + resp[i].story, resp[i].lat, resp[i].lng)
+                    beaches[i + 1] = new Array('Player ' + resp[i].victim_Id + ' ' + resp[i].story, resp[i].lat, resp[i].lng, resp[i].kill_Id)
                 }
             });
             
@@ -170,8 +172,49 @@ class GoogleMap extends React.Component {
             type: 'poly'
         };
 
+        //zombie bite windows
         for (var i = 0; i < beaches.length; i++) {
+            
             var beach = beaches[i];
+            var contentBite;
+
+            if(this.props.userInfo.is_admin){
+                console.log("trying to get the bitcontent set");
+                contentBite = `<div id="content">
+                <h4 style="color:black;padding:0;margin:0;">${beach[0]}</h4>
+                <hr>
+                <p style="color:black;top-padding:0;">lat: ${beach[1]}, lng: ${beach[2]}</p>
+                <button type="button" onClick="(async function(){
+                    const missionsURL = ${backEndUrl} + '${id}/kill/${beach[3]}';
+                    console.log(missionsURL);
+                    await fetch(missionsURL, {
+                    method: 'DELETE',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + '${this.state.userInfo.token}'
+                    }
+                    }).then(resp => resp.json())
+                    .then(resp => {
+                    console.log(resp);
+                    console.log('its deleted');
+
+                    }).catch(error => {
+                    console.log(error);
+
+                    });
+
+                    document.getElementById('HiddenButton').click();
+
+                                    })()">Delete kill</button>
+                                    </div>`;
+                
+            } else {
+                contentBite = `<div id="content">
+                <h4 style="color:black;padding:0;margin:0;">${beach[0]}</h4>
+                <hr>
+                <p style="color:black;top-padding:0;">lat: ${beach[1]}, lng: ${beach[2]}</p></div>`;
+            }
+
             var marker = new window.google.maps.Marker({
                 position: { lat: beach[1], lng: beach[2] },
                 map: this.map,
@@ -179,6 +222,18 @@ class GoogleMap extends React.Component {
                 shape: shape,
                 title: beach[0],
                 zIndex: 4
+            });
+
+            var infowindow = new window.google.maps.InfoWindow({
+                content: contentBite
+            });
+            biteWindows.push({ "title": beach[0], "info": infowindow });
+            marker.addListener('click', function () {                        
+                for(var i = 0; i < biteWindows.length; i++) {
+                    if(biteWindows[i].title == this.title) {
+                        biteWindows[i].info.open(this.map, this);
+                    }
+                }
             });
         }
 
