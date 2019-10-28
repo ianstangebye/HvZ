@@ -84,8 +84,8 @@ class NewGameForm extends React.Component {
                 body: JSON.stringify(newGame),
                 headers: {
                     Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                    //need token 
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + this.state.userInfo.token
                 }
             }).then(resp => {
                 if(resp.status !== 200) {

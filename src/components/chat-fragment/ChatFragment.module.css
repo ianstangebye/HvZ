@@ -71,8 +71,9 @@
         color: #F5F5F5;
         width: fit-content;
         border-radius: 15px;
+        font-size: 12px;
         margin: 3px;
-        padding: 10px;
+        padding: 5px;
         float: left;
         clear: both;
     }
@@ -143,7 +144,7 @@
 
 @media screen and (min-width: 801px){
 
-   
+    
 
 }
 
@@ -168,6 +169,11 @@
     .Messages {
         max-width: 1000px;
         width: 100%;
+    }
+    
+    .Message {
+        font-size: 14px;
+        padding: 10px;
     }
 
     #MsgInput {

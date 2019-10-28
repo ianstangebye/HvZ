@@ -54,13 +54,17 @@ class TimerFragment extends React.Component {
     }
 
     timerBeforeStart = (time) => {
-        let currentTime = new Date();
-        let hasStarted = moment(currentTime).isAfter(this.state.game.start_Time)
-        let game = this.state.game
-        game.game_State = hasStarted ? "In Progress" : "Registration"
-        this.setState({ game: game }, () => {
-            this.startGame();
-        })
+        if(this.state.userInfo.is_admin) {
+            let currentTime = new Date();
+
+            if (moment(currentTime).isAfter(this.state.game.start_Time)) {
+                let game = this.state.game;
+                game.game_State = "In Progress";
+                this.setState({ game: game }, () => {
+                    this.startGame();
+                });
+            }
+        }
     }
 
     startGame = async () => {
@@ -96,14 +100,16 @@ class TimerFragment extends React.Component {
     }
 
     timerBeforeEnd = () => {
-        let currentTime = new Date();
+        if(this.state.userInfo.is_admin) {
+            let currentTime = new Date();
 
-        if (moment(currentTime).isAfter(this.state.game.end_Time)) {
-            let game = this.state.game;
-            game.game_State = "Complete";
-            this.setState({ game: game }, () => {
-                this.endGame();
-            });
+            if (moment(currentTime).isAfter(this.state.game.end_Time)) {
+                let game = this.state.game;
+                game.game_State = "Complete";
+                this.setState({ game: game }, () => {
+                    this.endGame();
+                });
+            }
         }
     }
 
