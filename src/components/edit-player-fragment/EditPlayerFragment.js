@@ -20,7 +20,7 @@ export default class EditPlayerFragment extends React.Component {
 
     componentDidMount() {
 
-        const targetUrl = backEndUrl + `${this.state.game_id}/player`
+        const targetUrl = `${backEndUrl}${this.state.game_id}/player`;
     
         fetch(targetUrl, {
             headers: {

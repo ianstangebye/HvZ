@@ -146,7 +146,7 @@ export default class TitleFragment extends React.Component {
                             <span suppressContentEditableWarning={true} contentEditable="false" style={{visibility: this.state.userInfo.is_admin ? 'visible' : 'hidden'}}>
                             <button suppressContentEditableWarning={true} contentEditable="false" onClick={this.state.editButtonFunction} id={styles.editButton} >
                                 {/* {this.state.editButtonText} */}
-                                <FaEdit />
+                                {!this.state.editing ? <FaEdit /> : <FaSave/>}
                             </button>
                             </span>
                             </h1>
