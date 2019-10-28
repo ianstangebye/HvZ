@@ -45,7 +45,7 @@ function GameItem(props) {
 
             }).catch(error => {
                 // console.log('Something fucked up in the game item')
-                // console.log(error);
+                console.error(error);
 
             })
 

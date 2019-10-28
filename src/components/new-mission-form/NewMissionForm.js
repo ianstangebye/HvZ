@@ -102,14 +102,16 @@ class NewMissionForm extends React.Component {
                 'Authorization': 'Bearer ' + this.props.userInfo.token
             },
             body: JSON.stringify(newMission)
-        }).then(resp =>{
-            // console.log(resp);
-            // console.log('you are indeed getting a response');
+        })
+        // .then(resp =>{
+        //     // console.log(resp);
+        //     // console.log('you are indeed getting a response');
             
-        }).catch(error => {
+        // })
+        .catch(error => {
             // console.log('you are indeed getting an error');
             
-            // console.log(error);
+            console.error(error);
         })
         
         this.handleCloseClick();
