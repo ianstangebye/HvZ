@@ -46,7 +46,7 @@ export default class EditPlayerItem extends React.Component {
             username: this.props.player.username
         }
 
-        const targetUrl = backEndUrl + `${this.props.game_id}/player/${this.props.player.player_Id}/state` 
+        const targetUrl = `${backEndUrl}${this.props.game_id}/player/${this.props.player.player_Id}/state`; 
         await fetch(targetUrl, {
             method: 'PUT',
             headers: {

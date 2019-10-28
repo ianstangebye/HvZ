@@ -91,7 +91,7 @@ class NewMissionForm extends React.Component {
 
         // console.log(newMission);
 
-        const targetUrl = backEndUrl + `${this.props.game_id}/mission`
+        const targetUrl = `${backEndUrl}${this.props.game_id}/mission`;
 
         // // console.log(JSON.stringify(bite));
         
