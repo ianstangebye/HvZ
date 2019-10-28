@@ -7,6 +7,7 @@ import { FaSave } from 'react-icons/fa'
 import { DatePicker, theme } from 'react-trip-date';
 import { ThemeProvider } from 'styled-components';
 import backEndUrl from '../../backEndUrl';
+import axios from 'axios'
 
 class TimerFragment extends React.Component {
     constructor(props) {
@@ -20,10 +21,22 @@ class TimerFragment extends React.Component {
     }
 
     UNSAFE_componentWillReceiveProps() {
+        const startDateTime = this.props.game.start_Time
+        const endDateTime = this.props.game.end_Time
+
+        const newStartDate = startDateTime ? startDateTime.substring(0, 10) : "0000-00-00"
+        const newEndDate = endDateTime ? endDateTime.substring(0, 10) : "0000-00-00"
+        const newStartTime = startDateTime ? startDateTime.substring(11) : "00:00:00"
+        const newEndTime = endDateTime ? endDateTime.substring(11) : "00:00:00"
+
         this.setState({
             game: this.props.game,
             game_id: this.props.game_id,
-            userInfo: this.props.userInfo
+            userInfo: this.props.userInfo,
+            newStartDate: newStartDate,
+            newEndDate: newEndDate,
+            newStartTime: newStartTime,
+            newEndTime: newEndTime
         })
         // const targetUrl = backEndUrl + `${this.state.game_id}`;
 
@@ -42,16 +55,12 @@ class TimerFragment extends React.Component {
 
     timerBeforeStart = (time) => {
         let currentTime = new Date();
-
-        // console.log();
-
-        if (moment(currentTime).isAfter(this.state.game.start_Time)) {
-            let game = this.state.game;
-            game.game_State = "In Progress";
-            this.setState({ game: game }, () => {
-                this.startGame();
-            });
-        }
+        let hasStarted = moment(currentTime).isAfter(this.state.game.start_Time)
+        let game = this.state.game
+        game.game_State = hasStarted ? "In Progress" : "Registration"
+        this.setState({ game: game }, () => {
+            this.startGame();
+        })
     }
 
     startGame = async () => {
@@ -115,31 +124,78 @@ class TimerFragment extends React.Component {
                 'Authorization': 'Bearer ' + this.state.userInfo.token
             }
         })
-            .then(resp => {
-                if (resp.status === 200) {
-                    return resp.json();
-                } else {
-                    throw new Error(`STATUS CODE: ${resp.status}`)
-                }
-            })
-            .then(resp => {
-                // console.log(resp);
-            })
-            .catch(e => {
-                console.error(e);
-                alert("An unexpected error occurred. Please try again later.")
-            });
+        .then(resp => {
+            if (resp.status === 200) {
+                return resp.json();
+            } else {
+                throw new Error(`STATUS CODE: ${resp.status}`)
+            }
+        })
+        // .then(resp => {
+        //     console.log(resp);
+        // })
+        .catch(e => {
+            console.error(e);
+            alert("An unexpected error occurred. Please try again later.")
+        });
 
         this.props.onUpdate();
     }
 
     editTime = () => {
         if(this.state.editing) {
-            // Save the selected dates (if different) with a put request
-            // console.log("Successfully edited start/end-time")
+            const url = `${backEndUrl}${this.state.game_id}`
+            const editedGame = this.state.game
+            editedGame.start_Time = `${this.state.newStartDate}T${this.state.newStartTime}`
+            editedGame.end_Time = `${this.state.newEndDate}T${this.state.newEndTime}`
+            let currentTime = new Date();
+            let hasStarted = moment(currentTime).isAfter(editedGame.start_Time)
+            let hasEnded = moment(currentTime).isAfter(editedGame.end_Time)
+            editedGame.game_State = hasStarted ? hasEnded ? "Complete" : "In Progress" : "Registration"
+
+            axios
+            .put(url, editedGame, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + this.state.userInfo.token
+                }
+            })
+            .then(res => {
+                if(res.status === 200) {
+                    alert("Changes successfully saved!")
+                    this.props.onUpdate()
+                } else {
+                    throw new Error(`STATUS CODE: ${res.status}`)
+                }
+            })
+            .catch(e => {
+                alert("Something went wrong. Try again.")
+                console.error(e)
+            })
         }
 
         this.setState({editing: !this.state.editing})
+    }
+
+    handleDateChange = (days) => {
+        if(days.length > 0) {
+            days.sort()
+            let newStartDate = days[0]
+            let newEndDate = days.length > 1 ? days[1] : newStartDate
+
+            this.setState({
+                newStartDate: newStartDate,
+                newEndDate: newEndDate
+            })
+        }
+    }
+
+    timeInputChanged = (start, e) => {
+        if(start) {
+            this.setState({newStartTime: e.target.value})
+        } else {
+            this.setState({newEndTime: e.target.value })
+        }
     }
     
     render() {
@@ -168,27 +224,26 @@ class TimerFragment extends React.Component {
             editButton = <div style={{display: "inline", marginLeft: "5px", padding: "0"}} onClick={this.editTime}>{this.state.editing ? <FaSave /> : <FaEdit />}</div>
         }
 
-        const Day = ({ day }) => {
-            return (
-                <p className="date">{day.format('DD')}</p>
-            )
+        let startDate, endDate = null
+        if(game.start_Time) {
+            startDate = game.start_Time.substring(0, 10)
+            endDate = game.end_Time.substring(0, 10)
         }
 
         const calendar =
             <div className={styles.DatePickerContainer}>
                 <ThemeProvider theme={theme}>
                     <DatePicker
-                        // handleChange={(days) => this.editTime(days)}
-                        // selectedDays={[startDate]} //initial selected days
+                        handleChange={(days) => this.handleDateChange(days)}
+                        selectedDays={[startDate, endDate]}
                         numberOfMonths={1}
                         numberOfSelectableDays={2}
                         disabledBeforToday={false}
-                        dayComponent={Day}
                     />
                 </ThemeProvider>
-                <p>From: {`${game.start_Time}`.replace("T", " ")}</p>
+                <p>From: {`${this.state.newStartDate}`} <input value={this.state.newStartTime} placeholder="hh:mm:ss" onChange={(e) => this.timeInputChanged(true, e)}></input></p>
                 <br />
-                <p>To: {`${game.end_Time}`.replace("T", " ")}</p>
+                <p>To: {`${this.state.newEndDate}`} <input value={this.state.newEndTime} placeholder="hh:mm:ss" onChange={(e) => this.timeInputChanged(false, e)}></input></p>
             </div>
         
 

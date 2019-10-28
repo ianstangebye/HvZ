@@ -30,4 +30,5 @@
     max-width: 370px;
     border: 2px solid white;
     user-select: none;
+    margin: auto;
 }
