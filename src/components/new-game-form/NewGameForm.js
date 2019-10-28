@@ -24,12 +24,19 @@ class NewGameForm extends React.Component {
             se_latitude: 0,
             se_longitude: 0,
             description: "",
-            start_time: new Date(startDate).toLocaleString(), 
-            end_time: new Date(endDate).toLocaleString(),
+            start_time: new Date(startDate).toLocaleString([], { hour12: true}),
+            end_time: new Date(endDate).toLocaleString([], { hour12: true}),
             creationSuccess: false,
             calendarOn: false,
             userInfo: props.location.state.userInfo
         };
+    }
+
+    componentDidMount() {
+        console.log(this.state.start_time);
+        console.log(this.state.end_time);
+        
+        
     }
 
     updateInputValue = (name, e) => {
@@ -97,9 +104,7 @@ class NewGameForm extends React.Component {
         }
     }
 
-    componentDidMount() {
-
-    }
+   
     
     // onCalendarChange = (start_time, end_time) => {
     //     // console.log(start_time);
@@ -114,18 +119,18 @@ class NewGameForm extends React.Component {
     onCalendarChange = (days) => {
         if(days.length === 1) {
             this.setState({
-                start_time: new Date(days[0]).toLocaleString(),
-                end_time: new Date(days[days.length-1]).toLocaleString()
+                start_time: new Date(days[0]).toLocaleString([], { hour12: true}),
+                end_time: new Date(days[days.length-1]).toLocaleString([], { hour12: true})
             })
         } else if (days[0] < days[1]) {
             this.setState({
-                start_time: new Date(days[0]).toLocaleString(),
-                end_time: new Date(days[1]).toLocaleString()
+                start_time: new Date(days[0]).toLocaleString([], { hour12: true}),
+                end_time: new Date(days[1]).toLocaleString([], { hour12: true})
             })
         } else {
             this.setState({
-                start_time: new Date(days[1]).toLocaleString(),
-                end_time: new Date(days[0]).toLocaleString()
+                start_time: new Date(days[1]).toLocaleString([], { hour12: true}),
+                end_time: new Date(days[0]).toLocaleString([], { hour12: true})
             })
         }
     }
