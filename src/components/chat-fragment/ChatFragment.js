@@ -112,13 +112,13 @@ class ChatFragment extends React.Component {
         this.stopAutoUpdate();
     }
     
-    startAutoUpdate() {
+    startAutoUpdate = () => {
         this.interval = setInterval(() => {
             this.getMessages(this.state.activeTab)
         }, 300)
     }
     
-    stopAutoUpdate() {
+    stopAutoUpdate = () => {
         clearInterval(this.interval)
     }
 
