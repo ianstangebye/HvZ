@@ -128,7 +128,7 @@ class GoogleMap extends React.Component {
         const id = this.props.game_id;
         const player_status = this.props.player.is_Human;
 
-        const targetUrl = backEndUrl + `${id}/kill`;
+        const targetUrl = `${backEndUrl}${id}/kill`;
 
 
         await fetch(targetUrl, {
@@ -147,7 +147,7 @@ class GoogleMap extends React.Component {
             });
             
 
-        const missionsURL = backEndUrl + `${id}/mission/`
+        const missionsURL = `${backEndUrl}${id}/mission/`
 
         await fetch(missionsURL, {
             headers: {
@@ -392,7 +392,7 @@ document.getElementById('HiddenButton').click();
         //console.log('Youve reached the google map element');
 
         if (this.props.squad_id) {
-            const checkinURL = backEndUrl + `${this.props.game_id}/squad/${this.props.squad_id}/check-in`;
+            const checkinURL =  `${backEndUrl}${this.props.game_id}/squad/${this.props.squad_id}/check-in`;
 
             const humanCheckinImage = {
                 url: 'https://retohercules.com/images/youtube-thumbs-up-transparent-4.png',
@@ -471,7 +471,7 @@ document.getElementById('HiddenButton').click();
 
     async componentDidMount() {
         const id = this.props.game_id;
-        const targetUrl = backEndUrl + `${id}`;
+        const targetUrl =  `${backEndUrl}${id}`;
 
         if(!navigator.geolocation) {
             alert("Your browser does not support geolocation. Some features will be unavailable.")
