@@ -120,7 +120,7 @@ class GoogleMap extends React.Component {
 
 
         var beaches = [
-            ['Player 1 had their limbs torn off', this.state.game.nw_Lat, this.state.game.nw_Lng, 4],
+            ['Player 1 had their limbs torn off', -1000, -1000, -10000],
         ];
 
         const id = this.props.game_id;
@@ -333,7 +333,7 @@ document.getElementById('HiddenButton').click();
             const checkinURL = backEndUrl + `${this.props.game_id}/squad/${this.props.squad_id}/check-in`;
 
             const humanCheckinImage = {
-                url: 'https://purepng.com/public/uploads/large/purepng.com-men-pointing-thumbs-uppeoplepersonsgesturesmanmalepointing-thumbs-up-1121525088552izp1f.png',
+                url: 'https://retohercules.com/images/youtube-thumbs-up-transparent-4.png',
                 // This marker is 20 pixels wide by 32 pixels high.
                 scaledSize: new window.google.maps.Size(75, 58), // scaled size
                 origin: new window.google.maps.Point(0, 0), // origin
