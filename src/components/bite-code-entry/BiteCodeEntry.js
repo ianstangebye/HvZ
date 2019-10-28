@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './BiteCodeEntry.module.css';
+import backEndUrl from '../../backEndUrl'
+
 
 class BiteCodeEntry extends React.Component{
     constructor(props) {
@@ -127,7 +129,7 @@ class BiteCodeEntry extends React.Component{
                 game_Id: game_id,
                 lat: this.state.lat,
                 lng: this.state.lng,
-                killer_Id: sessionStorage.getItem("user_id"),
+                killer_Id: this.props.player.player_Id,
                 // killer_Id: this.props.player_id,
                 bite_Code: this.state.biteCode,
                 story: this.state.description
@@ -140,7 +142,8 @@ class BiteCodeEntry extends React.Component{
         
             
         //const targetUrl = `backEndUrl/${game_id}/kill`
-        const targetUrl = `backEndUrl/${game_id}/kill`
+        // const targetUrl = backEndUrl + `${game_id}/kill`
+        const targetUrl = `${backEndUrl}${game_id}/kill`
 
         // // console.log(JSON.stringify(bite));
         
@@ -151,14 +154,16 @@ class BiteCodeEntry extends React.Component{
                 'Authorization': 'Bearer ' + this.state.userInfo.token
             },
             body: JSON.stringify(bite)
-        }).then(resp =>{
-            // console.log(resp);
-            // console.log('you are indeed getting a response');
+        })
+        .then(resp =>{
+            console.log(resp);
+            console.log('you are indeed getting a response');
             
-        }).catch(error => {
+        })
+        .catch(error => {
             // console.log('you are indeed getting an error');
             
-            // console.log(error);
+            console.error(error);
         })
 
         // this.props.renderMap();
