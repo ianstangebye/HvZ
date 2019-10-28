@@ -68,21 +68,21 @@ class GoogleMap extends React.Component {
             title: 'Your current position',
             zIndex: 6
         });
-
-        // const rectangle = new window.google.maps.Rectangle({
-        //     strokeColor: '#FF0000',
-        //     strokeOpacity: 0.8,
-        //     strokeWeight: 2,
-        //     fillColor: '#FF0000',
-        //     fillOpacity: 0.35,
-        //     map: this.map,
-        //     bounds: {
-        //         north: this.state.game.nw_Lat,
-        //         south: this.state.game.se_Lat,
-        //         east: this.state.game.se_Lng,
-        //         west: this.state.game.nw_Lng
-        //     }
-        // });
+        // eslint-disable-next-line
+        const rectangle = new window.google.maps.Rectangle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: this.map,
+            bounds: {
+                north: this.state.game.nw_Lat,
+                south: this.state.game.se_Lat,
+                east: this.state.game.se_Lng,
+                west: this.state.game.nw_Lng
+            }
+        });
 
         const image = {
             url: 'https://image.flaticon.com/icons/png/512/1233/1233009.png',
@@ -139,7 +139,9 @@ class GoogleMap extends React.Component {
         }).then(resp => resp.json())
             .then(resp => {
                 //console.log(resp);
+                // eslint-disable-next-line
                 for (i = 0; i < resp.length; i++) {
+                    // eslint-disable-next-line
                     beaches[i + 1] = new Array('Player ' + resp[i].victim_Id + ' ' + resp[i].story, resp[i].lat, resp[i].lng, resp[i].kill_Id)
                 }
             });
@@ -238,9 +240,10 @@ class GoogleMap extends React.Component {
         }
 
         const infoWindows = [];
+        // eslint-disable-next-line
         let idx = 0;
 
-
+        // eslint-disable-next-line
         for (var i = 0; i < this.state.missions.length; i++) {
             var mission = this.state.missions[i];
 
@@ -303,17 +306,19 @@ document.getElementById('HiddenButton').click();
                         title: mission.name,
                         zIndex: 4
                     });
+                    // eslint-disable-next-line
                     var infowindow = new window.google.maps.InfoWindow({
                         content: contentString
                     });
                     infoWindows.push({ "title": mission.name, "info": infowindow });
                     globalMarker.addListener('click', function () {                        
                         for(var i = 0; i < infoWindows.length; i++) {
+                            // eslint-disable-next-line
                             if(infoWindows[i].title == this.title) {
                                 infoWindows[i].info.open(this.map, this);
                             }
                         }
-                    });
+                    });// eslint-disable-next-line
                 } else if (mission.is_Human_Visible == false && (player_status == false || this.state.userInfo.is_admin)) {
                     var zombieMarker = new window.google.maps.Marker({
                         position: { lat: mission.latitude, lng: mission.longitude },
@@ -323,17 +328,19 @@ document.getElementById('HiddenButton').click();
                         title: mission.name,
                         zIndex: 4
                     });
+                    // eslint-disable-next-line
                     var infowindow = new window.google.maps.InfoWindow({
                         content: contentString
                     });
                     infoWindows.push({ "title": mission.name, "info": infowindow });
                     zombieMarker.addListener('click', function () {                        
                         for(var i = 0; i < infoWindows.length; i++) {
+                            // eslint-disable-next-line
                             if(infoWindows[i].title == this.title) {
                                 infoWindows[i].info.open(this.map, this);
                             }
                         }
-                    });
+                    });// eslint-disable-next-line
                 } else if (mission.is_Human_Visible == true && (player_status == true || this.state.userInfo.is_admin)) {
                     var humanMarker = new window.google.maps.Marker({
                         position: { lat: mission.latitude, lng: mission.longitude },
@@ -342,13 +349,13 @@ document.getElementById('HiddenButton').click();
                         shape: shape,
                         title: mission.name,
                         zIndex: 4
-                    });
+                    });// eslint-disable-next-line
                     var infowindow = new window.google.maps.InfoWindow({
                         content: contentString
                     });
                     infoWindows.push({ "title": mission.name, "info": infowindow });
                     humanMarker.addListener('click', function () {                        
-                        for(var i = 0; i < infoWindows.length; i++) {
+                        for(var i = 0; i < infoWindows.length; i++) {// eslint-disable-next-line
                             if(infoWindows[i].title == this.title) {
                                 infoWindows[i].info.open(this.map, this);
                             }
@@ -430,7 +437,7 @@ document.getElementById('HiddenButton').click();
                 var checkin = this.state.checkins[i];
                 var text = `Player ${checkin.squad_Member_Id} checked in at ${checkin.start_Time}`
 
-                if (this.props.player.is_Human) {
+                if (this.props.player.is_Human) {// eslint-disable-next-line
                     var humanCheckin = new window.google.maps.Marker({
                         position: { lat: checkin.lat, lng: checkin.lng },
                         map: this.map,
@@ -445,7 +452,7 @@ document.getElementById('HiddenButton').click();
                     //     infowindow.open(this.map, humanCheckin);
                     //   });
 
-                } else {
+                } else {// eslint-disable-next-line
                     var zombieCheckin = new window.google.maps.Marker({
                         position: { lat: checkin.lat, lng: checkin.lng },
                         map: this.map,
