@@ -137,7 +137,6 @@ export default class TitleFragment extends React.Component {
     render() {
 
         if(this.props.userInfo.is_admin){
-            console.log("iAdmin");
             return (
                 <React.Fragment>
                     <div className={styles.TitleFragment + " TitleFragment"}>

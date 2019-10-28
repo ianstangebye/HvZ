@@ -4,7 +4,7 @@ import Moment from 'react-moment'
 import moment from 'moment'
 import { FaEdit } from 'react-icons/fa'
 import { FaSave } from 'react-icons/fa'
-import { DatePicker, RangePicker, theme } from 'react-trip-date';
+import { DatePicker, theme } from 'react-trip-date';
 import { ThemeProvider } from 'styled-components';
 import backEndUrl from '../../backEndUrl';
 

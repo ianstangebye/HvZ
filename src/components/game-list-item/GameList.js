@@ -62,7 +62,7 @@ class GameList extends React.Component {
 
         //const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         //const targetUrl = `http://case-hvzapi.northeurope.azurecontainer.io/game`;
-        const targetUrl = `https://52.142.92.199/game`;
+        //const targetUrl = `https://52.142.92.199/game`;
         
         //need to set in the correct 
         await fetch(backEndUrl, {
