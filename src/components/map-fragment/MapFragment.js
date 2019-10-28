@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import GoogleMapReact, { Circle, Marker, Polygon, Rectangle, Map, GoogleApiWrapper, fitBounds } from 'google-maps-react';
+import GoogleMapReact, { GoogleApiWrapper } from 'google-maps-react';
 // import { fitBounds } from 'google-map-react/utils';
-import styles from './MapFragment.module.css';
+//import styles from './MapFragment.module.css';
 import backEndUrl from '../../backEndUrl';
 
 class MapFragment extends Component{
@@ -62,7 +62,7 @@ options={{
 streetViewControl={false}
 // zoomControl={false}
 fullscreenControl={false}
-style={styles, {height: '400px', width: '400px'}}
+style={{height: '400px', width: '400px'}}
 initialCenter={{
  lat: 59.91130893949704,
  lng: 10.74973741557148

@@ -1,15 +1,7 @@
 import React from 'react';
 import styles from './GoogleMap.module.css';
-import { array } from 'prop-types';
-import { stringify } from 'querystring';
 import MissionList from '../mission-list/MissionList';
 import backEndUrl from '../../backEndUrl';
-
-function internalDoSomething(text){
-    // console.log(text);
-    
-}
-
 
 class GoogleMap extends React.Component {
 
@@ -69,20 +61,20 @@ class GoogleMap extends React.Component {
             zIndex: 6
         });
 
-        const rectangle = new window.google.maps.Rectangle({
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
-            map: this.map,
-            bounds: {
-                north: this.state.game.nw_Lat,
-                south: this.state.game.se_Lat,
-                east: this.state.game.se_Lng,
-                west: this.state.game.nw_Lng
-            }
-        });
+        // const rectangle = new window.google.maps.Rectangle({
+        //     strokeColor: '#FF0000',
+        //     strokeOpacity: 0.8,
+        //     strokeWeight: 2,
+        //     fillColor: '#FF0000',
+        //     fillOpacity: 0.35,
+        //     map: this.map,
+        //     bounds: {
+        //         north: this.state.game.nw_Lat,
+        //         south: this.state.game.se_Lat,
+        //         east: this.state.game.se_Lng,
+        //         west: this.state.game.nw_Lng
+        //     }
+        // });
 
         const image = {
             url: 'https://image.flaticon.com/icons/png/512/1233/1233009.png',
@@ -230,7 +222,7 @@ class GoogleMap extends React.Component {
             biteWindows.push({ "title": beach[0], "info": infowindow });
             marker.addListener('click', function () {                        
                 for(var i = 0; i < biteWindows.length; i++) {
-                    if(biteWindows[i].title == this.title) {
+                    if(biteWindows[i].title === this.title) {
                         biteWindows[i].info.open(this.map, this);
                     }
                 }
@@ -238,7 +230,7 @@ class GoogleMap extends React.Component {
         }
 
         const infoWindows = [];
-        let idx = 0;
+        //let idx = 0;
 
         for (var i = 0; i < this.state.missions.length; i++) {
             var mission = this.state.missions[i];
