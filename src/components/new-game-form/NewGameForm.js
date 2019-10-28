@@ -163,8 +163,7 @@ class NewGameForm extends React.Component {
             })
         }
     }
-
-
+    
     render() {
         if(this.state.creationSuccess) {
             return <Redirect push to={{

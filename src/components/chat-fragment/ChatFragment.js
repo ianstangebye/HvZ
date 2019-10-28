@@ -158,9 +158,6 @@ class ChatFragment extends React.Component {
                 if(!this.unmounted && !this.cancelUpdate) {
                     this.setState({
                         messages: resp.data
-                    }, () => {
-                        console.log("chat getMessages!");
-                        
                     })
                 }
             } else {
