@@ -76,10 +76,12 @@ export default class SquadListFragment extends React.Component {
             },
             body: JSON.stringify(newSquadMember)
         }).then(resp => resp.json()
-        ).then(data => {
-            // console.log('Squadmember joined: ', data);
+        )
+        // .then(data => {
+        //     // console.log('Squadmember joined: ', data);
 
-        }).catch(e => {
+        // })
+        .catch(e => {
             console.error(e);
         }) 
 

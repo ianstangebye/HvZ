@@ -57,7 +57,7 @@ export default class RegisterForm extends React.Component {
         }).then(function(data) {
             // console.log('Created Account:', data);
             if(data === -1) {
-                // console.log("There is already same username");
+                alert("There is already same username");
             } else {
                 that.setState({
                     user_id: data
@@ -66,7 +66,7 @@ export default class RegisterForm extends React.Component {
                 })
             }
         }).catch(error => {
-            // console.log(error);
+            console.error(error);
         })
     }
 

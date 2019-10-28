@@ -79,7 +79,7 @@ class GameList extends React.Component {
 
             }).catch(error => {
                 // console.log('Something fucked up')
-                // console.log(error);
+                console.error(error);
 
             });
 

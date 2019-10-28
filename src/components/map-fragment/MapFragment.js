@@ -40,7 +40,7 @@ class MapFragment extends Component{
             // console.log(this.state.game);
             
         }).catch(error=>{
-            // console.log(error);
+            console.error(error);
             
         });
     }
