@@ -397,7 +397,7 @@ document.getElementById('HiddenButton').click();
             const humanCheckinImage = {
                 url: 'https://retohercules.com/images/youtube-thumbs-up-transparent-4.png',
                 // This marker is 20 pixels wide by 32 pixels high.
-                scaledSize: new window.google.maps.Size(75, 58), // scaled size
+                scaledSize: new window.google.maps.Size(35, 35), // scaled size
                 origin: new window.google.maps.Point(0, 0), // origin
                 anchor: new window.google.maps.Point(15, 0) // anchor
             };

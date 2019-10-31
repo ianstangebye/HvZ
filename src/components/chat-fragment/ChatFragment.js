@@ -199,7 +199,16 @@ class ChatFragment extends React.Component {
 
     sendMessage = () => {
         let date = new Date();
-        let now = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}T${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${("0" + date.getSeconds()).slice(-2)}`
+        let now = `
+            ${date.getFullYear()}-
+            ${date.getMonth()}-
+            ${date.getDate()}
+            T
+            ${("0" + date.getHours()).slice(-2)}:
+            ${("0" + date.getMinutes()).slice(-2)}:
+            ${("0" + date.getSeconds()).slice(-2)}
+        `
+        
 
         if(this.state.messageText.length > 0) {
             let body = {
