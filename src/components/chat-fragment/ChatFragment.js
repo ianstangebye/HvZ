@@ -199,22 +199,14 @@ class ChatFragment extends React.Component {
 
     sendMessage = () => {
         let date = new Date();
-        let now = `
-            ${date.getFullYear()}-
-            ${date.getMonth()}-
-            ${date.getDate()}
-            T
-            ${("0" + date.getHours()).slice(-2)}:
-            ${("0" + date.getMinutes()).slice(-2)}:
-            ${("0" + date.getSeconds()).slice(-2)}
-        `
+        let now = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}T${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${("0" + date.getSeconds()).slice(-2)}`
 
         if(this.state.messageText.length > 0) {
             let body = {
                 message: this.state.messageText,
                 is_human_global: this.state.activeTab === "Global" || this.state.activeTab === "Human",
                 is_zombie_global: this.state.activeTab === "Global" || this.state.activeTab === "Zombie",
-                chat_time: now,
+                chat_time: date,
                 game_id: this.props.game_id,
                 player_id: this.state.userInfo.is_admin ? 0 : this.props.player.player_Id,
                 squad_id: this.state.userInfo.is_admin ? 0 : this.props.squad_id,

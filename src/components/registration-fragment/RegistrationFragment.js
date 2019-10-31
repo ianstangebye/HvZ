@@ -53,6 +53,8 @@ class RegistrationFragment extends React.Component {
         })
         .then(resp => {
             if (resp.status === 200) {
+                console.log("Create player");
+                
                 // console.log(`Created player with id: ${resp.data}`)
                 this.props.onUpdate()
             } else {
