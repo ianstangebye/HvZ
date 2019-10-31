@@ -534,8 +534,10 @@ document.getElementById('HiddenButton').click();
             navigator.geolocation.getCurrentPosition(position => {
                 var updatedPosition = new window.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 
-                this.positionMarker.setPosition(updatedPosition);
-
+                if(this.positionMarker != null) {
+                    this.positionMarker.setPosition(updatedPosition);
+                }
+    
                 for (var i = 0; i < this.state.missions.length; i++) {
                     var latLng1 = new window.google.maps.LatLng(this.state.missions[i].latitude, this.state.missions[i].longitude);
                     var latLng2 = new window.google.maps.LatLng(position.coords.latitude, position.coords.longitude);

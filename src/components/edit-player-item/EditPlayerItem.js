@@ -34,7 +34,8 @@ export default class EditPlayerItem extends React.Component {
     handleEditClick = async () => {
         // console.log(this.state.selectedPlayerState);
         // console.log('THIS PLAYER:', this.props.player.player_Id);
-        
+        const crypto = require("crypto");
+        const biteCode = crypto.randomBytes(3).toString('hex');
 
         const updatedPlayer = {
             player_Id: this.props.player.player_Id,
@@ -42,7 +43,7 @@ export default class EditPlayerItem extends React.Component {
             user_Id: this.props.player.user_Id,
             game_Id: this.props.game_id,
             is_Patient_Zero: this.props.player.is_Patient_Zero,
-            bite_Code: this.props.player.bite_Code,
+            bite_Code: biteCode,
             username: this.props.player.username
         }
 
